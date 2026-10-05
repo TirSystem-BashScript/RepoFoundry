@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Optional GitHub; choosing GitHub applies the AGPL license to the Gitea repository<br>Cited DM-001 and UCD-001 | [02875ae] |
-| 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Step 3: details set in config.env are not asked (extensions 3a, 3b) | pending |
+| 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Step 3: details set in config.env are not asked (extensions 3a, 3b) | [2a6bb8e] |
 
 ---
 
@@ -94,3 +94,4 @@
 [SA-001]: ../stakeholder-analysis.md
 [DM-001]: ./dm.md
 [02875ae]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/02875aee5f2953473924074eea0056eb31af6b7a
+[2a6bb8e]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/2a6bb8e8afadfe6ca4a621da30e44a372898ca62

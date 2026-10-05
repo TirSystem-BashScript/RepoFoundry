@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Initial version, created from [DM-001] (UC-001) | [02875ae] |
-| 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Configuration may hold preset project details (from DM-001, UC-001 step 3) | pending |
+| 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Configuration may hold preset project details (from DM-001, UC-001 step 3) | [2a6bb8e] |
 
 ---
 
@@ -173,3 +173,4 @@ Summary "1" --> "1" Project : reports on
 [DICT-001]: ./dictionary.md
 [DM-001]: ./uc-001/dm.md
 [02875ae]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/02875aee5f2953473924074eea0056eb31af6b7a
+[2a6bb8e]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/2a6bb8e8afadfe6ca4a621da30e44a372898ca62

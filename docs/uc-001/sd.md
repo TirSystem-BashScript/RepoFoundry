@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Initial version | [02875ae] |
-| 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Note: preset project details are read by ConfigLoader | pending |
+| 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Note: preset project details are read by ConfigLoader | [2a6bb8e] |
 
 ---
 
@@ -189,3 +189,4 @@ destroy SR
 
 [OC-001]: ./oc.md
 [02875ae]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/02875aee5f2953473924074eea0056eb31af6b7a
+[2a6bb8e]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/2a6bb8e8afadfe6ca4a621da30e44a372898ca62
