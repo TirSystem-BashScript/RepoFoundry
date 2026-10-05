@@ -9,7 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-05 | Proposed | Jens Tirsvad Nielsen | S02 | Initial version | [424f14f] |
+| 2026-10-05 | Deprecated | Jens Tirsvad Nielsen | S02 | Initial version | [424f14f] |
+| 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Mitigation points to the UC-001 business rules<br>S03 traced to BC objective 7<br>Sign-off recorded | pending |
 
 ---
 
@@ -51,7 +52,7 @@ Identify who is affected by RepoFoundry and what each needs from it, so owners a
 
 | Conflict | Stakeholders | Mitigation |
 | --- | --- | --- |
-| Convenience of one-step setup against strict consent prompts for every overwrite | S01, S02 | Prompt only where something would be changed; offer `--yes` only for non-destructive steps (to be decided in MIL-001) |
+| Convenience of one-step setup against strict consent prompts for every overwrite | S01, S02 | Prompt only where something would be replaced, as set out in the business rules of [UC-001]; steps that only create new items run without asking |
 
 ## Traceability Analysis
 
@@ -61,13 +62,15 @@ Identify who is affected by RepoFoundry and what each needs from it, so owners a
 | --- | --- | --- |
 | S01 | One-command setup | [BC-001] objectives 1–5 |
 | S02 | Credential safety, no overwrite | [BC-001] objective 6 |
-| S03 | Reusable documentation | [BC-001] objective 6 and the README deliverable |
+| S03 | Reusable documentation | [BC-001] objective 7 |
 
 ## Sign-Off
 
-Pending review by S02.
+Reviewed in [RC-013] on 2026-10-05: Go.
 
 ---
 
 [BC-001]: ./business-case.md
+[UC-001]: ./uc-001/uc.md
+[RC-013]: ./sqa/reviews/rc-013-sa-001.md
 [424f14f]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/424f14f4f5577bb47fea41c8f3a655dca953e6d8

@@ -4,12 +4,13 @@
 | Key | Value |
 | --- | --- |
 | ID | BC-001 |
-| CrossReference | [SA-001] |
+| CrossReference | [SA-001], [UCD-001] |
 
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-05 | Proposed | Jens Tirsvad Nielsen | S02 | Initial version | [424f14f] |
+| 2026-10-05 | Deprecated | Jens Tirsvad Nielsen | S02 | Initial version | [424f14f] |
+| 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Optional GitHub; choosing GitHub applies the AGPL license to the Gitea repository<br>Cited UCD-001<br>Justified the qualitative cost-benefit; stakeholder roles replaced by interests; success criteria 2 and 3 reworded for optional GitHub<br>Added objective 7 (documentation) and its success criterion | pending |
 
 ---
 
@@ -33,12 +34,13 @@ One repeatable, reviewed procedure gives every new project the same secure basel
 
 ## Objectives
 
-1. Create an empty GitHub repository under a chosen user or organization.
-2. Create a matching empty Gitea repository under a chosen user or organization.
-3. Configure the Gitea repository as a push mirror to GitHub (direction Gitea to GitHub).
-4. Create the local project directory with `origin` (Gitea) and `github` remotes that contain no credentials.
+1. Optionally create an empty GitHub repository under a chosen user or organization.
+2. Create a Gitea repository under a chosen user or organization, empty, or with the AGPL license when GitHub is chosen.
+3. When GitHub was chosen, configure the Gitea repository as a push mirror to GitHub (direction Gitea to GitHub).
+4. Create the local project directory with an `origin` (Gitea) remote and, when GitHub was chosen, a `github` remote, neither containing credentials.
 5. Add the SQA-QC-Framework as the `framework` submodule, install its skills and git hooks, and copy its templates, optionally enabling the plan gate.
 6. Never print or persist a token, and never overwrite existing files or directories without consent.
+7. Document installation, configuration, usage, security decisions and error handling in clear English for GitHub readers.
 
 ## Scope
 
@@ -46,7 +48,7 @@ One repeatable, reviewed procedure gives every new project the same secure basel
 
 - `create-project.sh`, `config.env.example`, `.env.example`, `.gitignore` and `README.md`.
 - Safe parsing and validation of `config.env` and `.env` (never `source`d).
-- Prompts for name, description, visibility and owner on both hosts.
+- Prompts for name, description, visibility and owner on each chosen host, and whether to use GitHub (which also applies the AGPL license).
 - Checks for required tools (`git`, `curl`, optional `jq`) before any change.
 - A check that the project name is not already taken on GitHub.
 - Partial-failure reporting with a documented way to continue.
@@ -81,11 +83,12 @@ Supports developing on self-hosted Gitea while publishing to GitHub, and adoptin
 | # | Criterion | Target | Measure |
 | --- | --- | --- | --- |
 | 1 | Credential exposure | 0 occurrences of a token in output, saved remote URLs, config files or leftover temp files | Test run with log review; `git config --get-regexp remote` inspected |
-| 2 | Repository ownership | Both repositories are created under the owner chosen at the prompt, never silently under `GITHUB_USER` | Test run with a user owner and with an organization owner |
-| 3 | Mirror direction | Gitea is the source, GitHub the target; a push to `origin` appears on GitHub | Push a test commit and compare |
+| 2 | Repository ownership | Each repository created is under the owner chosen at the prompt for that host, never silently under `GITHUB_USER` | Test run with a user owner and with an organization owner |
+| 3 | Mirror direction | When GitHub is chosen, Gitea is the source and GitHub the target; a push to `origin` appears on GitHub | Push a test commit and compare |
 | 4 | Partial failure | When one host fails, the output lists what was created and the command to continue | Forced failure test (invalid token for one host) |
 | 5 | No overwrite | An existing directory or file is never replaced without a yes | Run twice in the same location |
 | 6 | Lint | `shellcheck` reports no errors on `create-project.sh` | `shellcheck create-project.sh` |
+| 7 | Documentation | `README.md` covers installation, configuration, usage, security decisions, error handling and stakeholders | Review by S02 against MIL-003 Go/No-Go criterion 6 |
 
 ## Risks
 
@@ -117,12 +120,14 @@ Supports developing on self-hosted Gitea while publishing to GitHub, and adoptin
 | --- | --- |
 | Three planned phases of maintainer time; ongoing maintenance when the GitHub or Gitea API changes | Repeatable secure setup for every future project; fewer setup mistakes; reusable by GitHub readers |
 
+The assessment is qualitative on purpose: this is internal tooling with no revenue, and there is no measurement of how long the manual setup takes today to compare against. The cost is maintainer time.
+
 ## Stakeholders
 
 | Stakeholder ID (SA) | Interest in this project |
 | --- | --- |
-| S01 | Product Owner and maintainer; sets scope and accepts the result |
-| S02 | DevOps, cybersecurity and maintainer; reviews credential handling and git host integration |
+| S01 | Sets the scope and accepts the result |
+| S02 | Reviews credential handling and the git host integration |
 | S03 | Reads and may reuse the published project on GitHub |
 
 ## Recommendation
@@ -132,4 +137,5 @@ Proceed — the procedure is small, well bounded and removes a repeated, securit
 ---
 
 [SA-001]: ./stakeholder-analysis.md
+[UCD-001]: ./use-case-diagram.md
 [424f14f]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/424f14f4f5577bb47fea41c8f3a655dca953e6d8

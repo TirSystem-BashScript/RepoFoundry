@@ -1,0 +1,171 @@
+# Domain Model
+
+## Metadata
+| Key | Value |
+| --- | --- |
+| ID | DM-002 |
+| CrossReference | [UC-001], [SSD-001], [DICT-001], [DM-001] |
+
+## Version History
+| Date | Status | Author | Reviewer | Change | Commit |
+| --- | --- | --- | --- | --- | --- |
+| 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Initial version, created from [DM-001] (UC-001) | pending |
+
+---
+
+## Purpose and Scope
+
+The consolidated model of the project. Use-case models are scoped views; when one changes, this model is checked and updated in the same change. It currently covers [UC-001] "Create a new project" ([DM-001]), which it was created from. Concept names are the PO terms recorded in [DICT-001].
+
+## Diagram
+
+Concepts, attributes and associations only — no operations.
+
+```plantuml
+@startuml
+class Maintainer {
+  name
+}
+class Project {
+  name
+  description
+  visibility
+}
+class Configuration
+class "Git Host" as GitHost {
+  name
+  web address
+  API address
+}
+class "Access Token" as AccessToken {
+  kind
+}
+class Owner {
+  name
+  kind
+}
+class Repository {
+  name
+  description
+  visibility
+  address
+}
+class "Gitea Repository" as GiteaRepository
+class "GitHub Repository" as GitHubRepository
+class License {
+  name
+}
+class Mirror {
+  interval
+  sync on commit
+}
+class "Local Project" as LocalProject {
+  directory
+}
+class Remote {
+  name
+  address
+}
+class Framework {
+  name
+  address
+}
+class "Framework Setup" as FrameworkSetup {
+  plan gate enabled
+}
+class Template {
+  name
+}
+class Summary {
+  created items
+  skipped items
+  next steps
+}
+
+Repository <|-- GiteaRepository
+Repository <|-- GitHubRepository
+
+Maintainer "1" --> "0..*" Project : creates
+Configuration "1" --> "1..2" GitHost : defines
+Configuration "1" --> "1..2" AccessToken : holds
+AccessToken "1" --> "1" GitHost : gives access to
+GitHost "1" --> "0..*" Owner : has
+Owner "1" --> "0..*" Repository : owns
+Project "1" --> "1" GiteaRepository : is stored in
+Project "1" --> "0..1" GitHubRepository : is also stored in
+GiteaRepository "1" --> "0..1" License : has
+Mirror "1" --> "1" GiteaRepository : copies from
+Mirror "1" --> "1" GitHubRepository : copies to
+Mirror "0..*" --> "1" AccessToken : is authorised by
+LocalProject "1" --> "1" Project : is the working copy of
+LocalProject "1" --> "1..2" Remote : has
+Remote "0..*" --> "1" Repository : points to
+LocalProject "1" --> "1" Framework : includes
+LocalProject "1" --> "1" FrameworkSetup : has
+FrameworkSetup "0..*" --> "1" Framework : is installed from
+Framework "1" --> "1..*" Template : provides
+LocalProject "1" --> "0..*" Template : contains a copy of
+Summary "1" --> "1" Project : reports on
+@enduml
+```
+
+## Concept Table
+
+| Concept | Definition | Attributes | Source (use case / glossary) |
+| --- | --- | --- | --- |
+| Maintainer | The person who creates a new project (S01 or S02) | name | [UC-001] primary actor |
+| Project | The new software project being set up | name, description, visibility | [UC-001] "new project", step 3 |
+| Configuration | The service addresses and access tokens the Maintainer has set up before starting | none | [UC-001] precondition, step 2 "configuration and credentials" |
+| Git Host | A service that holds repositories: Gitea or GitHub | name, web address, API address | [UC-001] steps 5 to 7 "GitHub", "Gitea" |
+| Access Token | A secret that lets the Maintainer act on a Git Host; it is never part of an address | kind | [UC-001] precondition "Gitea token", "GitHub PAT" |
+| Owner | The user or organization on a Git Host that owns repositories | name, kind (user or organization) | [UC-001] step 3 "owner" |
+| Repository | A place on a Git Host that holds a project's history | name, description, visibility, address | [UC-001] steps 5 and 6 "repository" |
+| Gitea Repository | The Repository on Gitea; the source of truth | none beyond Repository | [UC-001] step 6 |
+| GitHub Repository | The Repository on GitHub; receives its content from the Mirror | none beyond Repository | [UC-001] step 5 |
+| License | The legal terms file added to a Gitea Repository (AGPL-3.0) when GitHub is chosen | name | [UC-001] step 6 "AGPL license" |
+| Mirror | The push mirror that copies a Gitea Repository to a GitHub Repository | interval, sync on commit | [UC-001] step 7 "push mirror" |
+| Local Project | The project directory on the Maintainer's machine | directory | [UC-001] step 8 "local project" |
+| Remote | A named link from a Local Project to a Repository (`origin`, `github`) | name, address | [UC-001] step 8 "remote" |
+| Framework | The SQA-QC-Framework added to a Local Project | name, address | [UC-001] step 9 "framework submodule" |
+| Framework Setup | The skills and git hooks installed from the Framework, with the plan gate on or off | plan gate enabled | [UC-001] step 9 "skills and hooks", "plan gate" |
+| Template | A file the Framework provides to copy into a project (`AGENTS.md`, artifact registry) | name | [UC-001] step 9 "templates" |
+| Summary | The report of what was created, skipped or failed and how to continue | created items, skipped items, next steps | [UC-001] step 10 "summary" |
+
+## Association Table
+
+| From | Association (reading direction) | To | Multiplicity |
+| --- | --- | --- | --- |
+| Maintainer | creates | Project | 1 to 0..* |
+| Configuration | defines | Git Host | 1 to 1..2 (GitHub is optional) |
+| Configuration | holds | Access Token | 1 to 1..2 |
+| Access Token | gives access to | Git Host | 1 to 1 |
+| Git Host | has | Owner | 1 to 0..* |
+| Owner | owns | Repository | 1 to 0..* |
+| Project | is stored in | Gitea Repository | 1 to 1 |
+| Project | is also stored in | GitHub Repository | 1 to 0..1 |
+| Gitea Repository | has | License | 1 to 0..1 (1 when GitHub is chosen) |
+| Mirror | copies from | Gitea Repository | 1 to 1 |
+| Mirror | copies to | GitHub Repository | 1 to 1 |
+| Mirror | is authorised by | Access Token | 0..* to 1 |
+| Local Project | is the working copy of | Project | 1 to 1 |
+| Local Project | has | Remote | 1 to 1..2 |
+| Remote | points to | Repository | 0..* to 1 |
+| Local Project | includes | Framework | 1 to 1 |
+| Local Project | has | Framework Setup | 1 to 1 |
+| Framework Setup | is installed from | Framework | 0..* to 1 |
+| Framework | provides | Template | 1 to 1..* |
+| Local Project | contains a copy of | Template | 1 to 0..* |
+| Summary | reports on | Project | 1 to 1 |
+
+## Generalizations
+
+| General | Specializations | Is-a justification |
+| --- | --- | --- |
+| Repository | Gitea Repository, GitHub Repository | Each is a Repository with the same name, visibility and owner rules; they differ in role (source of truth against mirror target) |
+
+---
+
+[UC-001]: ./uc-001/uc.md
+[SSD-001]: ./uc-001/ssd.md
+[DICT-001]: ./dictionary.md
+[DM-001]: ./uc-001/dm.md
