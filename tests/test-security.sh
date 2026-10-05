@@ -123,6 +123,78 @@ test_script_uses_no_unsafe_constructs() {
   assert_not_contains "no eval" "$code" "eval "
   assert_not_contains "no source" "$code" "source "
   assert_not_contains "no dot-source" "$code" $'\n. '
-  assert_not_contains "no set -x" "$code" "set -x"
+  check
+  if grep -Eq '^[[:space:]]*set -[A-Za-z]*x' <<<"$code"; then
+    fail "the script turns tracing on"
+  fi
   assert_not_contains "no fixed /tmp file" "$code" "/tmp/file"
+}
+
+test_tracing_does_not_leak_secrets() {
+  # bash -x would print every assignment and command, secrets included, so
+  # the script switches tracing off and says so.
+  write_fixtures
+  STATUS=0
+  PATH="$WORK/bin:$PATH" TMPDIR="$WORK/tmp" "$BASH" -x "$SCRIPT" \
+    --config "$WORK/config.env" --env "$WORK/.env" <<<"$ANSWERS_GITHUB" \
+    >"$WORK/out.txt" 2>"$WORK/err.txt" || STATUS=$?
+  assert_status "run under bash -x" 0 "$STATUS"
+  assert_contains "tracing disabled" "$(cat "$WORK/err.txt")" "tracing (set -x) is disabled"
+  assert_not_contains "no Gitea token in the trace" "$(cat "$WORK/err.txt" "$WORK/out.txt")" "$FAKE_GITEA_TOKEN"
+  assert_not_contains "no GitHub token in the trace" "$(cat "$WORK/err.txt" "$WORK/out.txt")" "$FAKE_GITHUB_PAT"
+}
+
+test_byte_order_mark_is_accepted() {
+  printf '\xef\xbb\xbfGITEA_URL=https://a.test\nGITHUB_WEB_URL=https://b.test\n' >"$WORK/c.env"
+  run_lib "" "parse_env_file \"$WORK/c.env\" CONFIG_KEYS CONFIG
+echo \"\${CONFIG[GITEA_URL]}\""
+  assert_status "BOM on the first line" 0 "$STATUS"
+  assert_eq "first key read" "https://a.test" "$OUT"
+}
+
+test_termination_removes_temp_files() {
+  write_fixtures
+  if ! mkfifo "$WORK/in" 2>/dev/null; then
+    return 0
+  fi
+  PATH="$WORK/bin:$PATH" TMPDIR="$WORK/tmp" "$BASH" "$SCRIPT" \
+    --config "$WORK/config.env" --env "$WORK/.env" <"$WORK/in" \
+    >/dev/null 2>&1 &
+  local pid=$! tries=0
+  # Keep the pipe open so the script waits at its first prompt.
+  exec 7>"$WORK/in"
+  while [[ -z "$(find "$WORK/tmp" -mindepth 1)" ]] && ((tries < 50)); do
+    sleep 0.1
+    tries=$((tries + 1))
+  done
+  assert_eq "temp directory exists while running" 1 "$(find "$WORK/tmp" -mindepth 1 | wc -l | tr -d ' ')"
+  kill -TERM "$pid"
+  # wait returns the signal status (143); only the cleanup matters here.
+  wait "$pid" 2>/dev/null || true
+  exec 7>&-
+  assert_eq "temp directory removed after SIGTERM" "" "$(find "$WORK/tmp" -mindepth 1)"
+}
+
+test_script_lives_in_src() {
+  assert_file_exists "script in src/" "$REPO_ROOT/src/create-project.sh"
+  assert_file_missing "no copy in the project root" "$REPO_ROOT/create-project.sh"
+}
+
+test_default_files_are_in_the_project_root() {
+  # A project copy: script in src/, config.env and .env one level up.
+  write_fixtures
+  mkdir -p "$WORK/project/src"
+  cp "$SCRIPT" "$WORK/project/src/create-project.sh"
+  cp "$WORK/config.env" "$WORK/project/config.env"
+  cp "$WORK/.env" "$WORK/project/.env"
+  STATUS=0
+  PATH="$WORK/bin:$PATH" TMPDIR="$WORK/tmp" "$BASH" "$WORK/project/src/create-project.sh" \
+    <<<"$ANSWERS_GITHUB" >"$WORK/out.txt" 2>"$WORK/err.txt" || STATUS=$?
+  assert_status "run with the default files" 0 "$STATUS"
+  assert_contains "found config.env in the project root" "$(cat "$WORK/out.txt")" "https://git.example.test/TirSystem/my-app"
+  # Run from another directory: the defaults follow the script, not the cwd.
+  STATUS=0
+  (cd "$WORK" && PATH="$WORK/bin:$PATH" TMPDIR="$WORK/tmp" "$BASH" "$WORK/project/src/create-project.sh" \
+    <<<"$ANSWERS_GITEA_ONLY" >"$WORK/out.txt" 2>"$WORK/err.txt") || STATUS=$?
+  assert_status "run from another directory" 0 "$STATUS"
 }

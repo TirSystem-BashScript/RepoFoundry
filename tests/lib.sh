@@ -11,7 +11,7 @@
 # shellcheck disable=SC2016,SC2034  # stub and snippet text is literal on purpose; OUT, ERR and STATUS are read by the test files
 REPO_ROOT="$(cd "${BASH_SOURCE[0]%/*}/.." && pwd)"
 readonly REPO_ROOT
-readonly SCRIPT="$REPO_ROOT/create-project.sh"
+readonly SCRIPT="$REPO_ROOT/src/create-project.sh"
 
 # Distinctive fake credentials; the tests search all output for them.
 readonly FAKE_GITEA_TOKEN="giteaFAKEtoken1234567890"
@@ -83,7 +83,7 @@ new_workdir() {
 # first, then the now empty directories from the bottom up.
 remove_workdir() {
   if [[ -n $WORK && -d $WORK ]]; then
-    find "$WORK" -type f -delete
+    find "$WORK" \( -type f -o -type p \) -delete
     find "$WORK" -depth -type d -exec rmdir {} +
   fi
   WORK=""
