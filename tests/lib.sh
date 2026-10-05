@@ -11,7 +11,7 @@
 # shellcheck disable=SC2016,SC2034  # stub and snippet text is literal on purpose; OUT, ERR and STATUS are read by the test files
 REPO_ROOT="$(cd "${BASH_SOURCE[0]%/*}/.." && pwd)"
 readonly REPO_ROOT
-readonly SCRIPT="$REPO_ROOT/create-project.sh"
+readonly SCRIPT="$REPO_ROOT/src/create-project.sh"
 
 # Distinctive fake credentials; the tests search all output for them.
 readonly FAKE_GITEA_TOKEN="giteaFAKEtoken1234567890"

@@ -174,3 +174,27 @@ test_termination_removes_temp_files() {
   exec 7>&-
   assert_eq "temp directory removed after SIGTERM" "" "$(find "$WORK/tmp" -mindepth 1)"
 }
+
+test_script_lives_in_src() {
+  assert_file_exists "script in src/" "$REPO_ROOT/src/create-project.sh"
+  assert_file_missing "no copy in the project root" "$REPO_ROOT/create-project.sh"
+}
+
+test_default_files_are_in_the_project_root() {
+  # A project copy: script in src/, config.env and .env one level up.
+  write_fixtures
+  mkdir -p "$WORK/project/src"
+  cp "$SCRIPT" "$WORK/project/src/create-project.sh"
+  cp "$WORK/config.env" "$WORK/project/config.env"
+  cp "$WORK/.env" "$WORK/project/.env"
+  STATUS=0
+  PATH="$WORK/bin:$PATH" TMPDIR="$WORK/tmp" "$BASH" "$WORK/project/src/create-project.sh" \
+    <<<"$ANSWERS_GITHUB" >"$WORK/out.txt" 2>"$WORK/err.txt" || STATUS=$?
+  assert_status "run with the default files" 0 "$STATUS"
+  assert_contains "found config.env in the project root" "$(cat "$WORK/out.txt")" "https://git.example.test/TirSystem/my-app"
+  # Run from another directory: the defaults follow the script, not the cwd.
+  STATUS=0
+  (cd "$WORK" && PATH="$WORK/bin:$PATH" TMPDIR="$WORK/tmp" "$BASH" "$WORK/project/src/create-project.sh" \
+    <<<"$ANSWERS_GITEA_ONLY" >"$WORK/out.txt" 2>"$WORK/err.txt") || STATUS=$?
+  assert_status "run from another directory" 0 "$STATUS"
+}

@@ -14,8 +14,8 @@
 #   create-project.sh --help | --version
 #
 # Options
-#   --config FILE   service addresses (default: config.env next to the script)
-#   --env FILE      credentials (default: .env next to the script)
+#   --config FILE   service addresses (default: config.env in the project root)
+#   --env FILE      credentials (default: .env in the project root)
 #   -h, --help      show this help
 #   --version       show the version
 #
@@ -73,9 +73,13 @@ esac
 SCRIPT_DIR="$(cd "$script_path_dir" && pwd)"
 readonly SCRIPT_DIR
 unset script_path_dir
+# The script lives in src/; the configuration files live one level up, in
+# the project root, next to config.env.example and .env.example.
+PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+readonly PROJECT_ROOT
 
-CONFIG_FILE="$SCRIPT_DIR/config.env"
-ENV_FILE="$SCRIPT_DIR/.env"
+CONFIG_FILE="$PROJECT_ROOT/config.env"
+ENV_FILE="$PROJECT_ROOT/.env"
 TMP_DIR=""
 HAS_JQ=0
 HTTP_STATUS=0
