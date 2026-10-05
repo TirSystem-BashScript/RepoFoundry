@@ -11,11 +11,17 @@
 # shellcheck disable=SC2016,SC2034  # stub and snippet text is literal on purpose; OUT, ERR and STATUS are read by the test files
 REPO_ROOT="$(cd "${BASH_SOURCE[0]%/*}/.." && pwd)"
 readonly REPO_ROOT
-readonly SCRIPT="$REPO_ROOT/src/create-project.sh"
+readonly SRC_DIR="$REPO_ROOT/src"
+readonly SCRIPT="$SRC_DIR/create-project.sh"
 
 # Distinctive fake credentials; the tests search all output for them.
 readonly FAKE_GITEA_TOKEN="giteaFAKEtoken1234567890"
 readonly FAKE_GITHUB_PAT="ghpFAKEtoken1234567890"
+
+# Answers to the prompts: name, description, visibility, Gitea owner, GitHub
+# yes or no, GitHub owner, directory, plan gate.
+readonly ANSWERS_GITHUB=$'my-app\nA test app\n\nTirSystem\ny\nacme-org\n\nn\n'
+readonly ANSWERS_GITEA_ONLY=$'my-app\n\n\nTirSystem\nn\n\nn\n'
 
 TESTS_RUN=0
 TESTS_FAILED=0
@@ -56,6 +62,14 @@ assert_not_contains() {
   check
   if [[ $2 == *"$3"* ]]; then
     fail "$1: output contains '$3' but must not"
+  fi
+}
+
+# assert_before NAME A B: the line numbers A and B are set and A comes first.
+assert_before() {
+  check
+  if [[ -z $2 || -z $3 ]] || ((10#$2 >= 10#$3)); then
+    fail "$1: expected the step at line '$2' before the step at line '$3'"
   fi
 }
 
@@ -111,25 +125,133 @@ write_stub() {
   chmod +x "$WORK/bin/$1"
 }
 
-# write_curl_stub: a curl that records its arguments and configuration and
-# answers with STUB_CURL_STATUS (default 200) and body STUB_CURL_BODY.
+# write_curl_stub: a curl that records every call and answers from the
+# routes file in the work directory (see write_routes). Without a routes file
+# it answers STUB_CURL_STATUS (default 200) with the body STUB_CURL_BODY.
+# Records: curl.args (all arguments), curl.config (the private config file),
+# curl.calls ("METHOD URL" per call) and curl.bodies (each request body).
 write_curl_stub() {
-  write_stub curl '
-printf "%s\n" "$@" >>"$STUB_DIR/curl.args"
-out="" cfg=""
+  cat >"$WORK/bin/curl" <<'STUB'
+#!/usr/bin/env bash
+printf '%s\n' "$@" >>"$STUB_DIR/curl.args"
+out="" cfg="" data=""
 while (($# > 0)); do
   case "$1" in
     --output) out="$2"; shift 2 ;;
     --config) cfg="$2"; shift 2 ;;
+    --data-binary) data="${2#@}"; shift 2 ;;
     *) shift ;;
   esac
 done
-if [[ -n $cfg ]]; then cat "$cfg" >>"$STUB_DIR/curl.config"; fi
+url="" method=""
+if [[ -n $cfg ]]; then
+  cat "$cfg" >>"$STUB_DIR/curl.config"
+  url="$(sed -n 's/^url = "\(.*\)"$/\1/p' "$cfg")"
+  method="$(sed -n 's/^request = "\(.*\)"$/\1/p' "$cfg")"
+fi
+printf '%s %s\n' "$method" "$url" >>"$STUB_DIR/curl.calls"
+if [[ -n $data && -f $data ]]; then
+  printf '%s %s\n%s\n' "$method" "$url" "$(cat "$data")" >>"$STUB_DIR/curl.bodies"
+fi
+status="${STUB_CURL_STATUS:-200}"
 body="${STUB_CURL_BODY:-}"
 if [[ -z $body ]]; then body="{\"ok\":true}"; fi
-if [[ -n $out ]]; then printf "%s" "$body" >"$out"; fi
-printf "%s" "${STUB_CURL_STATUS:-200}"
-exit "${STUB_CURL_EXIT:-0}"'
+if [[ -f $STUB_DIR/routes ]]; then
+  status=404
+  body="{\"message\":\"Not Found\"}"
+  n=0 first_unused="" last_match=""
+  while IFS='|' read -r m pattern st rest; do
+    n=$((n + 1))
+    if [[ $m == "$method" && $url == *"$pattern" ]]; then
+      last_match=$n
+      if [[ -z $first_unused ]] && ! grep -qx "$n" "$STUB_DIR/routes.used" 2>/dev/null; then
+        first_unused=$n
+      fi
+    fi
+  done <"$STUB_DIR/routes"
+  pick="${first_unused:-$last_match}"
+  if [[ -n $pick ]]; then
+    if [[ -n $first_unused ]]; then printf '%s\n' "$pick" >>"$STUB_DIR/routes.used"; fi
+    IFS='|' read -r _ _ status body <<<"$(sed -n "${pick}p" "$STUB_DIR/routes")"
+  fi
+fi
+if [[ $status == exit* ]]; then exit "${status#exit}"; fi
+if [[ -n $out ]]; then printf '%s' "$body" >"$out"; fi
+printf '%s' "$status"
+exit "${STUB_CURL_EXIT:-0}"
+STUB
+  chmod +x "$WORK/bin/curl"
+}
+
+# write_ssh_stub [EXIT]: an ssh that records its arguments and, by default,
+# answers like a Gitea server that accepted the key.
+write_ssh_stub() {
+  cat >"$WORK/bin/ssh" <<STUB
+#!/usr/bin/env bash
+printf '%s\n' "\$@" >>"\$STUB_DIR/ssh.args"
+if [[ ${1:-0} == 0 ]]; then
+  echo "Hi there, gitea-user! You've successfully authenticated, but Gitea does not provide shell access."
+else
+  echo "Permission denied (publickey)."
+fi
+exit ${1:-0}
+STUB
+  chmod +x "$WORK/bin/ssh"
+}
+
+# write_routes: read the routes for the stub curl from stdin. One route per
+# line: METHOD|URL-SUFFIX|STATUS|BODY. A request takes the first matching
+# route that was not used yet, so repeated calls can get different answers;
+# when all are used, the last match answers again. STATUS "exitN" makes curl
+# fail with exit code N.
+write_routes() {
+  cat >"$WORK/routes"
+  : >"$WORK/routes.used"
+}
+
+# prepend_route LINE: answer a request before the routes already written.
+prepend_route() {
+  local rest
+  rest="$(cat "$WORK/routes")"
+  printf '%s\n%s\n' "$1" "$rest" >"$WORK/routes"
+  # The lines moved, so the record of used routes no longer applies.
+  : >"$WORK/routes.used"
+}
+
+# write_happy_routes: both hosts accept the tokens; Gitea owner TirSystem and
+# GitHub owner acme-org are organizations; nothing exists yet.
+write_happy_routes() {
+  write_routes <<'ROUTES'
+GET|/api/v1/user|200|{"login":"gitea-user"}
+GET|/api/v1/orgs/TirSystem|200|{"username":"TirSystem"}
+GET|/api/v1/users/gitea-user/orgs/TirSystem/permissions|200|{"can_create_repository":true,"is_owner":true}
+GET|/api/v1/licenses|200|[{"key":"AGPL-3.0","name":"AGPL-3.0"}]
+GET|/api/v1/repos/TirSystem/my-app|404|{"message":"not found"}
+GET|api.github.com/user|200|{"login":"octo-user"}
+GET|api.github.com/user/memberships/orgs/acme-org|200|{"state":"active","role":"member"}
+GET|api.github.com/repos/acme-org/my-app|404|{"message":"Not Found"}
+GET|/api/v1/repos/TirSystem/my-app/push_mirrors|200|[]
+GET|/api/v1/repos/TirSystem/my-app/push_mirrors|200|[{"remote_address":"https://github.com/acme-org/my-app.git","sync_on_commit":true,"interval":"10m0s","last_error":""}]
+POST|api.github.com/orgs/acme-org/repos|201|{"html_url":"https://github.com/acme-org/my-app"}
+POST|/api/v1/orgs/TirSystem/repos|201|{"html_url":"https://git.example.test/TirSystem/my-app"}
+POST|/api/v1/repos/TirSystem/my-app/push_mirrors|200|{"remote_address":"https://github.com/acme-org/my-app.git"}
+POST|/api/v1/repos/TirSystem/my-app/push_mirrors-sync|200|{}
+ROUTES
+}
+
+# setup_hosts: fixtures, stub curl and ssh, and the happy routes.
+setup_hosts() {
+  write_fixtures
+  write_curl_stub
+  write_ssh_stub 0
+  write_happy_routes
+}
+
+# calls: the "METHOD URL" lines the stub curl received (empty if none).
+calls() {
+  if [[ -f $WORK/curl.calls ]]; then
+    cat "$WORK/curl.calls"
+  fi
 }
 
 # run_cli STDIN ARGS...: run create-project.sh with answers from STDIN (a
@@ -139,6 +261,7 @@ run_cli() {
   shift
   STATUS=0
   PATH="$WORK/bin:$PATH" STUB_DIR="$WORK" TMPDIR="$WORK/tmp" \
+    REPOFOUNDRY_SYNC_WAIT=0 \
     "$BASH" "$SCRIPT" "$@" <<<"$input" >"$WORK/out.txt" 2>"$WORK/err.txt" ||
     STATUS=$?
   OUT="$(cat "$WORK/out.txt")"
@@ -155,6 +278,7 @@ run_lib() {
     printf '%s\n' "$2"
   } >"$WORK/snippet.sh"
   PATH="$WORK/bin:$PATH" STUB_DIR="$WORK" TMPDIR="$WORK/tmp" \
+    REPOFOUNDRY_SYNC_WAIT=0 \
     "$BASH" "$WORK/snippet.sh" <<<"$input" >"$WORK/out.txt" 2>"$WORK/err.txt" ||
     STATUS=$?
   OUT="$(cat "$WORK/out.txt")"

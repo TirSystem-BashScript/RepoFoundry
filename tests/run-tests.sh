@@ -23,15 +23,20 @@ failed_checks=0
 
 run_static_checks() {
   printf '== static checks\n'
-  bash -n "$SCRIPT" || failed_checks=$((failed_checks + 1))
+  local file
+  for file in "$SCRIPT" "$SRC_DIR"/lib/*.sh; do
+    bash -n "$file" || failed_checks=$((failed_checks + 1))
+  done
   if command -v shellcheck >/dev/null 2>&1; then
-    shellcheck "$SCRIPT" "$TEST_DIR"/*.sh ||
+    # -x follows the source lines; the library files are named as well,
+    # because shellcheck only reports on the files it is given.
+    shellcheck -x "$SCRIPT" "$SRC_DIR"/lib/*.sh "$TEST_DIR"/*.sh ||
       failed_checks=$((failed_checks + 1))
   else
     printf 'skipped: shellcheck is not installed\n'
   fi
   if command -v shfmt >/dev/null 2>&1; then
-    shfmt -i 2 -ci -d "$SCRIPT" "$TEST_DIR"/*.sh ||
+    shfmt -i 2 -ci -d "$SCRIPT" "$SRC_DIR"/lib/*.sh "$TEST_DIR"/*.sh ||
       failed_checks=$((failed_checks + 1))
   else
     printf 'skipped: shfmt is not installed\n'

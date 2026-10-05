@@ -1,2 +1,6 @@
 # shellcheck configuration for the RepoFoundry scripts
 shell=bash
+# follow the "source" lines of create-project.sh into src/lib/; lint from the
+# entry point so that variables shared between the files are seen as used
+external-sources=true
+source-path=SCRIPTDIR
