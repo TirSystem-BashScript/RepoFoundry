@@ -10,6 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Initial version, created from [DM-001] (UC-001) | [02875ae] |
+| 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Configuration may hold preset project details (from DM-001, UC-001 step 3) | pending |
 
 ---
 
@@ -31,7 +32,9 @@ class Project {
   description
   visibility
 }
-class Configuration
+class Configuration {
+  preset project details
+}
 class "Git Host" as GitHost {
   name
   web address
@@ -115,7 +118,7 @@ Summary "1" --> "1" Project : reports on
 | --- | --- | --- | --- |
 | Maintainer | The person who creates a new project (S01 or S02) | name | [UC-001] primary actor |
 | Project | The new software project being set up | name, description, visibility | [UC-001] "new project", step 3 |
-| Configuration | The service addresses and access tokens the Maintainer has set up before starting | none | [UC-001] precondition, step 2 "configuration and credentials" |
+| Configuration | The service addresses and access tokens the Maintainer has set up before starting, and any project details preset in it | preset project details (optional) | [UC-001] precondition, steps 2 and 3 |
 | Git Host | A service that holds repositories: Gitea or GitHub | name, web address, API address | [UC-001] steps 5 to 7 "GitHub", "Gitea" |
 | Access Token | A secret that lets the Maintainer act on a Git Host; it is never part of an address | kind | [UC-001] precondition "Gitea token", "GitHub PAT" |
 | Owner | The user or organization on a Git Host that owns repositories | name, kind (user or organization) | [UC-001] step 3 "owner" |

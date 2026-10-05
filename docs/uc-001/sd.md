@@ -10,6 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Initial version | [02875ae] |
+| 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Note: preset project details are read by ConfigLoader | pending |
 
 ---
 
@@ -66,7 +67,7 @@ destroy TC
 
 ### Responsibility Check
 
-`ProjectCreator` only sequences two calls; parsing and validation sit in `ConfigLoader`, tool detection in `ToolChecker`. No object receives every message.
+`ProjectCreator` only sequences two calls; parsing and validation sit in `ConfigLoader`, tool detection in `ToolChecker`. No object receives every message. Project details preset in `config.env` are read and validated by `ConfigLoader` as part of `configuration`; the second sequence is unchanged, because `provideProjectDetails` receives the same arguments whether they were asked or preset.
 
 ## Sequence: provideProjectDetails
 
