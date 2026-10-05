@@ -8,7 +8,7 @@
 # shellcheck disable=SC2034  # read and written by the other library files
 
 readonly PROJECT_NAME="${REPOFOUNDRY_NAME:-RepoFoundry}"
-readonly VERSION="0.2.0"
+readonly VERSION="0.3.0"
 readonly EXIT_FAILURE=1
 readonly EXIT_USAGE=2
 readonly MAX_VALUE_LENGTH=2048
@@ -16,12 +16,14 @@ readonly MAX_DESCRIPTION_LENGTH=350
 readonly HTTP_TIMEOUT_SECONDS=30
 readonly DEFAULT_MIRROR_INTERVAL="10m0s"
 readonly DEFAULT_SSH_PORT=10022
+readonly DEFAULT_FRAMEWORK_REPO="TirSystem/SQA-QC-Framework"
 readonly AGPL_LICENSE_KEY="AGPL-3.0"
 readonly DEFAULT_BRANCH="main"
-readonly PLAN_STEPS=("GitHub repository" "Gitea repository" "Push mirror")
+readonly PLAN_STEPS=("GitHub repository" "Gitea repository" "Push mirror"
+  "Local project" "Framework" "Skills and hooks" "Templates")
 # shellcheck disable=SC2034  # read through namerefs (parse_env_file)
 readonly CONFIG_KEYS=(GITHUB_API_URL GITHUB_WEB_URL GITEA_URL GITEA_API_URL
-  GITEA_SSH_PORT MIRROR_INTERVAL)
+  GITEA_SSH_PORT MIRROR_INTERVAL FRAMEWORK_REPO)
 readonly CREDENTIAL_KEYS=(GITHUB_PAT GITHUB_USER GITEA_TOKEN)
 
 CONFIG_FILE="$PROJECT_ROOT/config.env"

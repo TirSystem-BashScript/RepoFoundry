@@ -264,6 +264,9 @@ test_apply_declined_creates_nothing() {
 
 test_apply_for_user_owners_uses_the_user_endpoints() {
   setup_hosts
+  # The Gitea account's own repository (with the license commit) is a copy.
+  mkdir -p "$WORK/remote/gitea-user"
+  cp -R "$WORK/remote/TirSystem/my-app.git" "$WORK/remote/gitea-user/my-app.git"
   write_routes <<'ROUTES'
 GET|/api/v1/user|200|{"login":"gitea-user"}
 GET|/api/v1/licenses|200|[{"key":"AGPL-3.0"}]
