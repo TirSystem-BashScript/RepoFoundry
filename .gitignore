@@ -174,3 +174,13 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 
+
+# RepoFoundry: credentials and temporary files
+.env
+.env.*
+!.env.example
+*.tmp
+*.swp
+*~
+tmp/
+repofoundry.*/
