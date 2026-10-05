@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-05 | Deprecated | Jens Tirsvad Nielsen | S02 | Initial version | [424f14f] |
 | 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Optional GitHub; choosing GitHub applies the AGPL license to the Gitea repository<br>Cited US-001.02<br>Purpose and criterion 1 reworded for optional GitHub<br>Target date accepted | [02875ae] |
+| 2026-10-05 | Proposed | Jens Tirsvad Nielsen | S02 | Criterion 2 corrected after the live run: Gitea also adds a README.md with the license | pending |
 
 ---
 
@@ -27,7 +27,7 @@ Decide whether the script creates the Gitea repository and, if GitHub is chosen,
 | # | Criterion (objectively checkable) | Go | No-Go |
 | --- | --- | --- | --- |
 | 1 | Repositories are created under the owner chosen at the prompt, for a user owner and for an organization owner, on each host used | Both verified | Any under the wrong owner |
-| 2 | The GitHub repository is created empty. The Gitea repository holds only the AGPL license file when GitHub is chosen, otherwise it is empty. Neither has a generated README or `.gitignore` | Verified | Any other commit present |
+| 2 | The GitHub repository is created empty. The Gitea repository holds only the AGPL license file and the `README.md` that Gitea generates for it when GitHub is chosen, otherwise it is empty. Neither has a `.gitignore` | Verified | Any other file present |
 | 3 | When GitHub is chosen, a commit pushed to Gitea (including the license file) appears on GitHub; nothing flows the other way. When GitHub is not chosen, no GitHub call is made | Verified | Wrong direction, no sync, or a GitHub call without the choice |
 | 4 | Mirror credentials are never part of a remote URL, log or output | None found | Any found |
 | 5 | With an invalid token on one host, the script stops before creating anything or reports exactly what was created and how to continue | Verified | Silent or misleading |
@@ -76,5 +76,4 @@ Decide whether the script creates the Gitea repository and, if GitHub is chosen,
 [US-001]: ../user-stories.md
 [UC-001]: ../uc-001/uc.md
 [MIL-001]: ./mil-001-foundation.md
-[424f14f]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/424f14f4f5577bb47fea41c8f3a655dca953e6d8
 [02875ae]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/02875aee5f2953473924074eea0056eb31af6b7a

@@ -28,7 +28,8 @@ check_gitea_license() {
 }
 
 # inspect_repository HOST: record in STATE[HOST_repo] whether the repository
-# is free (does not exist), empty, license_only or not_empty.
+# is free (does not exist), empty, initial_only (just the LICENSE and the
+# README.md Gitea adds) or not_empty.
 inspect_repository() {
   local host="$1" owner name names
   owner="$(repo_owner "$host")"
@@ -45,10 +46,13 @@ inspect_repository() {
     return 0
   fi
   expect_status "cannot read the contents of the $(host_label "$host") repository $owner/$name" 200
-  names="$(json_values "$HTTP_BODY_FILE" name)"
-  case "$names" in
+  # Gitea adds a README.md of its own next to the LICENSE when it creates a
+  # repository with a license (seen on a real server), so both count as the
+  # content this script creates.
+  names="$(json_values "$HTTP_BODY_FILE" name | sort | tr '\n' ' ')"
+  case "${names% }" in
     "") STATE[${host}_repo]="empty" ;;
-    LICENSE) STATE[${host}_repo]="license_only" ;;
+    "LICENSE" | "LICENSE README.md") STATE[${host}_repo]="initial_only" ;;
     *) STATE[${host}_repo]="not_empty" ;;
   esac
 }
@@ -117,7 +121,7 @@ test_gitea_ssh() {
     return 0
   fi
   output="$(ssh -p "$port" -o BatchMode=yes -o ConnectTimeout=5 \
-    -o StrictHostKeyChecking=yes -T "git@$host" 2>&1)" || status=$?
+    -o StrictHostKeyChecking=yes -T "git@$host" </dev/null 2>&1)" || status=$?
   if ((status == 0)) || [[ $output == *"successfully authenticated"* ]]; then
     STATE[is_ssh_ok]=1
     STATE[ssh_note]="passed"
@@ -138,7 +142,7 @@ decide_existing_repositories() {
     case "$state" in
       free) ;;
       empty) STATE[reuse_$host]=1 ;;
-      license_only)
+      initial_only)
         if [[ $host == gitea ]] && ((PROJECT[has_github])); then
           STATE[reuse_$host]=1
         else

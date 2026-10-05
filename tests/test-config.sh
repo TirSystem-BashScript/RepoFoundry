@@ -158,10 +158,21 @@ test_example_files_hold_placeholders_only() {
       fail ".env.example has a value for ${line%%=*}; it must be empty"
     fi
   done < <(grep -E '^[A-Z_]+=' "$REPO_ROOT/.env.example")
+  # The example holds a placeholder for the Gitea address, so it must be
+  # edited before use: as it is, it is refused with a clear message...
   run_lib "" "parse_env_file \"$REPO_ROOT/config.env.example\" CONFIG_KEYS CONFIG
 validate_config
 echo parsed"
-  assert_contains "config.env.example is valid" "$OUT" "parsed"
+  assert_status "placeholder address is refused" 1 "$STATUS"
+  assert_contains "names the key" "$ERR" "GITEA_URL"
+  # ...and with a real address in its place the rest of the file is valid.
+  sed -e 's|^GITEA_URL=.*|GITEA_URL=https://git.example.test/|' \
+    -e 's|^GITEA_API_URL=.*|GITEA_API_URL=https://git.example.test/api/v1|' \
+    "$REPO_ROOT/config.env.example" >"$WORK/example.env"
+  run_lib "" "parse_env_file \"$WORK/example.env\" CONFIG_KEYS CONFIG
+validate_config
+echo parsed"
+  assert_contains "config.env.example is valid once the address is set" "$OUT" "parsed"
   run_lib "" "parse_env_file \"$REPO_ROOT/.env.example\" CREDENTIAL_KEYS CREDENTIALS
 echo parsed"
   assert_contains ".env.example parses" "$OUT" "parsed"

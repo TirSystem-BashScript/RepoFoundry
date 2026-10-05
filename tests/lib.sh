@@ -244,6 +244,9 @@ STUB
 write_ssh_stub() {
   cat >"$WORK/bin/ssh" <<STUB
 #!/usr/bin/env bash
+# The real ssh reads standard input until it ends; so does this stub. Whatever
+# is left on the caller's stdin (the answers to later prompts) is lost to it.
+cat >/dev/null
 printf '%s\n' "\$@" >>"\$STUB_DIR/ssh.args"
 if [[ ${1:-0} == 0 ]]; then
   echo "Hi there, gitea-user! You've successfully authenticated, but Gitea does not provide shell access."

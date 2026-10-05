@@ -476,3 +476,42 @@ mirror_field '$WORK/m.json' https://github.com/o/b.git sync_on_commit"
     assert_eq "the right mirror is chosen with jq" "true" "$OUT"
   fi
 }
+
+# ------------------------------------------------- found by the live e2e run
+
+test_a_repository_this_script_created_earlier_can_be_reused() {
+  # Seen on a real Gitea: creating a repository with a license also adds a
+  # README.md. After a failed mirror step the next run must still reuse it.
+  setup_hosts
+  prepend_route 'GET|/api/v1/repos/TirSystem/my-app|200|{"empty":false}'
+  prepend_route 'GET|/api/v1/repos/TirSystem/my-app/contents|200|[{"name":"README.md","type":"file"},{"name":"LICENSE","type":"file"}]'
+  run_apply "$ANSWERS_GITHUB"$'y\ny\n'
+  assert_status "LICENSE and README.md" 0 "$STATUS"
+  assert_not_contains "not created again" "$(calls)" "$GITEA_REPO_CALL"
+  assert_contains "reported" "$OUT" "Gitea repository  : reused"
+}
+
+test_other_files_still_count_as_content() {
+  local listing
+  for listing in '[{"name":"README.md","type":"file"}]' \
+    '[{"name":"LICENSE","type":"file"},{"name":"README.md","type":"file"},{"name":"main.c","type":"file"}]' \
+    '[{"name":"LICENSE","type":"file"},{"name":"src","type":"dir"}]'; do
+    setup_hosts
+    prepend_route 'GET|/api/v1/repos/TirSystem/my-app|200|{"empty":false}'
+    prepend_route "GET|/api/v1/repos/TirSystem/my-app/contents|200|$listing"
+    run_dry "$ANSWERS_GITHUB"
+    assert_status "content: $listing" 1 "$STATUS"
+    assert_contains "refused" "$ERR" "already exists and has content"
+  done
+}
+
+test_children_never_eat_the_answers_meant_for_later_prompts() {
+  # The real ssh reads standard input until it ends; the stub does too. The
+  # script closes stdin for ssh, git, curl and the framework scripts, so the
+  # answers that follow the SSH test still reach the later prompts.
+  setup_hosts
+  run_apply "$ANSWERS_GITHUB"$'y\n'
+  assert_status "the final question is still answered" 0 "$STATUS"
+  assert_contains "created" "$OUT" "Done. This is what exists now:"
+  assert_not_contains "no lost input" "$ERR" "no input available"
+}
