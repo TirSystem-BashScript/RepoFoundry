@@ -4,7 +4,7 @@
 #
 # Part of create-project.sh: sourced by it, never run on its own.
 #
-# Provides: is_valid_repo_name, is_valid_gitea_owner, is_valid_github_owner, is_valid_description, is_valid_directory, is_valid_base_url, is_valid_request_url, is_valid_token, is_valid_port, is_valid_interval, normalize_url
+# Provides: is_valid_framework_repo, is_valid_repo_name, is_valid_gitea_owner, is_valid_github_owner, is_valid_description, is_valid_directory, is_valid_base_url, is_valid_request_url, is_valid_token, is_valid_port, is_valid_interval, normalize_url
 
 is_valid_repo_name() {
   local name="$1"
@@ -47,6 +47,11 @@ is_valid_request_url() {
 # break out of the curl configuration it is written to.
 is_valid_token() {
   [[ $1 =~ ^[A-Za-z0-9_.~+/=-]{8,255}$ ]]
+}
+
+# OWNER/NAME of the framework repository on Gitea.
+is_valid_framework_repo() {
+  [[ $1 =~ ^[A-Za-z0-9._-]+/[A-Za-z0-9._-]+$ && $1 != */.. && $1 != ../* && $1 != ./* && $1 != */. ]]
 }
 
 is_valid_port() {

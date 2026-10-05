@@ -42,10 +42,11 @@ report_outcome() {
     say "$(printf '  %-18s: %s' "$label" "${STEP_STATUS[$label]}${STEP_DETAIL[$label]:+ ${STEP_DETAIL[$label]}}")"
   done
   if ((code == 0)); then
-    say "The local project with the framework is created by a later phase."
+    say "The project is in ${PROJECT[directory]}. Nothing was committed there: review it, then work on a branch."
   else
     say "To continue: fix the problem named above and run the same command again with --apply."
     say "A repository this run created is still empty (or holds only the license), so the next run offers to reuse it."
-    say "Nothing is deleted automatically. To start over, delete the repositories above in the web interface."
+    say "A directory, remotes and submodule created so far are used again by the next run; you are asked before an existing directory or file is touched."
+    say "Nothing is deleted automatically. To start over, delete the repositories above in the web interface and the project directory by hand."
   fi
 }

@@ -100,6 +100,9 @@ validate_config() {
   CONFIG[MIRROR_INTERVAL]="${CONFIG[MIRROR_INTERVAL]:-$DEFAULT_MIRROR_INTERVAL}"
   is_valid_interval "${CONFIG[MIRROR_INTERVAL]}" ||
     die "MIRROR_INTERVAL in $CONFIG_FILE must look like 10m0s or 8h0m0s"
+  CONFIG[FRAMEWORK_REPO]="${CONFIG[FRAMEWORK_REPO]:-$DEFAULT_FRAMEWORK_REPO}"
+  is_valid_framework_repo "${CONFIG[FRAMEWORK_REPO]}" ||
+    die "FRAMEWORK_REPO in $CONFIG_FILE must look like OWNER/NAME"
 }
 
 validate_credentials() {

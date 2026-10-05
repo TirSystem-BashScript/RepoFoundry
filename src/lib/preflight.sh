@@ -108,9 +108,7 @@ preflight_github() {
 # or without access it is simply "not passed"; it never stops the run.
 test_gitea_ssh() {
   local host port output status=0
-  host="${CONFIG[GITEA_URL]#https://}"
-  host="${host%%/*}"
-  host="${host%%:*}"
+  host="$(gitea_host)"
   port="${CONFIG[GITEA_SSH_PORT]}"
   STATE[is_ssh_ok]=0
   STATE[ssh_note]="failed (check your SSH key and that $host:$port is reachable)"
@@ -163,5 +161,6 @@ run_preflight() {
   fi
   test_gitea_ssh
   decide_existing_repositories
+  inspect_local_directory
   say "All checks passed."
 }

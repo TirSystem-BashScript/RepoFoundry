@@ -4,7 +4,17 @@
 #
 # Part of create-project.sh: sourced by it, never run on its own.
 #
-# Provides: print_plan
+# Provides: local_plan_note, print_plan
+
+# local_plan_note: what will happen to the project directory.
+local_plan_note() {
+  local dir="${PROJECT[directory]}"
+  case "${STATE[local_dir]}" in
+    missing) printf 'create %s (new directory), git on %s, no commit' "$dir" "$DEFAULT_BRANCH" ;;
+    empty) printf 'use the existing empty directory %s (you will be asked)' "$dir" ;;
+    *) printf 'use the existing directory %s, which has files (you will be asked)' "$dir" ;;
+  esac
+}
 
 print_plan() {
   local gitea_action github_action origin_note
@@ -35,5 +45,13 @@ print_plan() {
   else
     origin_note="HTTPS (SSH test: ${STATE[ssh_note]})"
   fi
-  say "$(printf '  %-18s: %s' "Local origin" "will use $origin_note, in a later phase")"
+  say "$(printf '  %-18s: %s' "Local project" "$(local_plan_note)")"
+  say "$(printf '  %-18s: %s' "Local origin" "will use $origin_note")"
+  if ((STATE[is_ssh_ok])); then
+    say "$(printf '  %-18s: %s' "Framework" "add $(framework_url) as a submodule")"
+    say "$(printf '  %-18s: %s' "Skills and hooks" "install once; plan gate $(yes_no "${PROJECT[is_plan_gate_enabled]}")")"
+    say "$(printf '  %-18s: %s' "Templates" "AGENTS.md and docs/artifact-registry.md (you are asked before a file is replaced)")"
+  else
+    say "$(printf '  %-18s: %s' "Framework" "NOT possible without SSH to Gitea; you will be asked whether to go on without it")"
+  fi
 }

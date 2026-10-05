@@ -4,12 +4,14 @@
 # Purpose
 #   RepoFoundry creates a Gitea repository, optionally an empty GitHub
 #   repository with a Gitea -> GitHub push mirror, and a local project with
-#   the SQA-QC-Framework. This version (MIL-002) validates the configuration
-#   and credentials, asks for the project details, checks both hosts with
-#   read-only requests (tokens, owners, names, licence, SSH) and, with
-#   --apply, creates the repositories and the mirror. Choosing GitHub also
-#   applies the AGPL-3.0 license to the Gitea repository. The local project
-#   is not created yet.
+#   the SQA-QC-Framework. It validates the configuration and credentials,
+#   asks for the project details, checks both hosts with read-only requests
+#   (tokens, owners, names, license, SSH) and, with --apply, creates the
+#   repositories and the mirror, then the local project: its directory, git
+#   repository, remotes (no credential in any address), the framework as a
+#   submodule, the framework's skills and git hooks (and the plan gate if
+#   chosen) and its templates. Choosing GitHub also applies the AGPL-3.0
+#   license to the Gitea repository. No commit is made in the new project.
 #
 # Dry run by default
 #   Without --apply the script only reads from GitHub and Gitea (GET
@@ -31,8 +33,9 @@
 #
 # Files (parsed, never sourced)
 #   config.env  GITHUB_API_URL, GITHUB_WEB_URL, GITEA_URL, GITEA_API_URL and
-#               the optional GITEA_SSH_PORT (default 10022) and
-#               MIRROR_INTERVAL (default 10m0s)
+#               the optional GITEA_SSH_PORT (default 10022), MIRROR_INTERVAL
+#               (default 10m0s) and FRAMEWORK_REPO (default
+#               TirSystem/SQA-QC-Framework, the submodule's OWNER/NAME)
 #   .env        GITHUB_PAT, GITHUB_USER, GITEA_TOKEN
 #
 # Environment
@@ -44,13 +47,15 @@
 # Requires
 #   bash 4.4 or later, git, curl, mktemp; jq and ssh are optional (jq is used
 #   for JSON when present; ssh is used for the Gitea SSH test).
-#   Also the base tools sed, grep, head, tr, sleep, rm, rmdir and uname, and
+#   Also the base tools sed, grep, head, tr, sleep, find, cp, mkdir, chmod, env, rm,
+#   rmdir and uname, and
 #   stat (GNU "stat -c" or BSD "stat -f"; only used outside Windows).
 #
 # Implements
-#   MIL-001 tasks 1 to 6 and MIL-002 tasks 1 to 5 (issues #3 to #13), user
-#   stories US-001.01 and US-001.02, UC-001 steps 1 to 7; see docs/. Deviation
-#   from the request: its second GITEA_URL key is named GITEA_API_URL.
+#   MIL-001 tasks 1 to 6, MIL-002 tasks 1 to 5 and MIL-003 tasks 1 to 4
+#   (issues #3 to #13 and #15 to #18), user stories US-001.01 to US-001.03,
+#   UC-001 steps 1 to 10; see docs/. Deviation from the request: its second
+#   GITEA_URL key is named GITEA_API_URL.
 #
 # Tracing
 #   set -x is switched off while the script runs, because a trace would print
@@ -61,7 +66,8 @@
 #   the files in lib/ next to it (one job per file, see the first lines of
 #   each file): constants, output, temp, util, validate, config, tools, json,
 #   http, api, prompts, project, hosts, preflight, steps, plan, repositories,
-#   mirror, apply and cli. The files are loaded from this directory only.
+#   mirror, git, localproject, framework, apply and cli. The files are loaded
+#   from this directory only.
 #
 # Exit codes
 #   0 success (or a dry run, or a "no" at the final question), 1 a failed
@@ -129,6 +135,12 @@ source "$SCRIPT_DIR/lib/plan.sh"
 source "$SCRIPT_DIR/lib/repositories.sh"
 # shellcheck source=lib/mirror.sh
 source "$SCRIPT_DIR/lib/mirror.sh"
+# shellcheck source=lib/git.sh
+source "$SCRIPT_DIR/lib/git.sh"
+# shellcheck source=lib/localproject.sh
+source "$SCRIPT_DIR/lib/localproject.sh"
+# shellcheck source=lib/framework.sh
+source "$SCRIPT_DIR/lib/framework.sh"
 # shellcheck source=lib/apply.sh
 source "$SCRIPT_DIR/lib/apply.sh"
 # shellcheck source=lib/cli.sh

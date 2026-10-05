@@ -23,6 +23,7 @@ readonly FAKE_GITHUB_PAT="ghpFAKEtoken1234567890"
 readonly ANSWERS_GITHUB=$'my-app\nA test app\n\nTirSystem\ny\nacme-org\n\nn\n'
 readonly ANSWERS_GITEA_ONLY=$'my-app\n\n\nTirSystem\nn\n\nn\n'
 
+SHARED_REMOTES=""
 TESTS_RUN=0
 TESTS_FAILED=0
 CURRENT_TEST=""
@@ -91,6 +92,61 @@ assert_file_missing() {
 new_workdir() {
   WORK="$(mktemp -d "${TMPDIR:-/tmp}/repofoundry-test.XXXXXX")"
   mkdir -p "$WORK/bin" "$WORK/tmp"
+  write_gitconfig
+}
+
+# write_gitconfig: the git configuration every test run uses instead of the
+# real user's (GIT_CONFIG_GLOBAL), so no test depends on or changes it. The
+# remote addresses of Gitea and the framework are redirected to local bare
+# repositories (see setup_local_remotes); nothing reaches the network.
+write_gitconfig() {
+  cat >"$WORK/gitconfig" <<EOF
+[user]
+	name = Test User
+	email = test@example.test
+[protocol "file"]
+	allow = always
+[url "file://$WORK/remote/"]
+	insteadOf = https://git.example.test/
+[url "file://$WORK/remote/"]
+	insteadOf = ssh://git@git.example.test:10022/
+EOF
+}
+
+# ensure_shared_remotes: build, once per run of the suite, the local bare
+# repositories that stand in for Gitea (TirSystem/my-app.git, holding the
+# license commit) and for the framework (a copy of the real one).
+ensure_shared_remotes() {
+  if [[ -n $SHARED_REMOTES && -d $SHARED_REMOTES ]]; then
+    return 0
+  fi
+  SHARED_REMOTES="$(mktemp -d "${TMPDIR:-/tmp}/repofoundry-remotes.XXXXXX")"
+  mkdir -p "$SHARED_REMOTES/TirSystem"
+  git clone -q --bare "$REPO_ROOT/framework" "$SHARED_REMOTES/TirSystem/SQA-QC-Framework.git"
+  git init -q --bare "$SHARED_REMOTES/TirSystem/my-app.git"
+  git init -q "$SHARED_REMOTES/seed"
+  git -C "$SHARED_REMOTES/seed" symbolic-ref HEAD refs/heads/main
+  printf 'GNU AFFERO GENERAL PUBLIC LICENSE (test copy)\n' >"$SHARED_REMOTES/seed/LICENSE"
+  git -C "$SHARED_REMOTES/seed" add LICENSE
+  git -c user.name=Seed -c user.email=seed@example.test -C "$SHARED_REMOTES/seed" commit -q -m "Initial commit"
+  git -C "$SHARED_REMOTES/seed" push -q "$SHARED_REMOTES/TirSystem/my-app.git" main
+  find "$SHARED_REMOTES/seed" \( -type f -o -type l \) -delete
+  find "$SHARED_REMOTES/seed" -depth -type d -exec rmdir {} +
+}
+
+# remove_shared_remotes: delete the shared repositories at the end of the run.
+remove_shared_remotes() {
+  if [[ -n $SHARED_REMOTES && -d $SHARED_REMOTES ]]; then
+    find "$SHARED_REMOTES" \( -type f -o -type l \) -delete
+    find "$SHARED_REMOTES" -depth -type d -exec rmdir {} +
+  fi
+  SHARED_REMOTES=""
+}
+
+# setup_local_remotes: this test's own copy of the local remotes.
+setup_local_remotes() {
+  ensure_shared_remotes
+  cp -R "$SHARED_REMOTES" "$WORK/remote"
 }
 
 # remove_workdir: delete the work directory without a recursive rm: files
@@ -245,6 +301,7 @@ setup_hosts() {
   write_curl_stub
   write_ssh_stub 0
   write_happy_routes
+  setup_local_remotes
 }
 
 # calls: the "METHOD URL" lines the stub curl received (empty if none).
@@ -260,9 +317,11 @@ run_cli() {
   local input="$1"
   shift
   STATUS=0
-  PATH="$WORK/bin:$PATH" STUB_DIR="$WORK" TMPDIR="$WORK/tmp" \
-    REPOFOUNDRY_SYNC_WAIT=0 \
-    "$BASH" "$SCRIPT" "$@" <<<"$input" >"$WORK/out.txt" 2>"$WORK/err.txt" ||
+  # Run inside the work directory: a relative project directory such as
+  # ./my-app is then created there, never in the repository.
+  (cd "$WORK" && PATH="$WORK/bin:$PATH" STUB_DIR="$WORK" TMPDIR="$WORK/tmp" \
+    REPOFOUNDRY_SYNC_WAIT=0 GIT_CONFIG_GLOBAL="$WORK/gitconfig" GIT_CONFIG_NOSYSTEM=1 \
+    "$BASH" "$SCRIPT" "$@" <<<"$input" >"$WORK/out.txt" 2>"$WORK/err.txt") ||
     STATUS=$?
   OUT="$(cat "$WORK/out.txt")"
   ERR="$(cat "$WORK/err.txt")"
@@ -277,9 +336,9 @@ run_lib() {
     printf '#!/usr/bin/env bash\nsource "%s"\n' "$SCRIPT"
     printf '%s\n' "$2"
   } >"$WORK/snippet.sh"
-  PATH="$WORK/bin:$PATH" STUB_DIR="$WORK" TMPDIR="$WORK/tmp" \
-    REPOFOUNDRY_SYNC_WAIT=0 \
-    "$BASH" "$WORK/snippet.sh" <<<"$input" >"$WORK/out.txt" 2>"$WORK/err.txt" ||
+  (cd "$WORK" && PATH="$WORK/bin:$PATH" STUB_DIR="$WORK" TMPDIR="$WORK/tmp" \
+    REPOFOUNDRY_SYNC_WAIT=0 GIT_CONFIG_GLOBAL="$WORK/gitconfig" GIT_CONFIG_NOSYSTEM=1 \
+    "$BASH" "$WORK/snippet.sh" <<<"$input" >"$WORK/out.txt" 2>"$WORK/err.txt") ||
     STATUS=$?
   OUT="$(cat "$WORK/out.txt")"
   ERR="$(cat "$WORK/err.txt")"

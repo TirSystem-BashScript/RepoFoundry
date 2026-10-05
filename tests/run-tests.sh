@@ -68,6 +68,7 @@ for test_file in "$TEST_DIR"/test-*.sh; do
   done < <(declare -F | awk '$3 ~ /^test_/ {print $3}')
 done
 
+remove_shared_remotes
 printf '\n%d checks, %d failed, %d static check(s) failed\n' \
   "$TESTS_RUN" "$TESTS_FAILED" "$failed_checks"
 if ((TESTS_FAILED > 0 || failed_checks > 0)); then

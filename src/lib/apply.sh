@@ -4,7 +4,7 @@
 #
 # Part of create-project.sh: sourced by it, never run on its own.
 #
-# Provides: create_all, confirm_reuse, apply_plan
+# Provides: create_all, confirm_reuse, confirm_framework_access, apply_plan
 
 create_all() {
   IS_CREATION_STARTED=1
@@ -15,6 +15,25 @@ create_all() {
   if ((PROJECT[has_github])); then
     configure_mirror
   fi
+  create_local_project
+  add_framework
+  install_framework
+  copy_templates
+}
+
+# confirm_framework_access: the framework comes over SSH. Without SSH the
+# Maintainer can still go on, without the framework steps, after a yes.
+confirm_framework_access() {
+  if ((${STATE[is_ssh_ok]:-0})); then
+    STATE[skip_framework]=0
+    return 0
+  fi
+  warn "SSH to Gitea ($(gitea_host) port ${CONFIG[GITEA_SSH_PORT]}) did not work, so the framework cannot be added: ${STATE[ssh_note]}"
+  prompt_yes_no "Create the repositories and the local project without the framework" n
+  if ! ((REPLY)); then
+    die "stopped: set up SSH access to Gitea (see the README) and run again"
+  fi
+  STATE[skip_framework]=1
 }
 
 confirm_reuse() {
@@ -42,5 +61,7 @@ apply_plan() {
     return 0
   fi
   confirm_reuse
+  confirm_local_directory
+  confirm_framework_access
   create_all
 }

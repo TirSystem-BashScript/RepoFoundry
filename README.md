@@ -1,35 +1,182 @@
 # RepoFoundry
 
-RepoFoundry (`src/create-project.sh`) sets up a new project: a Gitea
-repository, optionally an empty GitHub repository with a push mirror from
-Gitea to GitHub, and (in a later phase) a local project with the
-SQA-QC-Framework.
+RepoFoundry (`src/create-project.sh`) sets up a new project in one run:
 
-> **Status: work in progress.** The script can validate its configuration,
-> check both hosts and create the repositories and the mirror. Creating the
-> local project, and the full installation guide, come in a later phase
-> (MIL-003). This file so far documents what is needed to run the host steps
-> safely.
+- a **Gitea** repository (the source of truth),
+- optionally an empty **GitHub** repository that receives everything through a
+  **push mirror from Gitea to GitHub**,
+- and a **local project** with credential-free remotes and the
+  [SQA-QC-Framework](https://git.tirsystem.com/TirSystem/SQA-QC-Framework)
+  added as a git submodule, with its skills, git hooks (and optionally the plan
+  gate) and templates installed.
 
-## Quick start
+It is a Bash script. It asks for the repository name, description, visibility
+and owner (a user or an organization, separately on each host), shows a plan,
+and only creates anything after you pass `--apply` and answer yes.
+
+> **Status.** The script is tested with stubbed host APIs and real git against
+> local repositories (see [Development](#development)). A first run against
+> real GitHub and Gitea repositories is still to be recorded.
+
+## Contents
+
+1. [Installation](#installation)
+2. [Configuration](#configuration)
+3. [Usage](#usage)
+4. [SSH access to Gitea](#ssh-access-to-gitea)
+5. [Token permissions](#token-permissions)
+6. [Security decisions](#security-decisions)
+7. [Error handling and recovery](#error-handling-and-recovery)
+8. [Known limitations](#known-limitations)
+9. [Code layout](#code-layout)
+10. [Development](#development)
+11. [Stakeholders](#stakeholders)
+12. [License](#license)
+
+## Installation
+
+Requirements:
+
+| Tool | Needed for |
+| --- | --- |
+| bash 4.4 or later | the script (macOS ships 3.2: install a newer bash first) |
+| `git` | the local project and the framework submodule |
+| `curl` | the GitHub and Gitea APIs |
+| `mktemp` and the usual base tools | temporary files and small helpers |
+| `ssh` (optional) | the SSH check; without it the framework steps are skipped |
+| `jq` (optional) | JSON parsing; without it a small built-in reader is used |
+
+```bash
+git clone https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry.git
+cd RepoFoundry
+src/create-project.sh --help
+```
+
+Nothing has to be installed system-wide: the script runs from the checkout and
+loads its own files from `src/lib/`.
+
+## Configuration
+
+The script reads two plain files from the project root. They are **parsed,
+never executed** (`source` is not used): only `KEY=VALUE` lines with known keys
+are accepted, and anything else stops the run with a message that names the key
+and the line, never the value.
 
 ```bash
 cp config.env.example config.env     # service addresses, not secret
 cp .env.example .env                 # credentials: keep private
 chmod 600 .env                       # Linux and macOS
-
-src/create-project.sh                # dry run: reads from the hosts, creates nothing
-src/create-project.sh --apply        # creates the repositories and the mirror
 ```
 
-Without `--apply` the script only reads from GitHub and Gitea (it checks the
-tokens, the owners, the name, the license and SSH) and prints a plan. With
-`--apply` it prints the plan again and asks a final question before it creates
-anything. Nothing is ever deleted by the script.
+### `config.env` (service addresses)
 
-Choosing GitHub also applies the AGPL-3.0 license to the Gitea repository, so
-that repository is not empty. Without GitHub the Gitea repository is created
-empty and has no license.
+| Key | Meaning | Default |
+| --- | --- | --- |
+| `GITHUB_API_URL` | GitHub REST API base URL | `https://api.github.com` |
+| `GITHUB_WEB_URL` | GitHub web base URL (links and the mirror address) | `https://github.com` |
+| `GITEA_URL` | Gitea base URL (required) | |
+| `GITEA_API_URL` | Gitea REST API base URL | `GITEA_URL` + `/api/v1` |
+| `GITEA_SSH_PORT` | SSH port of the Gitea server | `10022` |
+| `MIRROR_INTERVAL` | how often Gitea pushes to GitHub, e.g. `10m0s` | `10m0s` |
+| `FRAMEWORK_REPO` | `OWNER/NAME` of the framework on Gitea | `TirSystem/SQA-QC-Framework` |
+
+Every URL must start with `https://` and must not contain a user name,
+password, query string or fragment. A credential key in this file is rejected.
+
+### `.env` (credentials)
+
+| Key | Meaning |
+| --- | --- |
+| `GITEA_TOKEN` | Gitea access token (required) |
+| `GITHUB_PAT` | GitHub personal access token (only when you choose GitHub) |
+| `GITHUB_USER` | the GitHub account the token belongs to; only a default for the owner prompt |
+
+`.env` is ignored by git. The script warns if it is readable by other users or
+not ignored by git. See [Token permissions](#token-permissions) for what each
+token needs.
+
+## Usage
+
+```bash
+src/create-project.sh                # dry run: reads from the hosts, creates nothing
+src/create-project.sh --apply        # creates everything after a final yes
+src/create-project.sh --config /path/to/config.env --env /path/to/.env
+```
+
+The script asks for, in this order: repository name, description, visibility,
+Gitea owner, whether to also create a GitHub repository (and its owner), the
+local directory and whether to enable the plan gate. It then checks both hosts
+with read-only requests and prints a plan:
+
+```text
+Plan:
+  Gitea repository  : create (private) with the AGPL-3.0 license https://git.example.org/Team/my-app
+  GitHub repository : create (private), empty https://github.com/acme/my-app
+  Push mirror       : Gitea -> GitHub every 10m0s
+  Local project     : create ./my-app (new directory), git on main, no commit
+  Local origin      : will use SSH (the SSH test passed)
+  Framework         : add ssh://git@git.example.org:10022/Team/SQA-QC-Framework.git as a submodule
+  Skills and hooks  : install once; plan gate no
+  Templates         : AGENTS.md and docs/artifact-registry.md (you are asked before a file is replaced)
+```
+
+Without `--apply` that is all that happens. With `--apply` the script asks
+"Create these now" (default no) and then creates, in this order:
+
+1. the GitHub repository (empty), if chosen;
+2. the Gitea repository (with the AGPL-3.0 license if GitHub was chosen);
+3. the push mirror Gitea -> GitHub, and a request for its first sync;
+4. the local directory, `git init` on `main`, the `origin` remote (and `github`
+   if chosen), and, if the Gitea repository holds the license commit, that
+   history;
+5. the framework as the submodule `framework`;
+6. the framework's skills and git hooks, and the plan gate if chosen;
+7. `AGENTS.md` and `docs/artifact-registry.md` from the framework's templates.
+
+No commit is made in the new project. Work on a branch there: the framework's
+hooks refuse commits on `main`.
+
+### Choices
+
+- **GitHub or not.** Choosing GitHub also applies the AGPL-3.0 license to the
+  Gitea repository (so it is not empty) and sets up the mirror. Without GitHub
+  the Gitea repository is empty and has no license, and `GITHUB_PAT` is not
+  needed.
+- **Owners.** The Gitea owner and the GitHub owner are chosen separately and
+  may be a user or an organization. `GITHUB_USER` is only the suggested default
+  for the GitHub owner prompt; it identifies who authenticates.
+- **Plan gate.** If enabled, a commit that changes `src/` or `tests/` in the
+  new project needs a `Task: MIL-NNN#N` trailer.
+
+### Nothing is overwritten without a yes
+
+The script asks first (default no) before it uses an existing directory, before
+it replaces an existing `core.hooksPath`, and before it replaces an existing
+`AGENTS.md` or `docs/artifact-registry.md`. It never deletes anything, never
+replaces a remote that points somewhere else, and git itself refuses to
+overwrite a file when the license history is checked out.
+
+## SSH access to Gitea
+
+The framework submodule is fetched over SSH on port **10022**
+(`ssh://git@<gitea host>:10022/TirSystem/SQA-QC-Framework.git`). Before you run
+the script:
+
+1. Add your SSH public key to your Gitea account.
+2. Connect once by hand so that the server's host key is known (the script
+   refuses unknown host keys and never answers questions for you):
+
+   ```bash
+   ssh -p 10022 -T git@git.tirsystem.com
+   ```
+
+   A message that you have successfully authenticated, without shell access,
+   means it works.
+
+The script runs the same check in its dry run. If it fails, the plan says so
+and, with `--apply`, you are asked whether to create the repositories and the
+local project **without** the framework steps (they are then reported as
+skipped). The default answer is no.
 
 ## Token permissions
 
@@ -56,10 +203,8 @@ repositories for the chosen owner and to push to the new one.
 - **Fine-grained tokens:** the GitHub documentation lists no fine-grained
   permission for creating a repository, and this has not been tested.
   Use a classic token until it has been.
-- **`GITHUB_USER`:** names the account the token belongs to. It is only a
-  default for the owner prompt; the repository may belong to an organization.
-  If it differs from the account the token belongs to, the script warns and
-  uses the account the token belongs to.
+- **`GITHUB_USER`:** if it differs from the account the token belongs to, the
+  script warns and uses the account the token belongs to.
 
 ### Gitea token (`GITEA_TOKEN`)
 
@@ -68,10 +213,69 @@ repositories for the chosen owner and to push to the new one.
 | Read the account the token belongs to | `read:user` | Gitea documentation |
 | Create repositories, manage the push mirror | `write:repository` | Gitea documentation |
 | Look up an organization and your permissions in it | `read:organization` | Gitea documentation |
-| Create a repository in an organization | probably `write:organization` as well | **Not confirmed**: expected from how the Gitea API groups organization calls; the end-to-end test in MIL-003 will confirm it. |
+| Create a repository in an organization | probably `write:organization` as well | **Not confirmed**: expected from how the Gitea API groups organization calls; to be confirmed in the first end-to-end run. |
 
 A missing scope shows up as an HTTP 403 with the server's own message. The
 script stops before it creates anything when a preflight check is refused.
+
+## Security decisions
+
+- **Tokens never appear** in output, logs, remote URLs, `.git/config`,
+  `.gitmodules`, command lines or leftover files. They go to `curl` through a
+  private configuration file that is removed right after the request, and to
+  `git` (HTTPS fetch only) through a `GIT_ASKPASS` helper and the environment
+  of that one command. Output is filtered, so even a server message that echoes
+  a token is shown as `[redacted]`. Tests plant fake tokens and search all
+  output and every file of the new project for them.
+- **No `set -x`.** Tracing would print every secret, so the script switches it
+  off and says so.
+- **Config files are parsed, not sourced,** with a whitelist of keys; values
+  are validated (URLs must be `https` without credentials, tokens must have a
+  safe character set) and never executed.
+- **Dry run by default.** Creating anything needs `--apply` and a final yes.
+- **No destructive commands.** The script never deletes a repository or a
+  file and never uses a recursive delete; temporary files are removed one by
+  one.
+- **Credential-free remotes.** `origin` is `ssh://git@host:port/owner/name.git`
+  (or plain HTTPS when SSH is not used) and `github` is a plain HTTPS address.
+- **Redirects are not followed,** so a token is only ever sent to the host in
+  the URL it was meant for. Unknown SSH host keys are refused.
+- **Framework scripts run on the new project only.** They are run with
+  `PROJECT_ROOT` set explicitly, so a `PROJECT_ROOT` in your environment cannot
+  point them elsewhere. They come from the framework repository you configured:
+  review what you trust there.
+
+## Error handling and recovery
+
+Every message starts with `error:`, names what failed and what to do, and never
+contains a secret. Exit codes: `0` success (or a dry run), `1` a failed check or
+step, `2` a usage error.
+
+| What happens | What the script does | What you do |
+| --- | --- | --- |
+| A tool, a config key or a token is missing or invalid | stops before any request | fix it and run again |
+| A token is refused, an owner is unknown, a name is taken, the license is missing | stops in the preflight; nothing was created | fix the cause |
+| The host cannot be reached | stops with the host name | try again |
+| A repository already exists and is empty (Gitea: or holds only the license) | offers to reuse it (default no) | answer, or choose another name |
+| A repository already has content | stops | choose another name or remove it |
+| A step fails after another succeeded | stops and prints what exists, what failed and how to continue | fix the cause and run the **same command again with `--apply`**: what was created is offered for reuse |
+| The mirror is refused (disabled, interval too short) | keeps the repositories and reports it | change `MIRROR_INTERVAL` or ask the Gitea administrator, then run again |
+| The framework submodule cannot be fetched | reports the address and how to test SSH | fix your SSH access, run again |
+| `sync_on_commit` was ignored by Gitea | warns; the mirror syncs on its interval | enable it in the repository settings if needed |
+
+A partial run is reported like this:
+
+```text
+The run stopped before it finished. This is what exists now:
+  GitHub repository : created https://github.com/acme/my-app
+  Gitea repository  : FAILED
+  Push mirror       : not attempted
+  ...
+To continue: fix the problem named above and run the same command again with --apply.
+```
+
+Nothing is deleted automatically. To start over, delete the repositories in the
+web interface and the project directory by hand.
 
 ## Known limitations
 
@@ -90,16 +294,15 @@ script stops before it creates anything when a preflight check is refused.
   the repositories created so far are kept.
 - **The license commit.** Gitea adds the license file when the repository is
   created with `auto_init`. The script sends no README, so the repository
-  should hold only `LICENSE`; this is checked in the MIL-003 end-to-end test.
-- **No rollback.** If a step fails, the script reports what exists and how to
-  continue. A repeated run offers to reuse a repository it created earlier
-  (empty, or in Gitea's case holding only the license). Delete what you do not
-  want in the web interface.
+  should hold only `LICENSE`; this is still to be confirmed against a real
+  server.
+- **No rollback.** See [Error handling and recovery](#error-handling-and-recovery).
 - **Mirror direction is Gitea to GitHub only.** Push to Gitea; GitHub is a
   copy.
-- **Requirements:** bash 4.4 or later, `git`, `curl` and `mktemp`; `jq` and
-  `ssh` are optional. Without `jq` the script reads the few JSON fields it
-  needs with a simple built-in reader.
+- **The framework needs SSH.** Without SSH access to Gitea the framework steps
+  can only be skipped.
+- **Tested on Windows (Git Bash) only so far.** Running the tests on Linux and
+  macOS is an open follow-up.
 
 ## Code layout
 
@@ -121,12 +324,15 @@ file. The files are loaded from that directory only, by a fixed path.
 | `api.sh` | GitHub and Gitea API calls and reporting a refused call |
 | `prompts.sh` | interactive questions with validation |
 | `project.sh` | the project details: asking for them and showing them |
-| `hosts.sh` | names and links of the repositories on each host |
+| `hosts.sh` | names, links and remote addresses of the repositories |
 | `preflight.sh` | read-only checks of both hosts |
 | `steps.sh` | the outcome of each step and the final report |
 | `plan.sh` | printing what the script is about to do |
 | `repositories.sh` | creating the GitHub and Gitea repositories |
 | `mirror.sh` | the Gitea to GitHub push mirror |
+| `git.sh` | running git for the new project without prompts or tokens on a command line |
+| `localproject.sh` | the local directory, git repository and remotes |
+| `framework.sh` | the framework submodule, skills, hooks and templates |
 | `apply.sh` | confirmations and the apply flow; the only code that changes anything |
 | `cli.sh` | usage text and option parsing |
 
@@ -138,5 +344,28 @@ when it is loaded.
 ## Development
 
 ```bash
-bash tests/run-tests.sh           # shellcheck, shfmt and all tests, no network
+bash tests/run-tests.sh             # shellcheck, shfmt and all tests, no network
+bash tests/run-tests.sh PATTERN     # only tests whose name contains PATTERN
 ```
+
+The tests stub the two host APIs (a fake `curl` answers from a routes file) and
+`ssh`, and run real git against local bare repositories that stand in for
+Gitea and the framework (git's `insteadOf` rewrites the remote addresses), with
+a private git configuration. Nothing reaches the network and nothing outside
+the test directories is changed. Mutation checks show that the tests fail when
+a guarantee is removed.
+
+Planning documents, reviews and the traceability matrix are in `docs/`; the
+project follows the SQA and QC framework (see `AGENTS.md`).
+
+## Stakeholders
+
+| Who | Role |
+| --- | --- |
+| [Tirsvad](https://www.linkedin.com/in/tirsvad74) | Product Owner and maintainer |
+| [Michael Kragh](https://www.linkedin.com/in/codemikemike/) | DevOps, cybersecurity and maintainer |
+| GitHub readers | people who read and may reuse this project |
+
+## License
+
+GNU Affero General Public License v3.0; see [LICENSE](LICENSE).
