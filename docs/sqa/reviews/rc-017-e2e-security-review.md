@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-05 | Proposed | Jens Tirsvad Nielsen | S02 | Initial version | [613a288] |
-| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | Run A repeated with a `write:user` token: passes; criterion 7 now Pass; only the README review remains | pending |
+| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | Run A repeated with a `write:user` token: passes; criterion 7 now Pass; only the README review remains | [ef87e73] |
 
 ---
 
@@ -107,3 +107,4 @@ Go-with-conditions — No open security finding, both the organization-owner flo
 [RC-016]: ./rc-016-create-project-sh.md
 [US-001]: ../../user-stories.md
 [613a288]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/613a288dead4c19c00dee6fbb60d46bc3edf8889
+[ef87e73]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/ef87e7395482da9fad854cd5db7f16200bb8c8af
