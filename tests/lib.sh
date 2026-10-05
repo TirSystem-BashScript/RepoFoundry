@@ -83,7 +83,7 @@ new_workdir() {
 # first, then the now empty directories from the bottom up.
 remove_workdir() {
   if [[ -n $WORK && -d $WORK ]]; then
-    find "$WORK" -type f -delete
+    find "$WORK" \( -type f -o -type p \) -delete
     find "$WORK" -depth -type d -exec rmdir {} +
   fi
   WORK=""

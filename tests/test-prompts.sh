@@ -54,17 +54,17 @@ EOF
 test_collect_details_with_github() {
   run_lib $'my-app\nA test app\npublic\nTirSystem\ny\nmy-org\n\ny\n' \
     'collect_project_details
-for k in name description visibility gitea_owner use_github github_owner directory plan_gate; do
+for k in name description visibility gitea_owner has_github github_owner directory is_plan_gate_enabled; do
   printf "%s=%s\n" "$k" "${PROJECT[$k]}"
 done'
   assert_status "details collected" 0 "$STATUS"
-  assert_eq "details" $'name=my-app\ndescription=A test app\nvisibility=public\ngitea_owner=TirSystem\nuse_github=1\ngithub_owner=my-org\ndirectory=./my-app\nplan_gate=1' "$OUT"
+  assert_eq "details" $'name=my-app\ndescription=A test app\nvisibility=public\ngitea_owner=TirSystem\nhas_github=1\ngithub_owner=my-org\ndirectory=./my-app\nis_plan_gate_enabled=1' "$OUT"
 }
 
 test_collect_details_without_github() {
   run_lib $'my-app\n\n\nTirSystem\nn\n\nn\n' \
     'collect_project_details
-printf "%s|%s|%s|%s\n" "${PROJECT[visibility]}" "${PROJECT[use_github]}" "[${PROJECT[github_owner]}]" "${PROJECT[plan_gate]}"'
+printf "%s|%s|%s|%s\n" "${PROJECT[visibility]}" "${PROJECT[has_github]}" "[${PROJECT[github_owner]}]" "${PROJECT[is_plan_gate_enabled]}"'
   assert_status "GitHub skipped" 0 "$STATUS"
   assert_eq "defaults and no GitHub owner" "private|0|[]|0" "$OUT"
   assert_not_contains "no GitHub owner prompt" "$ERR" "GitHub owner"

@@ -29,10 +29,26 @@
 #
 # Requires
 #   bash 4.4 or later, git, curl, mktemp; jq is optional (used when present).
+#   Also the base tools sed, grep, head, tr, rm, rmdir and uname, and stat
+#   (GNU "stat -c" or BSD "stat -f"; only used outside Windows).
+#
+# Implements
+#   MIL-001 tasks 1 to 6 (issues #3 to #8), user story US-001.01 and UC-001
+#   steps 1 to 3; see docs/. Deviation from the request: its second
+#   GITEA_URL key is named GITEA_API_URL.
+#
+# Tracing
+#   set -x is switched off while the script runs, because a trace would print
+#   every secret the script handles.
 #
 # Exit codes
 #   0 success, 1 a failed check or bad input, 2 a usage error.
 set -Eeuo pipefail
+
+if [[ $- == *x* ]]; then
+  set +x
+  printf 'warning: tracing (set -x) is disabled because it would print secrets\n' >&2
+fi
 
 if ((BASH_VERSINFO[0] < 4 || (BASH_VERSINFO[0] == 4 && BASH_VERSINFO[1] < 4))); then
   printf 'error: bash 4.4 or later is required (found %s)\n' "$BASH_VERSION" >&2
@@ -258,6 +274,9 @@ parse_env_file() {
   # shellcheck disable=SC2094  # the loop body only uses $file in messages
   while IFS= read -r line || [[ -n $line ]]; do
     line_number=$((line_number + 1))
+    if ((line_number == 1)); then
+      line="${line#$'\xEF\xBB\xBF'}" # byte order mark from some Windows editors
+    fi
     line="$(trim "${line%$'\r'}")"
     if [[ -z $line || $line == \#* ]]; then
       continue
@@ -588,9 +607,9 @@ collect_project_details() {
     "use letters, digits, '.', '_' or '-' (at most 39)"
   PROJECT[gitea_owner]="$REPLY"
   prompt_yes_no "Also create a GitHub repository (applies the AGPL license)" y
-  PROJECT[use_github]="$REPLY"
+  PROJECT[has_github]="$REPLY"
   PROJECT[github_owner]=""
-  if ((PROJECT[use_github])); then
+  if ((PROJECT[has_github])); then
     prompt_value "GitHub owner (user or organization)" \
       "${CREDENTIALS[GITHUB_USER]:-}" is_valid_github_owner \
       "use letters, digits or '-' (at most 39)"
@@ -600,7 +619,7 @@ collect_project_details() {
     "must not be empty, start with '-' or contain control characters"
   PROJECT[directory]="$REPLY"
   prompt_yes_no "Enable the plan gate" n
-  PROJECT[plan_gate]="$REPLY"
+  PROJECT[is_plan_gate_enabled]="$REPLY"
 }
 
 # ------------------------------------------------------------- summary
@@ -628,13 +647,13 @@ print_summary() {
   say "  Repository   : ${PROJECT[name]} (${PROJECT[visibility]})"
   say "  Description  : ${PROJECT[description]:-(none)}"
   say "  Gitea        : ${CONFIG[GITEA_URL]}/${PROJECT[gitea_owner]}/${PROJECT[name]}"
-  if ((PROJECT[use_github])); then
+  if ((PROJECT[has_github])); then
     say "  GitHub       : ${CONFIG[GITHUB_WEB_URL]}/${PROJECT[github_owner]}/${PROJECT[name]} (AGPL license applied)"
   else
     say "  GitHub       : not used"
   fi
   say "  Directory    : ${PROJECT[directory]}"
-  say "  Plan gate    : $(yes_no "${PROJECT[plan_gate]}")"
+  say "  Plan gate    : $(yes_no "${PROJECT[is_plan_gate_enabled]}")"
   say "Credentials    : GITEA_TOKEN $(credential_state GITEA_TOKEN)," \
     "GITHUB_PAT $(credential_state GITHUB_PAT)"
   say "Creating the repositories and the project comes in later phases."
@@ -678,7 +697,7 @@ main() {
   setup_temp_dir
   load_configuration
   collect_project_details
-  if ((PROJECT[use_github])); then
+  if ((PROJECT[has_github])); then
     require_github_credentials
   fi
   print_summary

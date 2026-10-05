@@ -26,7 +26,7 @@ updated whenever an artifact instance is created or reviewed.
 | [BC-001] | BC | - | [SA-001], [PP-001], [MIL-001], [MIL-002], [MIL-003], [US-001], [UCD-001] | [RC-010] |
 | [SA-001] | SA | [BC-001] | [UCD-001], [UC-001], [DICT-001] | [RC-013] |
 | [PP-001] | PP | [BC-001], [SA-001] | [MIL-001], [MIL-002], [MIL-003] | [RC-012] |
-| [MIL-001] | MIL | [BC-001], [PP-001] | [US-001] | [RC-011] |
+| [MIL-001] | MIL | [BC-001], [PP-001] | [US-001] | [RC-011], [RC-016] |
 | [MIL-002] | MIL | [BC-001], [PP-001] | [US-001] | [RC-014] |
 | [MIL-003] | MIL | [BC-001], [PP-001] | [US-001] | [RC-015] |
 | [UCD-001] | UCD | [BC-001], [SA-001] | [US-001], [UC-001] | [RC-009] |
@@ -76,4 +76,5 @@ updated whenever an artifact instance is created or reviewed.
 [RC-013]: ./reviews/rc-013-sa-001.md
 [RC-014]: ./reviews/rc-014-mil-002.md
 [RC-015]: ./reviews/rc-015-mil-003.md
+[RC-016]: ./reviews/rc-016-create-project-sh.md
 [02875ae]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/02875aee5f2953473924074eea0056eb31af6b7a
