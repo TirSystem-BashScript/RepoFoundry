@@ -1,4 +1,4 @@
-# RepoFoundry
+# Repo Foundry
 
 RepoFoundry (`src/create-project.sh`) sets up a new project in one run:
 
@@ -86,6 +86,41 @@ chmod 600 .env                       # Linux and macOS
 
 Every URL must start with `https://` and must not contain a user name,
 password, query string or fragment. A credential key in this file is rejected.
+
+### `config.env` (project details, optional)
+
+Any of the details the script asks for can be set in `config.env` instead.
+A detail that is set is used and not asked; the summary marks it with
+`(from config.env)`.
+
+| Key | Detail | Accepted value |
+| --- | --- | --- |
+| `PROJECT_NAME` | repository name | letters, digits, `.`, `_`, `-`; at most 100; not ending in `.git` |
+| `PROJECT_DESCRIPTION` | description | at most 350 characters; may be empty |
+| `PROJECT_VISIBILITY` | visibility | `private` or `public` |
+| `GITEA_OWNER` | Gitea user or organization | letters, digits, `.`, `_`, `-`; at most 39 |
+| `USE_GITHUB` | also create a GitHub repository | `yes` or `no` |
+| `GITHUB_OWNER` | GitHub user or organization | letters, digits, `-`; used only when GitHub is used |
+| `PROJECT_DIRECTORY` | local directory | not empty, not starting with `-` |
+| `ENABLE_PLAN_GATE` | enable the plan gate | `yes` or `no` |
+
+- A key that is present counts as set, even when its value is empty. Only
+  `PROJECT_DESCRIPTION` may be empty (no description); an empty value for any
+  other key stops the run. Remove the line to be asked instead.
+- An invalid value stops the run before any request to a host and names the
+  key. The script never falls back to asking for it.
+- `USE_GITHUB=no` skips the GitHub owner and every GitHub step; a
+  `GITHUB_OWNER` set at the same time is ignored, with a warning.
+- Only these eight details can be set. The confirmations stay questions that
+  default to no: create now, reusing an existing repository, an existing
+  directory, `core.hooksPath` and replacing a template file.
+- These keys are accepted in `config.env` only, never in `.env`.
+
+With all eight set, a run asks only the confirmations:
+
+```bash
+src/create-project.sh --apply        # asks only "Create these now (y/n) [n]"
+```
 
 ### `.env` (credentials)
 

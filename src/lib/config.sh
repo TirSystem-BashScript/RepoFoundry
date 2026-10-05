@@ -4,7 +4,7 @@
 #
 # Part of create-project.sh: sourced by it, never run on its own.
 #
-# Provides: unquote_value, parse_env_file, parse_env_entry, validate_config, validate_credentials, require_github_credentials, warn_if_env_unsafe, load_configuration
+# Provides: unquote_value, parse_env_file, parse_env_entry, validate_config, check_preset, check_preset_choice, validate_project_presets, validate_credentials, require_github_credentials, warn_if_env_unsafe, load_configuration
 
 # unquote_value RAW: strip matching quotes (or a trailing " # comment" on an
 # unquoted value) and return the value in REPLY. Fails on unbalanced quotes.
@@ -103,6 +103,45 @@ validate_config() {
   CONFIG[FRAMEWORK_REPO]="${CONFIG[FRAMEWORK_REPO]:-$DEFAULT_FRAMEWORK_REPO}"
   is_valid_framework_repo "${CONFIG[FRAMEWORK_REPO]}" ||
     die "FRAMEWORK_REPO in $CONFIG_FILE must look like OWNER/NAME"
+  validate_project_presets
+}
+
+# check_preset KEY VALIDATOR HINT: when KEY is set in config.env its value must
+# pass VALIDATOR. A key that is present counts as set; only the description
+# may be empty. The message names the key, never the value.
+check_preset() {
+  local key="$1" validator="$2" hint="$3"
+  [[ -n ${CONFIG[$key]+set} ]] || return 0
+  if [[ -z ${CONFIG[$key]} && $key != PROJECT_DESCRIPTION ]]; then
+    die "$key in $CONFIG_FILE is empty; remove the line to be asked, or give a value ($hint)"
+  fi
+  "$validator" "${CONFIG[$key]}" ||
+    die "$key in $CONFIG_FILE is not valid: $hint"
+}
+
+# check_preset_choice KEY CHOICE...: like check_preset for a fixed list of
+# words; the value is stored in lower case.
+check_preset_choice() {
+  local key="$1"
+  shift
+  [[ -n ${CONFIG[$key]+set} ]] || return 0
+  [[ -n ${CONFIG[$key]} ]] ||
+    die "$key in $CONFIG_FILE is empty; remove the line to be asked, or give one of: $*"
+  CONFIG[$key]="${CONFIG[$key],,}"
+  in_list "${CONFIG[$key]}" "$@" ||
+    die "$key in $CONFIG_FILE must be one of: $*"
+}
+
+# The optional project details that may be preset in config.env.
+validate_project_presets() {
+  check_preset PROJECT_NAME is_valid_repo_name "$HINT_REPO_NAME"
+  check_preset PROJECT_DESCRIPTION is_valid_description "$HINT_DESCRIPTION"
+  check_preset_choice PROJECT_VISIBILITY private public
+  check_preset GITEA_OWNER is_valid_gitea_owner "$HINT_GITEA_OWNER"
+  check_preset_choice USE_GITHUB yes no
+  check_preset GITHUB_OWNER is_valid_github_owner "$HINT_GITHUB_OWNER"
+  check_preset PROJECT_DIRECTORY is_valid_directory "$HINT_DIRECTORY"
+  check_preset_choice ENABLE_PLAN_GATE yes no
 }
 
 validate_credentials() {

@@ -19,11 +19,20 @@ readonly DEFAULT_SSH_PORT=10022
 readonly DEFAULT_FRAMEWORK_REPO="TirSystem/SQA-QC-Framework"
 readonly AGPL_LICENSE_KEY="AGPL-3.0"
 readonly DEFAULT_BRANCH="main"
+# What the prompts and the preset keys in config.env both tell the Maintainer
+# when a value is refused.
+readonly HINT_REPO_NAME="use letters, digits, '.', '_' or '-' (at most 100), not ending in .git"
+readonly HINT_DESCRIPTION="at most $MAX_DESCRIPTION_LENGTH characters and no control characters"
+readonly HINT_GITEA_OWNER="use letters, digits, '.', '_' or '-' (at most 39)"
+readonly HINT_GITHUB_OWNER="use letters, digits or '-' (at most 39)"
+readonly HINT_DIRECTORY="must not be empty, start with '-' or contain control characters"
 readonly PLAN_STEPS=("GitHub repository" "Gitea repository" "Push mirror"
   "Local project" "Framework" "Skills and hooks" "Templates")
 # shellcheck disable=SC2034  # read through namerefs (parse_env_file)
 readonly CONFIG_KEYS=(GITHUB_API_URL GITHUB_WEB_URL GITEA_URL GITEA_API_URL
-  GITEA_SSH_PORT MIRROR_INTERVAL FRAMEWORK_REPO)
+  GITEA_SSH_PORT MIRROR_INTERVAL FRAMEWORK_REPO
+  PROJECT_NAME PROJECT_DESCRIPTION PROJECT_VISIBILITY GITEA_OWNER USE_GITHUB
+  GITHUB_OWNER PROJECT_DIRECTORY ENABLE_PLAN_GATE)
 readonly CREDENTIAL_KEYS=(GITHUB_PAT GITHUB_USER GITEA_TOKEN)
 
 CONFIG_FILE="$PROJECT_ROOT/config.env"
@@ -41,6 +50,8 @@ TEMP_FILES=()
 declare -A CONFIG=()
 declare -A CREDENTIALS=()
 declare -A PROJECT=()
+# Project details that came from config.env instead of a prompt (PRESET[name]=1).
+declare -A PRESET=()
 # Facts found by the preflight checks (logins, owner kinds, repository state).
 declare -A STATE=()
 # Outcome of each step in PLAN_STEPS, for the final report.
