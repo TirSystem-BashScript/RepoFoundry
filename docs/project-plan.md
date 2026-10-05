@@ -29,9 +29,9 @@ Schedule the three phases that deliver RepoFoundry (`create-project.sh` and its 
 
 | Gateway | Document | Window | Decision date | Owner | Stories | Main deliverable | Milestone |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| Foundation | [MIL-001] | 2026-10-05 to 2026-10-16 | 2026-10-16 | S01 | US-001.01 | Safe skeleton, config parsing, prompts, tests | |
-| Repositories and Mirror | [MIL-002] | 2026-10-19 to 2026-10-30 | 2026-10-30 | S02 | US-001.02 | GitHub and Gitea repositories and the push mirror | |
-| Scaffold and Release | [MIL-003] | 2026-11-02 to 2026-11-13 | 2026-11-13 | S01 | US-001.03 | Local project, framework, README, final review | |
+| Foundation | [MIL-001] | 2026-10-05 to 2026-10-16 | 2026-10-16 | S01 | US-001.01 | Safe skeleton, config parsing, prompts, tests | [Milestone 43] |
+| Repositories and Mirror | [MIL-002] | 2026-10-19 to 2026-10-30 | 2026-10-30 | S02 | US-001.02 | GitHub and Gitea repositories and the push mirror | [Milestone 44] |
+| Scaffold and Release | [MIL-003] | 2026-11-02 to 2026-11-13 | 2026-11-13 | S01 | US-001.03 | Local project, framework, README, final review | [Milestone 45] |
 
 ```plantuml
 @startgantt
@@ -91,3 +91,6 @@ A No-Go moves every later date by the time needed to rework the failed criteria.
 [SSD-001]: ./uc-001/ssd.md
 [424f14f]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/424f14f4f5577bb47fea41c8f3a655dca953e6d8
 [02875ae]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/02875aee5f2953473924074eea0056eb31af6b7a
+[Milestone 43]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/milestone/43
+[Milestone 44]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/milestone/44
+[Milestone 45]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/milestone/45
