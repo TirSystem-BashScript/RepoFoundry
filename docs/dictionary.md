@@ -9,7 +9,7 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Initial version, terms of UC-001 | pending |
+| 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Initial version, terms of UC-001 | [02875ae] |
 
 ---
 
@@ -56,3 +56,4 @@ Maps each Product Owner (PO) term to its professional IT term. PO language: Engl
 [DM-001]: ./uc-001/dm.md
 [DM-002]: ./domain-model.md
 [OC-001]: ./uc-001/oc.md
+[02875ae]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/02875aee5f2953473924074eea0056eb31af6b7a

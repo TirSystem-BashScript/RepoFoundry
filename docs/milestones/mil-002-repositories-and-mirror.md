@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-05 | Deprecated | Jens Tirsvad Nielsen | S02 | Initial version | [424f14f] |
-| 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Optional GitHub; choosing GitHub applies the AGPL license to the Gitea repository<br>Cited US-001.02<br>Purpose and criterion 1 reworded for optional GitHub<br>Target date accepted | pending |
+| 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Optional GitHub; choosing GitHub applies the AGPL license to the Gitea repository<br>Cited US-001.02<br>Purpose and criterion 1 reworded for optional GitHub<br>Target date accepted | [02875ae] |
 
 ---
 
@@ -77,3 +77,4 @@ Decide whether the script creates the Gitea repository and, if GitHub is chosen,
 [UC-001]: ../uc-001/uc.md
 [MIL-001]: ./mil-001-foundation.md
 [424f14f]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/424f14f4f5577bb47fea41c8f3a655dca953e6d8
+[02875ae]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/02875aee5f2953473924074eea0056eb31af6b7a

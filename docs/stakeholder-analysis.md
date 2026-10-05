@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-05 | Deprecated | Jens Tirsvad Nielsen | S02 | Initial version | [424f14f] |
-| 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Mitigation points to the UC-001 business rules<br>S03 traced to BC objective 7<br>Sign-off recorded | pending |
+| 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Mitigation points to the UC-001 business rules<br>S03 traced to BC objective 7<br>Sign-off recorded | [02875ae] |
 
 ---
 
@@ -74,3 +74,4 @@ Reviewed in [RC-013] on 2026-10-05: Go.
 [UC-001]: ./uc-001/uc.md
 [RC-013]: ./sqa/reviews/rc-013-sa-001.md
 [424f14f]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/424f14f4f5577bb47fea41c8f3a655dca953e6d8
+[02875ae]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/02875aee5f2953473924074eea0056eb31af6b7a

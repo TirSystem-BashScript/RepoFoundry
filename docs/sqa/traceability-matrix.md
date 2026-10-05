@@ -9,7 +9,7 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-05 | Proposed | Jens Tirsvad Nielsen | S02 | Initial version, UC-001 artifacts and baseline | pending |
+| 2026-10-05 | Proposed | Jens Tirsvad Nielsen | S02 | Initial version, UC-001 artifacts and baseline | [02875ae] |
 
 ---
 
@@ -76,3 +76,4 @@ updated whenever an artifact instance is created or reviewed.
 [RC-013]: ./reviews/rc-013-sa-001.md
 [RC-014]: ./reviews/rc-014-mil-002.md
 [RC-015]: ./reviews/rc-015-mil-003.md
+[02875ae]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/02875aee5f2953473924074eea0056eb31af6b7a

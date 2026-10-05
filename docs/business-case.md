@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-05 | Deprecated | Jens Tirsvad Nielsen | S02 | Initial version | [424f14f] |
-| 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Optional GitHub; choosing GitHub applies the AGPL license to the Gitea repository<br>Cited UCD-001<br>Justified the qualitative cost-benefit; stakeholder roles replaced by interests; success criteria 2 and 3 reworded for optional GitHub<br>Added objective 7 (documentation) and its success criterion | pending |
+| 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Optional GitHub; choosing GitHub applies the AGPL license to the Gitea repository<br>Cited UCD-001<br>Justified the qualitative cost-benefit; stakeholder roles replaced by interests; success criteria 2 and 3 reworded for optional GitHub<br>Added objective 7 (documentation) and its success criterion | [02875ae] |
 
 ---
 
@@ -139,3 +139,4 @@ Proceed — the procedure is small, well bounded and removes a repeated, securit
 [SA-001]: ./stakeholder-analysis.md
 [UCD-001]: ./use-case-diagram.md
 [424f14f]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/424f14f4f5577bb47fea41c8f3a655dca953e6d8
+[02875ae]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/02875aee5f2953473924074eea0056eb31af6b7a

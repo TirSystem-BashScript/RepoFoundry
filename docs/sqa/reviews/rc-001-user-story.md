@@ -9,7 +9,7 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-05 | Proposed | Jens Tirsvad Nielsen | S02 | Initial version; re-reviewed after UCD-001 and the split into three stories | pending |
+| 2026-10-05 | Proposed | Jens Tirsvad Nielsen | S02 | Initial version; re-reviewed after UCD-001 and the split into three stories | [02875ae] |
 
 ---
 
@@ -46,3 +46,4 @@ Go — All mandatory criteria pass and the optional criterion 5 now passes after
 
 [US-001]: ../../user-stories.md
 [QC-US-001]: ../../../framework/qc/qc-user-story.md
+[02875ae]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/02875aee5f2953473924074eea0056eb31af6b7a

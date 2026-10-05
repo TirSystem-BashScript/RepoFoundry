@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-05 | Deprecated | Jens Tirsvad Nielsen | S02 | Initial version | [424f14f] |
-| 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Stories per phase: US-001.01 to US-001.03<br>Dates accepted | pending |
+| 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Stories per phase: US-001.01 to US-001.03<br>Dates accepted | [02875ae] |
 
 ---
 
@@ -90,3 +90,4 @@ A No-Go moves every later date by the time needed to rework the failed criteria.
 [UC-001]: ./uc-001/uc.md
 [SSD-001]: ./uc-001/ssd.md
 [424f14f]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/424f14f4f5577bb47fea41c8f3a655dca953e6d8
+[02875ae]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/02875aee5f2953473924074eea0056eb31af6b7a
