@@ -262,3 +262,14 @@ test_with_every_detail_set_an_existing_directory_is_not_replaced() {
   assert_file_exists "existing file kept" "$WORK/my-app/mine.txt"
   assert_eq "content kept" "keep" "$(cat "$WORK/my-app/mine.txt")"
 }
+
+test_a_quoted_description_may_contain_a_hash() {
+  local answers=$'my-app\npublic\nTirSystem\nn\n\nn\n'
+  collect_with 'PROJECT_DESCRIPTION="Tool for #mirrors"' "$answers"
+  assert_status "quoted" 0 "$STATUS"
+  assert_contains "whole value kept" "$OUT" "description=Tool for #mirrors"
+  # Unquoted, the same text is cut at the comment mark, as documented.
+  collect_with 'PROJECT_DESCRIPTION=Tool for #mirrors' "$answers"
+  assert_contains "cut at the comment" "$OUT" "description=Tool for"
+  assert_not_contains "comment dropped" "$OUT" "mirrors"
+}

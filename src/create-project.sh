@@ -5,7 +5,7 @@
 #   RepoFoundry creates a Gitea repository, optionally an empty GitHub
 #   repository with a Gitea -> GitHub push mirror, and a local project with
 #   the SQA-QC-Framework. It validates the configuration and credentials,
-#   asks for the project details, checks both hosts with read-only requests
+#   asks for the project details (those set in config.env are not asked), checks both hosts with read-only requests
 #   (tokens, owners, names, license, SSH) and, with --apply, creates the
 #   repositories and the mirror, then the local project: its directory, git
 #   repository, remotes (no credential in any address), the framework as a

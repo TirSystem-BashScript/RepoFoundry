@@ -30,7 +30,7 @@ updated whenever an artifact instance is created or reviewed.
 | [MIL-001] | MIL | [BC-001], [PP-001] | [US-001] | [RC-011], [RC-016] |
 | [MIL-002] | MIL | [BC-001], [PP-001] | [US-001] | [RC-014], [RC-017] |
 | [MIL-003] | MIL | [BC-001], [PP-001] | [US-001] | [RC-015], [RC-017] |
-| [MIL-004] | MIL | [BC-001], [PP-001] | [US-001] | [RC-018] |
+| [MIL-004] | MIL | [BC-001], [PP-001] | [US-001] | [RC-018], [RC-019] |
 | [UCD-001] | UCD | [BC-001], [SA-001] | [US-001], [UC-001] | [RC-009] |
 | [US-001] | US | [BC-001], [UCD-001], [MIL-001], [MIL-002], [MIL-003], [MIL-004] | [UC-001] | [RC-001] |
 | [UC-001] | UC | [UCD-001], [US-001], [SA-001] | [SSD-001], [DM-001] | [RC-002] |
@@ -56,6 +56,7 @@ updated whenever an artifact instance is created or reviewed.
 [MIL-003]: ../milestones/mil-003-scaffold-and-release.md
 [MIL-004]: ../milestones/mil-004-configurable-details.md
 [RC-018]: ./reviews/rc-018-mil-004.md
+[RC-019]: ./reviews/rc-019-mil-004-code.md
 [UCD-001]: ../use-case-diagram.md
 [US-001]: ../user-stories.md
 [UC-001]: ../uc-001/uc.md

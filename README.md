@@ -115,6 +115,9 @@ A detail that is set is used and not asked; the summary marks it with
   default to no: create now, reusing an existing repository, an existing
   directory, `core.hooksPath` and replacing a template file.
 - These keys are accepted in `config.env` only, never in `.env`.
+- A value is read as plain text: an unquoted ` #` starts a comment and cuts the
+  value there. Put a description that contains ` #` in double quotes, for
+  example `PROJECT_DESCRIPTION="Tool for #mirrors"`.
 
 With all eight set, a run asks only the confirmations:
 
@@ -144,7 +147,8 @@ src/create-project.sh --config /path/to/config.env --env /path/to/.env
 
 The script asks for, in this order: repository name, description, visibility,
 Gitea owner, whether to also create a GitHub repository (and its owner), the
-local directory and whether to enable the plan gate. It then checks both hosts
+local directory and whether to enable the plan gate (a detail set in
+[`config.env`](#configenv-project-details-optional) is not asked). It then checks both hosts
 with read-only requests and prints a plan:
 
 ```text
