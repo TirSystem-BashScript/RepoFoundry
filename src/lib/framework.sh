@@ -47,7 +47,7 @@ run_framework_script() {
   abs="$(cd "$dir" && pwd)"
   make_temp_file
   out="$REPLY"
-  if ! (cd "$abs" && env PROJECT_ROOT="$abs" bash "framework/scripts/$script" "$@") >"$out" 2>&1; then
+  if ! (cd "$abs" && env PROJECT_ROOT="$abs" bash "framework/scripts/$script" "$@" </dev/null) >"$out" 2>&1; then
     die "the framework script $script failed: $(tail -n 3 "$out" | tr '\n' ' ')"
   fi
 }

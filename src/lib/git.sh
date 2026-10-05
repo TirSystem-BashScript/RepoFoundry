@@ -6,13 +6,14 @@
 #
 # Provides: git_project, fetch_origin
 
-# git_project DIR ARGS...: run git in DIR. Prompts are switched off, so a
+# git_project DIR ARGS...: run git in DIR. Prompts are switched off and stdin
+# is closed (git must not eat the answers meant for later prompts), so a
 # missing credential or SSH key fails at once instead of waiting for input.
 git_project() {
   local dir="$1"
   shift
   GIT_TERMINAL_PROMPT=0 GIT_SSH_COMMAND="${GIT_SSH_COMMAND:-ssh} -o BatchMode=yes" \
-    git -C "$dir" "$@"
+    git -C "$dir" "$@" </dev/null
 }
 
 # fetch_origin DIR: fetch the Gitea repository into the project. Over SSH the

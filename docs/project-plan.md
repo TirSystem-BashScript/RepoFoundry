@@ -4,23 +4,23 @@
 | Key | Value |
 | --- | --- |
 | ID | PP-001 |
-| CrossReference | [BC-001], [SA-001], [MIL-001], [MIL-002], [MIL-003], [US-001] |
+| CrossReference | [BC-001], [SA-001], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [US-001] |
 
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-05 | Deprecated | Jens Tirsvad Nielsen | S02 | Initial version | [424f14f] |
 | 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Stories per phase: US-001.01 to US-001.03<br>Dates accepted | [02875ae] |
+| 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Added phase MIL-004 (proposed dates 2026-11-16 to 2026-11-20) | [2a6bb8e] |
 
 ---
 
 ## Purpose
 
-Schedule the three phases that deliver RepoFoundry (`create-project.sh` and its documentation) in dependency order. The Business Case sets no deadline, so the dates below are proposals for S01 to confirm.
+Schedule the four phases that deliver RepoFoundry (`create-project.sh` and its documentation) in dependency order. The Business Case sets no deadline, so the dates below are proposals for S01 to confirm.
 
 ## Planning Assumptions
 
-- Week 1 starts 2026-10-05; the plan ends by 2026-11-13.
+- Week 1 starts 2026-10-05; the plan ends by 2026-11-20 (the last phase is proposed).
 - Phase length: two weeks.
 - S01 and S02 review each phase through a pull request, as described in [SA-001]. For now one person holds both roles.
 - The PO language is English, so no translated copies are kept.
@@ -32,6 +32,7 @@ Schedule the three phases that deliver RepoFoundry (`create-project.sh` and its 
 | Foundation | [MIL-001] | 2026-10-05 to 2026-10-16 | 2026-10-16 | S01 | US-001.01 | Safe skeleton, config parsing, prompts, tests | [Milestone 43] |
 | Repositories and Mirror | [MIL-002] | 2026-10-19 to 2026-10-30 | 2026-10-30 | S02 | US-001.02 | GitHub and Gitea repositories and the push mirror | [Milestone 44] |
 | Scaffold and Release | [MIL-003] | 2026-11-02 to 2026-11-13 | 2026-11-13 | S01 | US-001.03 | Local project, framework, README, final review | [Milestone 45] |
+| Configurable Details | [MIL-004] | 2026-11-16 to 2026-11-20 | 2026-11-20 | S01 | US-001.04 | Project details preset in config.env | |
 
 ```plantuml
 @startgantt
@@ -42,6 +43,8 @@ Project starts 2026-10-05
 [Repositories and Mirror Go/No-Go] happens 2026-10-30
 [Scaffold and Release] starts 2026-11-02 and ends 2026-11-13
 [Scaffold and Release Go/No-Go] happens 2026-11-13
+[Configurable Details] starts 2026-11-16 and ends 2026-11-20
+[Configurable Details Go/No-Go] happens 2026-11-20
 @endgantt
 ```
 
@@ -55,11 +58,12 @@ Project starts 2026-10-05
 | Partial-failure reporting | [MIL-002] |
 | Local directory, remotes, framework submodule, skills, hooks, templates, plan gate | [MIL-003] |
 | README and SSH prerequisite documentation | [MIL-003] |
+| Project details set in `config.env` instead of asked | [MIL-004] |
 
 ## Dependencies
 
 ```
-MIL-001 → MIL-002 → MIL-003
+MIL-001 → MIL-002 → MIL-003 → MIL-004
 ```
 
 A No-Go moves every later date by the time needed to rework the failed criteria.
@@ -86,11 +90,12 @@ A No-Go moves every later date by the time needed to rework the failed criteria.
 [MIL-001]: ./milestones/mil-001-foundation.md
 [MIL-002]: ./milestones/mil-002-repositories-and-mirror.md
 [MIL-003]: ./milestones/mil-003-scaffold-and-release.md
+[MIL-004]: ./milestones/mil-004-configurable-details.md
 [US-001]: ./user-stories.md
 [UC-001]: ./uc-001/uc.md
 [SSD-001]: ./uc-001/ssd.md
-[424f14f]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/424f14f4f5577bb47fea41c8f3a655dca953e6d8
 [02875ae]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/02875aee5f2953473924074eea0056eb31af6b7a
 [Milestone 43]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/milestone/43
 [Milestone 44]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/milestone/44
 [Milestone 45]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/milestone/45
+[2a6bb8e]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/2a6bb8e8afadfe6ca4a621da30e44a372898ca62

@@ -4,13 +4,13 @@
 | Key | Value |
 | --- | --- |
 | ID | US-001 |
-| CrossReference | [BC-001], [UCD-001], [MIL-001], [MIL-002], [MIL-003] |
+| CrossReference | [BC-001], [UCD-001], [MIL-001], [MIL-002], [MIL-003], [MIL-004] |
 
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-05 | Deprecated | Jens Tirsvad Nielsen | S02 | Initial version | [424f14f] |
 | 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Optional GitHub; choosing GitHub applies the AGPL license to the Gitea repository<br>Cited UCD-001<br>Split the epic into three stories, one per milestone | [02875ae] |
+| 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Added US-001.04: project details preset in config.env | [2a6bb8e] |
 
 ---
 
@@ -18,7 +18,7 @@
 
 One epic: "Create a new project" ([UC-001]), setting up a new project on Gitea, optionally on GitHub, with the SQA-QC-Framework in place. The actor is the Maintainer, as in [UCD-001] (S01 or S02; for now one person holds both roles).
 
-The epic is split into three stories, one per milestone. Each story fits one two-week phase and can be shown working at the end of it.
+The epic is split into four stories, one per milestone. Each story fits one two-week phase and can be shown working at the end of it.
 
 ## Story List
 
@@ -64,9 +64,24 @@ The epic is split into three stories, one per milestone. Each story fits one two
 | --- | --- | --- |
 | [UC-001] steps 8 to 10, [MIL-003] | fits one phase | Independent: needs the repositories of US-001.02 |
 
+### US-001.04 — Create a new project: preset the details
+
+**As a** Maintainer, **I want** to set project details in `config.env`, **so that** the script does not ask for the same answers every time I create a project.
+
+**Acceptance Criteria**
+
+- Given a detail is set in `config.env`, when the script collects the details, then it does not ask for it, and the summary shows the value as coming from the configuration.
+- Given a detail is not set in `config.env`, when the script collects the details, then it asks for it as before.
+- Given a configured value is invalid, when the script starts, then it stops before any request to a host and names the key; it does not ask for the value instead.
+- Given every detail is set, when the script runs, then the only questions left are the confirmations: create now, reuse of an existing repository, directory, hooks path or file.
+
+| Traces to | Size | INVEST exceptions |
+| --- | --- | --- |
+| [UC-001] step 3, [MIL-004] | fits one phase | Independent: needs the prompts of US-001.01 |
+
 ## INVEST Check
 
-Valuable, Negotiable, Estimable, Small and Testable hold for each story. Independent holds only in part: the stories are ordered, each using what the one before it delivers, which follows the milestone order in [PP-001]. This is flagged as an exception on US-001.02 and US-001.03.
+Valuable, Negotiable, Estimable, Small and Testable hold for each story. Independent holds only in part: the stories are ordered, each using what the one before it delivers, which follows the milestone order in [PP-001]. This is flagged as an exception on US-001.02, US-001.03 and US-001.04.
 
 ---
 
@@ -76,6 +91,7 @@ Valuable, Negotiable, Estimable, Small and Testable hold for each story. Indepen
 [MIL-001]: ./milestones/mil-001-foundation.md
 [MIL-002]: ./milestones/mil-002-repositories-and-mirror.md
 [MIL-003]: ./milestones/mil-003-scaffold-and-release.md
+[MIL-004]: ./milestones/mil-004-configurable-details.md
 [PP-001]: ./project-plan.md
-[424f14f]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/424f14f4f5577bb47fea41c8f3a655dca953e6d8
 [02875ae]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/02875aee5f2953473924074eea0056eb31af6b7a
+[2a6bb8e]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/2a6bb8e8afadfe6ca4a621da30e44a372898ca62

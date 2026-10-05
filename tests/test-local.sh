@@ -217,13 +217,13 @@ test_an_existing_hooks_path_is_not_replaced_without_a_yes() {
 
 test_a_global_hooks_path_is_reported_not_changed() {
   setup_hosts
-  git config --file "$WORK/gitconfig" core.hooksPath /somewhere/global-hooks
+  git config --file "$WORK/gitconfig" core.hooksPath global-hooks-dir
   local dir="$WORK/project"
   local_answers "$dir" y n
   run_apply "$LOCAL_ANSWERS"$'y\n'
   assert_status "apply" 0 "$STATUS"
-  assert_contains "warns" "$ERR" "your global core.hooksPath is '/somewhere/global-hooks'"
-  assert_eq "the global setting is untouched" "/somewhere/global-hooks" "$(git config --file "$WORK/gitconfig" --get core.hooksPath)"
+  assert_contains "warns" "$ERR" "your global core.hooksPath is 'global-hooks-dir'"
+  assert_eq "the global setting is untouched" "global-hooks-dir" "$(git config --file "$WORK/gitconfig" --get core.hooksPath)"
   assert_eq "the project has its own" "framework/githooks" "$(project_git "$dir" config --local --get core.hooksPath)"
 }
 

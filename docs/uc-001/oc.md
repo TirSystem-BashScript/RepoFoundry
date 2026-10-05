@@ -10,6 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Initial version | [02875ae] |
+| 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Project details may be defined by the Configuration | [2a6bb8e] |
 
 ---
 
@@ -30,7 +31,7 @@ Concepts below use the IT terms of [DICT-001] for the PO concepts of [DM-001]. `
 **Postconditions**
 
 - P1. A `Run` instance was created.
-- P2. A `Configuration` instance was created from `config.env` and `.env`, with every value validated and the credentials held only in memory.
+- P2. A `Configuration` instance was created from `config.env` and `.env`, with every value validated (including the project details preset in `config.env`) and the credentials held only in memory.
 - P3. A `ToolCheck` instance was created and associated with the `Run`, recording that `git` and `curl` are present and whether `jq` is present.
 - P4. The `Run` was associated with a `PromptSet` that is returned.
 
@@ -38,7 +39,7 @@ Concepts below use the IT terms of [DICT-001] for the PO concepts of [DM-001]. `
 
 | Condition (failing precondition) | Outcome |
 | --- | --- |
-| `config.env` or `.env` is missing, or a value is missing or malformed | The `Run` ends with an error naming the key, never its value; nothing was changed |
+| `config.env` or `.env` is missing, or a value is missing or malformed (a preset project detail included) | The `Run` ends with an error naming the key, never its value; nothing was changed |
 | `git` or `curl` is missing | The `Run` ends with an error naming the tool; nothing was changed |
 
 ## Contract: provideProjectDetails
@@ -53,10 +54,11 @@ Concepts below use the IT terms of [DICT-001] for the PO concepts of [DM-001]. `
 
 - A `Run` exists and its `Configuration` is valid (from `startProjectCreation`).
 - `githubOwner` is present exactly when the Maintainer chose GitHub.
+- A detail that the `Configuration` defines is not asked: it is taken from the `Configuration`.
 
 **Postconditions**
 
-- P1. A `ProjectRequest` instance was created with the given attributes and associated with the `Run`.
+- P1. A `ProjectRequest` instance was created with the attributes given by the Maintainer or defined by the `Configuration`, and associated with the `Run`.
 - P2. A `PreflightResult` instance was created and associated with the `ProjectRequest`, recording that each token needed for the chosen hosts works, that each owner accepts new repositories, that the name is free on the chosen hosts, that `AGPL-3.0` is offered by Gitea when GitHub was chosen, and the outcome of the SSH test to Gitea on port 10022.
 - P3. A `GiteaRepository` instance was created under `giteaOwner` with the given name, description and visibility, and associated with the `ProjectRequest`.
 - P4. If `githubOwner` is present, a `LicenseFile` instance for `AGPL-3.0` was created and associated with the `GiteaRepository`, so that repository is not empty. Otherwise the `GiteaRepository` has no `LicenseFile` and is empty.
@@ -89,3 +91,4 @@ Concepts below use the IT terms of [DICT-001] for the PO concepts of [DM-001]. `
 [DICT-001]: ../dictionary.md
 [SD-001]: ./sd.md
 [02875ae]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/02875aee5f2953473924074eea0056eb31af6b7a
+[2a6bb8e]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/2a6bb8e8afadfe6ca4a621da30e44a372898ca62

@@ -71,7 +71,7 @@ http_request() {
   # that never contains the request.
   HTTP_STATUS="$(curl --silent --max-time "$HTTP_TIMEOUT_SECONDS" \
     --connect-timeout 10 --output "$out_file" --write-out '%{http_code}' \
-    --config "$config_file" "${data_args[@]}" 2>/dev/null)" || curl_status=$?
+    --config "$config_file" "${data_args[@]}" </dev/null 2>/dev/null)" || curl_status=$?
   # The configuration file holds the token and the body may hold another one
   # (the mirror password): remove both now instead of at exit.
   rm -f -- "$config_file" ${body_file:+"$body_file"}

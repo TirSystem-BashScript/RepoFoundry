@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-05 | Deprecated | Jens Tirsvad Nielsen | S02 | Initial version | [424f14f] |
 | 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Optional GitHub; choosing GitHub applies the AGPL license to the Gitea repository<br>Cited UCD-001<br>Justified the qualitative cost-benefit; stakeholder roles replaced by interests; success criteria 2 and 3 reworded for optional GitHub<br>Added objective 7 (documentation) and its success criterion | [02875ae] |
+| 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Added objective 8 (project details preset in config.env), the matching scope item and success criterion 8 | [2a6bb8e] |
 
 ---
 
@@ -41,6 +41,7 @@ One repeatable, reviewed procedure gives every new project the same secure basel
 5. Add the SQA-QC-Framework as the `framework` submodule, install its skills and git hooks, and copy its templates, optionally enabling the plan gate.
 6. Never print or persist a token, and never overwrite existing files or directories without consent.
 7. Document installation, configuration, usage, security decisions and error handling in clear English for GitHub readers.
+8. Let the Maintainer preset the project details in `config.env`, so that a detail that is set there is not asked again.
 
 ## Scope
 
@@ -48,7 +49,7 @@ One repeatable, reviewed procedure gives every new project the same secure basel
 
 - `create-project.sh`, `config.env.example`, `.env.example`, `.gitignore` and `README.md`.
 - Safe parsing and validation of `config.env` and `.env` (never `source`d).
-- Prompts for name, description, visibility and owner on each chosen host, and whether to use GitHub (which also applies the AGPL license).
+- Prompts for name, description, visibility and owner on each chosen host, and whether to use GitHub (which also applies the AGPL license). Each of these details may be set in `config.env` instead and is then not asked.
 - Checks for required tools (`git`, `curl`, optional `jq`) before any change.
 - A check that the project name is not already taken on GitHub.
 - Partial-failure reporting with a documented way to continue.
@@ -89,6 +90,7 @@ Supports developing on self-hosted Gitea while publishing to GitHub, and adoptin
 | 5 | No overwrite | An existing directory or file is never replaced without a yes | Run twice in the same location |
 | 6 | Lint | `shellcheck` reports no errors on `create-project.sh` | `shellcheck create-project.sh` |
 | 7 | Documentation | `README.md` covers installation, configuration, usage, security decisions, error handling and stakeholders | Review by S02 against MIL-003 Go/No-Go criterion 6 |
+| 8 | Preset details | A project detail set in `config.env` is never asked; an invalid one stops the run before any request and names the key | Tests with each key set, absent, empty and invalid |
 
 ## Risks
 
@@ -138,5 +140,5 @@ Proceed — the procedure is small, well bounded and removes a repeated, securit
 
 [SA-001]: ./stakeholder-analysis.md
 [UCD-001]: ./use-case-diagram.md
-[424f14f]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/424f14f4f5577bb47fea41c8f3a655dca953e6d8
 [02875ae]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/02875aee5f2953473924074eea0056eb31af6b7a
+[2a6bb8e]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/2a6bb8e8afadfe6ca4a621da30e44a372898ca62

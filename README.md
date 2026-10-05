@@ -1,4 +1,4 @@
-# RepoFoundry
+# Repo Foundry
 
 RepoFoundry (`src/create-project.sh`) sets up a new project in one run:
 
@@ -15,8 +15,12 @@ and owner (a user or an organization, separately on each host), shows a plan,
 and only creates anything after you pass `--apply` and answer yes.
 
 > **Status.** The script is tested with stubbed host APIs and real git against
-> local repositories (see [Development](#development)). A first run against
-> real GitHub and Gitea repositories is still to be recorded.
+> local repositories (see [Development](#development)). A first end-to-end run
+> on real GitHub and Gitea repositories, with organization owners on both, has
+> passed (2026-10-05, review record RC-017). Creating a repository under your
+> own Gitea account needs the `write:user` token scope (see
+> [Token permissions](#token-permissions)); that path has not been completed
+> yet.
 
 ## Contents
 
@@ -63,7 +67,7 @@ are accepted, and anything else stops the run with a message that names the key
 and the line, never the value.
 
 ```bash
-cp config.env.example config.env     # service addresses, not secret
+cp config.env.example config.env     # service addresses, not secret: set GITEA_URL (and GITEA_API_URL)
 cp .env.example .env                 # credentials: keep private
 chmod 600 .env                       # Linux and macOS
 ```
@@ -82,6 +86,44 @@ chmod 600 .env                       # Linux and macOS
 
 Every URL must start with `https://` and must not contain a user name,
 password, query string or fragment. A credential key in this file is rejected.
+
+### `config.env` (project details, optional)
+
+Any of the details the script asks for can be set in `config.env` instead.
+A detail that is set is used and not asked; the summary marks it with
+`(from config.env)`.
+
+| Key | Detail | Accepted value |
+| --- | --- | --- |
+| `PROJECT_NAME` | repository name | letters, digits, `.`, `_`, `-`; at most 100; not ending in `.git` |
+| `PROJECT_DESCRIPTION` | description | at most 350 characters; may be empty |
+| `PROJECT_VISIBILITY` | visibility | `private` or `public` |
+| `GITEA_OWNER` | Gitea user or organization | letters, digits, `.`, `_`, `-`; at most 39 |
+| `USE_GITHUB` | also create a GitHub repository | `yes` or `no` |
+| `GITHUB_OWNER` | GitHub user or organization | letters, digits, `-`; used only when GitHub is used |
+| `PROJECT_DIRECTORY` | local directory | not empty, not starting with `-` |
+| `ENABLE_PLAN_GATE` | enable the plan gate | `yes` or `no` |
+
+- A key that is present counts as set, even when its value is empty. Only
+  `PROJECT_DESCRIPTION` may be empty (no description); an empty value for any
+  other key stops the run. Remove the line to be asked instead.
+- An invalid value stops the run before any request to a host and names the
+  key. The script never falls back to asking for it.
+- `USE_GITHUB=no` skips the GitHub owner and every GitHub step; a
+  `GITHUB_OWNER` set at the same time is ignored, with a warning.
+- Only these eight details can be set. The confirmations stay questions that
+  default to no: create now, reusing an existing repository, an existing
+  directory, `core.hooksPath` and replacing a template file.
+- These keys are accepted in `config.env` only, never in `.env`.
+- A value is read as plain text: an unquoted ` #` starts a comment and cuts the
+  value there. Put a description that contains ` #` in double quotes, for
+  example `PROJECT_DESCRIPTION="Tool for #mirrors"`.
+
+With all eight set, a run asks only the confirmations:
+
+```bash
+src/create-project.sh --apply        # asks only "Create these now (y/n) [n]"
+```
 
 ### `.env` (credentials)
 
@@ -105,7 +147,8 @@ src/create-project.sh --config /path/to/config.env --env /path/to/.env
 
 The script asks for, in this order: repository name, description, visibility,
 Gitea owner, whether to also create a GitHub repository (and its owner), the
-local directory and whether to enable the plan gate. It then checks both hosts
+local directory and whether to enable the plan gate (a detail set in
+[`config.env`](#configenv-project-details-optional) is not asked). It then checks both hosts
 with read-only requests and prints a plan:
 
 ```text
@@ -195,7 +238,7 @@ repositories for the chosen owner and to push to the new one.
 | Create a private repository | classic token with the `repo` scope | GitHub REST documentation, "Create a repository" |
 | Create a public repository only | classic token with `public_repo` is enough | same |
 | Push from the Gitea mirror | covered by `repo` | |
-| Check that you belong to the organization owner | probably `read:org` | **Not confirmed**: the GitHub documentation names no scope for this call. If the script says you do not belong to an organization that you do belong to, add `read:org`. |
+| Check that you belong to the organization owner | worked with a classic token that has `repo` and `admin:org` | `read:org` alone was **not tested**: the GitHub documentation names no scope for this call. If the script says you do not belong to an organization that you do belong to, add `read:org`. |
 
 - **Organization owners:** you must be an active member who is allowed to
   create repositories in the organization. Organizations that require SSO or
@@ -211,9 +254,9 @@ repositories for the chosen owner and to push to the new one.
 | Need | Scope | Source |
 | --- | --- | --- |
 | Read the account the token belongs to | `read:user` | Gitea documentation |
-| Create repositories, manage the push mirror | `write:repository` | Gitea documentation |
-| Look up an organization and your permissions in it | `read:organization` | Gitea documentation |
-| Create a repository in an organization | probably `write:organization` as well | **Not confirmed**: expected from how the Gitea API groups organization calls; to be confirmed in the first end-to-end run. |
+| Create a repository **under your own account** | `write:user` | **Confirmed by a real server**: without it Gitea answers `required=[write:user]` |
+| Create a repository in an organization, manage its push mirror | `write:organization` and `write:repository` | worked with a token that has both, plus `read:user`; the minimum was not narrowed down |
+| Look up an organization and your permissions in it | covered by the scopes above | worked in the end-to-end run |
 
 A missing scope shows up as an HTTP 403 with the server's own message. The
 script stops before it creates anything when a preflight check is refused.
@@ -256,7 +299,7 @@ step, `2` a usage error.
 | A tool, a config key or a token is missing or invalid | stops before any request | fix it and run again |
 | A token is refused, an owner is unknown, a name is taken, the license is missing | stops in the preflight; nothing was created | fix the cause |
 | The host cannot be reached | stops with the host name | try again |
-| A repository already exists and is empty (Gitea: or holds only the license) | offers to reuse it (default no) | answer, or choose another name |
+| A repository already exists and is empty (Gitea: or holds only the license and the README Gitea adds) | offers to reuse it (default no) | answer, or choose another name |
 | A repository already has content | stops | choose another name or remove it |
 | A step fails after another succeeded | stops and prints what exists, what failed and how to continue | fix the cause and run the **same command again with `--apply`**: what was created is offered for reuse |
 | The mirror is refused (disabled, interval too short) | keeps the repositories and reports it | change `MIRROR_INTERVAL` or ask the Gitea administrator, then run again |
@@ -285,17 +328,20 @@ web interface and the project directory by hand.
   this, and revoke it if the Gitea server is ever in doubt.
 - **`sync_on_commit` may be ignored.** When a push mirror is created through
   the API, some Gitea versions ignore `sync_on_commit` (upstream issue
-  go-gitea/gitea#22990). The script reads the mirror back and warns if the
-  setting was not applied; the mirror then syncs on its interval
+  go-gitea/gitea#22990). On Gitea 1.27.3 it was applied: a branch pushed to
+  Gitea reached GitHub within seconds. The script reads the mirror back and
+  warns if the setting was not applied; the mirror then syncs on its interval
   (`MIRROR_INTERVAL`, default 10 minutes). The first sync is requested right
   after the mirror is created.
 - **The server decides the shortest interval** and whether push mirrors are
   allowed at all. A refused mirror stops the run with the server's message;
   the repositories created so far are kept.
 - **The license commit.** Gitea adds the license file when the repository is
-  created with `auto_init`. The script sends no README, so the repository
-  should hold only `LICENSE`; this is still to be confirmed against a real
-  server.
+  created with `auto_init`, and on the real server it also adds a generated
+  `README.md`. Both are mirrored to GitHub and become the first commit of the
+  local project. A Gitea repository that holds only these files counts as
+  content this script created and is offered for reuse; a repository with
+  anything else counts as having content and is refused.
 - **No rollback.** See [Error handling and recovery](#error-handling-and-recovery).
 - **Mirror direction is Gitea to GitHub only.** Push to Gitea; GitHub is a
   copy.
