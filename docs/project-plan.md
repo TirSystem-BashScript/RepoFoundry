@@ -9,7 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-05 | Proposed | Jens Tirsvad Nielsen | S02 | Initial version | [424f14f] |
+| 2026-10-05 | Deprecated | Jens Tirsvad Nielsen | S02 | Initial version | [424f14f] |
+| 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Stories per phase: US-001.01 to US-001.03<br>Dates accepted | [02875ae] |
 
 ---
 
@@ -29,8 +30,8 @@ Schedule the three phases that deliver RepoFoundry (`create-project.sh` and its 
 | Gateway | Document | Window | Decision date | Owner | Stories | Main deliverable | Milestone |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | Foundation | [MIL-001] | 2026-10-05 to 2026-10-16 | 2026-10-16 | S01 | US-001.01 | Safe skeleton, config parsing, prompts, tests | |
-| Repositories and Mirror | [MIL-002] | 2026-10-19 to 2026-10-30 | 2026-10-30 | S02 | US-001.01 | GitHub and Gitea repositories and the push mirror | |
-| Scaffold and Release | [MIL-003] | 2026-11-02 to 2026-11-13 | 2026-11-13 | S01 | US-001.01 | Local project, framework, README, final review | |
+| Repositories and Mirror | [MIL-002] | 2026-10-19 to 2026-10-30 | 2026-10-30 | S02 | US-001.02 | GitHub and Gitea repositories and the push mirror | |
+| Scaffold and Release | [MIL-003] | 2026-11-02 to 2026-11-13 | 2026-11-13 | S01 | US-001.03 | Local project, framework, README, final review | |
 
 ```plantuml
 @startgantt
@@ -72,11 +73,11 @@ A No-Go moves every later date by the time needed to rework the failed criteria.
 
 ## Open Issues
 
-- Confirm the proposed dates (S01).
+- Decided: the proposed dates are accepted with this plan (S01 asked for its acceptance on 2026-10-05); a change needs a new Version History row.
 - Decided: `origin` uses HTTPS derived from `GITEA_URL`, unless the SSH test passed, in which case it uses SSH on port 10022.
 - Decided: use case [UC-001] "Create a new project" is created, with [SSD-001]; tasks that implement its steps reference it.
 - Decided: S01 and S02 are both held by one person for now.
-- Open: this plan says the script does not make the first commit; confirm.
+- Open: this plan says the script does not make the first commit; confirm before MIL-003 starts.
 
 ---
 
@@ -89,3 +90,4 @@ A No-Go moves every later date by the time needed to rework the failed criteria.
 [UC-001]: ./uc-001/uc.md
 [SSD-001]: ./uc-001/ssd.md
 [424f14f]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/424f14f4f5577bb47fea41c8f3a655dca953e6d8
+[02875ae]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/02875aee5f2953473924074eea0056eb31af6b7a

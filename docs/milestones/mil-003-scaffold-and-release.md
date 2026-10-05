@@ -9,7 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-05 | Proposed | Jens Tirsvad Nielsen | S02 | Initial version | [424f14f] |
+| 2026-10-05 | Deprecated | Jens Tirsvad Nielsen | S02 | Initial version | [424f14f] |
+| 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Optional GitHub; choosing GitHub applies the AGPL license to the Gitea repository<br>Cited US-001.03<br>Traces to objective 7<br>Criterion 2 names the framework URL<br>Target date accepted | [02875ae] |
 
 ---
 
@@ -25,13 +26,14 @@ Complete `create-project.sh` (local directory, credential-free remotes, framewor
 
 | # | Criterion (objectively checkable) | Go | No-Go |
 | --- | --- | --- | --- |
-| 1 | `git remote -v` shows `origin` (Gitea) and `github` with no credentials in either URL | Verified | Any credential |
-| 2 | `framework` is a submodule at the configured URL and the install scripts have run once, in the documented order | Verified | Missing or repeated |
+| 1 | `git remote -v` shows `origin` (Gitea) and, when GitHub was chosen, `github`, with no credentials in any URL; with GitHub chosen the local history contains the license commit | Verified | Any credential, or a missing license commit |
+| 2 | `framework` is a submodule of `ssh://git@git.tirsystem.com:10022/TirSystem/SQA-QC-Framework.git` and the install scripts have run once, in the documented order | Verified | Missing or repeated |
 | 3 | An existing directory, `AGENTS.md` or `docs/artifact-registry.md` is never overwritten without a yes | Verified by a second run | Overwritten |
 | 4 | With the plan gate enabled, a commit touching `src/` or `tests/` without a `Task: MIL-NNN#N` trailer is refused | Verified | Accepted |
 | 5 | An existing `core.hooksPath` is reported and not replaced without consent | Verified | Replaced silently |
 | 6 | README covers installation, configuration, usage examples, security decisions, error handling and stakeholders, in clear English | Reviewed by S02 | Section missing |
 | 7 | End-to-end run on disposable repositories passes and the final review records no open security finding | Recorded in an `RC-*` | Open finding |
+| 8 | All acceptance criteria of US-001.03 in [US-001] are met | Verified | Any unmet |
 
 ## Dependencies
 
@@ -43,8 +45,9 @@ Complete `create-project.sh` (local directory, credential-free remotes, framewor
 
 | Business Case objective / KPI / user story | Reference |
 | --- | --- |
-| Objectives 4, 5 and 6 | [BC-001] |
-| Success criteria 1, 5 and 6 | [BC-001] |
+| User story US-001.03 | [US-001] |
+| Objectives 4, 5, 6 and 7 | [BC-001] |
+| Success criteria 1, 5, 6 and 7 | [BC-001] |
 
 ## Ownership
 
@@ -55,13 +58,13 @@ Complete `create-project.sh` (local directory, credential-free remotes, framewor
 
 ## Target Date
 
-2026-11-13 — proposed.
+2026-11-13 — the Business Case sets no deadline, so it does not constrain this date; accepted together with PP-001.
 
 ## Tasks
 
 | # | Task | Summary | Needs its own Use Case/User Story? | Reference |
 | --- | --- | --- | --- | --- |
-| 1 | Create the local project directory and credential-free remotes | After consent, create the directory (refuse to reuse an existing one without a yes), run `git init` on `main`, and add `origin` (Gitea) and `github` using URLs derived from the configured base URLs and the selected owners, with no token in any URL. `origin` uses HTTPS derived from `GITEA_URL`, unless the SSH test from the preflight passed, in which case it uses SSH on port 10022. Do not make a commit. | Yes | [UC-001] |
+| 1 | Create the local project directory and credential-free remotes | After consent, create the directory (refuse to reuse an existing one without a yes), run `git init` on `main`, and add `origin` (Gitea) and, only if GitHub was chosen, `github` using URLs derived from the configured base URLs and the selected owners, with no token in any URL. `origin` uses HTTPS derived from `GITEA_URL`, unless the SSH test from the preflight passed, in which case it uses SSH on port 10022. When the Gitea repository is not empty (GitHub chosen, AGPL license), fetch it and check out its default branch so the local history starts from the license commit. Do not make a commit. | Yes | [UC-001] |
 | 2 | Add the framework submodule | From the project directory run `git submodule add ssh://git@git.tirsystem.com:10022/TirSystem/SQA-QC-Framework.git framework`. Check beforehand that SSH on port 10022 works and stop with an actionable message if not. Document that this SSH access must be configured. | Yes | [UC-001] |
 | 3 | Install skills and git hooks, with optional plan gate | Run `framework/scripts/install-skills.sh` and `install-git-hooks.sh`. The hook installer only sets `core.hooksPath` to `framework/githooks` and is safe to rerun, but it would replace a different existing value, so read the current value first and ask. Offer `--enable-plan-gate` as an optional choice, which requires a `Task: MIL-NNN#N` trailer on commits changing `src/` or `tests/`. | Yes | [UC-001] |
 | 4 | Copy the framework templates without overwriting | Copy `AGENTS-template.md` to `AGENTS.md` and `artifact-registry-template.md` to `docs/artifact-registry.md` after `mkdir -p docs`, asking before replacing an existing file. | Yes | [UC-001] |
@@ -75,3 +78,4 @@ Complete `create-project.sh` (local directory, credential-free remotes, framewor
 [UC-001]: ../uc-001/uc.md
 [MIL-002]: ./mil-002-repositories-and-mirror.md
 [424f14f]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/424f14f4f5577bb47fea41c8f3a655dca953e6d8
+[02875ae]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/02875aee5f2953473924074eea0056eb31af6b7a

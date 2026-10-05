@@ -4,12 +4,13 @@
 | Key | Value |
 | --- | --- |
 | ID | UC-001 |
-| CrossReference | [US-001], [SA-001] |
+| CrossReference | [UCD-001], [US-001], [SA-001], [DM-001] |
 
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-05 | Proposed | Jens Tirsvad Nielsen | S02 | Initial version | [424f14f] |
+| 2026-10-05 | Deprecated | Jens Tirsvad Nielsen | S02 | Initial version | [424f14f] |
+| 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Optional GitHub; choosing GitHub applies the AGPL license to the Gitea repository<br>Cited DM-001 and UCD-001 | [02875ae] |
 
 ---
 
@@ -27,23 +28,23 @@
 - **Preconditions:**
   - `config.env` and `.env` exist and are valid.
   - `git` and `curl` are installed.
-  - The Maintainer has a GitHub PAT, a Gitea token and SSH access to Gitea on port 10022.
+  - The Maintainer has a Gitea token, a GitHub PAT (only when GitHub is chosen) and SSH access to Gitea on port 10022.
 - **Postconditions (success guarantee):**
-  - An empty repository exists on GitHub and on Gitea under the chosen owners.
-  - The Gitea repository is a push mirror to GitHub.
-  - A local project directory exists with credential-free remotes `origin` (Gitea) and `github`, the `framework` submodule, installed skills and hooks, and the copied templates.
+  - A repository exists on Gitea under the chosen owner. It is empty, or, when the Maintainer chose GitHub, it holds the AGPL license file.
+  - When the Maintainer chose to create a GitHub repository, an empty repository exists on GitHub under the chosen owner, the Gitea repository is a push mirror to it, and the AGPL license file reaches GitHub through the mirror.
+  - A local project directory exists with credential-free remotes `origin` (Gitea) and, when GitHub was chosen, `github`, the `framework` submodule, installed skills and hooks, and the copied templates.
   - The Maintainer has a summary of what was created.
 
 ### Main Success Scenario
 
 1. The Maintainer starts the project creation.
 2. The system loads and validates the configuration and credentials and checks that the required tools exist.
-3. The Maintainer provides the repository name, description, visibility, the GitHub owner, the Gitea owner, the local directory, and whether to enable the plan gate.
-4. The system checks that both tokens work, that the owners accept new repositories, that the name is free on both hosts, and whether SSH to Gitea works.
-5. The system creates the empty GitHub repository.
-6. The system creates the empty Gitea repository.
-7. The system configures the Gitea repository as a push mirror to GitHub and verifies it.
-8. The system creates the local project with the `origin` and `github` remotes.
+3. The Maintainer provides the repository name, description, visibility, the Gitea owner, whether to also create a GitHub repository (and if so its owner), the local directory, and whether to enable the plan gate.
+4. The system checks that the tokens needed for the chosen hosts work, that the owners accept new repositories, that the name is free on those hosts, and whether SSH to Gitea works.
+5. Optional: if the Maintainer chose GitHub, the system creates the empty GitHub repository.
+6. The system creates the Gitea repository. If the Maintainer chose GitHub, the repository is created with the AGPL license file and so is not empty; otherwise it is empty and has no license.
+7. Optional: if GitHub was chosen, the system configures the Gitea repository as a push mirror to GitHub and verifies it. A license file in the Gitea repository is pushed to GitHub by the mirror.
+8. The system creates the local project with the `origin` remote and, if GitHub was chosen, the `github` remote.
 9. The system adds the framework submodule, installs its skills and hooks (and the plan gate if chosen) and copies the templates.
 10. The system reports a summary of what was created.
 
@@ -52,14 +53,16 @@
 - 2a. A required tool is missing, or a configuration value is missing or malformed:
   1. The system stops before any change and names the problem without showing a credential.
 - 4a. A token is invalid, an owner does not accept the repository, or the name is taken:
-  1. The system stops before creating anything and says which check failed.
+  1. The system stops before creating anything and says which check failed. The GitHub token is only checked when GitHub was chosen.
+- 4c. GitHub was chosen and the Gitea server does not offer the `AGPL-3.0` license:
+  1. The system stops before creating anything and names the missing license.
 - 4b. SSH to Gitea does not work:
   1. The system uses HTTPS for `origin` and warns that the framework submodule step will fail until SSH is configured.
 - 5a, 6a, 7a. A step fails after an earlier one succeeded:
   1. The system stops and reports what exists, what failed and how to continue.
 - 8a, 9a. The target directory or a target file already exists:
   1. The system asks the Maintainer before replacing it; on no, it skips that item and reports it.
-- 9b. A different `core.hooksPath` is already set:
+- 9b. A different git hooks setup is already configured in the project:
   1. The system asks before replacing it.
 
 ### Special Requirements / Business Rules
@@ -68,8 +71,10 @@
 | --- | --- |
 | 2, 4 | A token never appears in output, logs, command lines, remote URLs or temporary files left behind |
 | 3 | The GitHub owner and the Gitea owner are chosen separately; `GITHUB_USER` is only the authenticating account |
-| 7 | The mirror direction is Gitea to GitHub |
-| 8 | `origin` uses HTTPS derived from `GITEA_URL`, or SSH when the SSH test in step 4 passed |
+| 3, 5, 7 | GitHub is optional; without it no GitHub repository, mirror or `github` remote is created and the GitHub credentials are not required |
+| 6 | Choosing GitHub applies the AGPL license (key `AGPL-3.0`) to the Gitea repository when it is created, so that repository is not empty; without GitHub there is no license and the repository is empty |
+| 7 | The mirror direction is Gitea to GitHub; the GitHub repository stays empty and receives its content from the mirror |
+| 8 | `origin` uses HTTPS derived from `GITEA_URL`, or SSH when the SSH test in step 4 passed; when the Gitea repository is not empty (GitHub chosen) the local project is created by fetching it, not by an unrelated `git init` history |
 | 8, 9 | Nothing is overwritten or deleted without consent, and no commit is made |
 
 ### Open Issues
@@ -78,6 +83,9 @@
 
 ---
 
+[UCD-001]: ../use-case-diagram.md
 [US-001]: ../user-stories.md
 [SA-001]: ../stakeholder-analysis.md
+[DM-001]: ./dm.md
 [424f14f]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/424f14f4f5577bb47fea41c8f3a655dca953e6d8
+[02875ae]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/02875aee5f2953473924074eea0056eb31af6b7a
