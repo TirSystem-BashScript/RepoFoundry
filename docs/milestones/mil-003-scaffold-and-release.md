@@ -9,7 +9,7 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-05 | Proposed | Jens Tirsvad Nielsen | S02 | Initial version | [9ae0cba] |
+| 2026-10-05 | Proposed | Jens Tirsvad Nielsen | S02 | Initial version | [424f14f] |
 
 ---
 
@@ -74,4 +74,4 @@ Complete `create-project.sh` (local directory, credential-free remotes, framewor
 [US-001]: ../user-stories.md
 [UC-001]: ../uc-001/uc.md
 [MIL-002]: ./mil-002-repositories-and-mirror.md
-[9ae0cba]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/9ae0cba306577833480f692c67c0ec327ff2e24e
+[424f14f]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/424f14f4f5577bb47fea41c8f3a655dca953e6d8
