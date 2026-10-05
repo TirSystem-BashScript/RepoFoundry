@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Optional GitHub; choosing GitHub applies the AGPL license to the Gitea repository<br>Cited US-001.02<br>Purpose and criterion 1 reworded for optional GitHub<br>Target date accepted | [02875ae] |
-| 2026-10-05 | Proposed | Jens Tirsvad Nielsen | S02 | Criterion 2 corrected after the live run: Gitea also adds a README.md with the license | pending |
+| 2026-10-05 | Proposed | Jens Tirsvad Nielsen | S02 | Criterion 2 corrected after the live run: Gitea also adds a README.md with the license | [613a288] |
 
 ---
 
@@ -77,3 +77,4 @@ Decide whether the script creates the Gitea repository and, if GitHub is chosen,
 [UC-001]: ../uc-001/uc.md
 [MIL-001]: ./mil-001-foundation.md
 [02875ae]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/02875aee5f2953473924074eea0056eb31af6b7a
+[613a288]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/613a288dead4c19c00dee6fbb60d46bc3edf8889

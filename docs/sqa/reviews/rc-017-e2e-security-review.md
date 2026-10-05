@@ -9,7 +9,7 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-05 | Proposed | Jens Tirsvad Nielsen | S02 | Initial version | pending |
+| 2026-10-05 | Proposed | Jens Tirsvad Nielsen | S02 | Initial version | [613a288] |
 
 ---
 
@@ -104,3 +104,4 @@ Go-with-conditions — No open security finding, the organization-owner flow wor
 [MIL-002]: ../../milestones/mil-002-repositories-and-mirror.md
 [RC-016]: ./rc-016-create-project-sh.md
 [US-001]: ../../user-stories.md
+[613a288]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/613a288dead4c19c00dee6fbb60d46bc3edf8889
