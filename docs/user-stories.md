@@ -4,13 +4,13 @@
 | Key | Value |
 | --- | --- |
 | ID | US-001 |
-| CrossReference | [BC-001], [UCD-001], [MIL-001], [MIL-002], [MIL-003], [MIL-004] |
+| CrossReference | [BC-001], [UCD-001], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005] |
 
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Optional GitHub; choosing GitHub applies the AGPL license to the Gitea repository<br>Cited UCD-001<br>Split the epic into three stories, one per milestone | [02875ae] |
-| 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Added US-001.04: project details preset in config.env | [2a6bb8e] |
+| 2026-10-05 | Deprecated | Jens Tirsvad Nielsen | S02 | Added US-001.04: project details preset in config.env | [2a6bb8e] |
+| 2026-10-06 | Accepted | Jens Tirsvad Nielsen | S02 | Added US-001.05: credentials asked when missing and kept in the project .env | [ded26a6] |
 
 ---
 
@@ -18,7 +18,7 @@
 
 One epic: "Create a new project" ([UC-001]), setting up a new project on Gitea, optionally on GitHub, with the SQA-QC-Framework in place. The actor is the Maintainer, as in [UCD-001] (S01 or S02; for now one person holds both roles).
 
-The epic is split into four stories, one per milestone. Each story fits one two-week phase and can be shown working at the end of it.
+The epic is split into five stories, one per milestone. Each story fits one two-week phase and can be shown working at the end of it.
 
 ## Story List
 
@@ -79,9 +79,25 @@ The epic is split into four stories, one per milestone. Each story fits one two-
 | --- | --- | --- |
 | [UC-001] step 3, [MIL-004] | fits one phase | Independent: needs the prompts of US-001.01 |
 
+### US-001.05 — Create a new project: ask for the credentials and keep them in the project
+
+**As a** Maintainer, **I want** the script to ask for a credential that `.env` does not provide and to create a `.env` file in the new project, **so that** I can start without a prepared `.env` and the new project has the credentials its tools need.
+
+**Acceptance Criteria**
+
+- Given `GITEA_TOKEN` is not provided in `.env`, when the script starts, then it asks for it without showing what is typed and does not stop with an error; the same holds for `GITHUB_PAT` and `GITHUB_USER` when GitHub is chosen.
+- Given an entered credential is not valid, when the script checks it, then it asks again and never shows the value.
+- Given the project exists, when the Maintainer agrees, then the new project has a `.env` that holds only the credentials the project needs, is readable by its owner only and is ignored by git.
+- Given the Maintainer declines, or `.env` already exists in the project and the Maintainer declines replacing it, then no `.env` is written or replaced and the summary says so.
+- Given any run, then no credential appears in output, remotes, tracked files or the summary.
+
+| Traces to | Size | INVEST exceptions |
+| --- | --- | --- |
+| [UC-001] steps 2 and 9, [MIL-005] | fits one phase | Independent: needs the local project of US-001.03 |
+
 ## INVEST Check
 
-Valuable, Negotiable, Estimable, Small and Testable hold for each story. Independent holds only in part: the stories are ordered, each using what the one before it delivers, which follows the milestone order in [PP-001]. This is flagged as an exception on US-001.02, US-001.03 and US-001.04.
+Valuable, Negotiable, Estimable, Small and Testable hold for each story. Independent holds only in part: the stories are ordered, each using what the one before it delivers, which follows the milestone order in [PP-001]. This is flagged as an exception on US-001.02 to US-001.05.
 
 ---
 
@@ -92,6 +108,7 @@ Valuable, Negotiable, Estimable, Small and Testable hold for each story. Indepen
 [MIL-002]: ./milestones/mil-002-repositories-and-mirror.md
 [MIL-003]: ./milestones/mil-003-scaffold-and-release.md
 [MIL-004]: ./milestones/mil-004-configurable-details.md
+[MIL-005]: ./milestones/mil-005-credentials.md
 [PP-001]: ./project-plan.md
-[02875ae]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/02875aee5f2953473924074eea0056eb31af6b7a
 [2a6bb8e]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/2a6bb8e8afadfe6ca4a621da30e44a372898ca62
+[ded26a6]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/ded26a658c666bf29d84093cb352e3635e07719b
