@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Initial version, terms of UC-001 | [02875ae] |
-| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | The IT terms are also used in DCD-001 and DCD-002<br>InstallResult and Visibility named as design-only types | [f4d611b] |
+| 2026-10-06 | Deprecated | Jens Tirsvad Nielsen | S02 | The IT terms are also used in DCD-001 and DCD-002<br>InstallResult and Visibility named as design-only types | [f4d611b] |
+| 2026-10-06 | Accepted | Jens Tirsvad Nielsen | S02 | Added Credentials File / EnvFile | pending |
 
 ---
 
@@ -38,6 +38,7 @@ Maps each Product Owner (PO) term to its professional IT term. PO language: Engl
 | Framework | en | Submodule | The SQA-QC-Framework added to a local project; the IT term names how it is attached. | DM, UC | OC, SD, DCD |
 | Framework Setup | en | HookSetup | The skills and git hooks installed from the framework, with the plan gate on or off. | DM, UC | OC, SD, DCD |
 | Template | en | Template | A framework file copied into a project. | DM, UC | OC, SD, DCD |
+| Credentials File | en | EnvFile | The file in the local project that holds a copy of the credentials the project needs; owner-only and ignored by git. | DM, UC | OC, SD, DCD |
 | Summary | en | Summary | The report of what was created, skipped or failed and how to continue. | DM, UC | OC, SD, DCD |
 
 ## Rules
@@ -62,5 +63,4 @@ Maps each Product Owner (PO) term to its professional IT term. PO language: Engl
 [DM-002]: ./domain-model.md
 [OC-001]: ./uc-001/oc.md
 [DCD-001]: ./uc-001/dcd.md
-[02875ae]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/02875aee5f2953473924074eea0056eb31af6b7a
 [f4d611b]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/f4d611b77cc70b4686506d44bf8f439045d9e0d2

@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Optional GitHub; choosing GitHub applies the AGPL license to the Gitea repository<br>Cited DM-001 and UCD-001 | [02875ae] |
-| 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Step 3: details set in config.env are not asked (extensions 3a, 3b) | [2a6bb8e] |
+| 2026-10-05 | Deprecated | Jens Tirsvad Nielsen | S02 | Step 3: details set in config.env are not asked (extensions 3a, 3b) | [2a6bb8e] |
+| 2026-10-06 | Accepted | Jens Tirsvad Nielsen | S02 | Credentials not in .env are asked (step 2, extension 2b); the project .env is created with consent (step 9, extensions 9c, 9d) | pending |
 
 ---
 
@@ -26,33 +26,36 @@
   - S02 — credentials are never exposed and nothing is overwritten silently
   - S03 — the published procedure is documented and reusable
 - **Preconditions:**
-  - `config.env` and `.env` exist and are valid.
+  - `config.env` exists and is valid. `.env` may be missing or hold only some credentials; a credential it does not provide is asked.
   - `config.env` may preset any of the project details of step 3.
   - `git` and `curl` are installed.
-  - The Maintainer has a Gitea token, a GitHub PAT (only when GitHub is chosen) and SSH access to Gitea on port 10022.
+  - The Maintainer has a Gitea token, a GitHub PAT and a GitHub account name (only when GitHub is chosen) and SSH access to Gitea on port 10022.
 - **Postconditions (success guarantee):**
   - A repository exists on Gitea under the chosen owner. It is empty, or, when the Maintainer chose GitHub, it holds the AGPL license file.
   - When the Maintainer chose to create a GitHub repository, an empty repository exists on GitHub under the chosen owner, the Gitea repository is a push mirror to it, and the AGPL license file reaches GitHub through the mirror.
   - A local project directory exists with credential-free remotes `origin` (Gitea) and, when GitHub was chosen, `github`, the `framework` submodule, installed skills and hooks, and the copied templates.
+  - When the Maintainer agreed, the local project has a `.env` that holds only the credentials the project needs, is readable by its owner only and is ignored by git.
   - The Maintainer has a summary of what was created.
 
 ### Main Success Scenario
 
 1. The Maintainer starts the project creation.
-2. The system loads and validates the configuration and credentials and checks that the required tools exist.
+2. The system loads and validates the configuration and credentials and checks that the required tools exist. A credential that `.env` does not provide is asked, without echo; the GitHub credentials are asked once GitHub is chosen.
 3. The Maintainer provides the repository name, description, visibility, the Gitea owner, whether to also create a GitHub repository (and if so its owner), the local directory, and whether to enable the plan gate. A detail that is set in `config.env` is not asked.
 4. The system checks that the tokens needed for the chosen hosts work, that the owners accept new repositories, that the name is free on those hosts, and whether SSH to Gitea works.
 5. Optional: if the Maintainer chose GitHub, the system creates the empty GitHub repository.
 6. The system creates the Gitea repository. If the Maintainer chose GitHub, the repository is created with the AGPL license file and so is not empty; otherwise it is empty and has no license.
 7. Optional: if GitHub was chosen, the system configures the Gitea repository as a push mirror to GitHub and verifies it. A license file in the Gitea repository is pushed to GitHub by the mirror.
 8. The system creates the local project with the `origin` remote and, if GitHub was chosen, the `github` remote.
-9. The system adds the framework submodule, installs its skills and hooks (and the plan gate if chosen) and copies the templates.
+9. The system adds the framework submodule, installs its skills and hooks (and the plan gate if chosen) and copies the templates. If the Maintainer agrees, it also creates the project's own `.env` with the credentials the project needs.
 10. The system reports a summary of what was created.
 
 ### Extensions (Alternative / Exception Flows)
 
 - 2a. A required tool is missing, or a configuration value is missing or malformed:
   1. The system stops before any change and names the problem without showing a credential.
+- 2b. A credential is not provided in `.env`:
+  1. The system asks for it without showing what is typed. An invalid value is refused and asked again; when input ends the system stops before any change and names the key.
 - 3a. A project detail is set in `config.env`:
   1. The system uses it and does not ask for it; the summary says it came from the configuration.
 - 3b. A configured project detail is invalid:
@@ -69,12 +72,18 @@
   1. The system asks the Maintainer before replacing it; on no, it skips that item and reports it.
 - 9b. A different git hooks setup is already configured in the project:
   1. The system asks before replacing it.
+- 9c. The Maintainer declines creating the project's `.env`:
+  1. The system creates none and says so in the summary.
+- 9d. A `.env` already exists in the project:
+  1. The system asks before replacing it; on no, it keeps it and reports it.
 
 ### Special Requirements / Business Rules
 
 | Step | Rule |
 | --- | --- |
 | 2, 4 | A token never appears in output, logs, command lines, remote URLs or temporary files left behind |
+| 2 | A credential that is asked is read without echo, validated like one read from `.env`, and held in memory for the run |
+| 9 | The project's `.env` is the only place a token is written. It is created only after a yes (default no), holds only the keys the project needs (`GITEA_TOKEN`; `GITHUB_PAT` and `GITHUB_USER` when GitHub was chosen), is readable by its owner only, is excluded from git without changing a tracked file, and is never replaced without a yes |
 | 3 | The GitHub owner and the Gitea owner are chosen separately; `GITHUB_USER` is only the authenticating account |
 | 3 | A project detail set in `config.env` (the key is present, even if empty where an empty value is allowed) is not asked; only the confirmations stay interactive |
 | 3, 5, 7 | GitHub is optional; without it no GitHub repository, mirror or `github` remote is created and the GitHub credentials are not required |
@@ -93,5 +102,4 @@
 [US-001]: ../user-stories.md
 [SA-001]: ../stakeholder-analysis.md
 [DM-001]: ./dm.md
-[02875ae]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/02875aee5f2953473924074eea0056eb31af6b7a
 [2a6bb8e]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/2a6bb8e8afadfe6ca4a621da30e44a372898ca62

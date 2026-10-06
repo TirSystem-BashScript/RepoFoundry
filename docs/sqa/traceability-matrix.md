@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-05 | Proposed | Jens Tirsvad Nielsen | S02 | Added MIL-004 and RC-018 | [2a6bb8e] |
 | 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | Added DCD-001 and DCD-002 | [f4d611b] |
+| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | Added MIL-005, RC-020 and RC-021 | pending |
 
 ---
 
@@ -24,29 +24,30 @@ updated whenever an artifact instance is created or reviewed.
 
 | Artifact Instance | Type | Upstream (Backward Link) | Downstream (Forward Link) | Last Reviewed (RC-ID) |
 | --- | --- | --- | --- | --- |
-| [BC-001] | BC | - | [SA-001], [PP-001], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [US-001], [UCD-001] | [RC-010], [RC-018] |
+| [BC-001] | BC | - | [SA-001], [PP-001], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [US-001], [UCD-001] | [RC-010], [RC-018], [RC-020] |
 | [SA-001] | SA | [BC-001] | [UCD-001], [UC-001], [DICT-001] | [RC-013] |
-| [PP-001] | PP | [BC-001], [SA-001] | [MIL-001], [MIL-002], [MIL-003], [MIL-004] | [RC-012], [RC-018] |
+| [PP-001] | PP | [BC-001], [SA-001] | [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005] | [RC-012], [RC-018], [RC-020] |
 | [MIL-001] | MIL | [BC-001], [PP-001] | [US-001] | [RC-011], [RC-016] |
 | [MIL-002] | MIL | [BC-001], [PP-001] | [US-001] | [RC-014], [RC-017] |
 | [MIL-003] | MIL | [BC-001], [PP-001] | [US-001] | [RC-015], [RC-017] |
 | [MIL-004] | MIL | [BC-001], [PP-001] | [US-001] | [RC-018], [RC-019] |
+| [MIL-005] | MIL | [BC-001], [PP-001] | [US-001] | [RC-020] |
 | [UCD-001] | UCD | [BC-001], [SA-001] | [US-001], [UC-001] | [RC-009] |
-| [US-001] | US | [BC-001], [UCD-001], [MIL-001], [MIL-002], [MIL-003], [MIL-004] | [UC-001] | [RC-001] |
-| [UC-001] | UC | [UCD-001], [US-001], [SA-001] | [SSD-001], [DM-001] | [RC-002] |
-| [SSD-001] | SSD | [UC-001] | [OC-001] | [RC-003] |
-| [DM-001] | DM | [UC-001], [SSD-001] | [DM-002], [DICT-001], [OC-001], [DCD-001] | [RC-004] |
-| [DM-002] | DM | [DM-001] | [DICT-001], [DCD-001], [DCD-002] | [RC-005] |
-| [DICT-001] | DICT | [BC-001], [SA-001], [DM-001], [DM-002] | [OC-001], [SD-001] | [RC-008] |
-| [OC-001] | OC | [SSD-001], [DM-001] | [SD-001] | [RC-006] |
-| [SD-001] | SD | [OC-001] | [DCD-001] | [RC-007] |
-| [DCD-001] | DCD | [UC-001], [DM-001], [DM-002], [OC-001], [SD-001], [DICT-001] | [DCD-002] | - |
-| [DCD-002] | DCD | [DCD-001], [DM-002], [DICT-001] | - | - |
+| [US-001] | US | [BC-001], [UCD-001], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005] | [UC-001] | [RC-001], [RC-020] |
+| [UC-001] | UC | [UCD-001], [US-001], [SA-001] | [SSD-001], [DM-001] | [RC-002], [RC-020] |
+| [SSD-001] | SSD | [UC-001] | [OC-001] | [RC-003], [RC-020] |
+| [DM-001] | DM | [UC-001], [SSD-001] | [DM-002], [DICT-001], [OC-001], [DCD-001] | [RC-004], [RC-020] |
+| [DM-002] | DM | [DM-001] | [DICT-001], [DCD-001], [DCD-002] | [RC-005], [RC-020] |
+| [DICT-001] | DICT | [BC-001], [SA-001], [DM-001], [DM-002] | [OC-001], [SD-001] | [RC-008], [RC-020] |
+| [OC-001] | OC | [SSD-001], [DM-001] | [SD-001] | [RC-006], [RC-020] |
+| [SD-001] | SD | [OC-001] | [DCD-001] | [RC-007], [RC-020], [RC-021] |
+| [DCD-001] | DCD | [UC-001], [DM-001], [DM-002], [OC-001], [SD-001], [DICT-001] | [DCD-002] | [RC-021] |
+| [DCD-002] | DCD | [DCD-001], [DM-002], [DICT-001] | - | [RC-021] |
 
 ## Coverage Notes
 
 - Reviewed so far: every artifact in the project (see the Last Reviewed column).
-- [DCD-001] and [DCD-002] are proposed and not reviewed yet. No ERD, KPI, BMC or BPMN exists yet. `-` in Downstream means nothing is built on the artifact yet.
+- No ERD, KPI, BMC or BPMN exists yet. `-` in Downstream means nothing is built on the artifact yet.
 
 ---
 
@@ -57,8 +58,11 @@ updated whenever an artifact instance is created or reviewed.
 [MIL-002]: ../milestones/mil-002-repositories-and-mirror.md
 [MIL-003]: ../milestones/mil-003-scaffold-and-release.md
 [MIL-004]: ../milestones/mil-004-configurable-details.md
+[MIL-005]: ../milestones/mil-005-credentials.md
 [RC-018]: ./reviews/rc-018-mil-004.md
 [RC-019]: ./reviews/rc-019-mil-004-code.md
+[RC-020]: ./reviews/rc-020-mil-005.md
+[RC-021]: ./reviews/rc-021-dcd.md
 [DCD-001]: ../uc-001/dcd.md
 [DCD-002]: ../dcd.md
 [UCD-001]: ../use-case-diagram.md
@@ -87,5 +91,4 @@ updated whenever an artifact instance is created or reviewed.
 [RC-015]: ./reviews/rc-015-mil-003.md
 [RC-016]: ./reviews/rc-016-create-project-sh.md
 [RC-017]: ./reviews/rc-017-e2e-security-review.md
-[2a6bb8e]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/2a6bb8e8afadfe6ca4a621da30e44a372898ca62
 [f4d611b]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/f4d611b77cc70b4686506d44bf8f439045d9e0d2

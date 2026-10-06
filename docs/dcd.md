@@ -9,7 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | Initial version, from DCD-001 (UC-001) | [f4d611b] |
+| 2026-10-06 | Deprecated | Jens Tirsvad Nielsen | S02 | Initial version, from DCD-001 (UC-001) | [f4d611b] |
+| 2026-10-06 | Accepted | Jens Tirsvad Nielsen | S02 | Added CredentialCollector, EnvFileWriter and EnvFile (from DCD-001) | pending |
 
 ---
 
@@ -33,10 +34,16 @@ enum Visibility {
 
 class ProjectCreator <<controller>> {
   +startProjectCreation() : PromptSet
-  +provideProjectDetails(name : String, description : String, visibility : Visibility, giteaOwner : Owner, githubOwner : Owner [0..1], directory : Path, enablePlanGate : Boolean) : Summary
+  +provideProjectDetails(name : String, description : String, visibility : Visibility, giteaOwner : Owner, githubOwner : Owner [0..1], directory : Path, enablePlanGate : Boolean, writeEnvFile : Boolean) : Summary
 }
 class ConfigLoader {
   +load(configFile : Path, envFile : Path) : Configuration
+}
+class CredentialCollector {
+  +collect(configuration : Configuration, kinds : String [1..3]) : Configuration
+}
+class EnvFileWriter {
+  +write(project : LocalProject, configuration : Configuration, hasGithub : Boolean) : EnvFile [0..1]
 }
 class ToolChecker {
   +check(tools : String [1..*]) : ToolCheck
@@ -147,6 +154,10 @@ class HookSetup {
   -areHooksInstalled : Boolean
   -isPlanGateEnabled : Boolean
 }
+class EnvFile {
+  -address : Path
+  -keys : String [1..3]
+}
 class Template {
   -name : String
   -isCopied : Boolean
@@ -160,6 +171,8 @@ class Summary {
 
 ProjectCreator ..> ConfigLoader : creates
 ProjectCreator ..> ToolChecker : creates
+ProjectCreator ..> CredentialCollector : creates
+ProjectCreator ..> EnvFileWriter : creates [0..1]
 ProjectCreator ..> Preflight : creates
 ProjectCreator ..> GiteaClient : creates
 ProjectCreator ..> GitHubClient : creates [0..1]
@@ -174,40 +187,42 @@ GitHost "1" --> "0..*" Owner : has
 GiteaClient ..> Configuration
 GitHubClient ..> Configuration
 
-ProjectCreator --> "1" Run
-Run *-- "1" Configuration
-Run *-- "1" ToolCheck
-Run *-- "0..1" ProjectRequest
-Run --> "1" PromptSet : returns
-Configuration *-- "1..2" Credential
+ProjectCreator "0..*" --> "1" Run
+Run "1" *-- "1" Configuration
+Run "1" *-- "1" ToolCheck
+Run "1" *-- "0..1" ProjectRequest
+Run "1" --> "1" PromptSet : returns
+Configuration "1" *-- "1..3" Credential
 
-ProjectRequest --> "1" Owner : giteaOwner
-ProjectRequest --> "0..1" Owner : githubOwner
-ProjectRequest *-- "0..1" PreflightResult
-ProjectRequest --> "0..1" GiteaRepository : stored in
-ProjectRequest --> "0..1" GitHubRepository : also stored in
-ProjectRequest --> "0..1" LocalProject : working copy
-Summary --> "1" ProjectRequest : reports on
+ProjectRequest "0..*" --> "1" Owner : giteaOwner
+ProjectRequest "0..*" --> "0..1" Owner : githubOwner
+ProjectRequest "1" *-- "0..1" PreflightResult
+ProjectRequest "1" --> "0..1" GiteaRepository : stored in
+ProjectRequest "1" --> "0..1" GitHubRepository : also stored in
+ProjectRequest "1" --> "0..1" LocalProject : working copy
+Summary "0..*" --> "1" ProjectRequest : reports on
 
 Repository <|-- GiteaRepository
 Repository <|-- GitHubRepository
-Repository --> "1" Owner : owned by
-GiteaRepository *-- "0..1" LicenseFile
-PushMirror --> "1" GiteaRepository : source
-PushMirror --> "1" GitHubRepository : target
-PushMirror --> "1" Credential : authorised by
+Repository "0..*" --> "1" Owner : owned by
+GiteaRepository "1" *-- "0..1" LicenseFile
+PushMirror "0..*" --> "1" GiteaRepository : source
+PushMirror "0..*" --> "1" GitHubRepository : target
+PushMirror "0..*" --> "1" Credential : authorised by
 
-LocalProject *-- "1..2" Remote
-Remote --> "1" Repository : points to
-LocalProject *-- "1" Submodule
-LocalProject *-- "1" HookSetup
-LocalProject *-- "0..*" Template
-InstallResult --> "1" Submodule
-InstallResult --> "1" HookSetup
-InstallResult --> "0..*" Template
+LocalProject "1" *-- "1..2" Remote
+Remote "0..*" --> "1" Repository : points to
+LocalProject "1" *-- "1" Submodule
+LocalProject "1" *-- "1" HookSetup
+LocalProject "1" *-- "0..*" Template
+LocalProject "1" *-- "0..1" EnvFile
+EnvFile "0..*" --> "1..3" Credential : copy of
+InstallResult "0..*" --> "1" Submodule
+InstallResult "0..*" --> "1" HookSetup
+InstallResult "0..*" --> "0..*" Template
 
-ProjectRequest --> Visibility
-Repository --> Visibility
+ProjectRequest "0..*" --> "1" Visibility
+Repository "0..*" --> "1" Visibility
 @enduml
 ```
 
@@ -217,6 +232,8 @@ Repository --> Visibility
 | --- | --- | --- | --- | --- |
 | `ProjectCreator` | none (controller for the system operations of [OC-001]) | Receives the two system operations, sequences the steps and stops on the first failure. | none | `startProjectCreation`, `provideProjectDetails` |
 | `ConfigLoader` | Configuration | Reads `config.env` and `.env` as plain text and validates every value, preset project details included. | none | `load` |
+| `CredentialCollector` | none (system concept) | Asks, without echo, for a credential that `.env` does not provide and validates it like one read from `.env`. | none | `collect` |
+| `EnvFileWriter` | Credentials File | Creates the project's own `.env` with the credentials the project needs: owner-only, excluded from git, never replaced without a yes. | none | `write` |
 | `ToolChecker` | none (system concept `ToolCheck`) | Detects the required and optional tools. | none | `check` |
 | `Preflight` | none (system concept `PreflightResult`) | Runs the read-only checks of both hosts before anything is created. | none | `check` |
 | `GitHost` | Git Host | The operations every host offers: check the token, check that an owner accepts new repositories, check that a name is free. | `name`, `webAddress`, `apiAddress` | `verifyToken`, `ownerAccepts`, `nameFree` |
@@ -242,6 +259,7 @@ Repository --> Visibility
 | `Remote` | Remote | A named link to a repository (`origin`, `github`), without a credential. | `name`, `address` | none |
 | `Submodule` | Framework | The framework added to the local project. | `name`, `address` | none |
 | `HookSetup` | Framework Setup | Records the skills and hooks installed and the plan gate state. | `areSkillsInstalled`, `areHooksInstalled`, `isPlanGateEnabled` | none |
+| `EnvFile` | Credentials File | The `.env` of the project: a copy of the credentials it needs. | `address`, `keys` | none |
 | `Template` | Template | A framework file copied into the project. | `name`, `isCopied` | none |
 | `InstallResult` | none (carries the result of one operation) | Returns the submodule, the hook setup and the templates of `install`. | none | none |
 | `Summary` | Summary | The report returned to the Maintainer; it contains no credential. | `createdItems`, `skippedItems`, `nextSteps` | none |
@@ -252,8 +270,10 @@ Repository --> Visibility
 | Method signature | Operation Contract / SD message |
 | --- | --- |
 | `ProjectCreator.startProjectCreation() : PromptSet` | [OC-001] `startProjectCreation`; [SD-001] `startProjectCreation()` |
-| `ProjectCreator.provideProjectDetails(name, description, visibility, giteaOwner, githubOwner, directory, enablePlanGate) : Summary` | [OC-001] `provideProjectDetails`; [SD-001] `provideProjectDetails(...)` |
+| `ProjectCreator.provideProjectDetails(name, description, visibility, giteaOwner, githubOwner, directory, enablePlanGate, writeEnvFile) : Summary` | [OC-001] `provideProjectDetails`; [SD-001] `provideProjectDetails(...)` |
 | `ConfigLoader.load(configFile, envFile) : Configuration` | [SD-001] `load(config.env, .env)`; [OC-001] `startProjectCreation` P2 |
+| `CredentialCollector.collect(configuration, kinds) : Configuration` | [SD-001] `collect(configuration, GITEA_TOKEN)` and `collect(configuration, GITHUB_PAT, GITHUB_USER)`; [OC-001] `startProjectCreation` P2 and the precondition of `provideProjectDetails` |
+| `EnvFileWriter.write(project, configuration, hasGithub) : EnvFile` | [SD-001] `write(localProject, configuration, githubOwner present)`; [OC-001] `provideProjectDetails` P14 |
 | `ToolChecker.check(tools) : ToolCheck` | [SD-001] `check(git, curl, jq)`; [OC-001] `startProjectCreation` P3 |
 | `Preflight.check(request) : PreflightResult` | [SD-001] `check(request)`; [OC-001] `provideProjectDetails` P2 |
 | `GiteaClient(configuration)` | [SD-001] `new(configuration)` to `GiteaClient` |
@@ -276,14 +296,14 @@ Repository --> Visibility
 | --- | --- | --- |
 | Controller (GRASP) | `ProjectCreator` | One entry for the system operations; coordinates and does no HTTP, git or file work itself |
 | Facade (GoF) | `GitHost`, `GiteaClient`, `GitHubClient` | Each client hides one host's HTTP API and keeps the token inside; no other class sees a credential. `GitHost` holds the operations both share |
-| Pure Fabrication (GRASP) | `ConfigLoader`, `ToolChecker`, `Preflight`, `LocalProjectBuilder`, `FrameworkInstaller`, `SummaryReport` | No domain concept owns these responsibilities; small units keep cohesion high |
+| Pure Fabrication (GRASP) | `ConfigLoader`, `ToolChecker`, `CredentialCollector`, `EnvFileWriter`, `Preflight`, `LocalProjectBuilder`, `FrameworkInstaller`, `SummaryReport` | No domain concept owns these responsibilities; small units keep cohesion high |
 | Creator (GRASP) | `ConfigLoader` creates `Configuration`; `GiteaClient` creates `GiteaRepository` and `PushMirror` | The creating class holds the data needed to build the object |
 | Protection from variations (GRASP) | `GiteaClient`, `GitHubClient`, `ProjectRequest` | The optional GitHub path is decided by the controller; the clients do not know it |
 | Data Transfer Object (GoF-style) | `InstallResult` | Carries the three results of `install` in one return value |
 
 ## Dependency Check
 
-No circular dependency. `ProjectCreator` depends on every helper class and no helper depends on it. `Preflight` depends on the two clients; the clients extend `GitHost` and depend only on `Configuration`. The data classes form a tree: `Run` holds `Configuration`, `ToolCheck` and `ProjectRequest`; `ProjectRequest` reaches the repositories and the `LocalProject`; `Summary` points at `ProjectRequest` and nothing points back at it. `Repository` is shared by `Remote` and `PushMirror` without a cycle.
+No circular dependency. `ProjectCreator` depends on every helper class and no helper depends on it. `Preflight` depends on the two clients; the clients extend `GitHost` and depend only on `Configuration`. The data classes form a tree: `Run` holds `Configuration`, `ToolCheck` and `ProjectRequest`; `ProjectRequest` reaches the repositories and the `LocalProject`; `Summary` points at `ProjectRequest` and nothing points back at it. `CredentialCollector` and `EnvFileWriter` depend only on `Configuration`, `Credential` and `LocalProject`; the only class that holds a secret after the run is `EnvFile`, and only as a copy written to the Maintainer's own disk. `Repository` is shared by `Remote` and `PushMirror` without a cycle.
 
 SOLID check: no class has more than one reason to change (one host API, one kind of local work, one report); the clients can be replaced behind the same operations; the controller depends on the operations, not on how a host or git is called. `ProjectCreator` has two operations and no data, so it is not a god class.
 
@@ -294,6 +314,8 @@ SOLID check: no class has more than one reason to change (one host API, one kind
 | `ProjectCreator` | `create-project.sh` (`main`), `lib/apply.sh` |
 | `ConfigLoader` | `lib/config.sh` (`load_configuration`), `lib/validate.sh` |
 | `ToolChecker` | `lib/tools.sh` |
+| `CredentialCollector` | planned for [MIL-005]: `lib/credentials.sh`, with `lib/prompts.sh` |
+| `EnvFileWriter` | planned for [MIL-005]: `lib/envfile.sh` |
 | `Preflight` | `lib/preflight.sh` |
 | `GitHost`, `GiteaClient`, `GitHubClient` | `lib/api.sh`, `lib/http.sh`, `lib/json.sh`, `lib/repositories.sh`, `lib/mirror.sh`, `lib/hosts.sh` |
 | `LocalProjectBuilder` | `lib/localproject.sh`, `lib/git.sh` |
@@ -309,5 +331,6 @@ SOLID check: no class has more than one reason to change (one host API, one kind
 [UC-001]: ./uc-001/uc.md
 [OC-001]: ./uc-001/oc.md
 [SD-001]: ./uc-001/sd.md
+[MIL-005]: ./milestones/mil-005-credentials.md
 [DICT-001]: ./dictionary.md
 [f4d611b]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/f4d611b77cc70b4686506d44bf8f439045d9e0d2

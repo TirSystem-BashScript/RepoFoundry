@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Initial version | [02875ae] |
-| 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Project details may be defined by the Configuration | [2a6bb8e] |
+| 2026-10-05 | Deprecated | Jens Tirsvad Nielsen | S02 | Project details may be defined by the Configuration | [2a6bb8e] |
+| 2026-10-06 | Accepted | Jens Tirsvad Nielsen | S02 | Credentials asked when missing; EnvFile created in the local project (P14); writeEnvFile parameter | pending |
 
 ---
 
@@ -31,7 +31,7 @@ Concepts below use the IT terms of [DICT-001] for the PO concepts of [DM-001]. `
 **Postconditions**
 
 - P1. A `Run` instance was created.
-- P2. A `Configuration` instance was created from `config.env` and `.env`, with every value validated (including the project details preset in `config.env`) and the credentials held only in memory.
+- P2. A `Configuration` instance was created from `config.env` and `.env`, with every value validated (including the project details preset in `config.env`). A `Credential` that `.env` did not provide was entered by the Maintainer without echo and validated; every `Credential` is held only in memory.
 - P3. A `ToolCheck` instance was created and associated with the `Run`, recording that `git` and `curl` are present and whether `jq` is present.
 - P4. The `Run` was associated with a `PromptSet` that is returned.
 
@@ -39,21 +39,23 @@ Concepts below use the IT terms of [DICT-001] for the PO concepts of [DM-001]. `
 
 | Condition (failing precondition) | Outcome |
 | --- | --- |
-| `config.env` or `.env` is missing, or a value is missing or malformed (a preset project detail included) | The `Run` ends with an error naming the key, never its value; nothing was changed |
+| `config.env` is missing, or a value in `config.env` or `.env` is malformed (a preset project detail included) | The `Run` ends with an error naming the key, never its value; nothing was changed |
+| A `Credential` is missing and input ends before a valid one is entered | The `Run` ends with an error naming the key; nothing was changed |
 | `git` or `curl` is missing | The `Run` ends with an error naming the tool; nothing was changed |
 
 ## Contract: provideProjectDetails
 
 | Item | Value |
 | --- | --- |
-| Operation | `provideProjectDetails(name: String, description: String, visibility: Visibility, giteaOwner: Owner, githubOwner: Owner [0..1], directory: Path, enablePlanGate: Boolean): Summary` |
+| Operation | `provideProjectDetails(name: String, description: String, visibility: Visibility, giteaOwner: Owner, githubOwner: Owner [0..1], directory: Path, enablePlanGate: Boolean, writeEnvFile: Boolean): Summary` |
 | Traces to | `provideProjectDetails` in [SSD-001] |
-| Concepts | ProjectRequest, PreflightResult, GiteaRepository, GitHubRepository, LicenseFile, PushMirror, LocalProject, Remote, Submodule, HookSetup, Summary |
+| Concepts | ProjectRequest, PreflightResult, GiteaRepository, GitHubRepository, LicenseFile, PushMirror, LocalProject, Remote, Submodule, HookSetup, EnvFile, Summary |
 
 **Preconditions**
 
 - A `Run` exists and its `Configuration` is valid (from `startProjectCreation`).
 - `githubOwner` is present exactly when the Maintainer chose GitHub.
+- When `githubOwner` is present, the GitHub `Credential`s are known: from `.env`, or entered by the Maintainer without echo and validated before the first request.
 - A detail that the `Configuration` defines is not asked: it is taken from the `Configuration`.
 
 **Postconditions**
@@ -71,6 +73,7 @@ Concepts below use the IT terms of [DICT-001] for the PO concepts of [DM-001]. `
 - P11. A `HookSetup` instance was associated with the `LocalProject`, recording that skills and git hooks were installed once and, if `enablePlanGate`, that the plan gate was enabled.
 - P12. `AGENTS.md` and `docs/artifact-registry.md` exist in the `LocalProject`, each either newly copied from the framework templates or left as it was because the Maintainer declined to replace it.
 - P13. A `Summary` instance was created listing every created item, every skipped item and the next step for anything that failed, and is returned. It contains no credential.
+- P14. If `writeEnvFile`, an `EnvFile` named `.env` was associated with the `LocalProject`, holding only the `Credential`s the project needs (the Gitea token, and the GitHub token and account name when `githubOwner` is present). It is readable by its owner only and excluded from git without a change to any tracked file, and no `Credential` is shown in any output. If `writeEnvFile` is false, no `EnvFile` was created. An existing `.env` is left as it was unless the Maintainer agreed to replace it.
 
 **Exceptions**
 
@@ -81,6 +84,7 @@ Concepts below use the IT terms of [DICT-001] for the PO concepts of [DM-001]. `
 | `GiteaRepository` creation fails after a `GitHubRepository` was created (P5, P3 ordering) | The `Summary` lists the `GitHubRepository` as created, the `GiteaRepository` as failed and how to continue |
 | `PushMirror` creation fails (P6) | The `Summary` lists both repositories as created, the mirror as failed and how to continue; the local steps are not run |
 | `directory` exists, or a target file exists, and the Maintainer declines replacing it (P7, P12) | That item is skipped and listed in the `Summary` |
+| A `.env` already exists in the `LocalProject` and the Maintainer declines replacing it (P14) | That item is skipped and listed in the `Summary` |
 | A different `core.hooksPath` exists and the Maintainer declines replacing it (P11) | Hooks are not installed and this is listed in the `Summary` |
 | SSH to port 10022 fails and the `Submodule` cannot be added (P10) | The `Summary` lists the repositories as created, the submodule as failed, and the SSH prerequisite |
 
@@ -90,5 +94,4 @@ Concepts below use the IT terms of [DICT-001] for the PO concepts of [DM-001]. `
 [DM-001]: ./dm.md
 [DICT-001]: ../dictionary.md
 [SD-001]: ./sd.md
-[02875ae]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/02875aee5f2953473924074eea0056eb31af6b7a
 [2a6bb8e]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/2a6bb8e8afadfe6ca4a621da30e44a372898ca62

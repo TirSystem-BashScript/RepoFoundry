@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Initial version, created from [DM-001] (UC-001) | [02875ae] |
-| 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Configuration may hold preset project details (from DM-001, UC-001 step 3) | [2a6bb8e] |
+| 2026-10-05 | Deprecated | Jens Tirsvad Nielsen | S02 | Configuration may hold preset project details (from DM-001, UC-001 step 3) | [2a6bb8e] |
+| 2026-10-06 | Accepted | Jens Tirsvad Nielsen | S02 | Added Credentials File (from DM-001, UC-001 step 9) | pending |
 
 ---
 
@@ -79,6 +79,9 @@ class "Framework Setup" as FrameworkSetup {
 class Template {
   name
 }
+class "Credentials File" as CredentialsFile {
+  address
+}
 class Summary {
   created items
   skipped items
@@ -108,6 +111,8 @@ LocalProject "1" --> "1" FrameworkSetup : has
 FrameworkSetup "0..*" --> "1" Framework : is installed from
 Framework "1" --> "1..*" Template : provides
 LocalProject "1" --> "0..*" Template : contains a copy of
+LocalProject "1" --> "0..1" CredentialsFile : has
+CredentialsFile "1" --> "1..2" AccessToken : holds a copy of
 Summary "1" --> "1" Project : reports on
 @enduml
 ```
@@ -132,6 +137,7 @@ Summary "1" --> "1" Project : reports on
 | Framework | The SQA-QC-Framework added to a Local Project | name, address | [UC-001] step 9 "framework submodule" |
 | Framework Setup | The skills and git hooks installed from the Framework, with the plan gate on or off | plan gate enabled | [UC-001] step 9 "skills and hooks", "plan gate" |
 | Template | A file the Framework provides to copy into a project (`AGENTS.md`, artifact registry) | name | [UC-001] step 9 "templates" |
+| Credentials File | The file in a Local Project that holds a copy of the Access Tokens (and the GitHub account name) the project needs; readable by its owner only and ignored by git | address | [UC-001] step 9 "credentials file" |
 | Summary | The report of what was created, skipped or failed and how to continue | created items, skipped items, next steps | [UC-001] step 10 "summary" |
 
 ## Association Table
@@ -158,6 +164,8 @@ Summary "1" --> "1" Project : reports on
 | Framework Setup | is installed from | Framework | 0..* to 1 |
 | Framework | provides | Template | 1 to 1..* |
 | Local Project | contains a copy of | Template | 1 to 0..* |
+| Local Project | has | Credentials File | 1 to 0..1 |
+| Credentials File | holds a copy of | Access Token | 1 to 1..2 |
 | Summary | reports on | Project | 1 to 1 |
 
 ## Generalizations
@@ -172,5 +180,4 @@ Summary "1" --> "1" Project : reports on
 [SSD-001]: ./uc-001/ssd.md
 [DICT-001]: ./dictionary.md
 [DM-001]: ./uc-001/dm.md
-[02875ae]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/02875aee5f2953473924074eea0056eb31af6b7a
 [2a6bb8e]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/2a6bb8e8afadfe6ca4a621da30e44a372898ca62

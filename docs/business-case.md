@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Optional GitHub; choosing GitHub applies the AGPL license to the Gitea repository<br>Cited UCD-001<br>Justified the qualitative cost-benefit; stakeholder roles replaced by interests; success criteria 2 and 3 reworded for optional GitHub<br>Added objective 7 (documentation) and its success criterion | [02875ae] |
-| 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Added objective 8 (project details preset in config.env), the matching scope item and success criterion 8 | [2a6bb8e] |
+| 2026-10-05 | Deprecated | Jens Tirsvad Nielsen | S02 | Added objective 8 (project details preset in config.env), the matching scope item and success criterion 8 | [2a6bb8e] |
+| 2026-10-06 | Accepted | Jens Tirsvad Nielsen | S02 | Added objective 9 (credentials asked, project .env created), scope items, success criterion 9 and a risk<br>Objective 6 and success criterion 1 now allow a token only in the new project's .env | pending |
 
 ---
 
@@ -39,9 +39,10 @@ One repeatable, reviewed procedure gives every new project the same secure basel
 3. When GitHub was chosen, configure the Gitea repository as a push mirror to GitHub (direction Gitea to GitHub).
 4. Create the local project directory with an `origin` (Gitea) remote and, when GitHub was chosen, a `github` remote, neither containing credentials.
 5. Add the SQA-QC-Framework as the `framework` submodule, install its skills and git hooks, and copy its templates, optionally enabling the plan gate.
-6. Never print or persist a token, and never overwrite existing files or directories without consent.
+6. Never print a token or put one in a URL, a remote or a log, write one to disk only in the new project's own `.env` and only after the Maintainer agrees, and never overwrite existing files or directories without consent.
 7. Document installation, configuration, usage, security decisions and error handling in clear English for GitHub readers.
 8. Let the Maintainer preset the project details in `config.env`, so that a detail that is set there is not asked again.
+9. Ask for a credential that is not provided in `.env` (`GITEA_TOKEN`, `GITHUB_PAT`, `GITHUB_USER`) and, when the Maintainer agrees, create a `.env` file with the credentials the new project needs.
 
 ## Scope
 
@@ -52,6 +53,7 @@ One repeatable, reviewed procedure gives every new project the same secure basel
 - Prompts for name, description, visibility and owner on each chosen host, and whether to use GitHub (which also applies the AGPL license). Each of these details may be set in `config.env` instead and is then not asked.
 - Checks for required tools (`git`, `curl`, optional `jq`) before any change.
 - A check that the project name is not already taken on GitHub.
+- Asking for a credential that `.env` does not provide, and creating the new project's own `.env` (owner-only, ignored by git, never overwritten without a yes).
 - Partial-failure reporting with a documented way to continue.
 - Documentation of the SSH prerequisite for the submodule (Gitea SSH on port `10022`).
 
@@ -61,6 +63,7 @@ One repeatable, reviewed procedure gives every new project the same secure basel
 - Managing repositories after creation (branch protection, webhooks, teams, CI).
 - Hosts other than GitHub and the configured Gitea instance.
 - Creating or rotating tokens and SSH keys.
+- Storing a credential anywhere but the new project's `.env` (no password manager, keychain or encryption).
 - Making the first commit or opening a pull request.
 
 ## Expected Benefits
@@ -83,7 +86,7 @@ Supports developing on self-hosted Gitea while publishing to GitHub, and adoptin
 
 | # | Criterion | Target | Measure |
 | --- | --- | --- | --- |
-| 1 | Credential exposure | 0 occurrences of a token in output, saved remote URLs, config files or leftover temp files | Test run with log review; `git config --get-regexp remote` inspected |
+| 1 | Credential exposure | 0 occurrences of a token in output, saved remote URLs, tracked files, config files or leftover temp files; a token is written only to the new project's `.env` (owner-only, ignored by git) and only after a yes | Test run with log review; `git config --get-regexp remote` inspected; every file of the new project searched for the tokens |
 | 2 | Repository ownership | Each repository created is under the owner chosen at the prompt for that host, never silently under `GITHUB_USER` | Test run with a user owner and with an organization owner |
 | 3 | Mirror direction | When GitHub is chosen, Gitea is the source and GitHub the target; a push to `origin` appears on GitHub | Push a test commit and compare |
 | 4 | Partial failure | When one host fails, the output lists what was created and the command to continue | Forced failure test (invalid token for one host) |
@@ -91,6 +94,7 @@ Supports developing on self-hosted Gitea while publishing to GitHub, and adoptin
 | 6 | Lint | `shellcheck` reports no errors on `create-project.sh` | `shellcheck create-project.sh` |
 | 7 | Documentation | `README.md` covers installation, configuration, usage, security decisions, error handling and stakeholders | Review by S02 against MIL-003 Go/No-Go criterion 6 |
 | 8 | Preset details | A project detail set in `config.env` is never asked; an invalid one stops the run before any request and names the key | Tests with each key set, absent, empty and invalid |
+| 9 | Credentials asked and kept | A credential missing from `.env` is asked (not echoed) instead of stopping the run; the new project's `.env` is created only after a yes, owner-only, ignored by git, holding only the keys the project needs, and an existing `.env` is never replaced without a yes | Tests: each credential present and missing, `.env` written, declined, existing, file mode, git exclusion, no token in output |
 
 ## Risks
 
@@ -100,6 +104,7 @@ Supports developing on self-hosted Gitea while publishing to GitHub, and adoptin
 | GitHub PAT lacks permission to create repositories or to push | Creation or mirroring fails | Document the required scopes; check with a read-only API call first and stop with a clear message |
 | Gitea stores the mirror credentials server-side | A Gitea admin could access the GitHub token | Document it; recommend a fine-grained PAT limited to the one repository where possible |
 | SSH to Gitea port `10022` is not configured | Submodule add fails after repositories already exist | Check SSH reachability before creating anything; document the prerequisite |
+| A token written to the new project's `.env` is plain text on disk and could be committed or copied by mistake | A leaked token gives access to the hosts | Ask first (default no), write only the keys the project needs, mode owner-only, exclude the file from git through `.git/info/exclude`, never overwrite an existing `.env` without a yes, never print the value, document the risk |
 | Framework hook installer changes `core.hooksPath` | An existing hook setup is silently replaced | Inspect the current value first and ask for consent |
 | Repository name conflicts on a host | Creation fails midway | Check availability on both hosts before creating either |
 
@@ -114,6 +119,7 @@ Supports developing on self-hosted Gitea while publishing to GitHub, and adoptin
 - Bash only, with `git` and `curl` required and `jq` optional.
 - `config.env` and `.env` are parsed, never `source`d.
 - No `rm -rf`, and no token in any URL, log or remote.
+- A token on disk only in the new project's `.env`, created by the script with the Maintainer's consent.
 - The framework under `framework/` is not edited from this project.
 
 ## Cost–Benefit Assessment
@@ -140,5 +146,4 @@ Proceed — the procedure is small, well bounded and removes a repeated, securit
 
 [SA-001]: ./stakeholder-analysis.md
 [UCD-001]: ./use-case-diagram.md
-[02875ae]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/02875aee5f2953473924074eea0056eb31af6b7a
 [2a6bb8e]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/2a6bb8e8afadfe6ca4a621da30e44a372898ca62
