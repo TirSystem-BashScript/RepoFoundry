@@ -4,13 +4,13 @@
 | Key | Value |
 | --- | --- |
 | ID | US-001 |
-| CrossReference | [BC-001], [UCD-001], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005] |
+| CrossReference | [BC-001], [UCD-001], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006] |
 
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-05 | Deprecated | Jens Tirsvad Nielsen | S02 | Added US-001.04: project details preset in config.env | [2a6bb8e] |
 | 2026-10-06 | Accepted | Jens Tirsvad Nielsen | S02 | Added US-001.05: credentials asked when missing and kept in the project .env | [ded26a6] |
+| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | Added US-001.06: the license set in config.env; US-001.02 names the license that applies | [d773fa9] |
 
 ---
 
@@ -18,7 +18,7 @@
 
 One epic: "Create a new project" ([UC-001]), setting up a new project on Gitea, optionally on GitHub, with the SQA-QC-Framework in place. The actor is the Maintainer, as in [UCD-001] (S01 or S02; for now one person holds both roles).
 
-The epic is split into five stories, one per milestone. Each story fits one two-week phase and can be shown working at the end of it.
+The epic is split into six stories, one per milestone. Each story fits one two-week phase and can be shown working at the end of it.
 
 ## Story List
 
@@ -42,7 +42,7 @@ The epic is split into five stories, one per milestone. Each story fits one two-
 
 **Acceptance Criteria**
 
-- Given valid tokens and owners, when the script runs, then a Gitea repository exists under the chosen owner: empty, or holding the AGPL license when GitHub was chosen.
+- Given valid tokens and owners, when the script runs, then a Gitea repository exists under the chosen owner: empty, or holding the license that applies (the one set in `PROJECT_LICENSE`, or AGPL-3.0 when GitHub was chosen).
 - Given GitHub was chosen, when the script runs, then an empty GitHub repository exists under its chosen owner (not assumed to be `GITHUB_USER`) and Gitea mirrors to it, and no credential is stored in any address.
 - Given a step fails, when the script stops, then it reports what was created and how to continue.
 
@@ -95,9 +95,25 @@ The epic is split into five stories, one per milestone. Each story fits one two-
 | --- | --- | --- |
 | [UC-001] steps 2 and 9, [MIL-005] | fits one phase | Independent: needs the local project of US-001.03 |
 
+### US-001.06 — Create a new project: choose the license in `config.env`
+
+**As a** Maintainer, **I want** to set the project's license in `config.env`, **so that** a project is not forced to AGPL-3.0 by the GitHub choice and does not need a question for it.
+
+**Acceptance Criteria**
+
+- Given `PROJECT_LICENSE` is set to a license the Gitea server offers, when the script creates the Gitea repository, then it holds that license, with or without GitHub, and the license is not asked.
+- Given `PROJECT_LICENSE=none`, then the repository has no license even when GitHub is chosen.
+- Given `PROJECT_LICENSE` is absent, then the license is AGPL-3.0 when GitHub is chosen and none otherwise, as before.
+- Given the value is empty or invalid, or the server does not offer it, when the script starts or checks the hosts, then it stops before anything is created and names the key or the license.
+- Given GitHub is chosen, then the license reaches the GitHub repository through the mirror, as before.
+
+| Traces to | Size | INVEST exceptions |
+| --- | --- | --- |
+| [UC-001] steps 3, 4 and 6, [MIL-006] | fits one phase | Independent: needs the configurable details of US-001.04 |
+
 ## INVEST Check
 
-Valuable, Negotiable, Estimable, Small and Testable hold for each story. Independent holds only in part: the stories are ordered, each using what the one before it delivers, which follows the milestone order in [PP-001]. This is flagged as an exception on US-001.02 to US-001.05.
+Valuable, Negotiable, Estimable, Small and Testable hold for each story. Independent holds only in part: the stories are ordered, each using what the one before it delivers, which follows the milestone order in [PP-001]. This is flagged as an exception on US-001.02 to US-001.06.
 
 ---
 
@@ -109,6 +125,7 @@ Valuable, Negotiable, Estimable, Small and Testable hold for each story. Indepen
 [MIL-003]: ./milestones/mil-003-scaffold-and-release.md
 [MIL-004]: ./milestones/mil-004-configurable-details.md
 [MIL-005]: ./milestones/mil-005-credentials.md
+[MIL-006]: ./milestones/mil-006-project-license.md
 [PP-001]: ./project-plan.md
-[2a6bb8e]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/2a6bb8e8afadfe6ca4a621da30e44a372898ca62
 [ded26a6]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/ded26a658c666bf29d84093cb352e3635e07719b
+[d773fa9]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/d773fa91df5a54090254e12e074880fb6526a9ff

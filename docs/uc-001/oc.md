@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-05 | Deprecated | Jens Tirsvad Nielsen | S02 | Project details may be defined by the Configuration | [2a6bb8e] |
 | 2026-10-06 | Accepted | Jens Tirsvad Nielsen | S02 | Credentials asked when missing; EnvFile created in the local project (P14); writeEnvFile parameter | [ded26a6] |
+| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | P2, P4 and an exception: the license that applies, not always AGPL-3.0 | [d773fa9] |
 
 ---
 
@@ -55,15 +55,16 @@ Concepts below use the IT terms of [DICT-001] for the PO concepts of [DM-001]. `
 
 - A `Run` exists and its `Configuration` is valid (from `startProjectCreation`).
 - `githubOwner` is present exactly when the Maintainer chose GitHub.
+- The license that applies is not asked: it comes from the `Configuration` (`PROJECT_LICENSE`) or follows the GitHub choice.
 - When `githubOwner` is present, the GitHub `Credential`s are known: from `.env`, or entered by the Maintainer without echo and validated before the first request.
 - A detail that the `Configuration` defines is not asked: it is taken from the `Configuration`.
 
 **Postconditions**
 
 - P1. A `ProjectRequest` instance was created with the attributes given by the Maintainer or defined by the `Configuration`, and associated with the `Run`.
-- P2. A `PreflightResult` instance was created and associated with the `ProjectRequest`, recording that each token needed for the chosen hosts works, that each owner accepts new repositories, that the name is free on the chosen hosts, that `AGPL-3.0` is offered by Gitea when GitHub was chosen, and the outcome of the SSH test to Gitea on port 10022.
+- P2. A `PreflightResult` instance was created and associated with the `ProjectRequest`, recording that each token needed for the chosen hosts works, that each owner accepts new repositories, that the name is free on the chosen hosts, that the license that applies is offered by Gitea (when a license applies), and the outcome of the SSH test to Gitea on port 10022.
 - P3. A `GiteaRepository` instance was created under `giteaOwner` with the given name, description and visibility, and associated with the `ProjectRequest`.
-- P4. If `githubOwner` is present, a `LicenseFile` instance for `AGPL-3.0` was created and associated with the `GiteaRepository`, so that repository is not empty. Otherwise the `GiteaRepository` has no `LicenseFile` and is empty.
+- P4. If a license applies, a `LicenseFile` instance for it was created and associated with the `GiteaRepository`, so that repository is not empty. The license that applies is the one the `Configuration` defines (`PROJECT_LICENSE`; `none` means none), otherwise `AGPL-3.0` if `githubOwner` is present, otherwise none. If no license applies the `GiteaRepository` has no `LicenseFile` and is empty.
 - P5. If `githubOwner` is present, an empty `GitHubRepository` instance was created under `githubOwner` and associated with the `ProjectRequest`.
 - P6. If `githubOwner` is present, a `PushMirror` instance was created, associated with the `GiteaRepository` as source and the `GitHubRepository` as target, with its effective sync setting recorded, and a first sync was requested.
 - P7. A `LocalProject` instance was created at `directory`, associated with the `ProjectRequest`. If the `GiteaRepository` is not empty, the `LocalProject` holds its history, including the `LicenseFile` commit.
@@ -80,7 +81,7 @@ Concepts below use the IT terms of [DICT-001] for the PO concepts of [DM-001]. `
 | Condition (failing precondition) | Outcome |
 | --- | --- |
 | A token is invalid, an owner refuses new repositories, or the name is taken on a chosen host (P2) | The `Run` ends before P3; nothing was created; the error names the failed check |
-| GitHub was chosen and Gitea does not offer `AGPL-3.0` (P2) | The `Run` ends before P3; nothing was created |
+| A license applies and Gitea does not offer it (P2) | The `Run` ends before P3; nothing was created; the error names the license |
 | `GiteaRepository` creation fails after a `GitHubRepository` was created (P5, P3 ordering) | The `Summary` lists the `GitHubRepository` as created, the `GiteaRepository` as failed and how to continue |
 | `PushMirror` creation fails (P6) | The `Summary` lists both repositories as created, the mirror as failed and how to continue; the local steps are not run |
 | `directory` exists, or a target file exists, and the Maintainer declines replacing it (P7, P12) | That item is skipped and listed in the `Summary` |
@@ -94,5 +95,5 @@ Concepts below use the IT terms of [DICT-001] for the PO concepts of [DM-001]. `
 [DM-001]: ./dm.md
 [DICT-001]: ../dictionary.md
 [SD-001]: ./sd.md
-[2a6bb8e]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/2a6bb8e8afadfe6ca4a621da30e44a372898ca62
 [ded26a6]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/ded26a658c666bf29d84093cb352e3635e07719b
+[d773fa9]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/d773fa91df5a54090254e12e074880fb6526a9ff

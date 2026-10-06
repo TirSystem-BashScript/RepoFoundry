@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-06 | Deprecated | Jens Tirsvad Nielsen | S02 | Messages aligned with the method signatures of DCD-001<br>Cited DCD-001 | [f4d611b] |
 | 2026-10-06 | Accepted | Jens Tirsvad Nielsen | S02 | Added CredentialCollector and EnvFileWriter and their messages (P2, P14) | [ded26a6] |
+| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | The license that applies is passed to hasLicense and createRepository; no alt on the GitHub choice | [d773fa9] |
 
 ---
 
@@ -113,7 +113,10 @@ end
 create PF
 PC -> PF : check(request)
 activate PF
-PF -> GT : verifyToken(), ownerAccepts(giteaOwner), nameFree(name), hasLicense(AGPL-3.0)
+PF -> GT : verifyToken(), ownerAccepts(giteaOwner), nameFree(name)
+opt a license applies
+  PF -> GT : hasLicense(license)
+end
 opt githubOwner present
   PF -> GH : verifyToken(), ownerAccepts(githubOwner), nameFree(name)
 end
@@ -127,11 +130,7 @@ opt githubOwner present
   deactivate GH
 end
 
-alt githubOwner present
-  PC -> GT : createRepository(request, license=AGPL-3.0)
-else no GitHub
-  PC -> GT : createRepository(request, license=none)
-end
+PC -> GT : createRepository(request, license)
 activate GT
 GT --> PC : giteaRepository
 deactivate GT
@@ -194,9 +193,9 @@ destroy SR
 | Postcondition (from contract) | Satisfied by message |
 | --- | --- |
 | P1 ProjectRequest created | `provideProjectDetails` received by `ProjectCreator` |
-| P2 PreflightResult created | `check(request)` |
+| P2 PreflightResult created, including that the license is offered | `check(request)` and `hasLicense(license)` |
 | P3 GiteaRepository created | `createRepository(request, license)` |
-| P4 LicenseFile when GitHub chosen, otherwise empty | `createRepository(..., license=AGPL-3.0)` and the `alt` branch `license=none` |
+| P4 LicenseFile when a license applies, otherwise empty | `createRepository(request, license)`; `license` is the one the `ProjectRequest` carries (`PROJECT_LICENSE`, or AGPL-3.0 when GitHub was chosen), and is absent for `none` |
 | P2 GitHub credentials known before the first request | `collect(configuration, GITHUB_PAT, GITHUB_USER)` inside `opt githubOwner present` |
 | P5 empty GitHubRepository when chosen | `createEmptyRepository(request)` |
 | P6 PushMirror and first sync | `addPushMirror(...)` and `requestSync(pushMirror)` |
@@ -217,5 +216,5 @@ destroy SR
 
 [OC-001]: ./oc.md
 [DCD-001]: ./dcd.md
-[f4d611b]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/f4d611b77cc70b4686506d44bf8f439045d9e0d2
 [ded26a6]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/ded26a658c666bf29d84093cb352e3635e07719b
+[d773fa9]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/d773fa91df5a54090254e12e074880fb6526a9ff

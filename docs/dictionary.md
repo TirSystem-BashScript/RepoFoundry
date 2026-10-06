@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-06 | Deprecated | Jens Tirsvad Nielsen | S02 | The IT terms are also used in DCD-001 and DCD-002<br>InstallResult and Visibility named as design-only types | [f4d611b] |
 | 2026-10-06 | Accepted | Jens Tirsvad Nielsen | S02 | Added Credentials File / EnvFile | [ded26a6] |
+| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | LicenseFile definition no longer tied to GitHub | [d773fa9] |
 
 ---
 
@@ -31,7 +31,7 @@ Maps each Product Owner (PO) term to its professional IT term. PO language: Engl
 | Repository | en | Repository | A place on a Git Host that holds a project's history. | DM, UC | OC, SD, DCD |
 | Gitea Repository | en | GiteaRepository | The repository on Gitea; the source of truth. | DM, UC | OC, SD, DCD |
 | GitHub Repository | en | GitHubRepository | The repository on GitHub; it receives its content from the mirror. | DM, UC | OC, SD, DCD |
-| License | en | LicenseFile | The legal terms file (AGPL-3.0) added to the Gitea repository when GitHub is chosen. | DM, UC | OC, SD, DCD |
+| License | en | LicenseFile | The legal terms file added to the Gitea repository when a license applies. | DM, UC | OC, SD, DCD |
 | Mirror | en | PushMirror | The push mirror that copies a Gitea repository to a GitHub repository. | DM, UC | OC, SD, DCD |
 | Local Project | en | LocalProject | The project directory on the Maintainer's machine. | DM, UC | OC, SD, DCD |
 | Remote | en | Remote | A named link from a local project to a repository. | DM, UC | OC, SD, DCD |
@@ -63,5 +63,5 @@ Maps each Product Owner (PO) term to its professional IT term. PO language: Engl
 [DM-002]: ./domain-model.md
 [OC-001]: ./uc-001/oc.md
 [DCD-001]: ./uc-001/dcd.md
-[f4d611b]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/f4d611b77cc70b4686506d44bf8f439045d9e0d2
 [ded26a6]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/ded26a658c666bf29d84093cb352e3635e07719b
+[d773fa9]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/d773fa91df5a54090254e12e074880fb6526a9ff

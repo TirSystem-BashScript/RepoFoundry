@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | Added DCD-001 and DCD-002 | [f4d611b] |
 | 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | Added MIL-005, RC-020 and RC-021 | [ded26a6] |
+| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | Added MIL-006 | [d773fa9] |
 
 ---
 
@@ -24,16 +24,17 @@ updated whenever an artifact instance is created or reviewed.
 
 | Artifact Instance | Type | Upstream (Backward Link) | Downstream (Forward Link) | Last Reviewed (RC-ID) |
 | --- | --- | --- | --- | --- |
-| [BC-001] | BC | - | [SA-001], [PP-001], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [US-001], [UCD-001] | [RC-010], [RC-018], [RC-020] |
+| [BC-001] | BC | - | [SA-001], [PP-001], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006], [US-001], [UCD-001] | [RC-010], [RC-018], [RC-020] |
 | [SA-001] | SA | [BC-001] | [UCD-001], [UC-001], [DICT-001] | [RC-013] |
-| [PP-001] | PP | [BC-001], [SA-001] | [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005] | [RC-012], [RC-018], [RC-020] |
+| [PP-001] | PP | [BC-001], [SA-001] | [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006] | [RC-012], [RC-018], [RC-020] |
 | [MIL-001] | MIL | [BC-001], [PP-001] | [US-001] | [RC-011], [RC-016] |
 | [MIL-002] | MIL | [BC-001], [PP-001] | [US-001] | [RC-014], [RC-017] |
 | [MIL-003] | MIL | [BC-001], [PP-001] | [US-001] | [RC-015], [RC-017] |
 | [MIL-004] | MIL | [BC-001], [PP-001] | [US-001] | [RC-018], [RC-019] |
 | [MIL-005] | MIL | [BC-001], [PP-001] | [US-001] | [RC-020] |
+| [MIL-006] | MIL | [BC-001], [PP-001] | [US-001] | - |
 | [UCD-001] | UCD | [BC-001], [SA-001] | [US-001], [UC-001] | [RC-009] |
-| [US-001] | US | [BC-001], [UCD-001], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005] | [UC-001] | [RC-001], [RC-020] |
+| [US-001] | US | [BC-001], [UCD-001], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006] | [UC-001] | [RC-001], [RC-020] |
 | [UC-001] | UC | [UCD-001], [US-001], [SA-001] | [SSD-001], [DM-001] | [RC-002], [RC-020] |
 | [SSD-001] | SSD | [UC-001] | [OC-001] | [RC-003], [RC-020] |
 | [DM-001] | DM | [UC-001], [SSD-001] | [DM-002], [DICT-001], [OC-001], [DCD-001] | [RC-004], [RC-020] |
@@ -59,6 +60,7 @@ updated whenever an artifact instance is created or reviewed.
 [MIL-003]: ../milestones/mil-003-scaffold-and-release.md
 [MIL-004]: ../milestones/mil-004-configurable-details.md
 [MIL-005]: ../milestones/mil-005-credentials.md
+[MIL-006]: ../milestones/mil-006-project-license.md
 [RC-018]: ./reviews/rc-018-mil-004.md
 [RC-019]: ./reviews/rc-019-mil-004-code.md
 [RC-020]: ./reviews/rc-020-mil-005.md
@@ -91,5 +93,5 @@ updated whenever an artifact instance is created or reviewed.
 [RC-015]: ./reviews/rc-015-mil-003.md
 [RC-016]: ./reviews/rc-016-create-project-sh.md
 [RC-017]: ./reviews/rc-017-e2e-security-review.md
-[f4d611b]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/f4d611b77cc70b4686506d44bf8f439045d9e0d2
 [ded26a6]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/ded26a658c666bf29d84093cb352e3635e07719b
+[d773fa9]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/d773fa91df5a54090254e12e074880fb6526a9ff
