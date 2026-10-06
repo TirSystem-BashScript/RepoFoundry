@@ -4,17 +4,17 @@
 | Key | Value |
 | --- | --- |
 | ID | SD-001 |
-| CrossReference | [OC-001] |
+| CrossReference | [OC-001], [DCD-001] |
 
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Initial version | [02875ae] |
 | 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Note: preset project details are read by ConfigLoader | [2a6bb8e] |
+| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | Messages aligned with the method signatures of DCD-001<br>Cited DCD-001 | pending |
 
 ---
 
-Design objects are conceptual; in `create-project.sh` each becomes a small function group. No Design Class Diagram exists yet.
+Design objects are conceptual; in `create-project.sh` each becomes a small function group. [DCD-001] gives each object its class and turns each message below into a method signature.
 
 ## Sequence: startProjectCreation
 
@@ -77,7 +77,7 @@ destroy TC
 
 ```plantuml
 @startuml
-actor Maintainer
+'actor Maintainer
 participant ":ProjectCreator" as PC
 participant ":Preflight" as PF
 participant ":GiteaClient" as GT
@@ -86,7 +86,7 @@ participant ":LocalProjectBuilder" as LB
 participant ":FrameworkInstaller" as FI
 participant ":SummaryReport" as SR
 
-Maintainer -> PC : provideProjectDetails(name, description, visibility, giteaOwner, githubOwner, directory, enablePlanGate)
+ -> PC : provideProjectDetails(name, description, visibility, giteaOwner, githubOwner, directory, enablePlanGate)
 activate PC
 create GT
 PC -> GT : new(configuration)
@@ -105,16 +105,16 @@ PF --> PC : preflightResult
 deactivate PF
 
 opt githubOwner present
-  PC -> GH : createEmptyRepository(githubOwner, name)
+  PC -> GH : createEmptyRepository(request)
   activate GH
   GH --> PC : gitHubRepository
   deactivate GH
 end
 
 alt githubOwner present
-  PC -> GT : createRepository(giteaOwner, name, license=AGPL-3.0)
+  PC -> GT : createRepository(request, license=AGPL-3.0)
 else no GitHub
-  PC -> GT : createRepository(giteaOwner, name, license=none)
+  PC -> GT : createRepository(request, license=none)
 end
 activate GT
 GT --> PC : giteaRepository
@@ -123,7 +123,7 @@ deactivate GT
 opt githubOwner present
   PC -> GT : addPushMirror(giteaRepository, gitHubRepository)
   activate GT
-  GT -> GT : requestSync()
+  GT -> GT : requestSync(pushMirror)
   GT --> PC : pushMirror
   deactivate GT
 end
@@ -141,9 +141,8 @@ FI --> PC : submodule, hookSetup, templates
 deactivate FI
 
 create SR
-PC -> SR : compose(all results)
+PC -> SR : compose(request)
 SR --> PC : summary
-PC --> Maintainer : summary
 deactivate PC
 destroy PF
 destroy GT
@@ -169,17 +168,17 @@ destroy SR
 | --- | --- |
 | P1 ProjectRequest created | `provideProjectDetails` received by `ProjectCreator` |
 | P2 PreflightResult created | `check(request)` |
-| P3 GiteaRepository created | `createRepository(giteaOwner, name, license)` |
+| P3 GiteaRepository created | `createRepository(request, license)` |
 | P4 LicenseFile when GitHub chosen, otherwise empty | `createRepository(..., license=AGPL-3.0)` and the `alt` branch `license=none` |
-| P5 empty GitHubRepository when chosen | `createEmptyRepository(githubOwner, name)` |
-| P6 PushMirror and first sync | `addPushMirror(...)` and `requestSync()` |
+| P5 empty GitHubRepository when chosen | `createEmptyRepository(request)` |
+| P6 PushMirror and first sync | `addPushMirror(...)` and `requestSync(pushMirror)` |
 | P7 LocalProject created, history from Gitea when not empty | `build(directory, ...)` |
 | P8 origin remote (SSH if the test passed, else HTTPS) | `build(..., sshPassed)` |
 | P9 github remote when chosen | `build(...)` |
 | P10 framework Submodule | `install(localProject, ...)` |
 | P11 HookSetup, plan gate if chosen | `install(localProject, enablePlanGate)` |
 | P12 AGENTS.md and registry copied or kept | `install(...)` returning `templates` |
-| P13 Summary created and returned | `compose(all results)` and the final return |
+| P13 Summary created and returned | `compose(request)` and the final return |
 
 ### Responsibility Check
 
@@ -188,5 +187,5 @@ destroy SR
 ---
 
 [OC-001]: ./oc.md
-[02875ae]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/02875aee5f2953473924074eea0056eb31af6b7a
+[DCD-001]: ./dcd.md
 [2a6bb8e]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/2a6bb8e8afadfe6ca4a621da30e44a372898ca62

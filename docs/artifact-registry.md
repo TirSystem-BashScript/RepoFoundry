@@ -21,6 +21,7 @@ document of a type. `Primary File` may contain a glob (e.g.
 | OC | Operation Contract | docs/uc-*/oc.md | 002 |
 | SD | Sequence Diagram | docs/uc-*/sd.md | 002 |
 | DM | Domain Model | docs/domain-model.md | 003 |
+| DCD | Design Class Diagram | docs/dcd.md | 003 |
 | DICT | Domain Dictionary (PO and IT terms) | docs/dictionary.md | 002 |
 | UCD | Use Case Diagram | docs/use-case-diagram.md | 002 |
 | RC | SQA Review Record | docs/sqa/reviews/rc-*.md | 020 |

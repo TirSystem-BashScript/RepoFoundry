@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-05 | Proposed | Jens Tirsvad Nielsen | S02 | Initial version, UC-001 artifacts and baseline | [02875ae] |
 | 2026-10-05 | Proposed | Jens Tirsvad Nielsen | S02 | Added MIL-004 and RC-018 | [2a6bb8e] |
+| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | Added DCD-001 and DCD-002 | pending |
 
 ---
 
@@ -35,16 +35,18 @@ updated whenever an artifact instance is created or reviewed.
 | [US-001] | US | [BC-001], [UCD-001], [MIL-001], [MIL-002], [MIL-003], [MIL-004] | [UC-001] | [RC-001] |
 | [UC-001] | UC | [UCD-001], [US-001], [SA-001] | [SSD-001], [DM-001] | [RC-002] |
 | [SSD-001] | SSD | [UC-001] | [OC-001] | [RC-003] |
-| [DM-001] | DM | [UC-001], [SSD-001] | [DM-002], [DICT-001], [OC-001] | [RC-004] |
-| [DM-002] | DM | [DM-001] | [DICT-001] | [RC-005] |
+| [DM-001] | DM | [UC-001], [SSD-001] | [DM-002], [DICT-001], [OC-001], [DCD-001] | [RC-004] |
+| [DM-002] | DM | [DM-001] | [DICT-001], [DCD-001], [DCD-002] | [RC-005] |
 | [DICT-001] | DICT | [BC-001], [SA-001], [DM-001], [DM-002] | [OC-001], [SD-001] | [RC-008] |
 | [OC-001] | OC | [SSD-001], [DM-001] | [SD-001] | [RC-006] |
-| [SD-001] | SD | [OC-001] | - | [RC-007] |
+| [SD-001] | SD | [OC-001] | [DCD-001] | [RC-007] |
+| [DCD-001] | DCD | [UC-001], [DM-001], [DM-002], [OC-001], [SD-001], [DICT-001] | [DCD-002] | - |
+| [DCD-002] | DCD | [DCD-001], [DM-002], [DICT-001] | - | - |
 
 ## Coverage Notes
 
 - Reviewed so far: every artifact in the project (see the Last Reviewed column).
-- No Design Class Diagram, ERD, KPI, BMC or BPMN exists yet. `-` in Downstream means nothing is built on the artifact yet.
+- [DCD-001] and [DCD-002] are proposed and not reviewed yet. No ERD, KPI, BMC or BPMN exists yet. `-` in Downstream means nothing is built on the artifact yet.
 
 ---
 
@@ -57,6 +59,8 @@ updated whenever an artifact instance is created or reviewed.
 [MIL-004]: ../milestones/mil-004-configurable-details.md
 [RC-018]: ./reviews/rc-018-mil-004.md
 [RC-019]: ./reviews/rc-019-mil-004-code.md
+[DCD-001]: ../uc-001/dcd.md
+[DCD-002]: ../dcd.md
 [UCD-001]: ../use-case-diagram.md
 [US-001]: ../user-stories.md
 [UC-001]: ../uc-001/uc.md
@@ -83,5 +87,4 @@ updated whenever an artifact instance is created or reviewed.
 [RC-015]: ./reviews/rc-015-mil-003.md
 [RC-016]: ./reviews/rc-016-create-project-sh.md
 [RC-017]: ./reviews/rc-017-e2e-security-review.md
-[02875ae]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/02875aee5f2953473924074eea0056eb31af6b7a
 [2a6bb8e]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/2a6bb8e8afadfe6ca4a621da30e44a372898ca62
