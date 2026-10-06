@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-05 | Deprecated | Jens Tirsvad Nielsen | S02 | Configuration may hold preset project details (from DM-001, UC-001 step 3) | [2a6bb8e] |
-| 2026-10-06 | Accepted | Jens Tirsvad Nielsen | S02 | Added Credentials File (from DM-001, UC-001 step 9) | pending |
+| 2026-10-06 | Accepted | Jens Tirsvad Nielsen | S02 | Added Credentials File (from DM-001, UC-001 step 9) | [ded26a6] |
 
 ---
 
@@ -181,3 +181,4 @@ Summary "1" --> "1" Project : reports on
 [DICT-001]: ./dictionary.md
 [DM-001]: ./uc-001/dm.md
 [2a6bb8e]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/2a6bb8e8afadfe6ca4a621da30e44a372898ca62
+[ded26a6]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/ded26a658c666bf29d84093cb352e3635e07719b

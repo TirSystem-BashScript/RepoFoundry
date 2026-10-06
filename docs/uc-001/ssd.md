@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-05 | Deprecated | Jens Tirsvad Nielsen | S02 | Parameters may come from config.env; the message is unchanged | [2a6bb8e] |
-| 2026-10-06 | Accepted | Jens Tirsvad Nielsen | S02 | writeEnvFile parameter and the credentials that .env does not provide | pending |
+| 2026-10-06 | Accepted | Jens Tirsvad Nielsen | S02 | writeEnvFile parameter and the credentials that .env does not provide | [ded26a6] |
 
 ---
 
@@ -51,3 +51,4 @@ The system is one script run. It starts with the first operation and ends after 
 [DM-001]: ./dm.md
 [OC-001]: ./oc.md
 [2a6bb8e]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/2a6bb8e8afadfe6ca4a621da30e44a372898ca62
+[ded26a6]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/ded26a658c666bf29d84093cb352e3635e07719b

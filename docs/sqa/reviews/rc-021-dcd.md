@@ -9,7 +9,7 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | Initial version | pending |
+| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | Initial version | [ded26a6] |
 
 ---
 
@@ -61,3 +61,4 @@ Go — all mandatory criteria pass after the fix for criterion 4, and the option
 [DICT-001]: ../../dictionary.md
 [MIL-005]: ../../milestones/mil-005-credentials.md
 [QC-DCD-001]: ../../../framework/qc/qc-dcd.md
+[ded26a6]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/ded26a658c666bf29d84093cb352e3635e07719b

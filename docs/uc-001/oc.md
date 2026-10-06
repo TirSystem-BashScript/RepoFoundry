@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-05 | Deprecated | Jens Tirsvad Nielsen | S02 | Project details may be defined by the Configuration | [2a6bb8e] |
-| 2026-10-06 | Accepted | Jens Tirsvad Nielsen | S02 | Credentials asked when missing; EnvFile created in the local project (P14); writeEnvFile parameter | pending |
+| 2026-10-06 | Accepted | Jens Tirsvad Nielsen | S02 | Credentials asked when missing; EnvFile created in the local project (P14); writeEnvFile parameter | [ded26a6] |
 
 ---
 
@@ -95,3 +95,4 @@ Concepts below use the IT terms of [DICT-001] for the PO concepts of [DM-001]. `
 [DICT-001]: ../dictionary.md
 [SD-001]: ./sd.md
 [2a6bb8e]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/2a6bb8e8afadfe6ca4a621da30e44a372898ca62
+[ded26a6]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/ded26a658c666bf29d84093cb352e3635e07719b

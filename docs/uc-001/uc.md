@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-05 | Deprecated | Jens Tirsvad Nielsen | S02 | Step 3: details set in config.env are not asked (extensions 3a, 3b) | [2a6bb8e] |
-| 2026-10-06 | Accepted | Jens Tirsvad Nielsen | S02 | Credentials not in .env are asked (step 2, extension 2b); the project .env is created with consent (step 9, extensions 9c, 9d) | pending |
+| 2026-10-06 | Accepted | Jens Tirsvad Nielsen | S02 | Credentials not in .env are asked (step 2, extension 2b); the project .env is created with consent (step 9, extensions 9c, 9d) | [ded26a6] |
 
 ---
 
@@ -103,3 +103,4 @@
 [SA-001]: ../stakeholder-analysis.md
 [DM-001]: ./dm.md
 [2a6bb8e]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/2a6bb8e8afadfe6ca4a621da30e44a372898ca62
+[ded26a6]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/ded26a658c666bf29d84093cb352e3635e07719b

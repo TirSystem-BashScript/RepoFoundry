@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-06 | Deprecated | Jens Tirsvad Nielsen | S02 | Initial version | [f4d611b] |
-| 2026-10-06 | Accepted | Jens Tirsvad Nielsen | S02 | Added CredentialCollector, EnvFileWriter and EnvFile; writeEnvFile parameter | pending |
+| 2026-10-06 | Accepted | Jens Tirsvad Nielsen | S02 | Added CredentialCollector, EnvFileWriter and EnvFile; writeEnvFile parameter | [ded26a6] |
 
 ---
 
@@ -337,3 +337,4 @@ SOLID check: no class has more than one reason to change (one host API, one kind
 [DICT-001]: ../dictionary.md
 [DCD-002]: ../dcd.md
 [f4d611b]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/f4d611b77cc70b4686506d44bf8f439045d9e0d2
+[ded26a6]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/ded26a658c666bf29d84093cb352e3635e07719b

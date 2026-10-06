@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-05 | Deprecated | Jens Tirsvad Nielsen | S02 | Added objective 8 (project details preset in config.env), the matching scope item and success criterion 8 | [2a6bb8e] |
-| 2026-10-06 | Accepted | Jens Tirsvad Nielsen | S02 | Added objective 9 (credentials asked, project .env created), scope items, success criterion 9 and a risk<br>Objective 6 and success criterion 1 now allow a token only in the new project's .env | pending |
+| 2026-10-06 | Accepted | Jens Tirsvad Nielsen | S02 | Added objective 9 (credentials asked, project .env created), scope items, success criterion 9 and a risk<br>Objective 6 and success criterion 1 now allow a token only in the new project's .env | [ded26a6] |
 
 ---
 
@@ -147,3 +147,4 @@ Proceed — the procedure is small, well bounded and removes a repeated, securit
 [SA-001]: ./stakeholder-analysis.md
 [UCD-001]: ./use-case-diagram.md
 [2a6bb8e]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/2a6bb8e8afadfe6ca4a621da30e44a372898ca62
+[ded26a6]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/ded26a658c666bf29d84093cb352e3635e07719b

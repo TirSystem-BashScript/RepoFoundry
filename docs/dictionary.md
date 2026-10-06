@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-06 | Deprecated | Jens Tirsvad Nielsen | S02 | The IT terms are also used in DCD-001 and DCD-002<br>InstallResult and Visibility named as design-only types | [f4d611b] |
-| 2026-10-06 | Accepted | Jens Tirsvad Nielsen | S02 | Added Credentials File / EnvFile | pending |
+| 2026-10-06 | Accepted | Jens Tirsvad Nielsen | S02 | Added Credentials File / EnvFile | [ded26a6] |
 
 ---
 
@@ -64,3 +64,4 @@ Maps each Product Owner (PO) term to its professional IT term. PO language: Engl
 [OC-001]: ./uc-001/oc.md
 [DCD-001]: ./uc-001/dcd.md
 [f4d611b]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/f4d611b77cc70b4686506d44bf8f439045d9e0d2
+[ded26a6]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/ded26a658c666bf29d84093cb352e3635e07719b
