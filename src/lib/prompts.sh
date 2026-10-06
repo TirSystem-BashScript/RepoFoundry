@@ -4,7 +4,7 @@
 #
 # Part of create-project.sh: sourced by it, never run on its own.
 #
-# Provides: prompt_value, prompt_choice, prompt_yes_no
+# Provides: prompt_value, prompt_secret, prompt_choice, prompt_yes_no
 
 # prompt_value LABEL DEFAULT VALIDATOR HINT: ask until VALIDATOR accepts the
 # answer; the accepted answer is returned in REPLY.
@@ -20,6 +20,27 @@ prompt_value() {
     answer="$(trim "$answer")"
     answer="${answer:-$default}"
     if "$validator" "$answer"; then
+      REPLY="$answer"
+      return 0
+    fi
+    warn "invalid $label: $hint"
+  done
+}
+
+# prompt_secret LABEL VALIDATOR HINT: like prompt_value for a secret. What is
+# typed is not shown (read -s) and a refused answer is never repeated in the
+# message. An empty answer is refused; there is no default.
+prompt_secret() {
+  local label="$1" validator="$2" hint="$3" answer
+  while true; do
+    printf '%s (input is hidden): ' "$label" >&2
+    IFS= read -rs answer || {
+      printf '\n' >&2
+      die "no input available for '$label'"
+    }
+    printf '\n' >&2 # the newline that hidden input did not echo
+    answer="$(trim "$answer")"
+    if [[ -n $answer ]] && "$validator" "$answer"; then
       REPLY="$answer"
       return 0
     fi
