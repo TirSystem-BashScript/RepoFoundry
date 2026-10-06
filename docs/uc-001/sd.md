@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Note: preset project details are read by ConfigLoader | [2a6bb8e] |
-| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | Messages aligned with the method signatures of DCD-001<br>Cited DCD-001 | pending |
+| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | Messages aligned with the method signatures of DCD-001<br>Cited DCD-001 | [f4d611b] |
 
 ---
 
@@ -189,3 +189,4 @@ destroy SR
 [OC-001]: ./oc.md
 [DCD-001]: ./dcd.md
 [2a6bb8e]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/2a6bb8e8afadfe6ca4a621da30e44a372898ca62
+[f4d611b]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/f4d611b77cc70b4686506d44bf8f439045d9e0d2

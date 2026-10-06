@@ -9,7 +9,7 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | Initial version, from DCD-001 (UC-001) | pending |
+| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | Initial version, from DCD-001 (UC-001) | [f4d611b] |
 
 ---
 
@@ -310,3 +310,4 @@ SOLID check: no class has more than one reason to change (one host API, one kind
 [OC-001]: ./uc-001/oc.md
 [SD-001]: ./uc-001/sd.md
 [DICT-001]: ./dictionary.md
+[f4d611b]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/f4d611b77cc70b4686506d44bf8f439045d9e0d2
