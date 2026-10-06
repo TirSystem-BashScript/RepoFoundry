@@ -129,13 +129,39 @@ src/create-project.sh --apply        # asks only "Create these now (y/n) [n]"
 
 | Key | Meaning |
 | --- | --- |
-| `GITEA_TOKEN` | Gitea access token (required) |
+| `GITEA_TOKEN` | Gitea access token |
 | `GITHUB_PAT` | GitHub personal access token (only when you choose GitHub) |
-| `GITHUB_USER` | the GitHub account the token belongs to; only a default for the owner prompt |
+| `GITHUB_USER` | the GitHub account the token belongs to (only when you choose GitHub) |
 
 `.env` is ignored by git. The script warns if it is readable by other users or
 not ignored by git. See [Token permissions](#token-permissions) for what each
 token needs.
+
+`.env` is optional, and so is each key in it. A credential that is not
+provided (the file is missing, the key is absent or its value is empty) is
+asked for: the Gitea token at the start, the GitHub token and account name once
+you choose GitHub. A token is read without echo and checked like one read from
+`.env`; a refused value is asked again and never shown. If input ends before a
+valid value is entered, the run stops before any request to a host.
+
+### The project's own `.env`
+
+When the project exists, the script asks whether to create a `.env` in it
+(default no). On a yes the file holds only the credentials the project needs:
+`GITEA_TOKEN`, and `GITHUB_PAT` and `GITHUB_USER` when you chose GitHub, as read
+from your `.env` or typed.
+
+- The file is created readable by you only (mode 600), never readable by
+  others even for a moment, and is never written by anything else.
+- Git ignores it: the script adds `.env` to `.git/info/exclude` of the new
+  project. No tracked file changes and nothing is committed.
+- An existing `.env` in the project is never replaced without a second yes, and
+  a `.env` that git already tracks is never written.
+- The summary names the keys, never the values.
+
+This is the one place the script writes a token to disk. It is plain text: keep
+the project directory private, do not copy the file around, and say no if you
+do not need it. Tokens are written nowhere else.
 
 ## Usage
 
@@ -264,7 +290,9 @@ script stops before it creates anything when a preflight check is refused.
 ## Security decisions
 
 - **Tokens never appear** in output, logs, remote URLs, `.git/config`,
-  `.gitmodules`, command lines or leftover files. They go to `curl` through a
+  `.gitmodules`, command lines or leftover files, and are written to disk only
+  in the new project's own `.env`, after a yes (see
+  [The project's own `.env`](#the-projects-own-env)). They go to `curl` through a
   private configuration file that is removed right after the request, and to
   `git` (HTTPS fetch only) through a `GIT_ASKPASS` helper and the environment
   of that one command. Output is filtered, so even a server message that echoes
@@ -368,11 +396,13 @@ file. The files are loaded from that directory only, by a fixed path.
 | `json.sh` | the little JSON the script reads and writes |
 | `http.sh` | the one place that runs `curl`; tokens stay off the command line |
 | `api.sh` | GitHub and Gitea API calls and reporting a refused call |
-| `prompts.sh` | interactive questions with validation |
+| `prompts.sh` | interactive questions with validation (secrets are read without echo) |
+| `credentials.sh` | asking for a credential that `.env` does not provide |
 | `project.sh` | the project details: asking for them and showing them |
 | `hosts.sh` | names, links and remote addresses of the repositories |
 | `preflight.sh` | read-only checks of both hosts |
 | `steps.sh` | the outcome of each step and the final report |
+| `envfile.sh` | the new project's own `.env`: created private, ignored by git, never replaced without a yes |
 | `plan.sh` | printing what the script is about to do |
 | `repositories.sh` | creating the GitHub and Gitea repositories |
 | `mirror.sh` | the Gitea to GitHub push mirror |

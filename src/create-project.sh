@@ -11,7 +11,9 @@
 #   repository, remotes (no credential in any address), the framework as a
 #   submodule, the framework's skills and git hooks (and the plan gate if
 #   chosen) and its templates. Choosing GitHub also applies the AGPL-3.0
-#   license to the Gitea repository. No commit is made in the new project.
+#   license to the Gitea repository. After a yes (default no) it also writes
+#   the new project's own .env with the credentials the project needs. No
+#   commit is made in the new project.
 #
 # Dry run by default
 #   Without --apply the script only reads from GitHub and Gitea (GET
@@ -27,7 +29,8 @@
 # Options
 #   --apply         create the repositories and the mirror (after a final yes)
 #   --config FILE   service addresses (default: config.env in the project root)
-#   --env FILE      credentials (default: .env in the project root)
+#   --env FILE      credentials (default: .env in the project root); optional:
+#                   a credential it does not provide is asked, not echoed
 #   -h, --help      show this help
 #   --version       show the version
 #
@@ -36,7 +39,8 @@
 #               the optional GITEA_SSH_PORT (default 10022), MIRROR_INTERVAL
 #               (default 10m0s) and FRAMEWORK_REPO (default
 #               TirSystem/SQA-QC-Framework, the submodule's OWNER/NAME)
-#   .env        GITHUB_PAT, GITHUB_USER, GITEA_TOKEN
+#   .env        GITHUB_PAT, GITHUB_USER, GITEA_TOKEN (all optional, each
+#               asked when missing)
 #
 # Environment
 #   REPOFOUNDRY_NAME       project name used in messages (default: RepoFoundry)
@@ -65,8 +69,8 @@
 #   This file is the entry point. The work is split by responsibility into
 #   the files in lib/ next to it (one job per file, see the first lines of
 #   each file): constants, output, temp, util, validate, config, tools, json,
-#   http, api, prompts, project, hosts, preflight, steps, plan, repositories,
-#   mirror, git, localproject, framework, apply and cli. The files are loaded
+#   http, api, prompts, credentials, project, hosts, preflight, steps, plan,
+#   repositories, mirror, git, localproject, framework, envfile, apply and cli. The files are loaded
 #   from this directory only.
 #
 # Exit codes
@@ -121,6 +125,8 @@ source "$SCRIPT_DIR/lib/http.sh"
 source "$SCRIPT_DIR/lib/api.sh"
 # shellcheck source=lib/prompts.sh
 source "$SCRIPT_DIR/lib/prompts.sh"
+# shellcheck source=lib/credentials.sh
+source "$SCRIPT_DIR/lib/credentials.sh"
 # shellcheck source=lib/project.sh
 source "$SCRIPT_DIR/lib/project.sh"
 # shellcheck source=lib/hosts.sh
@@ -141,6 +147,8 @@ source "$SCRIPT_DIR/lib/git.sh"
 source "$SCRIPT_DIR/lib/localproject.sh"
 # shellcheck source=lib/framework.sh
 source "$SCRIPT_DIR/lib/framework.sh"
+# shellcheck source=lib/envfile.sh
+source "$SCRIPT_DIR/lib/envfile.sh"
 # shellcheck source=lib/apply.sh
 source "$SCRIPT_DIR/lib/apply.sh"
 # shellcheck source=lib/cli.sh
@@ -166,9 +174,10 @@ main() {
   check_tools
   setup_temp_dir
   load_configuration
+  collect_credentials GITEA_TOKEN
   collect_project_details
   if ((PROJECT[has_github])); then
-    require_github_credentials
+    collect_credentials GITHUB_PAT GITHUB_USER
   fi
   init_steps
   print_summary

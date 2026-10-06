@@ -4,7 +4,7 @@
 #
 # Part of create-project.sh: sourced by it, never run on its own.
 #
-# Provides: unquote_value, parse_env_file, parse_env_entry, validate_config, check_preset, check_preset_choice, validate_project_presets, validate_credentials, require_github_credentials, warn_if_env_unsafe, load_configuration
+# Provides: unquote_value, parse_env_file, parse_env_entry, validate_config, check_preset, check_preset_choice, validate_project_presets, validate_credentials, warn_if_env_unsafe, load_configuration
 
 # unquote_value RAW: strip matching quotes (or a trailing " # comment" on an
 # unquoted value) and return the value in REPLY. Fails on unbalanced quotes.
@@ -144,35 +144,28 @@ validate_project_presets() {
   check_preset_choice ENABLE_PLAN_GATE yes no
 }
 
+# validate_credentials: check the credentials that .env provides. A credential
+# that is not provided is not an error: it is asked later (collect_credentials).
 validate_credentials() {
-  if [[ -z ${CREDENTIALS[GITEA_TOKEN]:-} ]]; then
-    die "GITEA_TOKEN is missing in $ENV_FILE (see .env.example)"
-  fi
   # Register secrets first so that no later message can show them.
-  SECRET_VALUES+=("${CREDENTIALS[GITEA_TOKEN]}")
+  if [[ -n ${CREDENTIALS[GITEA_TOKEN]:-} ]]; then
+    SECRET_VALUES+=("${CREDENTIALS[GITEA_TOKEN]}")
+  fi
   if [[ -n ${CREDENTIALS[GITHUB_PAT]:-} ]]; then
     SECRET_VALUES+=("${CREDENTIALS[GITHUB_PAT]}")
   fi
-  is_valid_token "${CREDENTIALS[GITEA_TOKEN]}" ||
-    die "GITEA_TOKEN in $ENV_FILE is not a valid token (8 to 255 letters, digits or _ . ~ + / = -)"
+  if [[ -n ${CREDENTIALS[GITEA_TOKEN]:-} ]] &&
+    ! is_valid_token "${CREDENTIALS[GITEA_TOKEN]}"; then
+    die "GITEA_TOKEN in $ENV_FILE is not a valid token ($HINT_TOKEN)"
+  fi
   if [[ -n ${CREDENTIALS[GITHUB_PAT]:-} ]] &&
     ! is_valid_token "${CREDENTIALS[GITHUB_PAT]}"; then
-    die "GITHUB_PAT in $ENV_FILE is not a valid token (8 to 255 letters, digits or _ . ~ + / = -)"
+    die "GITHUB_PAT in $ENV_FILE is not a valid token ($HINT_TOKEN)"
   fi
   if [[ -n ${CREDENTIALS[GITHUB_USER]:-} ]] &&
     ! is_valid_github_owner "${CREDENTIALS[GITHUB_USER]}"; then
     die "GITHUB_USER in $ENV_FILE is not a valid GitHub account name"
   fi
-}
-
-# GitHub credentials are only needed when the Maintainer chose GitHub.
-require_github_credentials() {
-  local key
-  for key in GITHUB_PAT GITHUB_USER; do
-    if [[ -z ${CREDENTIALS[$key]:-} ]]; then
-      die "GitHub was chosen but $key is missing in $ENV_FILE (see .env.example)"
-    fi
-  done
 }
 
 warn_if_env_unsafe() {
@@ -200,7 +193,10 @@ warn_if_env_unsafe() {
 load_configuration() {
   parse_env_file "$CONFIG_FILE" CONFIG_KEYS CONFIG
   validate_config
-  parse_env_file "$ENV_FILE" CREDENTIAL_KEYS CREDENTIALS
+  # .env is optional: a credential it does not provide is asked.
+  if [[ -e $ENV_FILE ]]; then
+    parse_env_file "$ENV_FILE" CREDENTIAL_KEYS CREDENTIALS
+    warn_if_env_unsafe "$ENV_FILE"
+  fi
   validate_credentials
-  warn_if_env_unsafe "$ENV_FILE"
 }
