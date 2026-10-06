@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-06 | Deprecated | Jens Tirsvad Nielsen | S02 | Initial version, from DCD-001 (UC-001) | [f4d611b] |
 | 2026-10-06 | Accepted | Jens Tirsvad Nielsen | S02 | Added CredentialCollector, EnvFileWriter and EnvFile (from DCD-001) | [ded26a6] |
+| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | ProjectRequest carries the license that applies (from DCD-001) | pending |
 
 ---
 
@@ -111,6 +111,7 @@ class ProjectRequest {
   -visibility : Visibility
   -directory : Path
   -enablePlanGate : Boolean
+  -license : String [0..1]
 }
 class Owner {
   -name : String
@@ -247,13 +248,13 @@ Repository "0..*" --> "1" Visibility
 | `Credential` | Access Token | Holds a secret in memory only; it never becomes part of an address or a message. | `kind`, `value` | none |
 | `ToolCheck` | none (system concept) | Records which tools are present. | `hasGit`, `hasCurl`, `hasJq` | none |
 | `PromptSet` | none (system concept) | The questions still to ask; a detail preset in `config.env` is not in it. | `prompts` | none |
-| `ProjectRequest` | Project | Holds the details of the project being created. | `name`, `description`, `visibility`, `directory`, `enablePlanGate` | none |
+| `ProjectRequest` | Project | Holds the details of the project being created. | `name`, `description`, `visibility`, `directory`, `enablePlanGate`, `license` | none |
 | `Owner` | Owner | A user or organization on a host. | `name`, `kind` | none |
 | `PreflightResult` | none (system concept) | Records the outcome of the preflight checks. | `tokensWork`, `ownersAccept`, `nameIsFree`, `licenseIsOffered`, `sshPassed` | none |
 | `Repository` | Repository | Common data of a repository on a host. | `name`, `description`, `visibility`, `address` | none |
 | `GiteaRepository` | Gitea Repository | The source of truth. | none beyond `Repository` | none |
 | `GitHubRepository` | GitHub Repository | Receives its content from the mirror. | none beyond `Repository` | none |
-| `LicenseFile` | License | The `AGPL-3.0` file in the Gitea repository when GitHub is chosen. | `key` | none |
+| `LicenseFile` | License | The license file in the Gitea repository when a license applies. | `key` | none |
 | `PushMirror` | Mirror | The Gitea to GitHub push mirror. | `interval`, `syncOnCommit` | none |
 | `LocalProject` | Local Project | The project directory on the Maintainer's machine. | `directory` | none |
 | `Remote` | Remote | A named link to a repository (`origin`, `github`), without a credential. | `name`, `address` | none |
@@ -280,7 +281,7 @@ Repository "0..*" --> "1" Visibility
 | `GitHost.verifyToken() : Boolean` | [SD-001] `verifyToken()` from `Preflight` to either client; P2 |
 | `GitHost.ownerAccepts(owner) : Boolean` | [SD-001] `ownerAccepts(giteaOwner)` and `ownerAccepts(githubOwner)`; P2 |
 | `GitHost.nameFree(name) : Boolean` | [SD-001] `nameFree(name)` to either client; P2 |
-| `GiteaClient.hasLicense(key) : Boolean` | [SD-001] `hasLicense(AGPL-3.0)`; P2 |
+| `GiteaClient.hasLicense(key) : Boolean` | [SD-001] `hasLicense(license)`; P2 |
 | `GiteaClient.createRepository(request, license) : GiteaRepository` | [SD-001] `createRepository(request, license)`; P3, P4 |
 | `GiteaClient.addPushMirror(source, target) : PushMirror` | [SD-001] `addPushMirror(giteaRepository, gitHubRepository)`; P6 |
 | `GiteaClient.requestSync(mirror) : void` | [SD-001] `requestSync(pushMirror)`; P6 |
@@ -333,5 +334,4 @@ SOLID check: no class has more than one reason to change (one host API, one kind
 [SD-001]: ./uc-001/sd.md
 [MIL-005]: ./milestones/mil-005-credentials.md
 [DICT-001]: ./dictionary.md
-[f4d611b]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/f4d611b77cc70b4686506d44bf8f439045d9e0d2
 [ded26a6]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/ded26a658c666bf29d84093cb352e3635e07719b

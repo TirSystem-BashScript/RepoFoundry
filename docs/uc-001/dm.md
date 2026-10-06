@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-05 | Deprecated | Jens Tirsvad Nielsen | S02 | Configuration may hold preset project details | [2a6bb8e] |
 | 2026-10-06 | Accepted | Jens Tirsvad Nielsen | S02 | Added Credentials File (a Local Project may have one) | [ded26a6] |
+| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | License applies when configured, not only when GitHub is chosen | pending |
 
 ---
 
@@ -130,7 +130,7 @@ Summary "1" --> "1" Project : reports on
 | Repository | A place on a Git Host that holds a project's history | name, description, visibility, address | [UC-001] steps 5 and 6 "repository" |
 | Gitea Repository | The Repository on Gitea; the source of truth | none beyond Repository | [UC-001] step 6 |
 | GitHub Repository | The Repository on GitHub; receives its content from the Mirror | none beyond Repository | [UC-001] step 5 |
-| License | The legal terms file added to a Gitea Repository (AGPL-3.0) when GitHub is chosen | name | [UC-001] step 6 "AGPL license" |
+| License | The legal terms file added to a Gitea Repository when a license applies: the one set in the Configuration, or AGPL-3.0 when GitHub is chosen and none is set | name | [UC-001] step 6 "license" |
 | Mirror | The push mirror that copies a Gitea Repository to a GitHub Repository | interval, sync on commit | [UC-001] step 7 "push mirror" |
 | Local Project | The project directory on the Maintainer's machine | directory | [UC-001] step 8 "local project" |
 | Remote | A named link from a Local Project to a Repository (`origin`, `github`) | name, address | [UC-001] step 8 "remote" |
@@ -152,7 +152,7 @@ Summary "1" --> "1" Project : reports on
 | Owner | owns | Repository | 1 to 0..* |
 | Project | is stored in | Gitea Repository | 1 to 1 |
 | Project | is also stored in | GitHub Repository | 1 to 0..1 |
-| Gitea Repository | has | License | 1 to 0..1 (1 when GitHub is chosen) |
+| Gitea Repository | has | License | 1 to 0..1 (1 when a license applies) |
 | Mirror | copies from | Gitea Repository | 1 to 1 |
 | Mirror | copies to | GitHub Repository | 1 to 1 |
 | Mirror | is authorised by | Access Token | 0..* to 1 |
@@ -180,5 +180,4 @@ Summary "1" --> "1" Project : reports on
 [SSD-001]: ./ssd.md
 [DICT-001]: ../dictionary.md
 [DM-002]: ../domain-model.md
-[2a6bb8e]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/2a6bb8e8afadfe6ca4a621da30e44a372898ca62
 [ded26a6]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/ded26a658c666bf29d84093cb352e3635e07719b
