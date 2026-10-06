@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-06 | Accepted | Jens Tirsvad Nielsen | S02 | Added Credentials File / EnvFile | [ded26a6] |
-| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | LicenseFile definition no longer tied to GitHub | pending |
+| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | LicenseFile definition no longer tied to GitHub | [d773fa9] |
 
 ---
 
@@ -64,3 +64,4 @@ Maps each Product Owner (PO) term to its professional IT term. PO language: Engl
 [OC-001]: ./uc-001/oc.md
 [DCD-001]: ./uc-001/dcd.md
 [ded26a6]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/ded26a658c666bf29d84093cb352e3635e07719b
+[d773fa9]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/d773fa91df5a54090254e12e074880fb6526a9ff

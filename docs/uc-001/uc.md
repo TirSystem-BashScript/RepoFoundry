@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-06 | Accepted | Jens Tirsvad Nielsen | S02 | Credentials not in .env are asked (step 2, extension 2b); the project .env is created with consent (step 9, extensions 9c, 9d) | [ded26a6] |
-| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | The license comes from PROJECT_LICENSE (step 6, extension 4c); AGPL-3.0 is only the default when GitHub is chosen | pending |
+| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | The license comes from PROJECT_LICENSE (step 6, extension 4c); AGPL-3.0 is only the default when GitHub is chosen | [d773fa9] |
 
 ---
 
@@ -103,3 +103,4 @@
 [SA-001]: ../stakeholder-analysis.md
 [DM-001]: ./dm.md
 [ded26a6]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/ded26a658c666bf29d84093cb352e3635e07719b
+[d773fa9]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/d773fa91df5a54090254e12e074880fb6526a9ff

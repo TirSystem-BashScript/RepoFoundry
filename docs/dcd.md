@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-06 | Accepted | Jens Tirsvad Nielsen | S02 | Added CredentialCollector, EnvFileWriter and EnvFile (from DCD-001) | [ded26a6] |
-| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | ProjectRequest carries the license that applies (from DCD-001) | pending |
+| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | ProjectRequest carries the license that applies (from DCD-001) | [d773fa9] |
 
 ---
 
@@ -335,3 +335,4 @@ SOLID check: no class has more than one reason to change (one host API, one kind
 [MIL-005]: ./milestones/mil-005-credentials.md
 [DICT-001]: ./dictionary.md
 [ded26a6]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/ded26a658c666bf29d84093cb352e3635e07719b
+[d773fa9]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/d773fa91df5a54090254e12e074880fb6526a9ff

@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-06 | Accepted | Jens Tirsvad Nielsen | S02 | Added CredentialCollector and EnvFileWriter and their messages (P2, P14) | [ded26a6] |
-| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | The license that applies is passed to hasLicense and createRepository; no alt on the GitHub choice | pending |
+| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | The license that applies is passed to hasLicense and createRepository; no alt on the GitHub choice | [d773fa9] |
 
 ---
 
@@ -217,3 +217,4 @@ destroy SR
 [OC-001]: ./oc.md
 [DCD-001]: ./dcd.md
 [ded26a6]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/ded26a658c666bf29d84093cb352e3635e07719b
+[d773fa9]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/d773fa91df5a54090254e12e074880fb6526a9ff

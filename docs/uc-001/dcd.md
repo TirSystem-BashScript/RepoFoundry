@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-06 | Accepted | Jens Tirsvad Nielsen | S02 | Added CredentialCollector, EnvFileWriter and EnvFile; writeEnvFile parameter | [ded26a6] |
-| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | ProjectRequest carries the license that applies | pending |
+| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | ProjectRequest carries the license that applies | [d773fa9] |
 
 ---
 
@@ -338,3 +338,4 @@ SOLID check: no class has more than one reason to change (one host API, one kind
 [DICT-001]: ../dictionary.md
 [DCD-002]: ../dcd.md
 [ded26a6]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/ded26a658c666bf29d84093cb352e3635e07719b
+[d773fa9]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/d773fa91df5a54090254e12e074880fb6526a9ff

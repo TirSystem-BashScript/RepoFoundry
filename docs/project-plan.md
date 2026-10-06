@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-06 | Accepted | Jens Tirsvad Nielsen | S02 | Added phase MIL-005 (proposed dates 2026-11-23 to 2026-11-27) | [ded26a6] |
-| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | Added phase MIL-006 (proposed dates 2026-11-30 to 2026-12-04) | pending |
+| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | Added phase MIL-006 (proposed dates 2026-11-30 to 2026-12-04) | [d773fa9] |
 
 ---
 
@@ -108,3 +108,4 @@ A No-Go moves every later date by the time needed to rework the failed criteria.
 [Milestone 44]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/milestone/44
 [Milestone 45]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/milestone/45
 [ded26a6]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/ded26a658c666bf29d84093cb352e3635e07719b
+[d773fa9]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/d773fa91df5a54090254e12e074880fb6526a9ff

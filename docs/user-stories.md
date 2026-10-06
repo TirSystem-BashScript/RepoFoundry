@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-06 | Accepted | Jens Tirsvad Nielsen | S02 | Added US-001.05: credentials asked when missing and kept in the project .env | [ded26a6] |
-| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | Added US-001.06: the license set in config.env; US-001.02 names the license that applies | pending |
+| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | Added US-001.06: the license set in config.env; US-001.02 names the license that applies | [d773fa9] |
 
 ---
 
@@ -128,3 +128,4 @@ Valuable, Negotiable, Estimable, Small and Testable hold for each story. Indepen
 [MIL-006]: ./milestones/mil-006-project-license.md
 [PP-001]: ./project-plan.md
 [ded26a6]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/ded26a658c666bf29d84093cb352e3635e07719b
+[d773fa9]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/d773fa91df5a54090254e12e074880fb6526a9ff

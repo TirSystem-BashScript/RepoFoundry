@@ -9,7 +9,7 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | Initial version | pending |
+| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | Initial version | [d773fa9] |
 
 ---
 
@@ -83,3 +83,4 @@ The license that applies is resolved in this order: `PROJECT_LICENSE` when set (
 [UC-001]: ../uc-001/uc.md
 [DCD-001]: ../uc-001/dcd.md
 [MIL-004]: ./mil-004-configurable-details.md
+[d773fa9]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/d773fa91df5a54090254e12e074880fb6526a9ff

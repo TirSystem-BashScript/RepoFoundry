@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-06 | Accepted | Jens Tirsvad Nielsen | S02 | Credentials asked when missing; EnvFile created in the local project (P14); writeEnvFile parameter | [ded26a6] |
-| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | P2, P4 and an exception: the license that applies, not always AGPL-3.0 | pending |
+| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | P2, P4 and an exception: the license that applies, not always AGPL-3.0 | [d773fa9] |
 
 ---
 
@@ -96,3 +96,4 @@ Concepts below use the IT terms of [DICT-001] for the PO concepts of [DM-001]. `
 [DICT-001]: ../dictionary.md
 [SD-001]: ./sd.md
 [ded26a6]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/ded26a658c666bf29d84093cb352e3635e07719b
+[d773fa9]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/d773fa91df5a54090254e12e074880fb6526a9ff

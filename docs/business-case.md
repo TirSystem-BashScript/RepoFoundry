@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-06 | Accepted | Jens Tirsvad Nielsen | S02 | Added objective 9 (credentials asked, project .env created), scope items, success criterion 9 and a risk<br>Objective 6 and success criterion 1 now allow a token only in the new project's .env | [ded26a6] |
-| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | Added objective 10 (PROJECT_LICENSE in config.env), a scope item and success criterion 10; objective 2 now names the configured license | pending |
+| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | Added objective 10 (PROJECT_LICENSE in config.env), a scope item and success criterion 10; objective 2 now names the configured license | [d773fa9] |
 
 ---
 
@@ -150,3 +150,4 @@ Proceed — the procedure is small, well bounded and removes a repeated, securit
 [SA-001]: ./stakeholder-analysis.md
 [UCD-001]: ./use-case-diagram.md
 [ded26a6]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/ded26a658c666bf29d84093cb352e3635e07719b
+[d773fa9]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/d773fa91df5a54090254e12e074880fb6526a9ff

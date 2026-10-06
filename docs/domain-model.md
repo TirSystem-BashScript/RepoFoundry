@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-06 | Accepted | Jens Tirsvad Nielsen | S02 | Added Credentials File (from DM-001, UC-001 step 9) | [ded26a6] |
-| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | License applies when configured, not only when GitHub is chosen (from DM-001) | pending |
+| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | License applies when configured, not only when GitHub is chosen (from DM-001) | [d773fa9] |
 
 ---
 
@@ -181,3 +181,4 @@ Summary "1" --> "1" Project : reports on
 [DICT-001]: ./dictionary.md
 [DM-001]: ./uc-001/dm.md
 [ded26a6]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/ded26a658c666bf29d84093cb352e3635e07719b
+[d773fa9]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/d773fa91df5a54090254e12e074880fb6526a9ff
