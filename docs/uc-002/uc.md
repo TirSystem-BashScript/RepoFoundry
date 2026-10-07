@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Initial version | [1cd27f7] |
 | 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Default configuration files: --config and --env, else ./config.env and ./.env in the working folder, else the checkout's; the files used are named and a file from the working folder is confirmed (step 4, extensions 4b and 4c, rules) | [0ab5006] |
+| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | .env is optional (as in UC-001 extension 2b): only config.env is required; a .env found nowhere means the token is asked | pending |
 
 ---
 
@@ -26,7 +26,7 @@
   - S02 — starting through a link never reads or writes outside the checkout and the current folder
   - S03 — the README says exactly how to make the command global
 - **Preconditions:**
-  - The checkout of RepoFoundry exists. `config.env` and `.env` exist as described in the README in the working folder or in the checkout, or the Maintainer points to them with `--config` and `--env`.
+  - The checkout of RepoFoundry exists. `config.env` exists as described in the README in the working folder or in the checkout, or the Maintainer points to it with `--config`. `.env` may exist in the same places, or be named with `--env`; a credential it does not provide is asked, as in [UC-001].
   - A folder that is on the shell's `PATH` exists and the Maintainer may write to it.
 - **Postconditions (success guarantee):**
   - A command link exists in a `PATH` folder and leads to the script in the checkout.
@@ -50,8 +50,10 @@
   1. The shell reports that the command cannot run; the README says how to recreate the link.
 - 4a. The checkout's own files cannot be found from the link target:
   1. The system stops before any change and names the folder it looked in.
-- 4b. `config.env` or `.env` is not named, and is in neither the working folder nor the checkout:
-  1. The system stops before any change, names both places it looked in and says that `--config` and `--env` can point elsewhere.
+- 4b. `config.env` is not named, and is in neither the working folder nor the checkout:
+  1. The system stops before any change, names both places it looked in and says that `--config` can point elsewhere.
+- 4d. `.env` is not named, and is in neither the working folder nor the checkout:
+  1. The system names that no credentials file was found and goes on; a credential that is needed is asked without showing what is typed, as in extension 2b of [UC-001].
 - 4c. A chosen file comes from the working folder:
   1. The system names the file and the Gitea address it holds and asks the Maintainer to confirm, default no, before any request to a host; on no, the system stops before any request and any change.
 
@@ -76,5 +78,4 @@
 [US-001]: ../user-stories.md
 [SA-001]: ../stakeholder-analysis.md
 [BC-001]: ../business-case.md
-[1cd27f7]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/1cd27f77ed844773a969210a11de0d8bb98ac98f
 [0ab5006]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/0ab50068bf9e5be82a801af9dbe5b763eeaf7f31

@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Added US-002 (global command from the target folder) for UC-002 | [1cd27f7] |
 | 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | US-002: the default configuration files are the working folder's, then the checkout's; confirmed and named | [0ab5006] |
+| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | US-002: only config.env is required; a .env found nowhere means the token is asked | pending |
 
 ---
 
@@ -140,7 +140,8 @@ One further epic, "Start the script as a global command" ([UC-002]), with one st
 - Given the Maintainer stands in a folder, when the project directory is not preset, then its default is `./<name>` under that folder, never under the checkout.
 - Given `--config` and `--env` name files, then those are read. Given they are not named, then `./config.env` and `./.env` in the folder the Maintainer stands in are read, each one that exists, and the checkout's file stands in for one that does not.
 - Given a file comes from the folder the Maintainer stands in, then the script names it and the Gitea address it holds and asks for a yes, default no, before any request; every file used is named in the output.
-- Given a file is named nowhere, in neither folder, or a link is broken, then the script stops before any change and names both places it looked in.
+- Given `config.env` is named nowhere and is in neither folder, or a link is broken, then the script stops before any change and names both places it looked in.
+- Given `.env` is named nowhere and is in neither folder, then the script goes on and asks for the credentials it needs, as in US-001.05.
 - Given the README, then it shows the command that makes the link, the check that it works and a run from a folder that is not the checkout.
 
 | Traces to | Size | INVEST exceptions |
@@ -165,5 +166,4 @@ Valuable, Negotiable, Estimable, Small and Testable hold for each story. Indepen
 [MIL-006]: ./milestones/mil-006-project-license.md
 [MIL-007]: ./milestones/mil-007-framework-checklists.md
 [PP-001]: ./project-plan.md
-[1cd27f7]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/1cd27f77ed844773a969210a11de0d8bb98ac98f
 [0ab5006]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/0ab50068bf9e5be82a801af9dbe5b763eeaf7f31

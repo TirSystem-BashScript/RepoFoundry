@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Added Launcher, Checkout and WorkingFolder; startProjectCreation takes the checkout and working folder (from DCD-003, UC-002) | [1cd27f7] |
 | 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Default configuration files: --config and --env, else ./config.env and ./.env in the working folder, else the checkout's | [0ab5006] |
+| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | .env is optional (as in UC-001 extension 2b): only config.env is required; a .env found nowhere means the token is asked | pending |
 
 ---
 
@@ -89,7 +89,7 @@ class Launcher {
 class Checkout {
   -path : Path
   +configFile() : Path
-  +envFile() : Path
+  +envFile() : Path [0..1]
 }
 class WorkingFolder {
   -path : Path
@@ -98,7 +98,7 @@ class WorkingFolder {
 }
 class ConfigFiles {
   -configFile : Path
-  -envFile : Path
+  -envFile : Path [0..1]
 }
 class Run {
   -isApply : Boolean
@@ -261,7 +261,7 @@ Repository "0..*" --> "1" Visibility
 | `Launcher` | Command Link (the object that follows it) | Follows the command link to the checkout, takes the folder the Maintainer stands in, chooses the two configuration files, and starts the run. | none | `resolveCheckout`, `currentFolder`, `locateConfigFiles`, `startFromWorkingFolder` |
 | `Checkout` | Checkout | Names the folder that holds the script's own files and the default `config.env` and `.env`. | `path` | `configFile`, `envFile` |
 | `WorkingFolder` | Working Folder | Names the base of the default directory of the new project and the files it may hold. | `path` | `configFile`, `envFile` |
-| `ConfigFiles` | none (system concept of [OC-002]) | Carries the two files chosen for the `Configuration`. | `configFile`, `envFile` | none |
+| `ConfigFiles` | none (system concept of [OC-002]) | Carries the two files chosen for the `Configuration`; `envFile` is absent when no credentials file was found. | `configFile`, `envFile` | none |
 | `ProjectCreator` | none (controller for the system operations of [OC-001]) | Receives the two system operations, sequences the steps and stops on the first failure. | none | `startProjectCreation`, `provideProjectDetails` |
 | `ConfigLoader` | Configuration | Reads `config.env` and `.env` as plain text and validates every value, preset project details included. | none | `load` |
 | `CredentialCollector` | none (system concept) | Asks, without echo, for a credential that `.env` does not provide and validates it like one read from `.env`. | none | `collect` |
@@ -373,5 +373,4 @@ SOLID check: no class has more than one reason to change (one host API, one kind
 [SD-001]: ./uc-001/sd.md
 [MIL-005]: ./milestones/mil-005-credentials.md
 [DICT-001]: ./dictionary.md
-[1cd27f7]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/1cd27f77ed844773a969210a11de0d8bb98ac98f
 [0ab5006]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/0ab50068bf9e5be82a801af9dbe5b763eeaf7f31
