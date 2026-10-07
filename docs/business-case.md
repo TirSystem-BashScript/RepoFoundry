@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Objectives 2, 5 and 10, two scope items and success criterion 10: the AGPL-3.0 default needs GitHub and a public project; the framework's own submodules (qc) are fetched | [1cd27f7] |
 | 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Added objective 11 (global command, project created in the current folder), a scope item and success criterion 11 | [1cd27f7] |
+| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Objective 11, scope item and criterion 11: the configuration files default to the working folder's, then the checkout's | pending |
 
 ---
 
@@ -44,7 +44,7 @@ One repeatable, reviewed procedure gives every new project the same secure basel
 8. Let the Maintainer preset the project details in `config.env`, so that a detail that is set there is not asked again.
 9. Ask for a credential that is not provided in `.env` (`GITEA_TOKEN`, `GITHUB_PAT`, `GITHUB_USER`) and, when the Maintainer agrees, create a `.env` file with the credentials the new project needs.
 10. Let the Maintainer set the project's license in `config.env` (`PROJECT_LICENSE`), independent of the GitHub choice, or set `none` for no license.
-11. Let the Maintainer start the script by name from the folder where the project is to be created, through a command link in a folder on `PATH`.
+11. Let the Maintainer start the script by name from the folder where the project is to be created, through a command link in a folder on `PATH`, using the `config.env` and `.env` in that folder, or the checkout's when it has none.
 
 ## Scope
 
@@ -58,7 +58,7 @@ One repeatable, reviewed procedure gives every new project the same secure basel
 - Asking for a credential that `.env` does not provide, and creating the new project's own `.env` (owner-only, ignored by git, never overwritten without a yes).
 - A project license set in `config.env` (`PROJECT_LICENSE`, optional, never asked), checked against the licenses the Gitea server offers.
 - Partial-failure reporting with a documented way to continue.
-- Starting through a command link: the script finds its own files from the link, and the new project lands in the folder it was started in.
+- Starting through a command link: the script finds its own files from the link, the new project lands in the folder it was started in, and `./config.env` and `./.env` there are read before the checkout's (confirmed before the first request).
 - Fetching the framework's own submodules (`git submodule update --init --recursive`), so the `qc` checklists are present.
 - Documentation of the SSH prerequisite for the submodule (Gitea SSH on port `10022`).
 
@@ -101,7 +101,7 @@ Supports developing on self-hosted Gitea while publishing to GitHub, and adoptin
 | 8 | Preset details | A project detail set in `config.env` is never asked; an invalid one stops the run before any request and names the key | Tests with each key set, absent, empty and invalid |
 | 9 | Credentials asked and kept | A credential missing from `.env` is asked (not echoed) instead of stopping the run; the new project's `.env` is created only after a yes, owner-only, ignored by git, holding only the keys the project needs, and an existing `.env` is never replaced without a yes | Tests: each credential present and missing, `.env` written, declined, existing, file mode, git exclusion, no token in output |
 | 10 | Project license | `PROJECT_LICENSE` set: that license is on the Gitea repository with and without GitHub; `none`: no license; absent: AGPL-3.0 only when GitHub is chosen and the project is public; a license the server does not offer stops the run before anything is created | Tests with a license set, `none`, absent and not offered |
-| 11 | Global command | Started through a command link in a `PATH` folder from another folder, the script runs, reads the checkout's `config.env` and `.env` and creates the project under that folder | Test run through a link; the README example run once |
+| 11 | Global command | Started through a command link in a `PATH` folder from another folder, the script runs, reads `./config.env` and `./.env` of that folder, else the checkout's, names them before any request, and creates the project under that folder | Test run through a link with files in the folder, in the checkout and in neither; the README example run once |
 
 ## Risks
 

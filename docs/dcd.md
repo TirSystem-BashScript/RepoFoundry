@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | ProjectRequest carries the license that applies (from DCD-001) | [d773fa9] |
 | 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Added Launcher, Checkout and WorkingFolder; startProjectCreation takes the checkout and working folder (from DCD-003, UC-002) | [1cd27f7] |
+| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Default configuration files: --config and --env, else ./config.env and ./.env in the working folder, else the checkout's | pending |
 
 ---
 
@@ -33,7 +33,7 @@ enum Visibility {
 }
 
 class ProjectCreator <<controller>> {
-  +startProjectCreation(checkout : Checkout, workingFolder : WorkingFolder, configPath : Path [0..1], envPath : Path [0..1]) : PromptSet
+  +startProjectCreation(workingFolder : WorkingFolder, configFiles : ConfigFiles) : PromptSet
   +provideProjectDetails(name : String, description : String, visibility : Visibility, giteaOwner : Owner, githubOwner : Owner [0..1], directory : Path, enablePlanGate : Boolean, writeEnvFile : Boolean) : Summary
 }
 class ConfigLoader {
@@ -83,6 +83,7 @@ class SummaryReport {
 class Launcher {
   +resolveCheckout(invocation : Path) : Checkout
   +currentFolder() : WorkingFolder
+  +locateConfigFiles(configPath : Path [0..1], envPath : Path [0..1], checkout : Checkout, workingFolder : WorkingFolder) : ConfigFiles
   +startFromWorkingFolder(configPath : Path [0..1], envPath : Path [0..1]) : PromptSet
 }
 class Checkout {
@@ -92,6 +93,12 @@ class Checkout {
 }
 class WorkingFolder {
   -path : Path
+  +configFile() : Path [0..1]
+  +envFile() : Path [0..1]
+}
+class ConfigFiles {
+  -configFile : Path
+  -envFile : Path
 }
 class Run {
   -isApply : Boolean
@@ -186,6 +193,8 @@ class Summary {
 Launcher "1" --> "1" ProjectCreator : starts
 Launcher ..> Checkout : creates
 Launcher ..> WorkingFolder : creates
+Launcher ..> ConfigFiles : creates
+Run "1" *-- "1" ConfigFiles
 Run "1" *-- "1" Checkout
 Run "1" *-- "1" WorkingFolder
 ProjectCreator ..> ConfigLoader : creates
@@ -249,9 +258,10 @@ Repository "0..*" --> "1" Visibility
 
 | Class | Refines (Domain Model concept) | Responsibility | Attributes | Operations |
 | --- | --- | --- | --- | --- |
-| `Launcher` | Command Link (the object that follows it) | Follows the command link to the checkout, takes the folder the Maintainer stands in, and starts the run. | none | `resolveCheckout`, `currentFolder`, `startFromWorkingFolder` |
+| `Launcher` | Command Link (the object that follows it) | Follows the command link to the checkout, takes the folder the Maintainer stands in, chooses the two configuration files, and starts the run. | none | `resolveCheckout`, `currentFolder`, `locateConfigFiles`, `startFromWorkingFolder` |
 | `Checkout` | Checkout | Names the folder that holds the script's own files and the default `config.env` and `.env`. | `path` | `configFile`, `envFile` |
-| `WorkingFolder` | Working Folder | Names the base of the default directory of the new project. | `path` | none |
+| `WorkingFolder` | Working Folder | Names the base of the default directory of the new project and the files it may hold. | `path` | `configFile`, `envFile` |
+| `ConfigFiles` | none (system concept of [OC-002]) | Carries the two files chosen for the `Configuration`. | `configFile`, `envFile` | none |
 | `ProjectCreator` | none (controller for the system operations of [OC-001]) | Receives the two system operations, sequences the steps and stops on the first failure. | none | `startProjectCreation`, `provideProjectDetails` |
 | `ConfigLoader` | Configuration | Reads `config.env` and `.env` as plain text and validates every value, preset project details included. | none | `load` |
 | `CredentialCollector` | none (system concept) | Asks, without echo, for a credential that `.env` does not provide and validates it like one read from `.env`. | none | `collect` |
@@ -291,9 +301,10 @@ Repository "0..*" --> "1" Visibility
 
 | Method signature | Operation Contract / SD message |
 | --- | --- |
-| `ProjectCreator.startProjectCreation(checkout, workingFolder, configPath, envPath) : PromptSet` | [OC-001] `startProjectCreation`; [SD-001] `startProjectCreation()`; [SD-002] `startProjectCreation(checkout, workingFolder, ...)` |
+| `ProjectCreator.startProjectCreation(workingFolder, configFiles) : PromptSet` | [OC-001] `startProjectCreation`; [SD-001] `startProjectCreation()`; [SD-002] `startProjectCreation(checkout, workingFolder, ...)` |
 | `Launcher.startFromWorkingFolder(configPath, envPath) : PromptSet` | [OC-002] `startFromWorkingFolder`; [SD-002] |
 | `Launcher.resolveCheckout(invocation) : Checkout`, `Launcher.currentFolder() : WorkingFolder` | [OC-002] P2, P3; [SD-002] |
+| `Launcher.locateConfigFiles(configPath, envPath, checkout, workingFolder) : ConfigFiles`, `WorkingFolder.configFile()`, `WorkingFolder.envFile()` | [OC-002] P5; [SD-002] `locateConfigFiles(...)` |
 | `ProjectCreator.provideProjectDetails(name, description, visibility, giteaOwner, githubOwner, directory, enablePlanGate, writeEnvFile) : Summary` | [OC-001] `provideProjectDetails`; [SD-001] `provideProjectDetails(...)` |
 | `ConfigLoader.load(configFile, envFile) : Configuration` | [SD-001] `load(config.env, .env)`; [OC-001] `startProjectCreation` P2 |
 | `CredentialCollector.collect(configuration, kinds) : Configuration` | [SD-001] `collect(configuration, GITEA_TOKEN)` and `collect(configuration, GITHUB_PAT, GITHUB_USER)`; [OC-001] `startProjectCreation` P2 and the precondition of `provideProjectDetails` |
@@ -362,5 +373,4 @@ SOLID check: no class has more than one reason to change (one host API, one kind
 [SD-001]: ./uc-001/sd.md
 [MIL-005]: ./milestones/mil-005-credentials.md
 [DICT-001]: ./dictionary.md
-[d773fa9]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/d773fa91df5a54090254e12e074880fb6526a9ff
 [1cd27f7]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/1cd27f77ed844773a969210a11de0d8bb98ac98f

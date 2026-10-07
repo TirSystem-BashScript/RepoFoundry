@@ -10,6 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Initial version | [1cd27f7] |
+| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Default configuration files: --config and --env, else ./config.env and ./.env in the working folder, else the checkout's | pending |
 
 ---
 
@@ -24,6 +25,7 @@ Covers [UC-002]. Adds the classes that start the script through a command link. 
 class Launcher {
   +resolveCheckout(invocation : Path) : Checkout
   +currentFolder() : WorkingFolder
+  +locateConfigFiles(configPath : Path [0..1], envPath : Path [0..1], checkout : Checkout, workingFolder : WorkingFolder) : ConfigFiles
   +startFromWorkingFolder(configPath : Path [0..1], envPath : Path [0..1]) : PromptSet
 }
 class Checkout {
@@ -33,14 +35,22 @@ class Checkout {
 }
 class WorkingFolder {
   -path : Path
+  +configFile() : Path [0..1]
+  +envFile() : Path [0..1]
+}
+class ConfigFiles {
+  -configFile : Path
+  -envFile : Path
 }
 class ProjectCreator {
-  +startProjectCreation(checkout : Checkout, workingFolder : WorkingFolder, configPath : Path [0..1], envPath : Path [0..1]) : PromptSet
+  +startProjectCreation(workingFolder : WorkingFolder, configFiles : ConfigFiles) : PromptSet
 }
 class Run
 Launcher "1" --> "1" ProjectCreator : starts
 Launcher ..> Checkout : creates
 Launcher ..> WorkingFolder : creates
+Launcher ..> ConfigFiles : creates
+Run "1" *-- "1" ConfigFiles
 Run "1" *-- "1" Checkout
 Run "1" *-- "1" WorkingFolder
 @enduml
@@ -50,9 +60,10 @@ Run "1" *-- "1" WorkingFolder
 
 | Class | Refines (Domain Model concept) | Responsibility | Attributes | Operations |
 | --- | --- | --- | --- | --- |
-| `Launcher` | Command Link (the object that follows it) | Follows the command link to the checkout, takes the folder the Maintainer stands in, and starts the run. | none | `resolveCheckout`, `currentFolder`, `startFromWorkingFolder` |
+| `Launcher` | Command Link (the object that follows it) | Follows the command link to the checkout, takes the folder the Maintainer stands in, chooses the two configuration files, and starts the run. | none | `resolveCheckout`, `currentFolder`, `locateConfigFiles`, `startFromWorkingFolder` |
 | `Checkout` | Checkout | Names the folder that holds the script's own files and the default `config.env` and `.env`. | `path` | `configFile`, `envFile` |
-| `WorkingFolder` | Working Folder | Names the base of the default directory of the new project. | `path` | none |
+| `WorkingFolder` | Working Folder | Names the base of the default directory of the new project and the files it may hold. | `path` | `configFile`, `envFile` |
+| `ConfigFiles` | none (system concept of [OC-002]) | Carries the two files chosen for the `Configuration`. | `configFile`, `envFile` | none |
 
 The concept Command Link has no class: it is a link the Maintainer makes with the shell, and the system only follows it.
 
@@ -63,8 +74,10 @@ The concept Command Link has no class: it is a link the Maintainer makes with th
 | `Launcher.startFromWorkingFolder(configPath, envPath) : PromptSet` | [SD-002] `startFromWorkingFolder`; P1, P6 |
 | `Launcher.resolveCheckout(invocation) : Checkout` | [SD-002] `resolveCheckout(invocation)`; P2 |
 | `Launcher.currentFolder() : WorkingFolder` | [SD-002] `currentFolder()`; P3 |
-| `Checkout.configFile() : Path`, `Checkout.envFile() : Path` | [SD-002] `startProjectCreation`; P5 |
-| `ProjectCreator.startProjectCreation(checkout, workingFolder, configPath, envPath) : PromptSet` | [SD-002] `startProjectCreation`; P4, P5, P6. Replaces the signature of [DCD-001] by adding `checkout`, `workingFolder`, `configPath` and `envPath` |
+| `Launcher.locateConfigFiles(configPath, envPath, checkout, workingFolder) : ConfigFiles` | [SD-002] `locateConfigFiles(...)`; P5 |
+| `WorkingFolder.configFile() : Path [0..1]`, `WorkingFolder.envFile() : Path [0..1]` | [SD-002] `locateConfigFiles`; P5 |
+| `Checkout.configFile() : Path`, `Checkout.envFile() : Path` | [SD-002] `locateConfigFiles`; P5 |
+| `ProjectCreator.startProjectCreation(workingFolder, configFiles) : PromptSet` | [SD-002] `startProjectCreation`; P4, P6, P7. Replaces the signature of [DCD-001] by adding `workingFolder` and `configFiles` |
 
 ## Pattern Annotations
 
@@ -75,7 +88,7 @@ The concept Command Link has no class: it is a link the Maintainer makes with th
 
 ## Dependency Check
 
-`Launcher` depends on `ProjectCreator`, `Checkout` and `WorkingFolder`; none of them depends on `Launcher`, so no cycle is added.
+`Launcher` depends on `ProjectCreator`, `Checkout`, `WorkingFolder` and `ConfigFiles`; none of them depends on `Launcher`, so no cycle is added.
 
 ---
 

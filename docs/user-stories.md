@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | US-001.06: AGPL-3.0 default only for a public project with GitHub; US-001.07: the framework's own submodules (qc) are fetched | [1cd27f7] |
 | 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Added US-002 (global command from the target folder) for UC-002 | [1cd27f7] |
+| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | US-002: the default configuration files are the working folder's, then the checkout's; confirmed and named | pending |
 
 ---
 
@@ -136,10 +136,11 @@ One further epic, "Start the script as a global command" ([UC-002]), with one st
 
 **Acceptance Criteria**
 
-- Given a command link in a folder on `PATH` that leads to the script, when the Maintainer starts it by name from another folder, then the script runs, finds its own files and reads `config.env` and `.env` from the checkout.
+- Given a command link in a folder on `PATH` that leads to the script, when the Maintainer starts it by name from another folder, then the script runs and finds its own files.
 - Given the Maintainer stands in a folder, when the project directory is not preset, then its default is `./<name>` under that folder, never under the checkout.
-- Given `--config` and `--env` name other files, then those are read instead of the checkout's.
-- Given a missing file or a broken link, then the script stops before any change and names the folder or path it looked in.
+- Given `--config` and `--env` name files, then those are read. Given they are not named, then `./config.env` and `./.env` in the folder the Maintainer stands in are read, each one that exists, and the checkout's file stands in for one that does not.
+- Given a file comes from the folder the Maintainer stands in, then the script names it and the Gitea address it holds and asks for a yes, default no, before any request; every file used is named in the output.
+- Given a file is named nowhere, in neither folder, or a link is broken, then the script stops before any change and names both places it looked in.
 - Given the README, then it shows the command that makes the link, the check that it works and a run from a folder that is not the checkout.
 
 | Traces to | Size | INVEST exceptions |
