@@ -9,10 +9,12 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | The license that applies is passed to hasLicense and createRepository; no alt on the GitHub choice | [d773fa9] |
-| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | P4: the license passed is AGPL-3.0 only for GitHub with a public project | [1cd27f7] |
+| 2026-10-07 | Deprecated | Jens Tirsvad Nielsen | S02 | P4: the license passed is AGPL-3.0 only for GitHub with a public project | [1cd27f7] |
+| 2026-10-07 | Accepted | Jens Tirsvad Nielsen | S02 | Note that SD-002 and DCD-002 supersede the signature of startProjectCreation | [0b0a3b4] |
 
 ---
+
+Note: since [UC-002] the message `startProjectCreation` carries the working folder and the chosen configuration files ([SD-002]); [DCD-002] gives the current signature and supersedes the one shown here. This document stays the scoped view of [UC-001].
 
 Design objects are conceptual; in `create-project.sh` each becomes a small function group. [DCD-001] gives each object its class and turns each message below into a method signature.
 
@@ -216,5 +218,8 @@ destroy SR
 
 [OC-001]: ./oc.md
 [DCD-001]: ./dcd.md
-[d773fa9]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/d773fa91df5a54090254e12e074880fb6526a9ff
 [1cd27f7]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/1cd27f77ed844773a969210a11de0d8bb98ac98f
+[SD-002]: ../uc-002/sd.md
+[DCD-002]: ../dcd.md
+[UC-002]: ../uc-002/uc.md
+[0b0a3b4]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/0b0a3b419a1157b23bddd2f8957a08adaf6974a6

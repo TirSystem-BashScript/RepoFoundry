@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Added objective 11 (global command, project created in the current folder), a scope item and success criterion 11 | [1cd27f7] |
-| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Objective 11, scope item and criterion 11: the configuration files default to the working folder's, then the checkout's | [0ab5006] |
+| 2026-10-07 | Deprecated | Jens Tirsvad Nielsen | S02 | Added objective 11 (global command, project created in the current folder), a scope item and success criterion 11 | [1cd27f7] |
+| 2026-10-07 | Accepted | Jens Tirsvad Nielsen | S02 | Objective 11, scope item and criterion 11: the configuration files default to the working folder's, then the checkout's | [0ab5006] |
 
 ---
 

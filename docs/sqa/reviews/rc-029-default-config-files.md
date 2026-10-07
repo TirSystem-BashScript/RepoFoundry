@@ -9,7 +9,7 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Initial version | [0ab5006] |
+| 2026-10-07 | Accepted | Jens Tirsvad Nielsen | S02 | Initial version | [0ab5006] |
 
 ---
 
@@ -49,14 +49,14 @@ A `config.env` in the working folder can set `GITEA_URL` to another host, and th
 
 ## Overall Verdict
 
-Go-with-conditions — the change is consistent across the documents, and the security risk above is answered by a criterion that can be tested. The status stays `Proposed` until the action items are closed. Drafted by Claude Code for S02; the author and reviewer are the same person for now. The verdict takes effect only when S02 confirms it.
+Go — the change is consistent across the documents, and the security risk above is answered by a criterion that can be tested. Both conditions were closed on 2026-10-07 as decided by S01: the confirmation is asked every time a file comes from the working folder, and the scoped UC-001 views stay with a note that the newer documents supersede the signature of `startProjectCreation`. Drafted by Claude Code for S02; the author and reviewer are the same person for now. S02 confirmed the verdict on 2026-10-07.
 
 ## Action Items
 
 | Action | Owner | Due |
 | --- | --- | --- |
-| Decide whether the confirmation is asked on every run that uses a folder file, or only when the Gitea address differs from the checkout's | S01 | Before [MIL-007] starts |
-| Settle the `startProjectCreation` signature in [OC-001], [SD-001] and [DCD-001], as in the action item of [RC-028] | S01 | Before [MIL-007] starts |
+| Decide whether the confirmation is asked on every run that uses a folder file, or only when the Gitea address differs from the checkout's | S01 | Closed 2026-10-07: asked every time |
+| Settle the `startProjectCreation` signature in [OC-001], [SD-001] and [DCD-001], as in the action item of [RC-028] | S01 | Closed 2026-10-07: note added, see [RC-028] |
 
 ---
 
