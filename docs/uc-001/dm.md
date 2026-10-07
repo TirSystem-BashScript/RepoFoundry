@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | License applies when configured, not only when GitHub is chosen | [d773fa9] |
-| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | License: the AGPL-3.0 default needs GitHub and a public project | pending |
+| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | License: the AGPL-3.0 default needs GitHub and a public project | [1cd27f7] |
 
 ---
 
@@ -181,3 +181,4 @@ Summary "1" --> "1" Project : reports on
 [DICT-001]: ../dictionary.md
 [DM-002]: ../domain-model.md
 [d773fa9]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/d773fa91df5a54090254e12e074880fb6526a9ff
+[1cd27f7]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/1cd27f77ed844773a969210a11de0d8bb98ac98f

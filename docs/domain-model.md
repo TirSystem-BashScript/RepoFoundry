@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | License: the AGPL-3.0 default needs GitHub and a public project | pending |
-| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Added Command Link, Checkout and Working Folder (from DM-003, UC-002) | pending |
+| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | License: the AGPL-3.0 default needs GitHub and a public project | [1cd27f7] |
+| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Added Command Link, Checkout and Working Folder (from DM-003, UC-002) | [1cd27f7] |
 
 ---
 
@@ -205,3 +205,4 @@ WorkingFolder "1" --> "0..*" LocalProject : is the base of
 [SSD-001]: ./uc-001/ssd.md
 [DICT-001]: ./dictionary.md
 [DM-001]: ./uc-001/dm.md
+[1cd27f7]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/1cd27f77ed844773a969210a11de0d8bb98ac98f

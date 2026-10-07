@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | LicenseFile definition no longer tied to GitHub | [d773fa9] |
-| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Added Command Link, Checkout and Working Folder (DM-003, UC-002) | pending |
+| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Added Command Link, Checkout and Working Folder (DM-003, UC-002) | [1cd27f7] |
 
 ---
 
@@ -68,3 +68,4 @@ Maps each Product Owner (PO) term to its professional IT term. PO language: Engl
 [OC-001]: ./uc-001/oc.md
 [DCD-001]: ./uc-001/dcd.md
 [d773fa9]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/d773fa91df5a54090254e12e074880fb6526a9ff
+[1cd27f7]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/1cd27f77ed844773a969210a11de0d8bb98ac98f

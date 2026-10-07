@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | US-001.06: AGPL-3.0 default only for a public project with GitHub; US-001.07: the framework's own submodules (qc) are fetched | pending |
-| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Added US-002 (global command from the target folder) for UC-002 | pending |
+| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | US-001.06: AGPL-3.0 default only for a public project with GitHub; US-001.07: the framework's own submodules (qc) are fetched | [1cd27f7] |
+| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Added US-002 (global command from the target folder) for UC-002 | [1cd27f7] |
 
 ---
 
@@ -164,3 +164,4 @@ Valuable, Negotiable, Estimable, Small and Testable hold for each story. Indepen
 [MIL-006]: ./milestones/mil-006-project-license.md
 [MIL-007]: ./milestones/mil-007-framework-checklists.md
 [PP-001]: ./project-plan.md
+[1cd27f7]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/1cd27f77ed844773a969210a11de0d8bb98ac98f

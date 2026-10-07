@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | Initial version | [d773fa9] |
-| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | AGPL-3.0 default only when GitHub is chosen and the project is public (purpose, resolution order, criterion 3, tasks 1 and 4) | pending |
+| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | AGPL-3.0 default only when GitHub is chosen and the project is public (purpose, resolution order, criterion 3, tasks 1 and 4) | [1cd27f7] |
 
 ---
 
@@ -85,3 +85,4 @@ The license that applies is resolved in this order: `PROJECT_LICENSE` when set (
 [DCD-001]: ../uc-001/dcd.md
 [MIL-004]: ./mil-004-configurable-details.md
 [d773fa9]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/d773fa91df5a54090254e12e074880fb6526a9ff
+[1cd27f7]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/1cd27f77ed844773a969210a11de0d8bb98ac98f

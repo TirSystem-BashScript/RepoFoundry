@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | Added phase MIL-006 (proposed dates 2026-11-30 to 2026-12-04) | [d773fa9] |
-| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Added phase MIL-007 (proposed dates 2026-12-07 to 2026-12-11); MIL-006 deliverable names the public-only AGPL-3.0 default | pending |
+| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Added phase MIL-007 (proposed dates 2026-12-07 to 2026-12-11); MIL-006 deliverable names the public-only AGPL-3.0 default | [1cd27f7] |
 
 ---
 
@@ -114,3 +114,4 @@ A No-Go moves every later date by the time needed to rework the failed criteria.
 [Milestone 44]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/milestone/44
 [Milestone 45]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/milestone/45
 [d773fa9]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/d773fa91df5a54090254e12e074880fb6526a9ff
+[1cd27f7]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/1cd27f77ed844773a969210a11de0d8bb98ac98f

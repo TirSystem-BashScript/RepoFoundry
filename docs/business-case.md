@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Objectives 2, 5 and 10, two scope items and success criterion 10: the AGPL-3.0 default needs GitHub and a public project; the framework's own submodules (qc) are fetched | pending |
-| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Added objective 11 (global command, project created in the current folder), a scope item and success criterion 11 | pending |
+| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Objectives 2, 5 and 10, two scope items and success criterion 10: the AGPL-3.0 default needs GitHub and a public project; the framework's own submodules (qc) are fetched | [1cd27f7] |
+| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Added objective 11 (global command, project created in the current folder), a scope item and success criterion 11 | [1cd27f7] |
 
 ---
 
@@ -153,3 +153,4 @@ Proceed — the procedure is small, well bounded and removes a repeated, securit
 
 [SA-001]: ./stakeholder-analysis.md
 [UCD-001]: ./use-case-diagram.md
+[1cd27f7]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/1cd27f77ed844773a969210a11de0d8bb98ac98f

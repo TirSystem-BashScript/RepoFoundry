@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | The license comes from PROJECT_LICENSE (step 6, extension 4c); AGPL-3.0 is only the default when GitHub is chosen | [d773fa9] |
-| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | License rule: the AGPL-3.0 default needs GitHub and a public project (step 6, rule 6); step 9 and extension 9e fetch the framework's own submodules | pending |
+| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | License rule: the AGPL-3.0 default needs GitHub and a public project (step 6, rule 6); step 9 and extension 9e fetch the framework's own submodules | [1cd27f7] |
 
 ---
 
@@ -105,3 +105,4 @@
 [SA-001]: ../stakeholder-analysis.md
 [DM-001]: ./dm.md
 [d773fa9]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/d773fa91df5a54090254e12e074880fb6526a9ff
+[1cd27f7]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/1cd27f77ed844773a969210a11de0d8bb98ac98f

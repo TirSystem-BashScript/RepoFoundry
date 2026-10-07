@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | Added MIL-006 | [d773fa9] |
-| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Added MIL-007, UC-002, SSD-002, DM-003, OC-002, SD-002 and DCD-003 with their reviews RC-022 to RC-028 | pending |
+| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Added MIL-007, UC-002, SSD-002, DM-003, OC-002, SD-002 and DCD-003 with their reviews RC-022 to RC-028 | [1cd27f7] |
 
 ---
 
@@ -115,3 +115,4 @@ updated whenever an artifact instance is created or reviewed.
 [RC-016]: ./reviews/rc-016-create-project-sh.md
 [RC-017]: ./reviews/rc-017-e2e-security-review.md
 [d773fa9]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/d773fa91df5a54090254e12e074880fb6526a9ff
+[1cd27f7]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/1cd27f77ed844773a969210a11de0d8bb98ac98f

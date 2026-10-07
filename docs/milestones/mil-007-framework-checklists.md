@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Initial version | pending |
-| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Added UC-002 and US-002 (global command); tasks 2 and 3 trace to UC-002 | pending |
+| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Initial version | [1cd27f7] |
+| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Added UC-002 and US-002 (global command); tasks 2 and 3 trace to UC-002 | [1cd27f7] |
 
 ---
 
@@ -79,3 +79,4 @@ Decide whether a new project holds the whole framework, including the `qc` check
 [UC-001]: ../uc-001/uc.md
 [UC-002]: ../uc-002/uc.md
 [MIL-003]: ./mil-003-scaffold-and-release.md
+[1cd27f7]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/1cd27f77ed844773a969210a11de0d8bb98ac98f
