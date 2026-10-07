@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-06 | Accepted | Jens Tirsvad Nielsen | S02 | Added CredentialCollector, EnvFileWriter and EnvFile; writeEnvFile parameter | [ded26a6] |
-| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | ProjectRequest carries the license that applies | [d773fa9] |
+| 2026-10-06 | Deprecated | Jens Tirsvad Nielsen | S02 | ProjectRequest carries the license that applies | [d773fa9] |
+| 2026-10-07 | Accepted | Jens Tirsvad Nielsen | S02 | Note that DCD-003 and DCD-002 supersede the signature of startProjectCreation | pending |
 
 ---
 
@@ -21,6 +21,8 @@ Covers [UC-001] "Create a new project". It refines the concepts of [DM-001] into
 The classes are design classes of a Bash program: a class is a group of functions in `src/lib/` with its data held in the shared state arrays (see "Implementation Mapping"). There is no object-oriented runtime, but the responsibilities, associations and dependencies below are the ones the code keeps.
 
 Failure handling (the exceptions of [OC-001]) is one rule of `ProjectCreator`, stop and report, and is not drawn.
+
+Note: since [UC-002] `ProjectCreator.startProjectCreation` takes the working folder and the chosen configuration files; [DCD-003] and [DCD-002] give the current signature and supersede the one shown here. This document stays the scoped view of [UC-001].
 
 ## Diagram
 
@@ -337,5 +339,6 @@ SOLID check: no class has more than one reason to change (one host API, one kind
 [MIL-005]: ../milestones/mil-005-credentials.md
 [DICT-001]: ../dictionary.md
 [DCD-002]: ../dcd.md
-[ded26a6]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/ded26a658c666bf29d84093cb352e3635e07719b
 [d773fa9]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/d773fa91df5a54090254e12e074880fb6526a9ff
+[DCD-003]: ../uc-002/dcd.md
+[UC-002]: ../uc-002/uc.md

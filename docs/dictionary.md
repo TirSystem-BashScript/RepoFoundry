@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Added Command Link, Checkout and Working Folder (DM-003, UC-002) | [1cd27f7] |
-| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | `ConfigFiles` named as a system concept without a PO term | [0ab5006] |
+| 2026-10-07 | Deprecated | Jens Tirsvad Nielsen | S02 | Added Command Link, Checkout and Working Folder (DM-003, UC-002) | [1cd27f7] |
+| 2026-10-07 | Accepted | Jens Tirsvad Nielsen | S02 | `ConfigFiles` named as a system concept without a PO term | [0ab5006] |
 
 ---
 

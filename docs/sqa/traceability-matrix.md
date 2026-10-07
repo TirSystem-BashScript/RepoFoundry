@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Added MIL-007, UC-002, SSD-002, DM-003, OC-002, SD-002 and DCD-003 with their reviews RC-022 to RC-028 | [1cd27f7] |
-| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Added review RC-030 (.env optional) | [24f1507] |
+| 2026-10-07 | Deprecated | Jens Tirsvad Nielsen | S02 | Added MIL-007, UC-002, SSD-002, DM-003, OC-002, SD-002 and DCD-003 with their reviews RC-022 to RC-028 | [1cd27f7] |
+| 2026-10-07 | Accepted | Jens Tirsvad Nielsen | S02 | Added review RC-030 (.env optional) | [24f1507] |
 
 ---
 

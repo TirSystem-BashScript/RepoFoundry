@@ -9,7 +9,7 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Initial version | [24f1507] |
+| 2026-10-07 | Accepted | Jens Tirsvad Nielsen | S02 | Initial version | [24f1507] |
 
 ---
 
@@ -44,7 +44,7 @@ The code and tests were checked against the new wording: `locate_config_file` ta
 
 ## Overall Verdict
 
-Go — the wording now agrees with the credentials behaviour on `main`, with the code and with the tests, and nothing else in the use case changes. Drafted by Claude Code for S02; the author and reviewer are the same person for now. The verdict takes effect, and the Version History rows of the reviewed documents change to `Accepted`, only when S02 confirms it. The open action items of [RC-028] and [RC-029] stay open.
+Go — the wording now agrees with the credentials behaviour on `main`, with the code and with the tests, and nothing else in the use case changes. Drafted by Claude Code for S02; the author and reviewer are the same person for now. S02 confirmed the verdict on 2026-10-07 and the Version History rows of the reviewed documents were set to `Accepted`. The open action items of [RC-028] and [RC-029] stay open.
 
 ## Action Items
 

@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Initial version | [1cd27f7] |
-| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Names the confirmation of a configuration file from the working folder as out of scope | [0ab5006] |
+| 2026-10-07 | Deprecated | Jens Tirsvad Nielsen | S02 | Initial version | [1cd27f7] |
+| 2026-10-07 | Accepted | Jens Tirsvad Nielsen | S02 | Names the confirmation of a configuration file from the working folder as out of scope | [0ab5006] |
 
 ---
 

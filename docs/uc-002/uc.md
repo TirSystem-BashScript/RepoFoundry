@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Default configuration files: --config and --env, else ./config.env and ./.env in the working folder, else the checkout's; the files used are named and a file from the working folder is confirmed (step 4, extensions 4b and 4c, rules) | [0ab5006] |
-| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | .env is optional (as in UC-001 extension 2b): only config.env is required; a .env found nowhere means the token is asked | [24f1507] |
+| 2026-10-07 | Deprecated | Jens Tirsvad Nielsen | S02 | Default configuration files: --config and --env, else ./config.env and ./.env in the working folder, else the checkout's; the files used are named and a file from the working folder is confirmed (step 4, extensions 4b and 4c, rules) | [0ab5006] |
+| 2026-10-07 | Accepted | Jens Tirsvad Nielsen | S02 | .env is optional (as in UC-001 extension 2b): only config.env is required; a .env found nowhere means the token is asked | [24f1507] |
 
 ---
 

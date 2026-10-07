@@ -9,10 +9,12 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | P2, P4 and an exception: the license that applies, not always AGPL-3.0 | [d773fa9] |
-| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | P4: the AGPL-3.0 default needs githubOwner and a public visibility; P10: the framework's own submodules were initialised, with an exception for a failed fetch | [1cd27f7] |
+| 2026-10-07 | Deprecated | Jens Tirsvad Nielsen | S02 | P4: the AGPL-3.0 default needs githubOwner and a public visibility; P10: the framework's own submodules were initialised, with an exception for a failed fetch | [1cd27f7] |
+| 2026-10-07 | Accepted | Jens Tirsvad Nielsen | S02 | Note that OC-002 and DCD-002 supersede the signature of startProjectCreation | pending |
 
 ---
+
+Note: since [UC-002] the operation `startProjectCreation` takes the working folder and the chosen configuration files; [OC-002] and [DCD-002] give the current signature and supersede the one shown here. This document stays the scoped view of [UC-001].
 
 Concepts below use the IT terms of [DICT-001] for the PO concepts of [DM-001]. `Run`, `ToolCheck`, `PreflightResult` and `PromptSet` are system concepts with no PO term and are not in the Domain Model.
 
@@ -96,5 +98,7 @@ Concepts below use the IT terms of [DICT-001] for the PO concepts of [DM-001]. `
 [DM-001]: ./dm.md
 [DICT-001]: ../dictionary.md
 [SD-001]: ./sd.md
-[d773fa9]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/d773fa91df5a54090254e12e074880fb6526a9ff
 [1cd27f7]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/1cd27f77ed844773a969210a11de0d8bb98ac98f
+[OC-002]: ../uc-002/oc.md
+[DCD-002]: ../dcd.md
+[UC-002]: ../uc-002/uc.md
