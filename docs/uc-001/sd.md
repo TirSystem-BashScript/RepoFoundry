@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-07 | Deprecated | Jens Tirsvad Nielsen | S02 | P4: the license passed is AGPL-3.0 only for GitHub with a public project | [1cd27f7] |
-| 2026-10-07 | Accepted | Jens Tirsvad Nielsen | S02 | Note that SD-002 and DCD-002 supersede the signature of startProjectCreation | pending |
+| 2026-10-07 | Accepted | Jens Tirsvad Nielsen | S02 | Note that SD-002 and DCD-002 supersede the signature of startProjectCreation | [0b0a3b4] |
 
 ---
 
@@ -222,3 +222,4 @@ destroy SR
 [SD-002]: ../uc-002/sd.md
 [DCD-002]: ../dcd.md
 [UC-002]: ../uc-002/uc.md
+[0b0a3b4]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/0b0a3b419a1157b23bddd2f8957a08adaf6974a6

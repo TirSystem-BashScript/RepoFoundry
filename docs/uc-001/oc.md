@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-07 | Deprecated | Jens Tirsvad Nielsen | S02 | P4: the AGPL-3.0 default needs githubOwner and a public visibility; P10: the framework's own submodules were initialised, with an exception for a failed fetch | [1cd27f7] |
-| 2026-10-07 | Accepted | Jens Tirsvad Nielsen | S02 | Note that OC-002 and DCD-002 supersede the signature of startProjectCreation | pending |
+| 2026-10-07 | Accepted | Jens Tirsvad Nielsen | S02 | Note that OC-002 and DCD-002 supersede the signature of startProjectCreation | [0b0a3b4] |
 
 ---
 
@@ -102,3 +102,4 @@ Concepts below use the IT terms of [DICT-001] for the PO concepts of [DM-001]. `
 [OC-002]: ../uc-002/oc.md
 [DCD-002]: ../dcd.md
 [UC-002]: ../uc-002/uc.md
+[0b0a3b4]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/0b0a3b419a1157b23bddd2f8957a08adaf6974a6

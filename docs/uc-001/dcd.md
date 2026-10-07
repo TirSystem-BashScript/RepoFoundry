@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-06 | Deprecated | Jens Tirsvad Nielsen | S02 | ProjectRequest carries the license that applies | [d773fa9] |
-| 2026-10-07 | Accepted | Jens Tirsvad Nielsen | S02 | Note that DCD-003 and DCD-002 supersede the signature of startProjectCreation | pending |
+| 2026-10-07 | Accepted | Jens Tirsvad Nielsen | S02 | Note that DCD-003 and DCD-002 supersede the signature of startProjectCreation | [0b0a3b4] |
 
 ---
 
@@ -342,3 +342,4 @@ SOLID check: no class has more than one reason to change (one host API, one kind
 [d773fa9]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/d773fa91df5a54090254e12e074880fb6526a9ff
 [DCD-003]: ../uc-002/dcd.md
 [UC-002]: ../uc-002/uc.md
+[0b0a3b4]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/0b0a3b419a1157b23bddd2f8957a08adaf6974a6
