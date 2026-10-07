@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-06 | Accepted | Jens Tirsvad Nielsen | S02 | Credentials asked when missing; EnvFile created in the local project (P14); writeEnvFile parameter | [ded26a6] |
 | 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | P2, P4 and an exception: the license that applies, not always AGPL-3.0 | [d773fa9] |
+| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | P4: the AGPL-3.0 default needs githubOwner and a public visibility; P10: the framework's own submodules were initialised, with an exception for a failed fetch | [1cd27f7] |
 
 ---
 
@@ -64,13 +64,13 @@ Concepts below use the IT terms of [DICT-001] for the PO concepts of [DM-001]. `
 - P1. A `ProjectRequest` instance was created with the attributes given by the Maintainer or defined by the `Configuration`, and associated with the `Run`.
 - P2. A `PreflightResult` instance was created and associated with the `ProjectRequest`, recording that each token needed for the chosen hosts works, that each owner accepts new repositories, that the name is free on the chosen hosts, that the license that applies is offered by Gitea (when a license applies), and the outcome of the SSH test to Gitea on port 10022.
 - P3. A `GiteaRepository` instance was created under `giteaOwner` with the given name, description and visibility, and associated with the `ProjectRequest`.
-- P4. If a license applies, a `LicenseFile` instance for it was created and associated with the `GiteaRepository`, so that repository is not empty. The license that applies is the one the `Configuration` defines (`PROJECT_LICENSE`; `none` means none), otherwise `AGPL-3.0` if `githubOwner` is present, otherwise none. If no license applies the `GiteaRepository` has no `LicenseFile` and is empty.
+- P4. If a license applies, a `LicenseFile` instance for it was created and associated with the `GiteaRepository`, so that repository is not empty. The license that applies is the one the `Configuration` defines (`PROJECT_LICENSE`; `none` means none), otherwise `AGPL-3.0` if `githubOwner` is present and `visibility` is `public`, otherwise none. If no license applies the `GiteaRepository` has no `LicenseFile` and is empty.
 - P5. If `githubOwner` is present, an empty `GitHubRepository` instance was created under `githubOwner` and associated with the `ProjectRequest`.
 - P6. If `githubOwner` is present, a `PushMirror` instance was created, associated with the `GiteaRepository` as source and the `GitHubRepository` as target, with its effective sync setting recorded, and a first sync was requested.
 - P7. A `LocalProject` instance was created at `directory`, associated with the `ProjectRequest`. If the `GiteaRepository` is not empty, the `LocalProject` holds its history, including the `LicenseFile` commit.
 - P8. A `Remote` named `origin` was associated with the `LocalProject`, pointing at the `GiteaRepository` over SSH if the SSH test passed, otherwise over HTTPS, with no credential in its URL.
 - P9. If `githubOwner` is present, a `Remote` named `github` was associated with the `LocalProject`, pointing at the `GitHubRepository`, with no credential in its URL.
-- P10. A `Submodule` named `framework` was associated with the `LocalProject`.
+- P10. A `Submodule` named `framework` was associated with the `LocalProject`, and the submodules the framework itself holds (`qc`) were initialised.
 - P11. A `HookSetup` instance was associated with the `LocalProject`, recording that skills and git hooks were installed once and, if `enablePlanGate`, that the plan gate was enabled.
 - P12. `AGENTS.md` and `docs/artifact-registry.md` exist in the `LocalProject`, each either newly copied from the framework templates or left as it was because the Maintainer declined to replace it.
 - P13. A `Summary` instance was created listing every created item, every skipped item and the next step for anything that failed, and is returned. It contains no credential.
@@ -87,6 +87,7 @@ Concepts below use the IT terms of [DICT-001] for the PO concepts of [DM-001]. `
 | `directory` exists, or a target file exists, and the Maintainer declines replacing it (P7, P12) | That item is skipped and listed in the `Summary` |
 | A `.env` already exists in the `LocalProject` and the Maintainer declines replacing it (P14) | That item is skipped and listed in the `Summary` |
 | A different `core.hooksPath` exists and the Maintainer declines replacing it (P11) | Hooks are not installed and this is listed in the `Summary` |
+| The framework's own submodules cannot be fetched (P10) | The `Summary` lists the `framework` `Submodule` as added, its own submodules as failed, and the command `git submodule update --init --recursive` to run by hand |
 | SSH to port 10022 fails and the `Submodule` cannot be added (P10) | The `Summary` lists the repositories as created, the submodule as failed, and the SSH prerequisite |
 
 ---
@@ -95,5 +96,5 @@ Concepts below use the IT terms of [DICT-001] for the PO concepts of [DM-001]. `
 [DM-001]: ./dm.md
 [DICT-001]: ../dictionary.md
 [SD-001]: ./sd.md
-[ded26a6]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/ded26a658c666bf29d84093cb352e3635e07719b
 [d773fa9]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/d773fa91df5a54090254e12e074880fb6526a9ff
+[1cd27f7]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/1cd27f77ed844773a969210a11de0d8bb98ac98f

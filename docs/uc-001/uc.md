@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-06 | Accepted | Jens Tirsvad Nielsen | S02 | Credentials not in .env are asked (step 2, extension 2b); the project .env is created with consent (step 9, extensions 9c, 9d) | [ded26a6] |
 | 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | The license comes from PROJECT_LICENSE (step 6, extension 4c); AGPL-3.0 is only the default when GitHub is chosen | [d773fa9] |
+| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | License rule: the AGPL-3.0 default needs GitHub and a public project (step 6, rule 6); step 9 and extension 9e fetch the framework's own submodules | [1cd27f7] |
 
 ---
 
@@ -31,7 +31,7 @@
   - `git` and `curl` are installed.
   - The Maintainer has a Gitea token, a GitHub PAT and a GitHub account name (only when GitHub is chosen) and SSH access to Gitea on port 10022.
 - **Postconditions (success guarantee):**
-  - A repository exists on Gitea under the chosen owner. It is empty, or it holds the license file that applies: the license set in `config.env`, or AGPL-3.0 when the Maintainer chose GitHub and set none.
+  - A repository exists on Gitea under the chosen owner. It is empty, or it holds the license file that applies: the license set in `config.env`, or AGPL-3.0 when the Maintainer chose GitHub, the project is public and no license is set.
   - When the Maintainer chose to create a GitHub repository, an empty repository exists on GitHub under the chosen owner, the Gitea repository is a push mirror to it, and the license file, if any, reaches GitHub through the mirror.
   - A local project directory exists with credential-free remotes `origin` (Gitea) and, when GitHub was chosen, `github`, the `framework` submodule, installed skills and hooks, and the copied templates.
   - When the Maintainer agreed, the local project has a `.env` that holds only the credentials the project needs, is readable by its owner only and is ignored by git.
@@ -44,10 +44,10 @@
 3. The Maintainer provides the repository name, description, visibility, the Gitea owner, whether to also create a GitHub repository (and if so its owner), the local directory, and whether to enable the plan gate. A detail that is set in `config.env` is not asked.
 4. The system checks that the tokens needed for the chosen hosts work, that the owners accept new repositories, that the name is free on those hosts, that Gitea offers the license that applies (if any), and whether SSH to Gitea works.
 5. Optional: if the Maintainer chose GitHub, the system creates the empty GitHub repository.
-6. The system creates the Gitea repository. If a license applies, the repository is created with its license file and so is not empty; otherwise it is empty. The license that applies is the one set in `config.env` (`PROJECT_LICENSE`; `none` means no license); when none is set it is AGPL-3.0 if the Maintainer chose GitHub, and none otherwise. The license is never asked.
+6. The system creates the Gitea repository. If a license applies, the repository is created with its license file and so is not empty; otherwise it is empty. The license that applies is the one set in `config.env` (`PROJECT_LICENSE`; `none` means no license); when none is set it is AGPL-3.0 if the Maintainer chose GitHub and the project is public, and none otherwise. The license is never asked.
 7. Optional: if GitHub was chosen, the system configures the Gitea repository as a push mirror to GitHub and verifies it. A license file in the Gitea repository is pushed to GitHub by the mirror.
 8. The system creates the local project with the `origin` remote and, if GitHub was chosen, the `github` remote.
-9. The system adds the framework submodule, installs its skills and hooks (and the plan gate if chosen) and copies the templates. If the Maintainer agrees, it also creates the project's own `.env` with the credentials the project needs.
+9. The system adds the framework submodule and fetches its own submodules (the `qc` checklists), installs its skills and hooks (and the plan gate if chosen) and copies the templates. If the Maintainer agrees, it also creates the project's own `.env` with the credentials the project needs.
 10. The system reports a summary of what was created.
 
 ### Extensions (Alternative / Exception Flows)
@@ -76,6 +76,8 @@
   1. The system creates none and says so in the summary.
 - 9d. A `.env` already exists in the project:
   1. The system asks before replacing it; on no, it keeps it and reports it.
+- 9e. The framework's own submodules cannot be fetched:
+  1. The system stops the step, reports what exists and names the command to run by hand, `git submodule update --init --recursive`, without showing a credential.
 
 ### Special Requirements / Business Rules
 
@@ -87,7 +89,7 @@
 | 3 | The GitHub owner and the Gitea owner are chosen separately; `GITHUB_USER` is only the authenticating account |
 | 3 | A project detail set in `config.env` (the key is present, even if empty where an empty value is allowed) is not asked; only the confirmations stay interactive |
 | 3, 5, 7 | GitHub is optional; without it no GitHub repository, mirror or `github` remote is created and the GitHub credentials are not required |
-| 6 | The license that applies is added to the Gitea repository when it is created, so that repository is not empty: `PROJECT_LICENSE` if set (a Gitea license key such as `MIT`, or `none`), otherwise AGPL-3.0 when GitHub is chosen, otherwise none. It is independent of the GitHub choice when set, and it is never asked |
+| 6 | The license that applies is added to the Gitea repository when it is created, so that repository is not empty: `PROJECT_LICENSE` if set (a Gitea license key such as `MIT`, or `none`), otherwise AGPL-3.0 when GitHub is chosen and the project is public, otherwise none. It is independent of the GitHub choice when set, and it is never asked |
 | 7 | The mirror direction is Gitea to GitHub; the GitHub repository stays empty and receives its content from the mirror |
 | 8 | `origin` uses HTTPS derived from `GITEA_URL`, or SSH when the SSH test in step 4 passed; when the Gitea repository is not empty (GitHub chosen) the local project is created by fetching it, not by an unrelated `git init` history |
 | 8, 9 | Nothing is overwritten or deleted without consent, and no commit is made |
@@ -102,5 +104,5 @@
 [US-001]: ../user-stories.md
 [SA-001]: ../stakeholder-analysis.md
 [DM-001]: ./dm.md
-[ded26a6]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/ded26a658c666bf29d84093cb352e3635e07719b
 [d773fa9]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/d773fa91df5a54090254e12e074880fb6526a9ff
+[1cd27f7]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/1cd27f77ed844773a969210a11de0d8bb98ac98f

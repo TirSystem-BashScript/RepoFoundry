@@ -4,13 +4,13 @@
 | Key | Value |
 | --- | --- |
 | ID | US-001 |
-| CrossReference | [BC-001], [UCD-001], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006] |
+| CrossReference | [BC-001], [UCD-001], [UC-002], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006], [MIL-007] |
 
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-06 | Accepted | Jens Tirsvad Nielsen | S02 | Added US-001.05: credentials asked when missing and kept in the project .env | [ded26a6] |
-| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | Added US-001.06: the license set in config.env; US-001.02 names the license that applies | [d773fa9] |
+| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | US-001.06: AGPL-3.0 default only for a public project with GitHub; US-001.07: the framework's own submodules (qc) are fetched | [1cd27f7] |
+| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Added US-002 (global command from the target folder) for UC-002 | [1cd27f7] |
 
 ---
 
@@ -18,7 +18,7 @@
 
 One epic: "Create a new project" ([UC-001]), setting up a new project on Gitea, optionally on GitHub, with the SQA-QC-Framework in place. The actor is the Maintainer, as in [UCD-001] (S01 or S02; for now one person holds both roles).
 
-The epic is split into six stories, one per milestone. Each story fits one two-week phase and can be shown working at the end of it.
+The epic is split into seven stories, one per milestone (US-001.01 to US-001.07). Each story fits one two-week phase and can be shown working at the end of it.
 
 ## Story List
 
@@ -42,7 +42,7 @@ The epic is split into six stories, one per milestone. Each story fits one two-w
 
 **Acceptance Criteria**
 
-- Given valid tokens and owners, when the script runs, then a Gitea repository exists under the chosen owner: empty, or holding the license that applies (the one set in `PROJECT_LICENSE`, or AGPL-3.0 when GitHub was chosen).
+- Given valid tokens and owners, when the script runs, then a Gitea repository exists under the chosen owner: empty, or holding the license that applies (the one set in `PROJECT_LICENSE`, or AGPL-3.0 when GitHub was chosen and the project is public).
 - Given GitHub was chosen, when the script runs, then an empty GitHub repository exists under its chosen owner (not assumed to be `GITHUB_USER`) and Gitea mirrors to it, and no credential is stored in any address.
 - Given a step fails, when the script stops, then it reports what was created and how to continue.
 
@@ -97,13 +97,13 @@ The epic is split into six stories, one per milestone. Each story fits one two-w
 
 ### US-001.06 — Create a new project: choose the license in `config.env`
 
-**As a** Maintainer, **I want** to set the project's license in `config.env`, **so that** a project is not forced to AGPL-3.0 by the GitHub choice and does not need a question for it.
+**As a** Maintainer, **I want** to set the project's license in `config.env`, **so that** a project is not forced to AGPL-3.0 by the GitHub choice, a private project is never given it by default, and no question is needed for it.
 
 **Acceptance Criteria**
 
 - Given `PROJECT_LICENSE` is set to a license the Gitea server offers, when the script creates the Gitea repository, then it holds that license, with or without GitHub, and the license is not asked.
 - Given `PROJECT_LICENSE=none`, then the repository has no license even when GitHub is chosen.
-- Given `PROJECT_LICENSE` is absent, then the license is AGPL-3.0 when GitHub is chosen and none otherwise, as before.
+- Given `PROJECT_LICENSE` is absent, then the license is AGPL-3.0 when GitHub is chosen and the project is public, and none otherwise (a private project with GitHub gets none).
 - Given the value is empty or invalid, or the server does not offer it, when the script starts or checks the hosts, then it stops before anything is created and names the key or the license.
 - Given GitHub is chosen, then the license reaches the GitHub repository through the mirror, as before.
 
@@ -111,21 +111,57 @@ The epic is split into six stories, one per milestone. Each story fits one two-w
 | --- | --- | --- |
 | [UC-001] steps 3, 4 and 6, [MIL-006] | fits one phase | Independent: needs the configurable details of US-001.04 |
 
+### US-001.07 — Create a new project: the framework's own submodules are fetched
+
+**As a** Maintainer, **I want** the new project to hold the framework together with its own submodules, **so that** the `qc` checklists are present without a manual step.
+
+**Acceptance Criteria**
+
+- Given the framework is added to the new project, when the step finishes, then `git submodule update --init --recursive` has run in the project and the framework's `qc` directory holds the checklists.
+- Given `framework` already exists as the framework submodule, when the script runs again, then the same command runs, so an empty `qc` is filled and nothing else changes.
+- Given the nested fetch fails, then the script stops that step, reports what exists, names the command to run by hand and does not show a credential.
+- Given the framework has no submodule of its own, then the step changes nothing and does not fail.
+
+| Traces to | Size | INVEST exceptions |
+| --- | --- | --- |
+| [UC-001] step 9, [MIL-007] | fits one phase | Independent: needs the framework step of US-001.03 |
+
+## Epic: Start the script as a global command
+
+One further epic, "Start the script as a global command" ([UC-002]), with one story. The actor is the Maintainer.
+
+### US-002 — Start the script by name from the folder where the project is to be created
+
+**As a** Maintainer, **I want** to start the script by a name from any folder and have the project created in the folder I stand in, **so that** I do not have to enter the checkout or type its path each time.
+
+**Acceptance Criteria**
+
+- Given a command link in a folder on `PATH` that leads to the script, when the Maintainer starts it by name from another folder, then the script runs, finds its own files and reads `config.env` and `.env` from the checkout.
+- Given the Maintainer stands in a folder, when the project directory is not preset, then its default is `./<name>` under that folder, never under the checkout.
+- Given `--config` and `--env` name other files, then those are read instead of the checkout's.
+- Given a missing file or a broken link, then the script stops before any change and names the folder or path it looked in.
+- Given the README, then it shows the command that makes the link, the check that it works and a run from a folder that is not the checkout.
+
+| Traces to | Size | INVEST exceptions |
+| --- | --- | --- |
+| [UC-002], [MIL-007] | fits one phase | Independent: needs the script of [UC-001] |
+
 ## INVEST Check
 
-Valuable, Negotiable, Estimable, Small and Testable hold for each story. Independent holds only in part: the stories are ordered, each using what the one before it delivers, which follows the milestone order in [PP-001]. This is flagged as an exception on US-001.02 to US-001.06.
+Valuable, Negotiable, Estimable, Small and Testable hold for each story. Independent holds only in part: the stories are ordered, each using what the one before it delivers, which follows the milestone order in [PP-001]. This is flagged as an exception on US-001.02 to US-001.07 and on US-002.
 
 ---
 
 [BC-001]: ./business-case.md
 [UCD-001]: ./use-case-diagram.md
 [UC-001]: ./uc-001/uc.md
+[UC-002]: ./uc-002/uc.md
 [MIL-001]: ./milestones/mil-001-foundation.md
 [MIL-002]: ./milestones/mil-002-repositories-and-mirror.md
 [MIL-003]: ./milestones/mil-003-scaffold-and-release.md
 [MIL-004]: ./milestones/mil-004-configurable-details.md
 [MIL-005]: ./milestones/mil-005-credentials.md
 [MIL-006]: ./milestones/mil-006-project-license.md
+[MIL-007]: ./milestones/mil-007-framework-checklists.md
 [PP-001]: ./project-plan.md
-[ded26a6]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/ded26a658c666bf29d84093cb352e3635e07719b
-[d773fa9]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/d773fa91df5a54090254e12e074880fb6526a9ff
+[1cd27f7]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/1cd27f77ed844773a969210a11de0d8bb98ac98f

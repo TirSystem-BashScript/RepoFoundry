@@ -9,14 +9,14 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-06 | Accepted | Jens Tirsvad Nielsen | S02 | Added Credentials File (from DM-001, UC-001 step 9) | [ded26a6] |
-| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | License applies when configured, not only when GitHub is chosen (from DM-001) | [d773fa9] |
+| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | License: the AGPL-3.0 default needs GitHub and a public project | [1cd27f7] |
+| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Added Command Link, Checkout and Working Folder (from DM-003, UC-002) | [1cd27f7] |
 
 ---
 
 ## Purpose and Scope
 
-The consolidated model of the project. Use-case models are scoped views; when one changes, this model is checked and updated in the same change. It currently covers [UC-001] "Create a new project" ([DM-001]), which it was created from. Concept names are the PO terms recorded in [DICT-001].
+The consolidated model of the project. Use-case models are scoped views; when one changes, this model is checked and updated in the same change. It currently covers [UC-001] "Create a new project" ([DM-001]), which it was created from, and [UC-002] "Start the script as a global command" ([DM-003]). Concept names are the PO terms recorded in [DICT-001].
 
 ## Diagram
 
@@ -82,6 +82,16 @@ class Template {
 class "Credentials File" as CredentialsFile {
   address
 }
+class "Command Link" as CommandLink {
+  name
+  folder
+}
+class Checkout {
+  path
+}
+class "Working Folder" as WorkingFolder {
+  path
+}
 class Summary {
   created items
   skipped items
@@ -114,6 +124,11 @@ LocalProject "1" --> "0..*" Template : contains a copy of
 LocalProject "1" --> "0..1" CredentialsFile : has
 CredentialsFile "1" --> "1..2" AccessToken : holds a copy of
 Summary "1" --> "1" Project : reports on
+Maintainer "1" --> "0..*" CommandLink : makes
+CommandLink "0..*" --> "1" Checkout : leads to
+Maintainer "1" --> "1" WorkingFolder : starts the script in
+Checkout "1" --> "1" Configuration : holds by default
+WorkingFolder "1" --> "0..*" LocalProject : is the base of
 @enduml
 ```
 
@@ -130,7 +145,7 @@ Summary "1" --> "1" Project : reports on
 | Repository | A place on a Git Host that holds a project's history | name, description, visibility, address | [UC-001] steps 5 and 6 "repository" |
 | Gitea Repository | The Repository on Gitea; the source of truth | none beyond Repository | [UC-001] step 6 |
 | GitHub Repository | The Repository on GitHub; receives its content from the Mirror | none beyond Repository | [UC-001] step 5 |
-| License | The legal terms file added to a Gitea Repository when a license applies: the one set in the Configuration, or AGPL-3.0 when GitHub is chosen and none is set | name | [UC-001] step 6 "license" |
+| License | The legal terms file added to a Gitea Repository when a license applies: the one set in the Configuration, or AGPL-3.0 when GitHub is chosen, the project is public and none is set | name | [UC-001] step 6 "license" |
 | Mirror | The push mirror that copies a Gitea Repository to a GitHub Repository | interval, sync on commit | [UC-001] step 7 "push mirror" |
 | Local Project | The project directory on the Maintainer's machine | directory | [UC-001] step 8 "local project" |
 | Remote | A named link from a Local Project to a Repository (`origin`, `github`) | name, address | [UC-001] step 8 "remote" |
@@ -138,6 +153,9 @@ Summary "1" --> "1" Project : reports on
 | Framework Setup | The skills and git hooks installed from the Framework, with the plan gate on or off | plan gate enabled | [UC-001] step 9 "skills and hooks", "plan gate" |
 | Template | A file the Framework provides to copy into a project (`AGENTS.md`, artifact registry) | name | [UC-001] step 9 "templates" |
 | Credentials File | The file in a Local Project that holds a copy of the Access Tokens (and the GitHub account name) the project needs; readable by its owner only and ignored by git | address | [UC-001] step 9 "credentials file" |
+| Command Link | A name in a folder on the shell's search path that leads to the script in the Checkout | name, folder | [UC-002] step 1 "command link" |
+| Checkout | The folder that holds RepoFoundry: the script, its own files and by default `config.env` and `.env` | path | [UC-002] step 4 "checkout" |
+| Working Folder | The folder in which the Maintainer starts the script and under which the new project is created by default | path | [UC-002] step 2 "working folder" |
 | Summary | The report of what was created, skipped or failed and how to continue | created items, skipped items, next steps | [UC-001] step 10 "summary" |
 
 ## Association Table
@@ -167,6 +185,11 @@ Summary "1" --> "1" Project : reports on
 | Local Project | has | Credentials File | 1 to 0..1 |
 | Credentials File | holds a copy of | Access Token | 1 to 1..2 |
 | Summary | reports on | Project | 1 to 1 |
+| Maintainer | makes | Command Link | 1 to 0..* |
+| Command Link | leads to | Checkout | 0..* to 1 |
+| Maintainer | starts the script in | Working Folder | 1 to 1 |
+| Checkout | holds by default | Configuration | 1 to 1 |
+| Working Folder | is the base of | Local Project | 1 to 0..* |
 
 ## Generalizations
 
@@ -177,8 +200,9 @@ Summary "1" --> "1" Project : reports on
 ---
 
 [UC-001]: ./uc-001/uc.md
+[UC-002]: ./uc-002/uc.md
+[DM-003]: ./uc-002/dm.md
 [SSD-001]: ./uc-001/ssd.md
 [DICT-001]: ./dictionary.md
 [DM-001]: ./uc-001/dm.md
-[ded26a6]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/ded26a658c666bf29d84093cb352e3635e07719b
-[d773fa9]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/d773fa91df5a54090254e12e074880fb6526a9ff
+[1cd27f7]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/1cd27f77ed844773a969210a11de0d8bb98ac98f
