@@ -9,7 +9,7 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Initial version | pending |
+| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Initial version | [0ab5006] |
 
 ---
 
@@ -80,3 +80,4 @@ Go-with-conditions — the change is consistent across the documents, and the se
 [RC-022]: ./rc-022-mil-007.md
 [RC-028]: ./rc-028-dcd-003.md
 [MIL-003]: ../../milestones/mil-003-scaffold-and-release.md
+[0ab5006]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/0ab50068bf9e5be82a801af9dbe5b763eeaf7f31

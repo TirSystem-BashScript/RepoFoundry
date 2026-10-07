@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Initial version | [1cd27f7] |
-| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Names the confirmation of a configuration file from the working folder as out of scope | pending |
+| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Names the confirmation of a configuration file from the working folder as out of scope | [0ab5006] |
 
 ---
 
@@ -51,3 +51,4 @@ One script run, as in [UC-001]. The command link persists between runs; the syst
 [OC-002]: ./oc.md
 [SSD-001]: ../uc-001/ssd.md
 [1cd27f7]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/1cd27f77ed844773a969210a11de0d8bb98ac98f
+[0ab5006]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/0ab50068bf9e5be82a801af9dbe5b763eeaf7f31

@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Task 4 renamed so its issue title is unique (the sync matches issues by title) | [be759e3] |
-| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | The configuration files default to the working folder's, then the checkout's, confirmed and named (deliverable 3, criteria 9 and 10, tasks 2 to 4) | pending |
+| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | The configuration files default to the working folder's, then the checkout's, confirmed and named (deliverable 3, criteria 9 and 10, tasks 2 to 4) | [0ab5006] |
 
 ---
 
@@ -82,3 +82,4 @@ Decide whether a new project holds the whole framework, including the `qc` check
 [UC-002]: ../uc-002/uc.md
 [MIL-003]: ./mil-003-scaffold-and-release.md
 [be759e3]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/be759e38326eac2b11e65a2b582b2431186e338b
+[0ab5006]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/0ab50068bf9e5be82a801af9dbe5b763eeaf7f31
