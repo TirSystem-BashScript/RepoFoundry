@@ -198,9 +198,56 @@ warn_if_env_unsafe() {
   fi
 }
 
+# locate_config_file NAME FLAG FILE_VAR ORIGIN_VAR: the file named with FLAG;
+# otherwise ./NAME in the working folder; otherwise NAME in the checkout.
+# The origin is "named", "folder" or "checkout".
+locate_config_file() {
+  local name="$1" flag="$2"
+  local -n file_ref="$3" origin_ref="$4"
+  if [[ -n $file_ref ]]; then
+    origin_ref="named"
+  elif [[ $WORKING_FOLDER != "$PROJECT_ROOT" && -f $WORKING_FOLDER/$name ]]; then
+    file_ref="$WORKING_FOLDER/$name"
+    origin_ref="folder"
+  elif [[ -f $PROJECT_ROOT/$name ]]; then
+    file_ref="$PROJECT_ROOT/$name"
+    origin_ref="checkout"
+  else
+    die "$name is not named with $flag and is in neither the working folder ($WORKING_FOLDER) nor the checkout ($PROJECT_ROOT); name it with $flag FILE"
+  fi
+}
+
+# origin_words ORIGIN: how the origin of a configuration file reads.
+origin_words() {
+  case "$1" in
+    named) printf 'named on the command line' ;;
+    folder) printf 'from the working folder' ;;
+    *) printf 'from the checkout' ;;
+  esac
+}
+
+# confirm_folder_files: a file taken from the working folder may point the
+# Gitea address elsewhere and so send the token there, so it is named with
+# the address and needs a yes (default no) before the first request.
+confirm_folder_files() {
+  local files=()
+  [[ $CONFIG_ORIGIN == folder ]] && files+=("$CONFIG_FILE")
+  [[ $ENV_ORIGIN == folder ]] && files+=("$ENV_FILE")
+  ((${#files[@]} > 0)) || return 0
+  say "The working folder supplies: ${files[*]}"
+  say "Gitea would be ${CONFIG[GITEA_URL]}; the token from the credentials file is sent there."
+  prompt_yes_no "Use ${files[*]}" n
+  ((REPLY)) || die "stopped before any request: choose the files with --config and --env, or run from the checkout"
+}
+
 load_configuration() {
+  locate_config_file config.env --config CONFIG_FILE CONFIG_ORIGIN
+  locate_config_file .env --env ENV_FILE ENV_ORIGIN
+  say "Config file     : $CONFIG_FILE ($(origin_words "$CONFIG_ORIGIN"))"
+  say "Credentials file: $ENV_FILE ($(origin_words "$ENV_ORIGIN"))"
   parse_env_file "$CONFIG_FILE" CONFIG_KEYS CONFIG
   validate_config
+  confirm_folder_files
   parse_env_file "$ENV_FILE" CREDENTIAL_KEYS CREDENTIALS
   validate_credentials
   warn_if_env_unsafe "$ENV_FILE"
