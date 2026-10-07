@@ -120,12 +120,15 @@ write_gitconfig() {
 	insteadOf = https://git.example.test/
 [url "file://$WORK/remote/"]
 	insteadOf = ssh://git@git.example.test:10022/
+[url "file://$WORK/remote/"]
+	insteadOf = ssh://git@git.tirsystem.com:10022/
 EOF
 }
 
 # ensure_shared_remotes: build, once per run of the suite, the local bare
 # repositories that stand in for Gitea (TirSystem/my-app.git, holding the
-# license commit) and for the framework (a copy of the real one).
+# license commit), for the framework and for the checklists the framework
+# holds as its own submodule (copies of the real ones).
 ensure_shared_remotes() {
   if [[ -n $SHARED_REMOTES && -d $SHARED_REMOTES ]]; then
     return 0
@@ -133,6 +136,7 @@ ensure_shared_remotes() {
   SHARED_REMOTES="$(mktemp -d "${TMPDIR:-/tmp}/repofoundry-remotes.XXXXXX")"
   mkdir -p "$SHARED_REMOTES/TirSystem"
   git clone -q --bare "$REPO_ROOT/framework" "$SHARED_REMOTES/TirSystem/SQA-QC-Framework.git"
+  git clone -q --bare "$REPO_ROOT/framework/qc" "$SHARED_REMOTES/TirSystem/SQA-QC-Checklists.git"
   git init -q --bare "$SHARED_REMOTES/TirSystem/my-app.git"
   git init -q "$SHARED_REMOTES/seed"
   git -C "$SHARED_REMOTES/seed" symbolic-ref HEAD refs/heads/main
@@ -163,7 +167,7 @@ setup_local_remotes() {
 # first, then the now empty directories from the bottom up.
 remove_workdir() {
   if [[ -n $WORK && -d $WORK ]]; then
-    find "$WORK" \( -type f -o -type p \) -delete
+    find "$WORK" \( -type f -o -type p -o -type l \) -delete
     find "$WORK" -depth -type d -exec rmdir {} +
   fi
   WORK=""

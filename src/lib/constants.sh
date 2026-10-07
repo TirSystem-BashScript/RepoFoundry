@@ -37,8 +37,14 @@ readonly CONFIG_KEYS=(GITHUB_API_URL GITHUB_WEB_URL GITEA_URL GITEA_API_URL
   GITHUB_OWNER PROJECT_DIRECTORY ENABLE_PLAN_GATE PROJECT_LICENSE)
 readonly CREDENTIAL_KEYS=(GITHUB_PAT GITHUB_USER GITEA_TOKEN)
 
-CONFIG_FILE="$PROJECT_ROOT/config.env"
-ENV_FILE="$PROJECT_ROOT/.env"
+# The configuration files: named by --config and --env, or chosen by
+# locate_config_file. The origin is named, folder or checkout.
+CONFIG_FILE=""
+ENV_FILE=""
+CONFIG_ORIGIN=""
+ENV_ORIGIN=""
+# The folder the Maintainer started the script in.
+WORKING_FOLDER=""
 TMP_DIR=""
 HAS_JQ=0
 HTTP_STATUS=0

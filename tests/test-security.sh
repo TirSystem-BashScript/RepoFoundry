@@ -201,13 +201,15 @@ test_default_files_are_in_the_project_root() {
   cp "$WORK/config.env" "$WORK/project/config.env"
   cp "$WORK/.env" "$WORK/project/.env"
   STATUS=0
-  PATH="$WORK/bin:$PATH" STUB_DIR="$WORK" TMPDIR="$WORK/tmp" "$BASH" "$WORK/project/src/create-project.sh" \
-    <<<"$ANSWERS_GITHUB" >"$WORK/out.txt" 2>"$WORK/err.txt" || STATUS=$?
+  (cd "$WORK/project" && PATH="$WORK/bin:$PATH" STUB_DIR="$WORK" TMPDIR="$WORK/tmp" "$BASH" "$WORK/project/src/create-project.sh" \
+    <<<"$ANSWERS_GITHUB" >"$WORK/out.txt" 2>"$WORK/err.txt") || STATUS=$?
   assert_status "run with the default files" 0 "$STATUS"
   assert_contains "found config.env in the project root" "$(cat "$WORK/out.txt")" "https://git.example.test/TirSystem/my-app"
-  # Run from another directory: the defaults follow the script, not the cwd.
+  # Run from another folder that holds no files of its own: the checkout's
+  # files are used; the defaults follow the script, not the current folder.
+  mkdir -p "$WORK/elsewhere"
   STATUS=0
-  (cd "$WORK" && PATH="$WORK/bin:$PATH" STUB_DIR="$WORK" TMPDIR="$WORK/tmp" "$BASH" "$WORK/project/src/create-project.sh" \
+  (cd "$WORK/elsewhere" && PATH="$WORK/bin:$PATH" STUB_DIR="$WORK" TMPDIR="$WORK/tmp" "$BASH" "$WORK/project/src/create-project.sh" \
     <<<"$ANSWERS_GITEA_ONLY" >"$WORK/out.txt" 2>"$WORK/err.txt") || STATUS=$?
   assert_status "run from another directory" 0 "$STATUS"
 }

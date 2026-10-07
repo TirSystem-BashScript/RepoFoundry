@@ -9,6 +9,8 @@
 usage() {
   cat <<EOF
 Usage: ${0##*/} [--apply] [--config FILE] [--env FILE]
+       Without --config and --env, ./config.env and ./.env in the current folder
+       are read, then the ones in the checkout.
        ${0##*/} --help | --version
 EOF
 }
