@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Added UC-002 and US-002 (global command); tasks 2 and 3 trace to UC-002 | [1cd27f7] |
-| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Task 4 renamed so its issue title is unique (the sync matches issues by title) | pending |
+| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Task 4 renamed so its issue title is unique (the sync matches issues by title) | [be759e3] |
 
 ---
 
@@ -80,3 +80,4 @@ Decide whether a new project holds the whole framework, including the `qc` check
 [UC-002]: ../uc-002/uc.md
 [MIL-003]: ./mil-003-scaffold-and-release.md
 [1cd27f7]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/1cd27f77ed844773a969210a11de0d8bb98ac98f
+[be759e3]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/be759e38326eac2b11e65a2b582b2431186e338b
