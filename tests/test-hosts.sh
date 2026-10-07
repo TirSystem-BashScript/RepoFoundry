@@ -31,7 +31,7 @@ test_dry_run_prints_the_plan_and_only_reads() {
   setup_hosts
   run_dry "$ANSWERS_GITHUB"
   assert_status "dry run" 0 "$STATUS"
-  assert_contains "Gitea plan" "$OUT" "Gitea repository  : create (private) with the AGPL-3.0 license https://git.example.test/TirSystem/my-app"
+  assert_contains "Gitea plan" "$OUT" "Gitea repository  : create (private), empty https://git.example.test/TirSystem/my-app"
   assert_contains "GitHub plan" "$OUT" "GitHub repository : create (private), empty https://github.com/acme-org/my-app"
   assert_contains "mirror plan" "$OUT" "Push mirror       : Gitea -> GitHub every 10m0s"
   assert_contains "origin plan" "$OUT" "Local origin      : will use SSH (the SSH test passed)"
@@ -148,14 +148,18 @@ test_github_owner_must_be_a_member() {
   assert_contains "pending message" "$ERR" "membership of the GitHub organization 'acme-org' is not active"
 }
 
-test_license_must_be_offered_when_github_is_chosen() {
+test_license_must_be_offered_when_a_public_project_has_github() {
   setup_hosts
   prepend_route 'GET|/api/v1/licenses|200|[{"key":"MIT","name":"MIT"}]'
-  run_apply "$ANSWERS_GITHUB"
+  run_apply "$ANSWERS_GITHUB_PUBLIC"
   assert_status "no AGPL" 1 "$STATUS"
   assert_contains "message" "$ERR" "does not offer the AGPL-3.0 license"
   assert_not_contains "nothing created" "$(calls)" "POST"
-  # Without GitHub no license is needed, so the same server is fine.
+  # Without GitHub, or for a private project, no license is needed, so the same server is fine.
+  setup_hosts
+  prepend_route 'GET|/api/v1/licenses|200|[{"key":"MIT","name":"MIT"}]'
+  run_dry "$ANSWERS_GITHUB"
+  assert_status "private with GitHub" 0 "$STATUS"
   setup_hosts
   prepend_route 'GET|/api/v1/licenses|200|[{"key":"MIT","name":"MIT"}]'
   printf 'GITEA_TOKEN=%s\n' "$FAKE_GITEA_TOKEN" >"$WORK/.env"
@@ -215,8 +219,7 @@ test_apply_sends_the_right_request_bodies() {
   bodies="$(cat "$WORK/curl.bodies")"
   assert_contains "GitHub name" "$bodies" '"name":"my-app"'
   assert_contains "GitHub is created empty" "$bodies" '"private":true,"auto_init":false}'
-  assert_contains "Gitea gets the license" "$bodies" '"license":"AGPL-3.0"'
-  assert_contains "Gitea is initialised with it" "$bodies" '"auto_init":true'
+  assert_not_contains "a private project gets no license" "$bodies" '"license"'
   assert_contains "default branch" "$bodies" '"default_branch":"main"'
   assert_contains "description" "$bodies" '"description":"A test app"'
   assert_contains "mirror target without credentials" "$bodies" '"remote_address":"https://github.com/acme-org/my-app.git"'
@@ -237,6 +240,17 @@ test_apply_never_prints_or_passes_a_token() {
   assert_not_contains "no GitHub token on a command line" "$(cat "$WORK/curl.args")" "$FAKE_GITHUB_PAT"
   assert_contains "Gitea token in the private config" "$(cat "$WORK/curl.config")" "Authorization: token $FAKE_GITEA_TOKEN"
   assert_contains "GitHub token in the private config" "$(cat "$WORK/curl.config")" "Authorization: Bearer $FAKE_GITHUB_PAT"
+}
+
+test_apply_sends_the_license_for_a_public_project_with_github() {
+  setup_hosts
+  run_apply "$ANSWERS_GITHUB_PUBLIC"$'y\n'
+  local bodies
+  bodies="$(cat "$WORK/curl.bodies")"
+  assert_contains "Gitea gets the license" "$bodies" '"license":"AGPL-3.0"'
+  assert_contains "Gitea is initialised with it" "$bodies" '"auto_init":true'
+  assert_contains "public" "$bodies" '"private":false'
+  assert_contains "plan names the rule" "$OUT" "with the AGPL-3.0 license (default: GitHub and a public project)"
 }
 
 test_apply_with_gitea_only() {
@@ -337,7 +351,7 @@ test_gitea_repository_with_only_the_license_can_be_reused() {
   setup_hosts
   prepend_route 'GET|/api/v1/repos/TirSystem/my-app|200|{"empty":false}'
   prepend_route 'GET|/api/v1/repos/TirSystem/my-app/contents|200|[{"name":"LICENSE","type":"file","path":"LICENSE"}]'
-  run_apply "$ANSWERS_GITHUB"$'y\ny\n'
+  run_apply "$ANSWERS_GITHUB_PUBLIC"$'y\ny\n'
   assert_status "license only" 0 "$STATUS"
   assert_not_contains "Gitea repository not created again" "$(calls)" "$GITEA_REPO_CALL"
   assert_eq "mirror created once" "1" "$(calls | grep -c -x -F "$MIRROR_CALL")"
@@ -355,7 +369,7 @@ test_gitea_repository_with_only_the_license_can_be_reused() {
 test_reusing_an_empty_gitea_repository_warns_about_the_license() {
   setup_hosts
   prepend_route 'GET|/api/v1/repos/TirSystem/my-app|200|{"empty":true}'
-  run_apply "$ANSWERS_GITHUB"$'y\ny\n'
+  run_apply "$ANSWERS_GITHUB_PUBLIC"$'y\ny\n'
   assert_status "reuse empty Gitea repository" 0 "$STATUS"
   assert_contains "warning" "$ERR" "the AGPL-3.0 license is not added to it"
 }

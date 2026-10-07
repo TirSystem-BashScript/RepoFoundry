@@ -47,9 +47,9 @@ confirm_reuse() {
       die "stopped: choose another name or remove the existing repository"
     fi
   done
-  if ((${STATE[reuse_gitea]:-0})) && ((PROJECT[has_github])) &&
+  if ((${STATE[reuse_gitea]:-0})) && [[ -n ${PROJECT[license]} ]] &&
     [[ ${STATE[gitea_repo]} == empty ]]; then
-    warn "the empty Gitea repository is reused as it is: the $AGPL_LICENSE_KEY license is not added to it"
+    warn "the empty Gitea repository is reused as it is: the ${PROJECT[license]} license is not added to it"
   fi
 }
 

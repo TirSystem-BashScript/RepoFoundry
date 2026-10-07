@@ -10,8 +10,9 @@
 #   repositories and the mirror, then the local project: its directory, git
 #   repository, remotes (no credential in any address), the framework as a
 #   submodule, the framework's skills and git hooks (and the plan gate if
-#   chosen) and its templates. Choosing GitHub also applies the AGPL-3.0
-#   license to the Gitea repository. No commit is made in the new project.
+#   chosen) and its templates. The license of the Gitea repository is
+#   PROJECT_LICENSE in config.env (none means no license); without it AGPL-3.0
+#   applies only when GitHub is chosen and the project is public. No commit is made in the new project.
 #
 # Dry run by default
 #   Without --apply the script only reads from GitHub and Gitea (GET

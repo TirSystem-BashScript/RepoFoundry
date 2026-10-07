@@ -21,6 +21,16 @@ readonly FAKE_GITHUB_PAT="ghpFAKEtoken1234567890"
 # Answers to the prompts: name, description, visibility, Gitea owner, GitHub
 # yes or no, GitHub owner, directory, plan gate.
 readonly ANSWERS_GITHUB=$'my-app\nA test app\n\nTirSystem\ny\nacme-org\n\nn\n'
+# The same, for a public project (the AGPL-3.0 default applies with GitHub).
+readonly ANSWERS_GITHUB_PUBLIC=$'my-app
+A test app
+public
+TirSystem
+y
+acme-org
+
+n
+'
 readonly ANSWERS_GITEA_ONLY=$'my-app\n\n\nTirSystem\nn\n\nn\n'
 
 SHARED_REMOTES=""

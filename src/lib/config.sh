@@ -142,6 +142,7 @@ validate_project_presets() {
   check_preset GITHUB_OWNER is_valid_github_owner "$HINT_GITHUB_OWNER"
   check_preset PROJECT_DIRECTORY is_valid_directory "$HINT_DIRECTORY"
   check_preset_choice ENABLE_PLAN_GATE yes no
+  check_preset PROJECT_LICENSE is_valid_license "$HINT_LICENSE"
 }
 
 validate_credentials() {

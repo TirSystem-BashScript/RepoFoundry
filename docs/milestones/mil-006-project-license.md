@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | AGPL-3.0 default only when GitHub is chosen and the project is public (purpose, resolution order, criterion 3, tasks 1 and 4) | [1cd27f7] |
-| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Task 4 renamed so its issue title is unique (the sync matches issues by title) | [be759e3] |
+| 2026-10-07 | Deprecated | Jens Tirsvad Nielsen | S02 | AGPL-3.0 default only when GitHub is chosen and the project is public (purpose, resolution order, criterion 3, tasks 1 and 4) | [1cd27f7] |
+| 2026-10-07 | Accepted | Jens Tirsvad Nielsen | S02 | Task 4 renamed so its issue title is unique (the sync matches issues by title) | [be759e3] |
 
 ---
 

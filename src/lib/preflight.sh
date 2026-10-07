@@ -23,8 +23,8 @@ check_gitea_organization() {
 check_gitea_license() {
   api_call gitea GET /licenses
   expect_status "cannot list the licenses of the Gitea server" 200
-  json_has_value "$HTTP_BODY_FILE" key "$AGPL_LICENSE_KEY" ||
-    die "the Gitea server does not offer the $AGPL_LICENSE_KEY license"
+  json_has_value "$HTTP_BODY_FILE" key "${PROJECT[license]}" ||
+    die "the Gitea server does not offer the ${PROJECT[license]} license"
 }
 
 # inspect_repository HOST: record in STATE[HOST_repo] whether the repository
@@ -70,7 +70,7 @@ preflight_gitea() {
     check_gitea_organization "$owner" "$login"
     STATE[gitea_owner_kind]="organization"
   fi
-  if ((PROJECT[has_github])); then
+  if [[ -n ${PROJECT[license]} ]]; then
     check_gitea_license
   fi
   inspect_repository gitea
@@ -143,7 +143,7 @@ decide_existing_repositories() {
       free) ;;
       empty) STATE[reuse_$host]=1 ;;
       initial_only)
-        if [[ $host == gitea ]] && ((PROJECT[has_github])); then
+        if [[ $host == gitea && -n ${PROJECT[license]} ]]; then
           STATE[reuse_$host]=1
         else
           die "the $(host_label "$host") repository $owner/${PROJECT[name]} already exists and has content; choose another name or remove it first"
