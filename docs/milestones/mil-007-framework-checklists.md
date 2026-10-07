@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Initial version | [1cd27f7] |
 | 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Added UC-002 and US-002 (global command); tasks 2 and 3 trace to UC-002 | [1cd27f7] |
+| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Task 4 renamed so its issue title is unique (the sync matches issues by title) | pending |
 
 ---
 
@@ -70,7 +70,7 @@ Decide whether a new project holds the whole framework, including the `qc` check
 | 1 | Fetch the framework's own submodules | After `git submodule add` of the framework, and on the "already a submodule" path, run `git submodule update --init --recursive` in the new project. A failure stops the step, reports what exists and names the command to run by hand, without a credential. Step 9 and extension 9e of [UC-001]. | Yes | [UC-001] |
 | 2 | Start through a command link | Resolve `BASH_SOURCE` through links (without requiring `readlink -f`, which macOS lacks) so `SCRIPT_DIR` and `PROJECT_ROOT` point into the checkout, and keep the current folder as the base of the default directory. Errors name the folder or path looked in. Steps 3 to 6 and extensions 4a and 4b of [UC-002]. | Yes | [UC-002] |
 | 3 | Document the usage | Step 1 and extensions 1a and 3a of [UC-002]. README usage section: start from the folder where the project is to be created, where `config.env` and `.env` are read from, `--config` and `--env`, and the global command with a worked example and its check, for Linux, macOS and Git Bash on Windows. | Yes | [UC-002] |
-| 4 | Test every case | `qc` filled after a run and after a rerun, nested fetch failure, framework without a submodule, start through a symlink from another folder. | No | |
+| 4 | Test the qc fetch and the command link | `qc` filled after a run and after a rerun, nested fetch failure, framework without a submodule, start through a symlink from another folder. | No | |
 
 ---
 
