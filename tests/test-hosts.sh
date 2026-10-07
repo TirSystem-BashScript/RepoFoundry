@@ -499,7 +499,7 @@ test_a_repository_this_script_created_earlier_can_be_reused() {
   setup_hosts
   prepend_route 'GET|/api/v1/repos/TirSystem/my-app|200|{"empty":false}'
   prepend_route 'GET|/api/v1/repos/TirSystem/my-app/contents|200|[{"name":"README.md","type":"file"},{"name":"LICENSE","type":"file"}]'
-  run_apply "$ANSWERS_GITHUB"$'y\ny\n'
+  run_apply "$ANSWERS_GITHUB_PUBLIC"$'y\ny\n'
   assert_status "LICENSE and README.md" 0 "$STATUS"
   assert_not_contains "not created again" "$(calls)" "$GITEA_REPO_CALL"
   assert_contains "reported" "$OUT" "Gitea repository  : reused"
