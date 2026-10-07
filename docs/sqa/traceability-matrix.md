@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | Added MIL-006 | [d773fa9] |
 | 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Added MIL-007, UC-002, SSD-002, DM-003, OC-002, SD-002 and DCD-003 with their reviews RC-022 to RC-028 | [1cd27f7] |
+| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Added review RC-030 (.env optional) | [24f1507] |
 
 ---
 
@@ -33,16 +33,16 @@ updated whenever an artifact instance is created or reviewed.
 | [MIL-004] | MIL | [BC-001], [PP-001] | [US-001] | [RC-018], [RC-019] |
 | [MIL-005] | MIL | [BC-001], [PP-001] | [US-001] | [RC-020] |
 | [MIL-006] | MIL | [BC-001], [PP-001] | [US-001] | [RC-022] |
-| [MIL-007] | MIL | [BC-001], [PP-001] | [US-001], [UC-002] | [RC-022], [RC-029] |
+| [MIL-007] | MIL | [BC-001], [PP-001] | [US-001], [UC-002] | [RC-022], [RC-029], [RC-030] |
 | [UCD-001] | UCD | [BC-001], [SA-001] | [US-001], [UC-001], [UC-002] | [RC-009], [RC-023] |
-| [US-001] | US | [BC-001], [UCD-001], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006], [MIL-007] | [UC-001] | [RC-001], [RC-020], [RC-022], [RC-029] |
+| [US-001] | US | [BC-001], [UCD-001], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006], [MIL-007] | [UC-001] | [RC-001], [RC-020], [RC-022], [RC-029], [RC-030] |
 | [UC-001] | UC | [UCD-001], [US-001], [SA-001] | [SSD-001], [DM-001] | [RC-002], [RC-020], [RC-023] |
-| [UC-002] | UC | [UCD-001], [US-001], [SA-001], [BC-001] | [SSD-002], [DM-003] | [RC-023], [RC-029] |
+| [UC-002] | UC | [UCD-001], [US-001], [SA-001], [BC-001] | [SSD-002], [DM-003] | [RC-023], [RC-029], [RC-030] |
 | [SSD-002] | SSD | [UC-002], [DM-003] | [OC-002] | [RC-024], [RC-029] |
 | [DM-003] | DM | [UC-002], [UCD-001], [SSD-002], [DICT-001], [DM-001] | [OC-002], [DCD-003] | [RC-025], [RC-029] |
-| [OC-002] | OC | [SSD-002], [DM-003] | [SD-002] | [RC-026], [RC-029] |
+| [OC-002] | OC | [SSD-002], [DM-003] | [SD-002] | [RC-026], [RC-029], [RC-030] |
 | [SD-002] | SD | [OC-002], [DCD-003] | [DCD-003] | [RC-027], [RC-029] |
-| [DCD-003] | DCD | [DM-003], [SD-002], [DICT-001], [UC-002], [DCD-001] | [DCD-002] | [RC-028], [RC-029] |
+| [DCD-003] | DCD | [DM-003], [SD-002], [DICT-001], [UC-002], [DCD-001] | [DCD-002] | [RC-028], [RC-029], [RC-030] |
 | [SSD-001] | SSD | [UC-001] | [OC-001] | [RC-003], [RC-020] |
 | [DM-001] | DM | [UC-001], [SSD-001] | [DM-002], [DICT-001], [OC-001], [DCD-001] | [RC-004], [RC-020] |
 | [DM-002] | DM | [DM-001] | [DICT-001], [DCD-001], [DCD-002] | [RC-005], [RC-020], [RC-025], [RC-029] |
@@ -50,7 +50,7 @@ updated whenever an artifact instance is created or reviewed.
 | [OC-001] | OC | [SSD-001], [DM-001] | [SD-001] | [RC-006], [RC-020], [RC-026] |
 | [SD-001] | SD | [OC-001] | [DCD-001] | [RC-007], [RC-020], [RC-021] |
 | [DCD-001] | DCD | [UC-001], [DM-001], [DM-002], [OC-001], [SD-001], [DICT-001] | [DCD-002] | [RC-021] |
-| [DCD-002] | DCD | [DCD-001], [DCD-003], [DM-002], [DICT-001] | - | [RC-021], [RC-028], [RC-029] |
+| [DCD-002] | DCD | [DCD-001], [DCD-003], [DM-002], [DICT-001] | - | [RC-021], [RC-028], [RC-029], [RC-030] |
 
 ## Coverage Notes
 
@@ -81,6 +81,7 @@ updated whenever an artifact instance is created or reviewed.
 [RC-027]: ./reviews/rc-027-sd-002.md
 [RC-028]: ./reviews/rc-028-dcd-003.md
 [RC-029]: ./reviews/rc-029-default-config-files.md
+[RC-030]: ./reviews/rc-030-env-optional.md
 [DCD-001]: ../uc-001/dcd.md
 [DCD-002]: ../dcd.md
 [UCD-001]: ../use-case-diagram.md
@@ -115,5 +116,5 @@ updated whenever an artifact instance is created or reviewed.
 [RC-015]: ./reviews/rc-015-mil-003.md
 [RC-016]: ./reviews/rc-016-create-project-sh.md
 [RC-017]: ./reviews/rc-017-e2e-security-review.md
-[d773fa9]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/d773fa91df5a54090254e12e074880fb6526a9ff
 [1cd27f7]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/1cd27f77ed844773a969210a11de0d8bb98ac98f
+[24f1507]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/24f15070fc73fb06e61865141fe0b825ea9e821e
