@@ -54,4 +54,5 @@ print_plan() {
   else
     say "$(printf '  %-18s: %s' "Framework" "NOT possible without SSH to Gitea; you will be asked whether to go on without it")"
   fi
+  say "$(printf '  %-18s: %s' "Project .env" "you are asked whether to create it ($(env_file_key_list))")"
 }

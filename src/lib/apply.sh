@@ -19,6 +19,7 @@ create_all() {
   add_framework
   install_framework
   copy_templates
+  create_env_file
 }
 
 # confirm_framework_access: the framework comes over SSH. Without SSH the

@@ -47,12 +47,12 @@ test_full_run_without_github() {
   assert_contains "plan says GitHub is not used" "$OUT" "GitHub repository : not used"
 }
 
-test_github_chosen_without_credentials_fails() {
+test_github_chosen_without_credentials_stops_when_input_ends() {
   write_fixtures
   printf 'GITEA_TOKEN=%s\n' "$FAKE_GITEA_TOKEN" >"$WORK/.env"
   run_cli "$ANSWERS_GITHUB" --config "$WORK/config.env" --env "$WORK/.env"
-  assert_status "missing GitHub credentials" 1 "$STATUS"
-  assert_contains "names the key" "$ERR" "GITHUB_PAT is missing"
+  assert_status "missing GitHub credentials, no answer" 1 "$STATUS"
+  assert_contains "names the credential" "$ERR" "no input available for 'GitHub personal access token'"
   assert_not_contains "no token in the error" "$OUT$ERR" "$FAKE_GITEA_TOKEN"
   assert_eq "temporary files removed" "" "$(find "$WORK/tmp" -mindepth 1)"
 }

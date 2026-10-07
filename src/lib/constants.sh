@@ -28,8 +28,10 @@ readonly HINT_GITEA_OWNER="use letters, digits, '.', '_' or '-' (at most 39)"
 readonly HINT_GITHUB_OWNER="use letters, digits or '-' (at most 39)"
 readonly HINT_LICENSE="use a Gitea license key (letters, digits, '.', '+' or '-', at most 64), such as AGPL-3.0 or MIT, or none"
 readonly HINT_DIRECTORY="must not be empty, start with '-' or contain control characters"
+readonly HINT_TOKEN="8 to 255 letters, digits or _ . ~ + / = -"
+readonly ENV_FILE_NAME=".env"
 readonly PLAN_STEPS=("GitHub repository" "Gitea repository" "Push mirror"
-  "Local project" "Framework" "Skills and hooks" "Templates")
+  "Local project" "Framework" "Skills and hooks" "Templates" "Project .env")
 # shellcheck disable=SC2034  # read through namerefs (parse_env_file)
 readonly CONFIG_KEYS=(GITHUB_API_URL GITHUB_WEB_URL GITEA_URL GITEA_API_URL
   GITEA_SSH_PORT MIRROR_INTERVAL FRAMEWORK_REPO

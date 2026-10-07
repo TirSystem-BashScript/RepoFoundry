@@ -96,24 +96,11 @@ validate_credentials"
     assert_status "$case_name" 1 "$STATUS"
     assert_contains "$case_name message" "$ERR" "$expected"
   done <<'EOF'
-no Gitea token|GITHUB_USER=octo\n|GITEA_TOKEN is missing
 token too short|GITEA_TOKEN=short\n|not a valid token
 token with a backslash|GITEA_TOKEN=abc\\defgh12345\n|not a valid token
 bad GitHub token|GITEA_TOKEN=abcdefgh12345\nGITHUB_PAT=bad token\n|GITHUB_PAT
 bad GitHub user|GITEA_TOKEN=abcdefgh12345\nGITHUB_USER=-bad-\n|GITHUB_USER
 EOF
-}
-
-test_github_credentials_required_only_when_chosen() {
-  printf 'GITEA_TOKEN=%s\n' "$FAKE_GITEA_TOKEN" >"$WORK/e.env"
-  run_lib "" "parse_env_file \"$WORK/e.env\" CREDENTIAL_KEYS CREDENTIALS
-validate_credentials
-echo no-github-ok
-ENV_FILE=\"$WORK/e.env\"
-require_github_credentials"
-  assert_contains "Gitea-only .env is valid" "$OUT" "no-github-ok"
-  assert_status "GitHub credentials missing" 1 "$STATUS"
-  assert_contains "names the missing key" "$ERR" "GITHUB_PAT is missing"
 }
 
 test_validators() {
