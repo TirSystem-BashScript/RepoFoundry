@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-06 | Accepted | Jens Tirsvad Nielsen | S02 | Added Credentials File (a Local Project may have one) | [ded26a6] |
 | 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | License applies when configured, not only when GitHub is chosen | [d773fa9] |
+| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | License: the AGPL-3.0 default needs GitHub and a public project | pending |
 
 ---
 
@@ -130,7 +130,7 @@ Summary "1" --> "1" Project : reports on
 | Repository | A place on a Git Host that holds a project's history | name, description, visibility, address | [UC-001] steps 5 and 6 "repository" |
 | Gitea Repository | The Repository on Gitea; the source of truth | none beyond Repository | [UC-001] step 6 |
 | GitHub Repository | The Repository on GitHub; receives its content from the Mirror | none beyond Repository | [UC-001] step 5 |
-| License | The legal terms file added to a Gitea Repository when a license applies: the one set in the Configuration, or AGPL-3.0 when GitHub is chosen and none is set | name | [UC-001] step 6 "license" |
+| License | The legal terms file added to a Gitea Repository when a license applies: the one set in the Configuration, or AGPL-3.0 when GitHub is chosen, the project is public and none is set | name | [UC-001] step 6 "license" |
 | Mirror | The push mirror that copies a Gitea Repository to a GitHub Repository | interval, sync on commit | [UC-001] step 7 "push mirror" |
 | Local Project | The project directory on the Maintainer's machine | directory | [UC-001] step 8 "local project" |
 | Remote | A named link from a Local Project to a Repository (`origin`, `github`) | name, address | [UC-001] step 8 "remote" |
@@ -180,5 +180,4 @@ Summary "1" --> "1" Project : reports on
 [SSD-001]: ./ssd.md
 [DICT-001]: ../dictionary.md
 [DM-002]: ../domain-model.md
-[ded26a6]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/ded26a658c666bf29d84093cb352e3635e07719b
 [d773fa9]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/d773fa91df5a54090254e12e074880fb6526a9ff

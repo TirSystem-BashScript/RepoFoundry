@@ -4,13 +4,13 @@
 | Key | Value |
 | --- | --- |
 | ID | DICT-001 |
-| CrossReference | [BC-001], [SA-001], [DM-001], [DM-002] |
+| CrossReference | [BC-001], [SA-001], [DM-001], [DM-002], [DM-003] |
 
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-06 | Accepted | Jens Tirsvad Nielsen | S02 | Added Credentials File / EnvFile | [ded26a6] |
 | 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | LicenseFile definition no longer tied to GitHub | [d773fa9] |
+| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Added Command Link, Checkout and Working Folder (DM-003, UC-002) | pending |
 
 ---
 
@@ -39,6 +39,9 @@ Maps each Product Owner (PO) term to its professional IT term. PO language: Engl
 | Framework Setup | en | HookSetup | The skills and git hooks installed from the framework, with the plan gate on or off. | DM, UC | OC, SD, DCD |
 | Template | en | Template | A framework file copied into a project. | DM, UC | OC, SD, DCD |
 | Credentials File | en | EnvFile | The file in the local project that holds a copy of the credentials the project needs; owner-only and ignored by git. | DM, UC | OC, SD, DCD |
+| Command Link | en | CommandLink | A name on the shell's search path that leads to the script; made by the Maintainer, only followed by the system (no design class). | DM, UC | OC, SD, DCD |
+| Checkout | en | Checkout | The folder that holds RepoFoundry and its default `config.env` and `.env`. | DM, UC | OC, SD, DCD |
+| Working Folder | en | WorkingFolder | The folder the Maintainer starts the script in; the base of the default project directory. | DM, UC | OC, SD, DCD |
 | Summary | en | Summary | The report of what was created, skipped or failed and how to continue. | DM, UC | OC, SD, DCD |
 
 ## Rules
@@ -58,10 +61,10 @@ Maps each Product Owner (PO) term to its professional IT term. PO language: Engl
 ---
 
 [BC-001]: ./business-case.md
+[DM-003]: ./uc-002/dm.md
 [SA-001]: ./stakeholder-analysis.md
 [DM-001]: ./uc-001/dm.md
 [DM-002]: ./domain-model.md
 [OC-001]: ./uc-001/oc.md
 [DCD-001]: ./uc-001/dcd.md
-[ded26a6]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/ded26a658c666bf29d84093cb352e3635e07719b
 [d773fa9]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/d773fa91df5a54090254e12e074880fb6526a9ff

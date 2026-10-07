@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-06 | Accepted | Jens Tirsvad Nielsen | S02 | Added objective 9 (credentials asked, project .env created), scope items, success criterion 9 and a risk<br>Objective 6 and success criterion 1 now allow a token only in the new project's .env | [ded26a6] |
-| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | Added objective 10 (PROJECT_LICENSE in config.env), a scope item and success criterion 10; objective 2 now names the configured license | [d773fa9] |
+| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Objectives 2, 5 and 10, two scope items and success criterion 10: the AGPL-3.0 default needs GitHub and a public project; the framework's own submodules (qc) are fetched | pending |
+| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Added objective 11 (global command, project created in the current folder), a scope item and success criterion 11 | pending |
 
 ---
 
@@ -35,15 +35,16 @@ One repeatable, reviewed procedure gives every new project the same secure basel
 ## Objectives
 
 1. Optionally create an empty GitHub repository under a chosen user or organization.
-2. Create a Gitea repository under a chosen user or organization, empty, or with a license: the one set in `config.env` (`PROJECT_LICENSE`), or AGPL-3.0 when GitHub is chosen and none is set.
+2. Create a Gitea repository under a chosen user or organization, empty, or with a license: the one set in `config.env` (`PROJECT_LICENSE`), or AGPL-3.0 when GitHub is chosen, the project is public and none is set.
 3. When GitHub was chosen, configure the Gitea repository as a push mirror to GitHub (direction Gitea to GitHub).
 4. Create the local project directory with an `origin` (Gitea) remote and, when GitHub was chosen, a `github` remote, neither containing credentials.
-5. Add the SQA-QC-Framework as the `framework` submodule, install its skills and git hooks, and copy its templates, optionally enabling the plan gate.
+5. Add the SQA-QC-Framework as the `framework` submodule with its own submodules (the `qc` checklists) fetched, install its skills and git hooks, and copy its templates, optionally enabling the plan gate.
 6. Never print a token or put one in a URL, a remote or a log, write one to disk only in the new project's own `.env` and only after the Maintainer agrees, and never overwrite existing files or directories without consent.
 7. Document installation, configuration, usage, security decisions and error handling in clear English for GitHub readers.
 8. Let the Maintainer preset the project details in `config.env`, so that a detail that is set there is not asked again.
 9. Ask for a credential that is not provided in `.env` (`GITEA_TOKEN`, `GITHUB_PAT`, `GITHUB_USER`) and, when the Maintainer agrees, create a `.env` file with the credentials the new project needs.
 10. Let the Maintainer set the project's license in `config.env` (`PROJECT_LICENSE`), independent of the GitHub choice, or set `none` for no license.
+11. Let the Maintainer start the script by name from the folder where the project is to be created, through a command link in a folder on `PATH`.
 
 ## Scope
 
@@ -51,12 +52,14 @@ One repeatable, reviewed procedure gives every new project the same secure basel
 
 - `create-project.sh`, `config.env.example`, `.env.example`, `.gitignore` and `README.md`.
 - Safe parsing and validation of `config.env` and `.env` (never `source`d).
-- Prompts for name, description, visibility and owner on each chosen host, and whether to use GitHub (which also applies the AGPL license). Each of these details may be set in `config.env` instead and is then not asked.
+- Prompts for name, description, visibility and owner on each chosen host, and whether to use GitHub (which also applies the AGPL license when the project is public). Each of these details may be set in `config.env` instead and is then not asked.
 - Checks for required tools (`git`, `curl`, optional `jq`) before any change.
 - A check that the project name is not already taken on GitHub.
 - Asking for a credential that `.env` does not provide, and creating the new project's own `.env` (owner-only, ignored by git, never overwritten without a yes).
 - A project license set in `config.env` (`PROJECT_LICENSE`, optional, never asked), checked against the licenses the Gitea server offers.
 - Partial-failure reporting with a documented way to continue.
+- Starting through a command link: the script finds its own files from the link, and the new project lands in the folder it was started in.
+- Fetching the framework's own submodules (`git submodule update --init --recursive`), so the `qc` checklists are present.
 - Documentation of the SSH prerequisite for the submodule (Gitea SSH on port `10022`).
 
 ### Out of Scope
@@ -97,7 +100,8 @@ Supports developing on self-hosted Gitea while publishing to GitHub, and adoptin
 | 7 | Documentation | `README.md` covers installation, configuration, usage, security decisions, error handling and stakeholders | Review by S02 against MIL-003 Go/No-Go criterion 6 |
 | 8 | Preset details | A project detail set in `config.env` is never asked; an invalid one stops the run before any request and names the key | Tests with each key set, absent, empty and invalid |
 | 9 | Credentials asked and kept | A credential missing from `.env` is asked (not echoed) instead of stopping the run; the new project's `.env` is created only after a yes, owner-only, ignored by git, holding only the keys the project needs, and an existing `.env` is never replaced without a yes | Tests: each credential present and missing, `.env` written, declined, existing, file mode, git exclusion, no token in output |
-| 10 | Project license | `PROJECT_LICENSE` set: that license is on the Gitea repository with and without GitHub; `none`: no license; absent: AGPL-3.0 only when GitHub is chosen; a license the server does not offer stops the run before anything is created | Tests with a license set, `none`, absent and not offered |
+| 10 | Project license | `PROJECT_LICENSE` set: that license is on the Gitea repository with and without GitHub; `none`: no license; absent: AGPL-3.0 only when GitHub is chosen and the project is public; a license the server does not offer stops the run before anything is created | Tests with a license set, `none`, absent and not offered |
+| 11 | Global command | Started through a command link in a `PATH` folder from another folder, the script runs, reads the checkout's `config.env` and `.env` and creates the project under that folder | Test run through a link; the README example run once |
 
 ## Risks
 
@@ -149,5 +153,3 @@ Proceed — the procedure is small, well bounded and removes a repeated, securit
 
 [SA-001]: ./stakeholder-analysis.md
 [UCD-001]: ./use-case-diagram.md
-[ded26a6]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/ded26a658c666bf29d84093cb352e3635e07719b
-[d773fa9]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/d773fa91df5a54090254e12e074880fb6526a9ff

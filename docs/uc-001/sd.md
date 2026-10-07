@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-06 | Accepted | Jens Tirsvad Nielsen | S02 | Added CredentialCollector and EnvFileWriter and their messages (P2, P14) | [ded26a6] |
 | 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | The license that applies is passed to hasLicense and createRepository; no alt on the GitHub choice | [d773fa9] |
+| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | P4: the license passed is AGPL-3.0 only for GitHub with a public project | pending |
 
 ---
 
@@ -195,7 +195,7 @@ destroy SR
 | P1 ProjectRequest created | `provideProjectDetails` received by `ProjectCreator` |
 | P2 PreflightResult created, including that the license is offered | `check(request)` and `hasLicense(license)` |
 | P3 GiteaRepository created | `createRepository(request, license)` |
-| P4 LicenseFile when a license applies, otherwise empty | `createRepository(request, license)`; `license` is the one the `ProjectRequest` carries (`PROJECT_LICENSE`, or AGPL-3.0 when GitHub was chosen), and is absent for `none` |
+| P4 LicenseFile when a license applies, otherwise empty | `createRepository(request, license)`; `license` is the one the `ProjectRequest` carries (`PROJECT_LICENSE`, or AGPL-3.0 when GitHub was chosen and the project is public), and is absent for `none` |
 | P2 GitHub credentials known before the first request | `collect(configuration, GITHUB_PAT, GITHUB_USER)` inside `opt githubOwner present` |
 | P5 empty GitHubRepository when chosen | `createEmptyRepository(request)` |
 | P6 PushMirror and first sync | `addPushMirror(...)` and `requestSync(pushMirror)` |
@@ -216,5 +216,4 @@ destroy SR
 
 [OC-001]: ./oc.md
 [DCD-001]: ./dcd.md
-[ded26a6]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/ded26a658c666bf29d84093cb352e3635e07719b
 [d773fa9]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/d773fa91df5a54090254e12e074880fb6526a9ff
