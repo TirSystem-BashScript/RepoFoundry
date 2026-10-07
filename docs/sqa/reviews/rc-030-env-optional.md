@@ -9,7 +9,7 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Initial version | pending |
+| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Initial version | [24f1507] |
 
 ---
 
@@ -64,3 +64,4 @@ Go — the wording now agrees with the credentials behaviour on `main`, with the
 [DCD-002]: ../../dcd.md
 [RC-029]: ./rc-029-default-config-files.md
 [RC-028]: ./rc-028-dcd-003.md
+[24f1507]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/24f15070fc73fb06e61865141fe0b825ea9e821e

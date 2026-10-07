@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | US-002: the default configuration files are the working folder's, then the checkout's; confirmed and named | [0ab5006] |
-| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | US-002: only config.env is required; a .env found nowhere means the token is asked | pending |
+| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | US-002: only config.env is required; a .env found nowhere means the token is asked | [24f1507] |
 
 ---
 
@@ -167,3 +167,4 @@ Valuable, Negotiable, Estimable, Small and Testable hold for each story. Indepen
 [MIL-007]: ./milestones/mil-007-framework-checklists.md
 [PP-001]: ./project-plan.md
 [0ab5006]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/0ab50068bf9e5be82a801af9dbe5b763eeaf7f31
+[24f1507]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/24f15070fc73fb06e61865141fe0b825ea9e821e

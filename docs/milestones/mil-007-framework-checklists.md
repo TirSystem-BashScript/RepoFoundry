@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-07 | Accepted | Jens Tirsvad Nielsen | S02 | The configuration files default to the working folder's, then the checkout's, confirmed and named (deliverable 3, criteria 9 and 10, tasks 2 to 4) | [0ab5006] |
-| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | .env is optional (as in UC-001 extension 2b): only config.env is required; a .env found nowhere means the token is asked (criteria 9 and tasks 2 and 4) | pending |
+| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | .env is optional (as in UC-001 extension 2b): only config.env is required; a .env found nowhere means the token is asked (criteria 9 and tasks 2 and 4) | [24f1507] |
 
 ---
 
@@ -82,3 +82,4 @@ Decide whether a new project holds the whole framework, including the `qc` check
 [UC-002]: ../uc-002/uc.md
 [MIL-003]: ./mil-003-scaffold-and-release.md
 [0ab5006]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/0ab50068bf9e5be82a801af9dbe5b763eeaf7f31
+[24f1507]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/24f15070fc73fb06e61865141fe0b825ea9e821e

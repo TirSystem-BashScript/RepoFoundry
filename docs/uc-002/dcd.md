@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Default configuration files: --config and --env, else ./config.env and ./.env in the working folder, else the checkout's | [0ab5006] |
-| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | .env is optional (as in UC-001 extension 2b): only config.env is required; a .env found nowhere means the token is asked | pending |
+| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | .env is optional (as in UC-001 extension 2b): only config.env is required; a .env found nowhere means the token is asked | [24f1507] |
 
 ---
 
@@ -99,3 +99,4 @@ The concept Command Link has no class: it is a link the Maintainer makes with th
 [DCD-001]: ../uc-001/dcd.md
 [DCD-002]: ../dcd.md
 [0ab5006]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/0ab50068bf9e5be82a801af9dbe5b763eeaf7f31
+[24f1507]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/24f15070fc73fb06e61865141fe0b825ea9e821e
