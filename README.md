@@ -59,12 +59,72 @@ src/create-project.sh --help
 Nothing has to be installed system-wide: the script runs from the checkout and
 loads its own files from `src/lib/`.
 
+### Run it from the folder where the project is to be created
+
+The new project is created under the folder you start the script in: the
+default directory is `./<repository name>`. Go to the folder that should hold
+the project, then start the script from there, by its path or by a global
+command (below):
+
+```bash
+cd ~/work                                  # the folder that will hold my-app
+~/src/RepoFoundry/src/create-project.sh    # creates ~/work/my-app
+```
+
+### Make it a global command
+
+Put a link to the script in a folder that is on your `PATH`. The script
+follows the link to the checkout, so it still finds its own files there.
+
+Linux, macOS and Git Bash on Windows (run this once, from the checkout):
+
+```bash
+mkdir -p ~/bin
+ln -s "$PWD/src/create-project.sh" ~/bin/repo-foundry
+```
+
+If `~/bin` is not on your `PATH` yet, add it and open a new shell:
+
+```bash
+echo 'export PATH="$HOME/bin:$PATH"' >> ~/.bashrc    # ~/.zshrc on macOS
+```
+
+Check that it works, from any folder:
+
+```bash
+cd ~/work
+repo-foundry --version                  # prints the name and version
+repo-foundry                            # a dry run that creates nothing
+```
+
+On Windows, Git Bash makes a *copy* instead of a link unless symbolic links
+are allowed (Developer Mode, or an administrator shell). Either allow them and
+run `export MSYS=winsymlinks:nativestrict` before the `ln -s`, or use an alias
+in `~/.bashrc`, which works because the script finds its own folder:
+
+```bash
+alias repo-foundry='bash /c/Users/me/RepoFoundry/src/create-project.sh'
+```
+
 ## Configuration
 
-The script reads two plain files from the project root. They are **parsed,
+The script reads two plain files. They are **parsed,
 never executed** (`source` is not used): only `KEY=VALUE` lines with known keys
 are accepted, and anything else stops the run with a message that names the key
 and the line, never the value.
+
+Each file is chosen on its own, in this order:
+
+1. the file named with `--config` or `--env`;
+2. `./config.env` or `./.env` in the folder you start the script in;
+3. `config.env` or `.env` in the checkout (next to `src/`).
+
+The script names the files it uses before it contacts any host. A file taken
+from the folder you started in is also confirmed: the script shows the file
+names and the Gitea address and asks for a yes (default no) before the first
+request, because a `config.env` in a folder you do not control could point
+Gitea at another host and so send your token there. A file you name with
+`--config` or `--env`, or the checkout's own, is not asked about.
 
 ```bash
 cp config.env.example config.env     # service addresses, not secret: set GITEA_URL (and GITEA_API_URL)
@@ -176,6 +236,11 @@ src/create-project.sh                # dry run: reads from the hosts, creates no
 src/create-project.sh --apply        # creates everything after a final yes
 src/create-project.sh --config /path/to/config.env --env /path/to/.env
 ```
+
+With a global command (see [Installation](#installation)) the same commands are
+`repo-foundry`, `repo-foundry --apply` and so on, started from the folder that
+should hold the project. Without `--config` and `--env` the files are looked
+for as described under [Configuration](#configuration).
 
 The script asks for, in this order: repository name, description, visibility,
 Gitea owner, whether to also create a GitHub repository (and its owner), the

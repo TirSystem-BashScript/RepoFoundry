@@ -4,12 +4,24 @@
 #
 # Part of create-project.sh: sourced by it, never run on its own.
 #
-# Provides: is_framework_skipped, add_framework, run_framework_script, install_skills, install_hooks, install_framework, copy_template, copy_templates
+# Provides: is_framework_skipped, init_framework_submodules, add_framework, run_framework_script, install_skills, install_hooks, install_framework, copy_template, copy_templates
 
 # is_framework_skipped: succeed when the framework steps are left out because
 # SSH to Gitea is not available (the Maintainer agreed to that).
 is_framework_skipped() {
   [[ ${STATE[skip_framework]:-0} == 1 ]]
+}
+
+# init_framework_submodules DIR: fetch the submodules the framework holds
+# itself (the qc checklists). Without a submodule of its own this changes
+# nothing. A failure names the command to run by hand.
+init_framework_submodules() {
+  local dir="$1" err
+  make_temp_file
+  err="$REPLY"
+  if ! git_project "$dir" submodule update -q --init --recursive 2>"$err"; then
+    die "the framework was added but git could not fetch its own submodules (the qc checklists). Run in $dir: git submodule update --init --recursive. Git said: $(head -n 2 "$err" | tr '\n' ' ')"
+  fi
 }
 
 # add_framework: git submodule add of the framework as "framework". SSH is
@@ -27,6 +39,7 @@ add_framework() {
     if [[ $existing != "$url" ]]; then
       die "'framework' already exists in $dir and is not the framework submodule ($url)"
     fi
+    init_framework_submodules "$dir"
     finish_step "$label" "reused" "$url (already a submodule)"
     return 0
   fi
@@ -35,6 +48,7 @@ add_framework() {
   if ! git_project "$dir" submodule add -q "$url" framework 2>"$err"; then
     die "git could not add the framework from $url. Check the SSH access first: ssh -p ${CONFIG[GITEA_SSH_PORT]} -T git@$(gitea_host). Git said: $(head -n 2 "$err" | tr '\n' ' ')"
   fi
+  init_framework_submodules "$dir"
   finish_step "$label" "created" "$url"
 }
 
