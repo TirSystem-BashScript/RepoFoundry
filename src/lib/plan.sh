@@ -22,8 +22,8 @@ print_plan() {
   say "Plan:"
   if ((STATE[reuse_gitea])); then
     gitea_action="reuse the existing repository (you will be asked to confirm)"
-  elif ((PROJECT[has_github])); then
-    gitea_action="create (${PROJECT[visibility]}) with the $AGPL_LICENSE_KEY license"
+  elif [[ -n ${PROJECT[license]} ]]; then
+    gitea_action="create (${PROJECT[visibility]}) with the ${PROJECT[license]} license$(license_note)"
   else
     gitea_action="create (${PROJECT[visibility]}), empty"
   fi

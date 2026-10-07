@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | Initial version | [d773fa9] |
-| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | AGPL-3.0 default only when GitHub is chosen and the project is public (purpose, resolution order, criterion 3, tasks 1 and 4) | [1cd27f7] |
+| 2026-10-07 | Deprecated | Jens Tirsvad Nielsen | S02 | AGPL-3.0 default only when GitHub is chosen and the project is public (purpose, resolution order, criterion 3, tasks 1 and 4) | [1cd27f7] |
+| 2026-10-07 | Accepted | Jens Tirsvad Nielsen | S02 | Task 4 renamed so its issue title is unique (the sync matches issues by title) | [be759e3] |
 
 ---
 
@@ -75,7 +75,7 @@ The license that applies is resolved in this order: `PROJECT_LICENSE` when set (
 | 1 | Read and validate `PROJECT_LICENSE` | Add the key to the `config.env` parser and its validator (a license key or `none`; empty refused; errors name the key). Resolve the license that applies into the project request (key set, else AGPL-3.0 with GitHub and a public project, else none) and mark it `(from config.env)` in the summary. Never asked. Extensions of step 3 of [UC-001]. | Yes | [UC-001] |
 | 2 | Apply the license on Gitea, independent of GitHub | Generalize the preflight check from the fixed AGPL-3.0 to the license that applies (checked only when one applies); create the repository with it; the plan, the summary and the reuse warning name the license that applies instead of AGPL-3.0; GitHub receives the file through the mirror as before. Extension 4c and step 6 of [UC-001]. | Yes | [UC-001] |
 | 3 | Document the key | Commented example in `config.env.example`, a row in the README table of project details, and the rule for the license that applies, including `none` and the default. | No | |
-| 4 | Test every case | Key set (with and without GitHub), `none`, absent (public and private, with and without GitHub), empty, invalid and not offered by the server; never asked; the summary marker; the existing tests changed only where a private project with GitHub no longer gets AGPL-3.0. | No | |
+| 4 | Test every license case | Key set (with and without GitHub), `none`, absent (public and private, with and without GitHub), empty, invalid and not offered by the server; never asked; the summary marker; the existing tests changed only where a private project with GitHub no longer gets AGPL-3.0. | No | |
 
 ---
 
@@ -84,5 +84,5 @@ The license that applies is resolved in this order: `PROJECT_LICENSE` when set (
 [UC-001]: ../uc-001/uc.md
 [DCD-001]: ../uc-001/dcd.md
 [MIL-004]: ./mil-004-configurable-details.md
-[d773fa9]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/d773fa91df5a54090254e12e074880fb6526a9ff
 [1cd27f7]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/1cd27f77ed844773a969210a11de0d8bb98ac98f
+[be759e3]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/be759e38326eac2b11e65a2b582b2431186e338b

@@ -18,6 +18,7 @@ readonly DEFAULT_MIRROR_INTERVAL="10m0s"
 readonly DEFAULT_SSH_PORT=10022
 readonly DEFAULT_FRAMEWORK_REPO="TirSystem/SQA-QC-Framework"
 readonly AGPL_LICENSE_KEY="AGPL-3.0"
+readonly NO_LICENSE_WORD="none"
 readonly DEFAULT_BRANCH="main"
 # What the prompts and the preset keys in config.env both tell the Maintainer
 # when a value is refused.
@@ -25,6 +26,7 @@ readonly HINT_REPO_NAME="use letters, digits, '.', '_' or '-' (at most 100), not
 readonly HINT_DESCRIPTION="at most $MAX_DESCRIPTION_LENGTH characters and no control characters"
 readonly HINT_GITEA_OWNER="use letters, digits, '.', '_' or '-' (at most 39)"
 readonly HINT_GITHUB_OWNER="use letters, digits or '-' (at most 39)"
+readonly HINT_LICENSE="use a Gitea license key (letters, digits, '.', '+' or '-', at most 64), such as AGPL-3.0 or MIT, or none"
 readonly HINT_DIRECTORY="must not be empty, start with '-' or contain control characters"
 readonly HINT_TOKEN="8 to 255 letters, digits or _ . ~ + / = -"
 readonly ENV_FILE_NAME=".env"
@@ -34,11 +36,17 @@ readonly PLAN_STEPS=("GitHub repository" "Gitea repository" "Push mirror"
 readonly CONFIG_KEYS=(GITHUB_API_URL GITHUB_WEB_URL GITEA_URL GITEA_API_URL
   GITEA_SSH_PORT MIRROR_INTERVAL FRAMEWORK_REPO
   PROJECT_NAME PROJECT_DESCRIPTION PROJECT_VISIBILITY GITEA_OWNER USE_GITHUB
-  GITHUB_OWNER PROJECT_DIRECTORY ENABLE_PLAN_GATE)
+  GITHUB_OWNER PROJECT_DIRECTORY ENABLE_PLAN_GATE PROJECT_LICENSE)
 readonly CREDENTIAL_KEYS=(GITHUB_PAT GITHUB_USER GITEA_TOKEN)
 
-CONFIG_FILE="$PROJECT_ROOT/config.env"
-ENV_FILE="$PROJECT_ROOT/.env"
+# The configuration files: named by --config and --env, or chosen by
+# locate_config_file. The origin is named, folder or checkout.
+CONFIG_FILE=""
+ENV_FILE=""
+CONFIG_ORIGIN=""
+ENV_ORIGIN=""
+# The folder the Maintainer started the script in.
+WORKING_FOLDER=""
 TMP_DIR=""
 HAS_JQ=0
 HTTP_STATUS=0

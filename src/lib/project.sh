@@ -4,7 +4,7 @@
 #
 # Part of create-project.sh: sourced by it, never run on its own.
 #
-# Provides: preset_detail, collect_project_details, collect_github_details, source_note, yes_no, credential_state, print_summary
+# Provides: preset_detail, resolve_license, license_note, collect_project_details, collect_github_details, source_note, yes_no, credential_state, print_summary
 
 # preset_detail KEY NAME: a detail set in config.env is used and not asked;
 # the value is returned in REPLY and marked in PRESET[NAME].
@@ -12,6 +12,33 @@ preset_detail() {
   [[ -n ${CONFIG[$1]+set} ]] || return 1
   REPLY="${CONFIG[$1]}"
   PRESET[$2]=1
+}
+
+# resolve_license: the license that applies, in PROJECT[license] (empty means
+# none). PROJECT_LICENSE in config.env decides, and "none" means no license;
+# without it AGPL-3.0 applies only when GitHub is chosen and the project is
+# public. The license is never asked.
+resolve_license() {
+  PROJECT[license]=""
+  if [[ -n ${CONFIG[PROJECT_LICENSE]+set} ]]; then
+    PRESET[license]=1
+    if [[ ${CONFIG[PROJECT_LICENSE],,} != "$NO_LICENSE_WORD" ]]; then
+      PROJECT[license]="${CONFIG[PROJECT_LICENSE]}"
+    fi
+  elif ((PROJECT[has_github])) && [[ ${PROJECT[visibility]} == public ]]; then
+    PROJECT[license]="$AGPL_LICENSE_KEY"
+  fi
+}
+
+# license_note: where the license on the Gitea repository comes from.
+license_note() {
+  if [[ -n ${PRESET[license]:-} ]]; then
+    source_note license
+  elif [[ -n ${PROJECT[license]} ]]; then
+    printf ' (default: GitHub and a public project)'
+  elif ((PROJECT[has_github])); then
+    printf ' (no default for a private project)'
+  fi
 }
 
 # Ask for each project detail, except those set in config.env.
@@ -29,6 +56,7 @@ collect_project_details() {
     prompt_value "Gitea owner (user or organization)" "" is_valid_gitea_owner "$HINT_GITEA_OWNER"
   PROJECT[gitea_owner]="$REPLY"
   collect_github_details
+  resolve_license
   preset_detail PROJECT_DIRECTORY directory ||
     prompt_value "Local directory" "./${PROJECT[name]}" is_valid_directory "$HINT_DIRECTORY"
   PROJECT[directory]="$REPLY"
@@ -46,7 +74,7 @@ collect_github_details() {
   if preset_detail USE_GITHUB has_github; then
     [[ $REPLY == yes ]] && REPLY=1 || REPLY=0
   else
-    prompt_yes_no "Also create a GitHub repository (applies the AGPL license)" y
+    prompt_yes_no "Also create a GitHub repository" y
   fi
   PROJECT[has_github]="$REPLY"
   PROJECT[github_owner]=""
@@ -90,10 +118,11 @@ print_summary() {
   say "  Description  : ${PROJECT[description]:-(none)}$(source_note description)"
   say "  Gitea        : ${CONFIG[GITEA_URL]}/${PROJECT[gitea_owner]}/${PROJECT[name]}$(source_note gitea_owner)"
   if ((PROJECT[has_github])); then
-    say "  GitHub       : ${CONFIG[GITHUB_WEB_URL]}/${PROJECT[github_owner]}/${PROJECT[name]} (AGPL license applied)$(source_note github_owner)"
+    say "  GitHub       : ${CONFIG[GITHUB_WEB_URL]}/${PROJECT[github_owner]}/${PROJECT[name]}$(source_note github_owner)"
   else
     say "  GitHub       : not used$(source_note has_github)"
   fi
+  say "  License      : ${PROJECT[license]:-none}$(license_note)"
   say "  Directory    : ${PROJECT[directory]}$(source_note directory)"
   say "  Plan gate    : $(yes_no "${PROJECT[is_plan_gate_enabled]}")$(source_note is_plan_gate_enabled)"
   say "Credentials    : GITEA_TOKEN $(credential_state GITEA_TOKEN)," \

@@ -10,10 +10,11 @@
 #   repositories and the mirror, then the local project: its directory, git
 #   repository, remotes (no credential in any address), the framework as a
 #   submodule, the framework's skills and git hooks (and the plan gate if
-#   chosen) and its templates. Choosing GitHub also applies the AGPL-3.0
-#   license to the Gitea repository. After a yes (default no) it also writes
-#   the new project's own .env with the credentials the project needs. No
-#   commit is made in the new project.
+#   chosen) and its templates. The license of the Gitea repository is
+#   PROJECT_LICENSE in config.env (none means no license); without it AGPL-3.0
+#   applies only when GitHub is chosen and the project is public. After a yes
+#   (default no) it also writes the new project's own .env with the credentials
+#   the project needs. No commit is made in the new project.
 #
 # Dry run by default
 #   Without --apply the script only reads from GitHub and Gitea (GET
@@ -89,18 +90,39 @@ if ((BASH_VERSINFO[0] < 4 || (BASH_VERSINFO[0] == 4 && BASH_VERSINFO[1] < 4))); 
 fi
 
 # Where this script lives; the library files and the project root are found
-# from here, never from the current directory.
-readonly SCRIPT_FILE="${BASH_SOURCE[0]}"
-case "${BASH_SOURCE[0]}" in
-  */*) script_path_dir="${BASH_SOURCE[0]%/*}" ;;
+# from here, never from the current directory. A link to the script (a
+# command in a folder on PATH) is followed to the real file, however many
+# links lie on the way; readlink without -f exists on Linux, macOS and Git
+# Bash alike.
+script_path="${BASH_SOURCE[0]}"
+script_link_count=0
+while [[ -L $script_path ]]; do
+  ((++script_link_count <= 40)) || {
+    printf 'error: too many links when following %s\n' "${BASH_SOURCE[0]}" >&2
+    exit 1
+  }
+  script_link_target="$(readlink -- "$script_path")"
+  case "$script_link_target" in
+    /*) script_path="$script_link_target" ;;
+    *)
+      case "$script_path" in
+        */*) script_path="${script_path%/*}/$script_link_target" ;;
+        *) script_path="$script_link_target" ;;
+      esac
+      ;;
+  esac
+done
+readonly SCRIPT_FILE="$script_path"
+case "$script_path" in
+  */*) script_path_dir="${script_path%/*}" ;;
   *) script_path_dir="." ;;
 esac
-SCRIPT_DIR="$(cd "$script_path_dir" && pwd)"
+SCRIPT_DIR="$(cd -P "$script_path_dir" && pwd -P)"
 readonly SCRIPT_DIR
-unset script_path_dir
-# The script lives in src/; the configuration files live one level up, in
-# the project root, next to config.env.example and .env.example.
-PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+unset script_path script_path_dir script_link_count script_link_target
+# The script lives in src/; the checkout is one level up, next to
+# config.env.example and .env.example.
+PROJECT_ROOT="$(cd -P "$SCRIPT_DIR/.." && pwd -P)"
 readonly PROJECT_ROOT
 
 # shellcheck source=lib/constants.sh
@@ -170,6 +192,7 @@ main() {
   trap finish EXIT
   is_valid_repo_name "$PROJECT_NAME" ||
     die "REPOFOUNDRY_NAME is not a valid project name"
+  WORKING_FOLDER="$(pwd -P)"
   parse_args "$@"
   check_tools
   setup_temp_dir

@@ -12,7 +12,7 @@
 # LOCAL_ANSWERS (kept in a variable because $(...) would drop the last newline).
 local_answers() {
   if [[ $2 == y ]]; then
-    printf -v LOCAL_ANSWERS 'my-app\nA test app\n\nTirSystem\ny\nacme-org\n%s\n%s\n' "$1" "$3"
+    printf -v LOCAL_ANSWERS 'my-app\nA test app\npublic\nTirSystem\ny\nacme-org\n%s\n%s\n' "$1" "$3"
   else
     printf -v LOCAL_ANSWERS 'my-app\n\n\nTirSystem\nn\n%s\n%s\n' "$1" "$3"
   fi

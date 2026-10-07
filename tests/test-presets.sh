@@ -205,7 +205,7 @@ test_summary_marks_the_values_from_config_env() {
   assert_contains "name" "$OUT" "Repository   : my-app (from config.env) (private (from config.env))"
   assert_contains "description" "$OUT" "Description  : A test app (from config.env)"
   assert_contains "Gitea" "$OUT" "/TirSystem/my-app (from config.env)"
-  assert_contains "GitHub" "$OUT" "(AGPL license applied) (from config.env)"
+  assert_contains "GitHub" "$OUT" "/acme-org/my-app (from config.env)"
   assert_contains "directory" "$OUT" "Directory    : ./my-app (from config.env)"
   assert_contains "plan gate" "$OUT" "Plan gate    : no (from config.env)"
 }

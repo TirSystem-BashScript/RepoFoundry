@@ -19,10 +19,10 @@ test_full_run_with_github() {
   after="$(listing)"
   assert_status "full run" 0 "$STATUS"
   assert_contains "dry run" "$OUT" "Dry run: nothing was created"
-  assert_contains "plan" "$OUT" "create (private) with the AGPL-3.0 license"
+  assert_contains "plan" "$OUT" "create (private), empty"
   assert_contains "Gitea link derived from config" "$OUT" "https://git.example.test/TirSystem/my-app"
   assert_contains "GitHub link uses the chosen organization" "$OUT" "https://github.com/acme-org/my-app"
-  assert_contains "AGPL noted" "$OUT" "AGPL license applied"
+  assert_contains "no default license for a private project" "$OUT" "License      : none (no default for a private project)"
   assert_contains "credential state" "$OUT" "GITEA_TOKEN set, GITHUB_PAT set"
   assert_not_contains "no Gitea token in output" "$OUT$ERR" "$FAKE_GITEA_TOKEN"
   assert_not_contains "no GitHub token in output" "$OUT$ERR" "$FAKE_GITHUB_PAT"
@@ -201,13 +201,15 @@ test_default_files_are_in_the_project_root() {
   cp "$WORK/config.env" "$WORK/project/config.env"
   cp "$WORK/.env" "$WORK/project/.env"
   STATUS=0
-  PATH="$WORK/bin:$PATH" STUB_DIR="$WORK" TMPDIR="$WORK/tmp" "$BASH" "$WORK/project/src/create-project.sh" \
-    <<<"$ANSWERS_GITHUB" >"$WORK/out.txt" 2>"$WORK/err.txt" || STATUS=$?
+  (cd "$WORK/project" && PATH="$WORK/bin:$PATH" STUB_DIR="$WORK" TMPDIR="$WORK/tmp" "$BASH" "$WORK/project/src/create-project.sh" \
+    <<<"$ANSWERS_GITHUB" >"$WORK/out.txt" 2>"$WORK/err.txt") || STATUS=$?
   assert_status "run with the default files" 0 "$STATUS"
   assert_contains "found config.env in the project root" "$(cat "$WORK/out.txt")" "https://git.example.test/TirSystem/my-app"
-  # Run from another directory: the defaults follow the script, not the cwd.
+  # Run from another folder that holds no files of its own: the checkout's
+  # files are used; the defaults follow the script, not the current folder.
+  mkdir -p "$WORK/elsewhere"
   STATUS=0
-  (cd "$WORK" && PATH="$WORK/bin:$PATH" STUB_DIR="$WORK" TMPDIR="$WORK/tmp" "$BASH" "$WORK/project/src/create-project.sh" \
+  (cd "$WORK/elsewhere" && PATH="$WORK/bin:$PATH" STUB_DIR="$WORK" TMPDIR="$WORK/tmp" "$BASH" "$WORK/project/src/create-project.sh" \
     <<<"$ANSWERS_GITEA_ONLY" >"$WORK/out.txt" 2>"$WORK/err.txt") || STATUS=$?
   assert_status "run from another directory" 0 "$STATUS"
 }

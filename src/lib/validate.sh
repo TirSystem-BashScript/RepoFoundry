@@ -58,6 +58,11 @@ is_valid_port() {
   [[ $1 =~ ^[0-9]{1,5}$ ]] && ((10#$1 >= 1 && 10#$1 <= 65535))
 }
 
+# A Gitea license key such as AGPL-3.0 or MIT, or the word none.
+is_valid_license() {
+  [[ -n $1 && ${#1} -le 64 && $1 =~ ^[A-Za-z0-9.+-]+$ ]]
+}
+
 # A Go duration such as 10m0s or 8h0m0s, the form Gitea expects.
 is_valid_interval() {
   [[ -n $1 && $1 =~ ^([0-9]+h)?([0-9]+m)?([0-9]+s)?$ ]]

@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | License: the AGPL-3.0 default needs GitHub and a public project | [1cd27f7] |
 | 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Added Command Link, Checkout and Working Folder (from DM-003, UC-002) | [1cd27f7] |
+| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Default configuration files: --config and --env, else ./config.env and ./.env in the working folder, else the checkout's | [0ab5006] |
 
 ---
 
@@ -128,6 +128,7 @@ Maintainer "1" --> "0..*" CommandLink : makes
 CommandLink "0..*" --> "1" Checkout : leads to
 Maintainer "1" --> "1" WorkingFolder : starts the script in
 Checkout "1" --> "1" Configuration : holds by default
+WorkingFolder "1" --> "0..1" Configuration : may hold
 WorkingFolder "1" --> "0..*" LocalProject : is the base of
 @enduml
 ```
@@ -155,7 +156,7 @@ WorkingFolder "1" --> "0..*" LocalProject : is the base of
 | Credentials File | The file in a Local Project that holds a copy of the Access Tokens (and the GitHub account name) the project needs; readable by its owner only and ignored by git | address | [UC-001] step 9 "credentials file" |
 | Command Link | A name in a folder on the shell's search path that leads to the script in the Checkout | name, folder | [UC-002] step 1 "command link" |
 | Checkout | The folder that holds RepoFoundry: the script, its own files and by default `config.env` and `.env` | path | [UC-002] step 4 "checkout" |
-| Working Folder | The folder in which the Maintainer starts the script and under which the new project is created by default | path | [UC-002] step 2 "working folder" |
+| Working Folder | The folder in which the Maintainer starts the script, under which the new project is created by default, and which may hold its own `config.env` and `.env` | path | [UC-002] step 2 "working folder" |
 | Summary | The report of what was created, skipped or failed and how to continue | created items, skipped items, next steps | [UC-001] step 10 "summary" |
 
 ## Association Table
@@ -189,6 +190,7 @@ WorkingFolder "1" --> "0..*" LocalProject : is the base of
 | Command Link | leads to | Checkout | 0..* to 1 |
 | Maintainer | starts the script in | Working Folder | 1 to 1 |
 | Checkout | holds by default | Configuration | 1 to 1 |
+| Working Folder | may hold | Configuration | 1 to 0..1 |
 | Working Folder | is the base of | Local Project | 1 to 0..* |
 
 ## Generalizations
@@ -206,3 +208,4 @@ WorkingFolder "1" --> "0..*" LocalProject : is the base of
 [DICT-001]: ./dictionary.md
 [DM-001]: ./uc-001/dm.md
 [1cd27f7]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/1cd27f77ed844773a969210a11de0d8bb98ac98f
+[0ab5006]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/0ab50068bf9e5be82a801af9dbe5b763eeaf7f31

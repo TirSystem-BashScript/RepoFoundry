@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | LicenseFile definition no longer tied to GitHub | [d773fa9] |
 | 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | Added Command Link, Checkout and Working Folder (DM-003, UC-002) | [1cd27f7] |
+| 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | `ConfigFiles` named as a system concept without a PO term | [0ab5006] |
 
 ---
 
@@ -49,8 +49,9 @@ Maps each Product Owner (PO) term to its professional IT term. PO language: Engl
 - The Domain Model, use cases and user stories use the PO term; the Operation
   Contract, Sequence Diagram, Design Class Diagram and ERD use the IT term.
 - One IT term per PO term and one PO term per IT term; no synonyms.
-- `Run`, `ToolCheck`, `PreflightResult` and `PromptSet` appear in [OC-001] but
-  have no PO term: they are system concepts, not domain concepts, and are not
+- `Run`, `ToolCheck`, `PreflightResult`, `PromptSet` and `ConfigFiles` (the two
+  files chosen for the Configuration, in [OC-002]) appear in the Operation
+  Contracts but have no PO term: they are system concepts, not domain concepts, and are not
   in the Domain Model.
 - `InstallResult` and the enumeration `Visibility` appear only in [DCD-001]:
   `InstallResult` carries the three results of one operation, and `Visibility`
@@ -67,5 +68,5 @@ Maps each Product Owner (PO) term to its professional IT term. PO language: Engl
 [DM-002]: ./domain-model.md
 [OC-001]: ./uc-001/oc.md
 [DCD-001]: ./uc-001/dcd.md
-[d773fa9]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/d773fa91df5a54090254e12e074880fb6526a9ff
 [1cd27f7]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/1cd27f77ed844773a969210a11de0d8bb98ac98f
+[0ab5006]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/0ab50068bf9e5be82a801af9dbe5b763eeaf7f31

@@ -59,12 +59,72 @@ src/create-project.sh --help
 Nothing has to be installed system-wide: the script runs from the checkout and
 loads its own files from `src/lib/`.
 
+### Run it from the folder where the project is to be created
+
+The new project is created under the folder you start the script in: the
+default directory is `./<repository name>`. Go to the folder that should hold
+the project, then start the script from there, by its path or by a global
+command (below):
+
+```bash
+cd ~/work                                  # the folder that will hold my-app
+~/src/RepoFoundry/src/create-project.sh    # creates ~/work/my-app
+```
+
+### Make it a global command
+
+Put a link to the script in a folder that is on your `PATH`. The script
+follows the link to the checkout, so it still finds its own files there.
+
+Linux, macOS and Git Bash on Windows (run this once, from the checkout):
+
+```bash
+mkdir -p ~/bin
+ln -s "$PWD/src/create-project.sh" ~/bin/repo-foundry
+```
+
+If `~/bin` is not on your `PATH` yet, add it and open a new shell:
+
+```bash
+echo 'export PATH="$HOME/bin:$PATH"' >> ~/.bashrc    # ~/.zshrc on macOS
+```
+
+Check that it works, from any folder:
+
+```bash
+cd ~/work
+repo-foundry --version                  # prints the name and version
+repo-foundry                            # a dry run that creates nothing
+```
+
+On Windows, Git Bash makes a *copy* instead of a link unless symbolic links
+are allowed (Developer Mode, or an administrator shell). Either allow them and
+run `export MSYS=winsymlinks:nativestrict` before the `ln -s`, or use an alias
+in `~/.bashrc`, which works because the script finds its own folder:
+
+```bash
+alias repo-foundry='bash /c/Users/me/RepoFoundry/src/create-project.sh'
+```
+
 ## Configuration
 
-The script reads two plain files from the project root. They are **parsed,
+The script reads two plain files. They are **parsed,
 never executed** (`source` is not used): only `KEY=VALUE` lines with known keys
 are accepted, and anything else stops the run with a message that names the key
 and the line, never the value.
+
+Each file is chosen on its own, in this order:
+
+1. the file named with `--config` or `--env`;
+2. `./config.env` or `./.env` in the folder you start the script in;
+3. `config.env` or `.env` in the checkout (next to `src/`).
+
+The script names the files it uses before it contacts any host. A file taken
+from the folder you started in is also confirmed: the script shows the file
+names and the Gitea address and asks for a yes (default no) before the first
+request, because a `config.env` in a folder you do not control could point
+Gitea at another host and so send your token there. A file you name with
+`--config` or `--env`, or the checkout's own, is not asked about.
 
 ```bash
 cp config.env.example config.env     # service addresses, not secret: set GITEA_URL (and GITEA_API_URL)
@@ -103,6 +163,7 @@ A detail that is set is used and not asked; the summary marks it with
 | `GITHUB_OWNER` | GitHub user or organization | letters, digits, `-`; used only when GitHub is used |
 | `PROJECT_DIRECTORY` | local directory | not empty, not starting with `-` |
 | `ENABLE_PLAN_GATE` | enable the plan gate | `yes` or `no` |
+| `PROJECT_LICENSE` | license of the project | a Gitea license key (letters, digits, `.`, `+`, `-`; at most 64), such as `AGPL-3.0` or `MIT`, or `none` |
 
 - A key that is present counts as set, even when its value is empty. Only
   `PROJECT_DESCRIPTION` may be empty (no description); an empty value for any
@@ -111,7 +172,12 @@ A detail that is set is used and not asked; the summary marks it with
   key. The script never falls back to asking for it.
 - `USE_GITHUB=no` skips the GitHub owner and every GitHub step; a
   `GITHUB_OWNER` set at the same time is ignored, with a warning.
-- Only these eight details can be set. The confirmations stay questions that
+- `PROJECT_LICENSE` is never asked. When set, that license is put on the Gitea
+  repository with or without GitHub, and `none` means no license. When absent,
+  AGPL-3.0 is applied only if GitHub is used **and** the project is public;
+  a private project, or one without GitHub, gets no license. The Gitea server
+  must offer the license, or the run stops before anything is created.
+- Only these nine details can be set. The confirmations stay questions that
   default to no: create now, reusing an existing repository, an existing
   directory, `core.hooksPath` and replacing a template file.
 - These keys are accepted in `config.env` only, never in `.env`.
@@ -119,7 +185,7 @@ A detail that is set is used and not asked; the summary marks it with
   value there. Put a description that contains ` #` in double quotes, for
   example `PROJECT_DESCRIPTION="Tool for #mirrors"`.
 
-With all eight set, a run asks only the confirmations:
+With all of them set, a run asks only the confirmations:
 
 ```bash
 src/create-project.sh --apply        # asks only "Create these now (y/n) [n]"
@@ -171,6 +237,11 @@ src/create-project.sh --apply        # creates everything after a final yes
 src/create-project.sh --config /path/to/config.env --env /path/to/.env
 ```
 
+With a global command (see [Installation](#installation)) the same commands are
+`repo-foundry`, `repo-foundry --apply` and so on, started from the folder that
+should hold the project. Without `--config` and `--env` the files are looked
+for as described under [Configuration](#configuration).
+
 The script asks for, in this order: repository name, description, visibility,
 Gitea owner, whether to also create a GitHub repository (and its owner), the
 local directory and whether to enable the plan gate (a detail set in
@@ -179,8 +250,8 @@ with read-only requests and prints a plan:
 
 ```text
 Plan:
-  Gitea repository  : create (private) with the AGPL-3.0 license https://git.example.org/Team/my-app
-  GitHub repository : create (private), empty https://github.com/acme/my-app
+  Gitea repository  : create (public) with the AGPL-3.0 license (default: GitHub and a public project) https://git.example.org/Team/my-app
+  GitHub repository : create (public), empty https://github.com/acme/my-app
   Push mirror       : Gitea -> GitHub every 10m0s
   Local project     : create ./my-app (new directory), git on main, no commit
   Local origin      : will use SSH (the SSH test passed)
@@ -193,7 +264,7 @@ Without `--apply` that is all that happens. With `--apply` the script asks
 "Create these now" (default no) and then creates, in this order:
 
 1. the GitHub repository (empty), if chosen;
-2. the Gitea repository (with the AGPL-3.0 license if GitHub was chosen);
+2. the Gitea repository (with the license that applies: `PROJECT_LICENSE`, or AGPL-3.0 for a public project with GitHub);
 3. the push mirror Gitea -> GitHub, and a request for its first sync;
 4. the local directory, `git init` on `main`, the `origin` remote (and `github`
    if chosen), and, if the Gitea repository holds the license commit, that
@@ -207,10 +278,11 @@ hooks refuse commits on `main`.
 
 ### Choices
 
-- **GitHub or not.** Choosing GitHub also applies the AGPL-3.0 license to the
-  Gitea repository (so it is not empty) and sets up the mirror. Without GitHub
-  the Gitea repository is empty and has no license, and `GITHUB_PAT` is not
-  needed.
+- **GitHub or not.** Choosing GitHub sets up the mirror. For a public project it
+  also applies the AGPL-3.0 license to the Gitea repository (so it is not
+  empty), unless `PROJECT_LICENSE` says otherwise. A private project with
+  GitHub gets no license by default. Without GitHub the Gitea repository has
+  no license unless `PROJECT_LICENSE` sets one, and `GITHUB_PAT` is not needed.
 - **Owners.** The Gitea owner and the GitHub owner are chosen separately and
   may be a user or an organization. `GITHUB_USER` is only the suggested default
   for the GitHub owner prompt; it identifies who authenticates.

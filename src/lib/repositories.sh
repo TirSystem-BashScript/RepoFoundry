@@ -18,8 +18,8 @@ repo_body() {
       "${PROJECT[name]}" "$description" "$private"
     return 0
   fi
-  if ((PROJECT[has_github])); then
-    extra=',"auto_init":true,"license":"'"$AGPL_LICENSE_KEY"'"'
+  if [[ -n ${PROJECT[license]} ]]; then
+    extra=',"auto_init":true,"license":"'"${PROJECT[license]}"'"'
   else
     extra=',"auto_init":false'
   fi

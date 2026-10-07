@@ -24,7 +24,7 @@ updated whenever an artifact instance is created or reviewed.
 
 | Artifact Instance | Type | Upstream (Backward Link) | Downstream (Forward Link) | Last Reviewed (RC-ID) |
 | --- | --- | --- | --- | --- |
-| [BC-001] | BC | - | [SA-001], [PP-001], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006], [MIL-007], [US-001], [UCD-001] | [RC-010], [RC-018], [RC-020], [RC-022] |
+| [BC-001] | BC | - | [SA-001], [PP-001], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006], [MIL-007], [US-001], [UCD-001] | [RC-010], [RC-018], [RC-020], [RC-022], [RC-029] |
 | [SA-001] | SA | [BC-001] | [UCD-001], [UC-001], [DICT-001] | [RC-013] |
 | [PP-001] | PP | [BC-001], [SA-001] | [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006], [MIL-007] | [RC-012], [RC-018], [RC-020], [RC-022] |
 | [MIL-001] | MIL | [BC-001], [PP-001] | [US-001] | [RC-011], [RC-016] |
@@ -33,24 +33,24 @@ updated whenever an artifact instance is created or reviewed.
 | [MIL-004] | MIL | [BC-001], [PP-001] | [US-001] | [RC-018], [RC-019] |
 | [MIL-005] | MIL | [BC-001], [PP-001] | [US-001] | [RC-020] |
 | [MIL-006] | MIL | [BC-001], [PP-001] | [US-001] | [RC-022] |
-| [MIL-007] | MIL | [BC-001], [PP-001] | [US-001], [UC-002] | [RC-022] |
+| [MIL-007] | MIL | [BC-001], [PP-001] | [US-001], [UC-002] | [RC-022], [RC-029] |
 | [UCD-001] | UCD | [BC-001], [SA-001] | [US-001], [UC-001], [UC-002] | [RC-009], [RC-023] |
-| [US-001] | US | [BC-001], [UCD-001], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006], [MIL-007] | [UC-001] | [RC-001], [RC-020], [RC-022] |
+| [US-001] | US | [BC-001], [UCD-001], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006], [MIL-007] | [UC-001] | [RC-001], [RC-020], [RC-022], [RC-029] |
 | [UC-001] | UC | [UCD-001], [US-001], [SA-001] | [SSD-001], [DM-001] | [RC-002], [RC-020], [RC-023] |
-| [UC-002] | UC | [UCD-001], [US-001], [SA-001], [BC-001] | [SSD-002], [DM-003] | [RC-023] |
-| [SSD-002] | SSD | [UC-002], [DM-003] | [OC-002] | [RC-024] |
-| [DM-003] | DM | [UC-002], [UCD-001], [SSD-002], [DICT-001], [DM-001] | [OC-002], [DCD-003] | [RC-025] |
-| [OC-002] | OC | [SSD-002], [DM-003] | [SD-002] | [RC-026] |
-| [SD-002] | SD | [OC-002], [DCD-003] | [DCD-003] | [RC-027] |
-| [DCD-003] | DCD | [DM-003], [SD-002], [DICT-001], [UC-002], [DCD-001] | [DCD-002] | [RC-028] |
+| [UC-002] | UC | [UCD-001], [US-001], [SA-001], [BC-001] | [SSD-002], [DM-003] | [RC-023], [RC-029] |
+| [SSD-002] | SSD | [UC-002], [DM-003] | [OC-002] | [RC-024], [RC-029] |
+| [DM-003] | DM | [UC-002], [UCD-001], [SSD-002], [DICT-001], [DM-001] | [OC-002], [DCD-003] | [RC-025], [RC-029] |
+| [OC-002] | OC | [SSD-002], [DM-003] | [SD-002] | [RC-026], [RC-029] |
+| [SD-002] | SD | [OC-002], [DCD-003] | [DCD-003] | [RC-027], [RC-029] |
+| [DCD-003] | DCD | [DM-003], [SD-002], [DICT-001], [UC-002], [DCD-001] | [DCD-002] | [RC-028], [RC-029] |
 | [SSD-001] | SSD | [UC-001] | [OC-001] | [RC-003], [RC-020] |
 | [DM-001] | DM | [UC-001], [SSD-001] | [DM-002], [DICT-001], [OC-001], [DCD-001] | [RC-004], [RC-020] |
-| [DM-002] | DM | [DM-001] | [DICT-001], [DCD-001], [DCD-002] | [RC-005], [RC-020], [RC-025] |
-| [DICT-001] | DICT | [BC-001], [SA-001], [DM-001], [DM-002] | [OC-001], [SD-001] | [RC-008], [RC-020], [RC-025] |
+| [DM-002] | DM | [DM-001] | [DICT-001], [DCD-001], [DCD-002] | [RC-005], [RC-020], [RC-025], [RC-029] |
+| [DICT-001] | DICT | [BC-001], [SA-001], [DM-001], [DM-002] | [OC-001], [SD-001] | [RC-008], [RC-020], [RC-025], [RC-029] |
 | [OC-001] | OC | [SSD-001], [DM-001] | [SD-001] | [RC-006], [RC-020], [RC-026] |
 | [SD-001] | SD | [OC-001] | [DCD-001] | [RC-007], [RC-020], [RC-021] |
 | [DCD-001] | DCD | [UC-001], [DM-001], [DM-002], [OC-001], [SD-001], [DICT-001] | [DCD-002] | [RC-021] |
-| [DCD-002] | DCD | [DCD-001], [DCD-003], [DM-002], [DICT-001] | - | [RC-021], [RC-028] |
+| [DCD-002] | DCD | [DCD-001], [DCD-003], [DM-002], [DICT-001] | - | [RC-021], [RC-028], [RC-029] |
 
 ## Coverage Notes
 
@@ -80,6 +80,7 @@ updated whenever an artifact instance is created or reviewed.
 [RC-026]: ./reviews/rc-026-oc-002.md
 [RC-027]: ./reviews/rc-027-sd-002.md
 [RC-028]: ./reviews/rc-028-dcd-003.md
+[RC-029]: ./reviews/rc-029-default-config-files.md
 [DCD-001]: ../uc-001/dcd.md
 [DCD-002]: ../dcd.md
 [UCD-001]: ../use-case-diagram.md
