@@ -4,7 +4,7 @@
 #
 # Part of create-project.sh: sourced by it, never run on its own.
 #
-# Provides: is_framework_skipped, init_framework_submodules, add_framework, run_framework_script, install_skills, install_hooks, install_framework, copy_template, copy_templates
+# Provides: is_framework_skipped, init_framework_submodules, add_framework, run_framework_script, install_skills, install_hooks, install_framework, copy_template, copy_templates, exclude_framework_files
 
 # is_framework_skipped: succeed when the framework steps are left out because
 # SSH to Gitea is not available (the Maintainer agreed to that).
@@ -164,4 +164,40 @@ copy_templates() {
   copy_template "$dir" framework/templates/artifact-registry-template.md docs/artifact-registry.md
   notes="$notes; ${STATE[template_note]}"
   finish_step "$label" "created" "($notes)"
+}
+
+# exclude_framework_files: make git ignore .claude, .agents and AGENTS.md in
+# the new project, through its .git/info/exclude (never .gitignore, so no
+# tracked file changes and nothing is committed). Only when the framework
+# steps ran. A path git already tracks stays tracked: an exclusion does not
+# apply to it, so the step names it.
+exclude_framework_files() {
+  local label="Git excludes" dir="${PROJECT[directory]}" entry path tracked=() note written
+  if is_framework_skipped; then
+    finish_step "$label" "skipped" "(no SSH access to Gitea)"
+    return 0
+  fi
+  begin_step "$label"
+  exclude_from_git "$dir" "RepoFoundry: the files installed from the framework" "${FRAMEWORK_EXCLUDES[@]}" ||
+    die "could not make git ignore the framework files in $dir; check $dir/.git/info/exclude"
+  written="$REPLY"
+  for entry in "${FRAMEWORK_EXCLUDES[@]}"; do
+    path="${entry#/}"
+    if [[ -n "$(git_project "$dir" ls-files -- "$path")" ]]; then
+      tracked+=("$path")
+    fi
+  done
+  if ((written == 0)); then
+    note="${FRAMEWORK_EXCLUDES[*]} already excluded"
+  else
+    note="${FRAMEWORK_EXCLUDES[*]} added to .git/info/exclude"
+  fi
+  if ((${#tracked[@]})); then
+    note="$note; git tracks ${tracked[*]}, so it is not ignored"
+  fi
+  if ((written == 0)); then
+    finish_step "$label" "reused" "($note)"
+  else
+    finish_step "$label" "created" "($note)"
+  fi
 }

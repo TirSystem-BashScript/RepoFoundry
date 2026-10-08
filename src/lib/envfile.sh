@@ -26,19 +26,8 @@ env_file_key_list() {
 # file: the entry goes into .git/info/exclude, which is never committed. It
 # does nothing when .env is already ignored.
 exclude_env_file() {
-  local dir="$1" gitdir exclude
-  if git_project "$dir" check-ignore -q -- "$ENV_FILE_NAME"; then
-    return 0
-  fi
-  gitdir="$(git_project "$dir" rev-parse --absolute-git-dir)"
-  exclude="$gitdir/info/exclude"
-  mkdir -p -- "$gitdir/info"
-  # Start on a fresh line when the file does not end with one.
-  if [[ -s $exclude && -n "$(tail -c 1 -- "$exclude")" ]]; then
-    printf '\n' >>"$exclude"
-  fi
-  printf '%s\n' "# RepoFoundry: the credentials file of this project" "$ENV_FILE_NAME" >>"$exclude"
-  git_project "$dir" check-ignore -q -- "$ENV_FILE_NAME" ||
+  local dir="$1"
+  exclude_from_git "$dir" "RepoFoundry: the credentials file of this project" "$ENV_FILE_NAME" ||
     die "could not make git ignore $ENV_FILE_NAME in $dir; nothing was written to it"
 }
 
