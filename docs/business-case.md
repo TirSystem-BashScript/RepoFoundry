@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-07 | Accepted | Jens Tirsvad Nielsen | S02 | Objective 11, scope item and criterion 11: the configuration files default to the working folder's, then the checkout's | [0ab5006] |
-| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | Objective 4: the local project has one remote, origin; no github remote, because a push to origin reaches GitHub through the mirror (MIL-008) | pending |
+| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | Objective 4: the local project has one remote, origin; no github remote, because a push to origin reaches GitHub through the mirror (MIL-008) | [039a28c] |
 
 ---
 
@@ -154,3 +154,4 @@ Proceed — the procedure is small, well bounded and removes a repeated, securit
 [SA-001]: ./stakeholder-analysis.md
 [UCD-001]: ./use-case-diagram.md
 [0ab5006]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/0ab50068bf9e5be82a801af9dbe5b763eeaf7f31
+[039a28c]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/039a28c01b56f8cf0af73f55d1a604b43d67ba03

@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-07 | Accepted | Jens Tirsvad Nielsen | S02 | Note that OC-002 and DCD-002 supersede the signature of startProjectCreation | [0b0a3b4] |
-| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | P9: no other remote is associated with the local project (MIL-008) | pending |
+| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | P9: no other remote is associated with the local project (MIL-008) | [039a28c] |
 
 ---
 
@@ -102,3 +102,4 @@ Concepts below use the IT terms of [DICT-001] for the PO concepts of [DM-001]. `
 [DCD-002]: ../dcd.md
 [UC-002]: ../uc-002/uc.md
 [0b0a3b4]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/0b0a3b419a1157b23bddd2f8957a08adaf6974a6
+[039a28c]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/039a28c01b56f8cf0af73f55d1a604b43d67ba03

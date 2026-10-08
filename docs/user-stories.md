@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-07 | Accepted | Jens Tirsvad Nielsen | S02 | US-002: only config.env is required; a .env found nowhere means the token is asked | [24f1507] |
-| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | US-001.03: one remote, origin; no github remote (MIL-008) | pending |
+| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | US-001.03: one remote, origin; no github remote (MIL-008) | [039a28c] |
 
 ---
 
@@ -168,3 +168,4 @@ Valuable, Negotiable, Estimable, Small and Testable hold for each story. Indepen
 [MIL-008]: ./milestones/mil-008-gitea-only-remote.md
 [PP-001]: ./project-plan.md
 [24f1507]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/24f15070fc73fb06e61865141fe0b825ea9e821e
+[039a28c]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/039a28c01b56f8cf0af73f55d1a604b43d67ba03

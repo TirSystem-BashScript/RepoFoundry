@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-07 | Accepted | Jens Tirsvad Nielsen | S02 | Note that DCD-003 and DCD-002 supersede the signature of startProjectCreation | [0b0a3b4] |
-| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | LocalProjectBuilder.build() no longer takes the GitHub repository; a Local Project has one Remote, origin (MIL-008) | pending |
+| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | LocalProjectBuilder.build() no longer takes the GitHub repository; a Local Project has one Remote, origin (MIL-008) | [039a28c] |
 
 ---
 
@@ -342,3 +342,4 @@ SOLID check: no class has more than one reason to change (one host API, one kind
 [DCD-003]: ../uc-002/dcd.md
 [UC-002]: ../uc-002/uc.md
 [0b0a3b4]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/0b0a3b419a1157b23bddd2f8957a08adaf6974a6
+[039a28c]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/039a28c01b56f8cf0af73f55d1a604b43d67ba03

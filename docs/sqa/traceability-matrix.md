@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-07 | Accepted | Jens Tirsvad Nielsen | S02 | Added review RC-030 (.env optional) | [24f1507] |
-| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | Added MIL-008 with its review RC-031 (Gitea is the only remote) | pending |
+| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | Added MIL-008 with its review RC-031 (Gitea is the only remote) | [039a28c] |
 
 ---
 
@@ -120,3 +120,4 @@ updated whenever an artifact instance is created or reviewed.
 [RC-016]: ./reviews/rc-016-create-project-sh.md
 [RC-017]: ./reviews/rc-017-e2e-security-review.md
 [24f1507]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/24f15070fc73fb06e61865141fe0b825ea9e821e
+[039a28c]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/039a28c01b56f8cf0af73f55d1a604b43d67ba03

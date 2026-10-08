@@ -9,7 +9,7 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | Initial version | pending |
+| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | Initial version | [039a28c] |
 
 ---
 
@@ -78,3 +78,4 @@ A project that already has a `github` remote, such as one created by an earlier 
 [MIL-002]: ./mil-002-repositories-and-mirror.md
 [MIL-003]: ./mil-003-scaffold-and-release.md
 [RC-031]: ../sqa/reviews/rc-031-gitea-only-remote.md
+[039a28c]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/039a28c01b56f8cf0af73f55d1a604b43d67ba03
