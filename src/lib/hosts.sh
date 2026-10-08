@@ -4,7 +4,7 @@
 #
 # Part of create-project.sh: sourced by it, never run on its own.
 #
-# Provides: is_reused, repo_owner, repo_url, gitea_host, origin_protocol, origin_url, github_remote_url, framework_url
+# Provides: is_reused, repo_owner, repo_url, gitea_host, origin_protocol, origin_url, framework_url
 
 # is_reused HOST: succeed if the existing repository on HOST will be reused.
 is_reused() {
@@ -52,10 +52,6 @@ origin_url() {
   else
     printf '%s/%s/%s.git' "${CONFIG[GITEA_URL]}" "${PROJECT[gitea_owner]}" "${PROJECT[name]}"
   fi
-}
-
-github_remote_url() {
-  printf '%s/%s/%s.git' "${CONFIG[GITHUB_WEB_URL]}" "${PROJECT[github_owner]}" "${PROJECT[name]}"
 }
 
 # framework_url: where the framework submodule comes from (always SSH).

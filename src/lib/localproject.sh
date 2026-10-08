@@ -71,8 +71,10 @@ checkout_gitea_history() {
   fi
 }
 
-# create_local_project: the directory, the git repository on main, the
-# remotes and, when a license applies, the license history. No commit is made.
+# create_local_project: the directory, the git repository on main, the origin
+# remote and, when a license applies, the license history. No commit is made.
+# Gitea is the only remote: a push to it reaches GitHub through the push
+# mirror, so no github remote is added (and none that exists is removed).
 create_local_project() {
   local label="Local project" dir="${PROJECT[directory]}"
   begin_step "$label"
@@ -82,9 +84,6 @@ create_local_project() {
     git_project "$dir" symbolic-ref HEAD "refs/heads/$DEFAULT_BRANCH"
   fi
   ensure_remote "$dir" origin "$(origin_url)"
-  if ((PROJECT[has_github])); then
-    ensure_remote "$dir" github "$(github_remote_url)"
-  fi
   if [[ -n ${PROJECT[license]} ]]; then
     checkout_gitea_history "$dir"
   fi

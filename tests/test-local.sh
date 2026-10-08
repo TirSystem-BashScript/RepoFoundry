@@ -35,7 +35,7 @@ readonly SSH_FRAMEWORK_URL="ssh://git@git.example.test:10022/TirSystem/SQA-QC-Fr
 
 # ----------------------------------------------------- directory and remotes
 
-test_local_project_gets_credential_free_remotes_and_the_license_history() {
+test_local_project_gets_the_origin_remote_only_and_the_license_history() {
   setup_hosts
   local dir="$WORK/project"
   local_answers "$dir" y n
@@ -44,7 +44,9 @@ test_local_project_gets_credential_free_remotes_and_the_license_history() {
   assert_file_exists "directory created" "$dir/.git"
   assert_eq "branch is main" "main" "$(project_git "$dir" symbolic-ref --short HEAD)"
   assert_eq "origin over SSH, no credential" "ssh://git@git.example.test:10022/TirSystem/my-app.git" "$(project_git "$dir" config --get remote.origin.url)"
-  assert_eq "github remote over HTTPS, no credential" "https://github.com/acme-org/my-app.git" "$(project_git "$dir" config --get remote.github.url)"
+  assert_eq "origin is the only remote, also with GitHub" "origin" "$(project_git "$dir" remote)"
+  assert_eq "no github remote" "" "$(project_git "$dir" config --get remote.github.url || true)"
+  assert_not_contains "no GitHub address in the git config" "$(cat "$dir/.git/config")" "github.com"
   assert_eq "the license commit is the whole history" "1" "$(project_git "$dir" rev-list --count HEAD)"
   assert_eq "it is the Gitea commit" "Initial commit" "$(project_git "$dir" log -1 --format=%s)"
   assert_file_exists "LICENSE from Gitea" "$dir/LICENSE"
@@ -53,7 +55,7 @@ test_local_project_gets_credential_free_remotes_and_the_license_history() {
   assert_contains "reported" "$OUT" "Local project     : created $dir (origin over SSH)"
 }
 
-test_gitea_only_project_has_no_github_remote_and_no_commit() {
+test_gitea_only_project_has_the_origin_remote_only_and_no_commit() {
   setup_hosts
   printf 'GITEA_TOKEN=%s\n' "$FAKE_GITEA_TOKEN" >"$WORK/.env"
   local dir="$WORK/project"
@@ -61,7 +63,7 @@ test_gitea_only_project_has_no_github_remote_and_no_commit() {
   run_apply "$LOCAL_ANSWERS"$'y\n'
   assert_status "apply" 0 "$STATUS"
   assert_eq "origin" "ssh://git@git.example.test:10022/TirSystem/my-app.git" "$(project_git "$dir" config --get remote.origin.url)"
-  assert_eq "no github remote" "" "$(project_git "$dir" config --get remote.github.url || true)"
+  assert_eq "origin is the only remote" "origin" "$(project_git "$dir" remote)"
   assert_file_missing "no license file" "$dir/LICENSE"
   assert_eq "no commit was made" "0" "$(project_git "$dir" rev-list --all --count)"
   assert_eq "no token in any file" "" "$(files_with_secret "$dir")"
@@ -107,6 +109,20 @@ test_a_file_that_would_be_overwritten_by_the_license_history_is_kept() {
   assert_eq "the file is intact" "my own license" "$(cat "$dir/LICENSE")"
   assert_contains "step failed" "$OUT" "Local project     : FAILED"
   assert_contains "later steps not attempted" "$OUT" "Framework         : not attempted"
+}
+
+test_a_github_remote_from_an_earlier_version_is_left_alone() {
+  setup_hosts
+  local dir="$WORK/project"
+  mkdir -p "$dir"
+  project_git "$dir" init -q
+  project_git "$dir" remote add github https://github.com/acme-org/my-app.git
+  local_answers "$dir" y n
+  run_apply "$LOCAL_ANSWERS"$'y\ny\n'
+  assert_status "apply" 0 "$STATUS"
+  assert_eq "the github remote is kept as it was" "https://github.com/acme-org/my-app.git" "$(project_git "$dir" config --get remote.github.url)"
+  assert_eq "origin was added beside it" "ssh://git@git.example.test:10022/TirSystem/my-app.git" "$(project_git "$dir" config --get remote.origin.url)"
+  assert_eq "no other remote" $'github\norigin' "$(project_git "$dir" remote | sort)"
 }
 
 test_a_remote_with_another_address_is_never_replaced() {
@@ -379,16 +395,15 @@ test_a_project_path_that_is_a_file_is_refused_in_the_preflight() {
 
 test_remote_addresses_are_built_from_the_configuration() {
   run_lib "" 'CONFIG[GITEA_URL]=https://git.example.test/sub
-CONFIG[GITEA_SSH_PORT]=2222 CONFIG[FRAMEWORK_REPO]=Org/Fw CONFIG[GITHUB_WEB_URL]=https://github.com
-PROJECT[gitea_owner]=TirSystem PROJECT[github_owner]=acme PROJECT[name]=my-app
+CONFIG[GITEA_SSH_PORT]=2222 CONFIG[FRAMEWORK_REPO]=Org/Fw
+PROJECT[gitea_owner]=TirSystem PROJECT[name]=my-app
 STATE[is_ssh_ok]=1
 origin_url; echo
 STATE[is_ssh_ok]=0
 origin_url; echo
-github_remote_url; echo
 framework_url; echo
 gitea_host; echo'
-  assert_eq "addresses" $'ssh://git@git.example.test:2222/TirSystem/my-app.git\nhttps://git.example.test/sub/TirSystem/my-app.git\nhttps://github.com/acme/my-app.git\nssh://git@git.example.test:2222/Org/Fw.git\ngit.example.test' "$OUT"
+  assert_eq "addresses" $'ssh://git@git.example.test:2222/TirSystem/my-app.git\nhttps://git.example.test/sub/TirSystem/my-app.git\nssh://git@git.example.test:2222/Org/Fw.git\ngit.example.test' "$OUT"
 }
 
 test_the_https_fetch_hands_the_token_over_through_the_environment_only() {
