@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-07 | Deprecated | Jens Tirsvad Nielsen | S02 | Note that SD-002 and DCD-002 supersede the signature of startProjectCreation | [0b0a3b4] |
 | 2026-10-08 | Accepted | Jens Tirsvad Nielsen | S02 | build() no longer receives the GitHub repository and returns a local project with the remote origin; P9 (MIL-008) | [039a28c] |
+| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | install() excludes the installed files from git with excludeFromGit() and returns the tracked paths; P15 (MIL-009) | [08cb484] |
 
 ---
 
@@ -154,7 +154,8 @@ deactivate LB
 create FI
 PC -> FI : install(localProject, enablePlanGate)
 activate FI
-FI --> PC : installResult
+FI -> FI : excludeFromGit(localProject)
+FI --> PC : installResult (trackedPaths)
 deactivate FI
 
 opt writeEnvFile
@@ -209,6 +210,7 @@ destroy SR
 | P12 AGENTS.md and registry copied or kept | `install(...)` returning `templates` |
 | P13 Summary created and returned | `compose(request)` and the final return |
 | P14 EnvFile created with the needed credentials, owner-only, ignored by git, or none when declined | `write(localProject, configuration, githubOwner present)` inside `opt writeEnvFile` |
+| P15 `.claude`, `.agents` and `AGENTS.md` excluded from git; a tracked path reported | `excludeFromGit(localProject)` inside `install(...)`, and `installResult (trackedPaths)` for the `Summary` |
 
 ### Responsibility Check
 
@@ -221,5 +223,5 @@ destroy SR
 [SD-002]: ../uc-002/sd.md
 [DCD-002]: ../dcd.md
 [UC-002]: ../uc-002/uc.md
-[0b0a3b4]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/0b0a3b419a1157b23bddd2f8957a08adaf6974a6
 [039a28c]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/039a28c01b56f8cf0af73f55d1a604b43d67ba03
+[08cb484]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/commit/08cb484498bab3d9480decda9df89e9564438185

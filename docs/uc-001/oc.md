@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-07 | Deprecated | Jens Tirsvad Nielsen | S02 | Note that OC-002 and DCD-002 supersede the signature of startProjectCreation | [0b0a3b4] |
 | 2026-10-08 | Accepted | Jens Tirsvad Nielsen | S02 | P9: no other remote is associated with the local project (MIL-008) | [039a28c] |
+| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | P15 and two exceptions: `.claude`, `.agents` and `AGENTS.md` are excluded from git; a tracked path is reported (MIL-009) | [08cb484] |
 
 ---
 
@@ -77,6 +77,7 @@ Concepts below use the IT terms of [DICT-001] for the PO concepts of [DM-001]. `
 - P12. `AGENTS.md` and `docs/artifact-registry.md` exist in the `LocalProject`, each either newly copied from the framework templates or left as it was because the Maintainer declined to replace it.
 - P13. A `Summary` instance was created listing every created item, every skipped item and the next step for anything that failed, and is returned. It contains no credential.
 - P14. If `writeEnvFile`, an `EnvFile` named `.env` was associated with the `LocalProject`, holding only the `Credential`s the project needs (the Gitea token, and the GitHub token and account name when `githubOwner` is present). It is readable by its owner only and excluded from git without a change to any tracked file, and no `Credential` is shown in any output. If `writeEnvFile` is false, no `EnvFile` was created. An existing `.env` is left as it was unless the Maintainer agreed to replace it.
+- P15. If the `Submodule` and the `HookSetup` were created (P10, P11), the paths `.claude`, `.agents` and `AGENTS.md` of the `LocalProject` are excluded from git: each has an entry in the `.git/info/exclude` of the `LocalProject`, whether or not the path exists yet and whether or not the Maintainer declined replacing `AGENTS.md` (P12). No tracked file was changed and no commit was made. A path that git already tracks stays tracked, and the `Summary` lists it as not excluded. `framework`, `.gitmodules` and `docs/artifact-registry.md` are not excluded.
 
 **Exceptions**
 
@@ -91,6 +92,8 @@ Concepts below use the IT terms of [DICT-001] for the PO concepts of [DM-001]. `
 | A different `core.hooksPath` exists and the Maintainer declines replacing it (P11) | Hooks are not installed and this is listed in the `Summary` |
 | The framework's own submodules cannot be fetched (P10) | The `Summary` lists the `framework` `Submodule` as added, its own submodules as failed, and the command `git submodule update --init --recursive` to run by hand |
 | SSH to port 10022 fails and the `Submodule` cannot be added (P10) | The `Summary` lists the repositories as created, the submodule as failed, and the SSH prerequisite |
+| SSH to port 10022 fails and the Maintainer goes on without the framework (P10, P11, P12, P15) | No `Submodule`, `HookSetup` or template is created and no path is excluded; the `Summary` lists each of these steps as skipped |
+| `.claude`, `.agents` or `AGENTS.md` is already tracked by git (P15) | The path stays tracked and is listed in the `Summary` as not excluded; the other paths are excluded |
 
 ---
 
@@ -101,5 +104,5 @@ Concepts below use the IT terms of [DICT-001] for the PO concepts of [DM-001]. `
 [OC-002]: ../uc-002/oc.md
 [DCD-002]: ../dcd.md
 [UC-002]: ../uc-002/uc.md
-[0b0a3b4]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/0b0a3b419a1157b23bddd2f8957a08adaf6974a6
 [039a28c]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/039a28c01b56f8cf0af73f55d1a604b43d67ba03
+[08cb484]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/commit/08cb484498bab3d9480decda9df89e9564438185

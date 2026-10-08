@@ -4,13 +4,13 @@
 | Key | Value |
 | --- | --- |
 | ID | US-001 |
-| CrossReference | [BC-001], [UCD-001], [UC-002], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006], [MIL-007], [MIL-008] |
+| CrossReference | [BC-001], [UCD-001], [UC-002], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006], [MIL-007], [MIL-008], [MIL-009] |
 
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-07 | Deprecated | Jens Tirsvad Nielsen | S02 | US-002: only config.env is required; a .env found nowhere means the token is asked | [24f1507] |
 | 2026-10-08 | Accepted | Jens Tirsvad Nielsen | S02 | US-001.03: one remote, origin; no github remote (MIL-008) | [039a28c] |
+| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | US-001.03: `.claude`, `.agents` and `AGENTS.md` are excluded from git; MIL-009 added to CrossReference | [08cb484] |
 
 ---
 
@@ -58,11 +58,12 @@ The epic is split into seven stories, one per milestone (US-001.01 to US-001.07)
 
 - Given the repositories exist, when the script finishes, then the project directory has one remote, `origin` (Gitea), with or without GitHub, containing no credential; there is no `github` remote, because a push to `origin` reaches GitHub through the mirror.
 - Given the project directory, when the script finishes, then the framework, its skills and git hooks (and the plan gate if chosen) and the copied templates are in place.
+- Given the framework steps ran, when the script finishes, then git ignores `.claude`, `.agents` and `AGENTS.md` in the project through `.git/info/exclude`: no `.gitignore` or tracked file is changed, nothing is committed, and a path git already tracks stays tracked and is named in the summary.
 - Given a directory or file already exists, when the script would replace it, then it asks first.
 
 | Traces to | Size | INVEST exceptions |
 | --- | --- | --- |
-| [UC-001] steps 8 to 10, [MIL-003] | fits one phase | Independent: needs the repositories of US-001.02 |
+| [UC-001] steps 8 to 10, [MIL-003], [MIL-009] | fits one phase | Independent: needs the repositories of US-001.02 |
 
 ### US-001.04 — Create a new project: preset the details
 
@@ -166,6 +167,7 @@ Valuable, Negotiable, Estimable, Small and Testable hold for each story. Indepen
 [MIL-006]: ./milestones/mil-006-project-license.md
 [MIL-007]: ./milestones/mil-007-framework-checklists.md
 [MIL-008]: ./milestones/mil-008-gitea-only-remote.md
+[MIL-009]: ./milestones/mil-009-exclude-framework-files.md
 [PP-001]: ./project-plan.md
-[24f1507]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/24f15070fc73fb06e61865141fe0b825ea9e821e
 [039a28c]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/039a28c01b56f8cf0af73f55d1a604b43d67ba03
+[08cb484]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/commit/08cb484498bab3d9480decda9df89e9564438185

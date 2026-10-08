@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-07 | Deprecated | Jens Tirsvad Nielsen | S02 | License rule: the AGPL-3.0 default needs GitHub and a public project (step 6, rule 6); step 9 and extension 9e fetch the framework's own submodules | [1cd27f7] |
 | 2026-10-08 | Accepted | Jens Tirsvad Nielsen | S02 | Postcondition, step 8 and its rule: origin is the only remote; no github remote (MIL-008) | [039a28c] |
+| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | Postcondition, step 9, extension 9f and a rule: `.claude`, `.agents` and `AGENTS.md` are excluded from git (MIL-009) | [08cb484] |
 
 ---
 
@@ -34,6 +34,7 @@
   - A repository exists on Gitea under the chosen owner. It is empty, or it holds the license file that applies: the license set in `config.env`, or AGPL-3.0 when the Maintainer chose GitHub, the project is public and no license is set.
   - When the Maintainer chose to create a GitHub repository, an empty repository exists on GitHub under the chosen owner, the Gitea repository is a push mirror to it, and the license file, if any, reaches GitHub through the mirror.
   - A local project directory exists with one credential-free remote, `origin` (Gitea), the `framework` submodule, installed skills and hooks, and the copied templates.
+  - Git ignores `.claude`, `.agents` and `AGENTS.md` in the local project, through the project's own `.git/info/exclude`; no tracked file is changed.
   - When the Maintainer agreed, the local project has a `.env` that holds only the credentials the project needs, is readable by its owner only and is ignored by git.
   - The Maintainer has a summary of what was created.
 
@@ -47,7 +48,7 @@
 6. The system creates the Gitea repository. If a license applies, the repository is created with its license file and so is not empty; otherwise it is empty. The license that applies is the one set in `config.env` (`PROJECT_LICENSE`; `none` means no license); when none is set it is AGPL-3.0 if the Maintainer chose GitHub and the project is public, and none otherwise. The license is never asked.
 7. Optional: if GitHub was chosen, the system configures the Gitea repository as a push mirror to GitHub and verifies it. A license file in the Gitea repository is pushed to GitHub by the mirror.
 8. The system creates the local project with the `origin` remote. It adds no `github` remote: a push to `origin` reaches GitHub through the mirror of step 7.
-9. The system adds the framework submodule and fetches its own submodules (the `qc` checklists), installs its skills and hooks (and the plan gate if chosen) and copies the templates. If the Maintainer agrees, it also creates the project's own `.env` with the credentials the project needs.
+9. The system adds the framework submodule and fetches its own submodules (the `qc` checklists), installs its skills and hooks (and the plan gate if chosen) and copies the templates. It then excludes `.claude`, `.agents` and `AGENTS.md` from git. If the Maintainer agrees, it also creates the project's own `.env` with the credentials the project needs.
 10. The system reports a summary of what was created.
 
 ### Extensions (Alternative / Exception Flows)
@@ -78,6 +79,8 @@
   1. The system asks before replacing it; on no, it keeps it and reports it.
 - 9e. The framework's own submodules cannot be fetched:
   1. The system stops the step, reports what exists and names the command to run by hand, `git submodule update --init --recursive`, without showing a credential.
+- 9f. Git already tracks one of `.claude`, `.agents` and `AGENTS.md`:
+  1. The system leaves it tracked, because an exclusion does not apply to a tracked file, and names the path in the summary as not ignored.
 
 ### Special Requirements / Business Rules
 
@@ -93,6 +96,7 @@
 | 7 | The mirror direction is Gitea to GitHub; the GitHub repository stays empty and receives its content from the mirror |
 | 8 | `origin` is the only remote, with or without GitHub, and a remote already in the directory, such as a `github` remote made by an earlier version, is never removed or replaced. `origin` uses HTTPS derived from `GITEA_URL`, or SSH when the SSH test in step 4 passed; when the Gitea repository is not empty (GitHub chosen) the local project is created by fetching it, not by an unrelated `git init` history |
 | 8, 9 | Nothing is overwritten or deleted without consent, and no commit is made |
+| 9 | `.claude`, `.agents` and `AGENTS.md` are excluded from git only when the framework steps ran, whether or not the files were newly made, through the project's `.git/info/exclude` (never `.gitignore`, so no tracked file changes and nothing is shared with a clone), once, anchored to the project root, and the whole folders `.claude` and `.agents` are excluded, not only their `skills` folders. `framework`, `.gitmodules` and `docs/artifact-registry.md` are not excluded. A path git already tracks is never untracked or changed |
 
 ### Open Issues
 
@@ -104,5 +108,5 @@
 [US-001]: ../user-stories.md
 [SA-001]: ../stakeholder-analysis.md
 [DM-001]: ./dm.md
-[1cd27f7]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/1cd27f77ed844773a969210a11de0d8bb98ac98f
 [039a28c]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/039a28c01b56f8cf0af73f55d1a604b43d67ba03
+[08cb484]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/commit/08cb484498bab3d9480decda9df89e9564438185
