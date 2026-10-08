@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-06 | Proposed | Jens Tirsvad Nielsen | S02 | License applies when configured, not only when GitHub is chosen | [d773fa9] |
 | 2026-10-07 | Proposed | Jens Tirsvad Nielsen | S02 | License: the AGPL-3.0 default needs GitHub and a public project | [1cd27f7] |
+| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | A Local Project has one Remote, origin, no longer one or two (MIL-008) | pending |
 
 ---
 
@@ -104,7 +104,7 @@ Mirror "1" --> "1" GiteaRepository : copies from
 Mirror "1" --> "1" GitHubRepository : copies to
 Mirror "0..*" --> "1" AccessToken : is authorised by
 LocalProject "1" --> "1" Project : is the working copy of
-LocalProject "1" --> "1..2" Remote : has
+LocalProject "1" --> "1" Remote : has
 Remote "0..*" --> "1" Repository : points to
 LocalProject "1" --> "1" Framework : includes
 LocalProject "1" --> "1" FrameworkSetup : has
@@ -133,7 +133,7 @@ Summary "1" --> "1" Project : reports on
 | License | The legal terms file added to a Gitea Repository when a license applies: the one set in the Configuration, or AGPL-3.0 when GitHub is chosen, the project is public and none is set | name | [UC-001] step 6 "license" |
 | Mirror | The push mirror that copies a Gitea Repository to a GitHub Repository | interval, sync on commit | [UC-001] step 7 "push mirror" |
 | Local Project | The project directory on the Maintainer's machine | directory | [UC-001] step 8 "local project" |
-| Remote | A named link from a Local Project to a Repository (`origin`, `github`) | name, address | [UC-001] step 8 "remote" |
+| Remote | A named link from a Local Project to a Repository (`origin`) | name, address | [UC-001] step 8 "remote" |
 | Framework | The SQA-QC-Framework added to a Local Project | name, address | [UC-001] step 9 "framework submodule" |
 | Framework Setup | The skills and git hooks installed from the Framework, with the plan gate on or off | plan gate enabled | [UC-001] step 9 "skills and hooks", "plan gate" |
 | Template | A file the Framework provides to copy into a project (`AGENTS.md`, artifact registry) | name | [UC-001] step 9 "templates" |
@@ -157,7 +157,7 @@ Summary "1" --> "1" Project : reports on
 | Mirror | copies to | GitHub Repository | 1 to 1 |
 | Mirror | is authorised by | Access Token | 0..* to 1 |
 | Local Project | is the working copy of | Project | 1 to 1 |
-| Local Project | has | Remote | 1 to 1..2 |
+| Local Project | has | Remote | 1 to 1 |
 | Remote | points to | Repository | 0..* to 1 |
 | Local Project | includes | Framework | 1 to 1 |
 | Local Project | has | Framework Setup | 1 to 1 |
@@ -180,5 +180,4 @@ Summary "1" --> "1" Project : reports on
 [SSD-001]: ./ssd.md
 [DICT-001]: ../dictionary.md
 [DM-002]: ../domain-model.md
-[d773fa9]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/d773fa91df5a54090254e12e074880fb6526a9ff
 [1cd27f7]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/1cd27f77ed844773a969210a11de0d8bb98ac98f

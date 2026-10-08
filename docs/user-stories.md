@@ -4,13 +4,13 @@
 | Key | Value |
 | --- | --- |
 | ID | US-001 |
-| CrossReference | [BC-001], [UCD-001], [UC-002], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006], [MIL-007] |
+| CrossReference | [BC-001], [UCD-001], [UC-002], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006], [MIL-007], [MIL-008] |
 
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-07 | Deprecated | Jens Tirsvad Nielsen | S02 | US-002: the default configuration files are the working folder's, then the checkout's; confirmed and named | [0ab5006] |
 | 2026-10-07 | Accepted | Jens Tirsvad Nielsen | S02 | US-002: only config.env is required; a .env found nowhere means the token is asked | [24f1507] |
+| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | US-001.03: one remote, origin; no github remote (MIL-008) | pending |
 
 ---
 
@@ -56,7 +56,7 @@ The epic is split into seven stories, one per milestone (US-001.01 to US-001.07)
 
 **Acceptance Criteria**
 
-- Given the repositories exist, when the script finishes, then the project directory has an `origin` remote and, if GitHub was chosen, a `github` remote, neither containing a credential.
+- Given the repositories exist, when the script finishes, then the project directory has one remote, `origin` (Gitea), with or without GitHub, containing no credential; there is no `github` remote, because a push to `origin` reaches GitHub through the mirror.
 - Given the project directory, when the script finishes, then the framework, its skills and git hooks (and the plan gate if chosen) and the copied templates are in place.
 - Given a directory or file already exists, when the script would replace it, then it asks first.
 
@@ -165,6 +165,6 @@ Valuable, Negotiable, Estimable, Small and Testable hold for each story. Indepen
 [MIL-005]: ./milestones/mil-005-credentials.md
 [MIL-006]: ./milestones/mil-006-project-license.md
 [MIL-007]: ./milestones/mil-007-framework-checklists.md
+[MIL-008]: ./milestones/mil-008-gitea-only-remote.md
 [PP-001]: ./project-plan.md
-[0ab5006]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/0ab50068bf9e5be82a801af9dbe5b763eeaf7f31
 [24f1507]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/24f15070fc73fb06e61865141fe0b825ea9e821e

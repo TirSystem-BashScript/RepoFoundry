@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-06 | Deprecated | Jens Tirsvad Nielsen | S02 | ProjectRequest carries the license that applies | [d773fa9] |
 | 2026-10-07 | Accepted | Jens Tirsvad Nielsen | S02 | Note that DCD-003 and DCD-002 supersede the signature of startProjectCreation | [0b0a3b4] |
+| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | LocalProjectBuilder.build() no longer takes the GitHub repository; a Local Project has one Remote, origin (MIL-008) | pending |
 
 ---
 
@@ -75,7 +75,7 @@ class GitHubClient <<facade>> {
   +createEmptyRepository(request : ProjectRequest) : GitHubRepository
 }
 class LocalProjectBuilder {
-  +build(directory : Path, source : GiteaRepository, target : GitHubRepository [0..1], sshPassed : Boolean) : LocalProject
+  +build(directory : Path, source : GiteaRepository, sshPassed : Boolean) : LocalProject
 }
 class FrameworkInstaller {
   +install(project : LocalProject, enablePlanGate : Boolean) : InstallResult
@@ -215,7 +215,7 @@ PushMirror "0..*" --> "1" GiteaRepository : source
 PushMirror "0..*" --> "1" GitHubRepository : target
 PushMirror "0..*" --> "1" Credential : authorised by
 
-LocalProject "1" *-- "1..2" Remote
+LocalProject "1" *-- "1" Remote
 Remote "0..*" --> "1" Repository : points to
 LocalProject "1" *-- "1" Submodule
 LocalProject "1" *-- "1" HookSetup
@@ -261,7 +261,7 @@ Repository "0..*" --> "1" Visibility
 | `LicenseFile` | License | The license file in the Gitea repository when a license applies. | `key` | none |
 | `PushMirror` | Mirror | The Gitea to GitHub push mirror. | `interval`, `syncOnCommit` | none |
 | `LocalProject` | Local Project | The project directory on the Maintainer's machine. | `directory` | none |
-| `Remote` | Remote | A named link to a repository (`origin`, `github`), without a credential. | `name`, `address` | none |
+| `Remote` | Remote | A named link to a repository (`origin`), without a credential. | `name`, `address` | none |
 | `Submodule` | Framework | The framework added to the local project. | `name`, `address` | none |
 | `HookSetup` | Framework Setup | Records the skills and hooks installed and the plan gate state. | `areSkillsInstalled`, `areHooksInstalled`, `isPlanGateEnabled` | none |
 | `EnvFile` | Credentials File | The `.env` of the project: a copy of the credentials it needs. | `address`, `keys` | none |
@@ -291,7 +291,7 @@ Repository "0..*" --> "1" Visibility
 | `GiteaClient.requestSync(mirror) : void` | [SD-001] `requestSync(pushMirror)`; P6 |
 | `GitHubClient(configuration)` | [SD-001] `new(configuration)` to `GitHubClient` |
 | `GitHubClient.createEmptyRepository(request) : GitHubRepository` | [SD-001] `createEmptyRepository(request)`; P5 |
-| `LocalProjectBuilder.build(directory, source, target, sshPassed) : LocalProject` | [SD-001] `build(directory, giteaRepository, gitHubRepository, sshPassed)`; P7, P8, P9 |
+| `LocalProjectBuilder.build(directory, source, sshPassed) : LocalProject` | [SD-001] `build(directory, giteaRepository, sshPassed)`; P7, P8, P9 |
 | `FrameworkInstaller.install(project, enablePlanGate) : InstallResult` | [SD-001] `install(localProject, enablePlanGate)`; P10, P11, P12 |
 | `SummaryReport.compose(request) : Summary` | [SD-001] `compose(projectRequest)`; P13 |
 
@@ -339,7 +339,6 @@ SOLID check: no class has more than one reason to change (one host API, one kind
 [MIL-005]: ../milestones/mil-005-credentials.md
 [DICT-001]: ../dictionary.md
 [DCD-002]: ../dcd.md
-[d773fa9]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/d773fa91df5a54090254e12e074880fb6526a9ff
 [DCD-003]: ../uc-002/dcd.md
 [UC-002]: ../uc-002/uc.md
 [0b0a3b4]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/0b0a3b419a1157b23bddd2f8957a08adaf6974a6
