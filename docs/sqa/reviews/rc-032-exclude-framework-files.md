@@ -9,7 +9,7 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-08 | Accepted | Jens Tirsvad Nielsen | S02 | Initial version: draft for S02's decision | pending |
+| 2026-10-08 | Accepted | Jens Tirsvad Nielsen | S02 | Initial version: draft for S02's decision | [1b1b6be] |
 
 ---
 
@@ -85,3 +85,4 @@ Go — every criterion of the checklist passes and the changed documents agree w
 [PP-001]: ../../project-plan.md
 [TM-001]: ../traceability-matrix.md
 [RC-031]: ./rc-031-gitea-only-remote.md
+[1b1b6be]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/commit/1b1b6bec2effe5f566479ef94fcc5bc73a9fd609

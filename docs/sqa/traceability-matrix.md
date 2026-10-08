@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-08 | Deprecated | Jens Tirsvad Nielsen | S02 | Added MIL-009 (framework files excluded from git); not yet reviewed | [08cb484] |
-| 2026-10-08 | Accepted | Jens Tirsvad Nielsen | S02 | Added review RC-032 (MIL-009: framework files excluded from git), Go | pending |
+| 2026-10-08 | Accepted | Jens Tirsvad Nielsen | S02 | Added review RC-032 (MIL-009: framework files excluded from git), Go | [1b1b6be] |
 
 ---
 
@@ -123,3 +123,4 @@ updated whenever an artifact instance is created or reviewed.
 [RC-016]: ./reviews/rc-016-create-project-sh.md
 [RC-017]: ./reviews/rc-017-e2e-security-review.md
 [08cb484]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/commit/08cb484498bab3d9480decda9df89e9564438185
+[1b1b6be]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/commit/1b1b6bec2effe5f566479ef94fcc5bc73a9fd609
