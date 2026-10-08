@@ -8,7 +8,8 @@ RepoFoundry (`src/create-project.sh`) sets up a new project in one run:
 - and a **local project** with one credential-free remote, `origin` (Gitea), and the
   [SQA-QC-Framework](https://git.tirsystem.com/TirSystem/SQA-QC-Framework)
   added as a git submodule, with its skills, git hooks (and optionally the plan
-  gate) and templates installed.
+  gate) and templates installed. The files it installs (`.claude`, `.agents` and
+  `AGENTS.md`) are excluded from git in the new project.
 
 It is a Bash script. It asks for the repository name, description, visibility
 and owner (a user or an organization, separately on each host), shows a plan,
@@ -259,6 +260,7 @@ Plan:
   Framework         : add ssh://git@git.example.org:10022/Team/SQA-QC-Framework.git as a submodule
   Skills and hooks  : install once; plan gate no
   Templates         : AGENTS.md and docs/artifact-registry.md (you are asked before a file is replaced)
+  Git excludes      : /.claude /.agents /AGENTS.md go into .git/info/exclude (no tracked file changes)
 ```
 
 Without `--apply` that is all that happens. With `--apply` the script asks
@@ -272,7 +274,10 @@ Without `--apply` that is all that happens. With `--apply` the script asks
    repository holds the license commit, that history;
 5. the framework as the submodule `framework`;
 6. the framework's skills and git hooks, and the plan gate if chosen;
-7. `AGENTS.md` and `docs/artifact-registry.md` from the framework's templates.
+7. `AGENTS.md` and `docs/artifact-registry.md` from the framework's templates;
+8. `/.claude`, `/.agents` and `/AGENTS.md` added to the new project's
+   `.git/info/exclude`, so git does not list them (see
+   [The files git ignores](#the-files-git-ignores-in-the-new-project)).
 
 No commit is made in the new project. Work on a branch there: the framework's
 hooks refuse commits on `main`.
@@ -297,6 +302,39 @@ it replaces an existing `core.hooksPath`, and before it replaces an existing
 `AGENTS.md` or `docs/artifact-registry.md`. It never deletes anything, never
 replaces a remote that points somewhere else, and git itself refuses to
 overwrite a file when the license history is checked out.
+
+### The files git ignores in the new project
+
+The framework installs files that are copies, not the project's own work. After
+the templates are copied, the script makes git ignore three paths in the new
+project by adding them to its `.git/info/exclude`:
+
+| Path | What it is |
+| --- | --- |
+| `/.claude` | the skills for the standalone Claude Code CLI (the whole folder) |
+| `/.agents` | the skills for Codex CLI and other tools that read `.agents/skills` (the whole folder) |
+| `/AGENTS.md` | the project instructions, copied from the framework's template |
+
+- **Nothing is committed and no tracked file changes.** `.gitignore` is not
+  touched, and `framework`, `.gitmodules` and `docs/artifact-registry.md` stay
+  visible to git: they are part of the project.
+- **The entries belong to this clone.** `.git/info/exclude` is never committed
+  or pushed, so a fresh clone has neither the entries nor these files. There,
+  run `git submodule update --init --recursive` and then
+  `bash framework/scripts/install-skills.sh` to make the skills again.
+  `AGENTS.md` cannot be made again that way: it is a copy of a template that
+  you edit, so what you add to it exists only in the clone where you wrote it.
+- **The whole `.claude` and `.agents` folders are ignored,** not only their
+  `skills` folders, so anything else you keep there (settings, agents) is
+  ignored too.
+- **A path git already tracks stays tracked,** because an exclusion does not
+  apply to a tracked file. The script never removes anything from git; the
+  summary names the path ("git tracks AGENTS.md, so it is not ignored"). Run
+  `git rm --cached` on it yourself if you want it ignored.
+- **Without SSH to Gitea** the framework steps are skipped, and so is this one.
+- **To track one of the paths anyway,** delete its line from
+  `.git/info/exclude` in the project and `git add` it. Running the script again
+  in that directory adds the line back.
 
 ## SSH access to Gitea
 
@@ -410,6 +448,7 @@ step, `2` a usage error.
 | A step fails after another succeeded | stops and prints what exists, what failed and how to continue | fix the cause and run the **same command again with `--apply`**: what was created is offered for reuse |
 | The mirror is refused (disabled, interval too short) | keeps the repositories and reports it | change `MIRROR_INTERVAL` or ask the Gitea administrator, then run again |
 | The framework submodule cannot be fetched | reports the address and how to test SSH | fix your SSH access, run again |
+| Git already tracks `.claude`, `.agents` or `AGENTS.md` in the project | leaves it tracked and names it in the summary; the other paths are excluded | `git rm --cached` it if you want it ignored |
 | `sync_on_commit` was ignored by Gitea | warns; the mirror syncs on its interval | enable it in the repository settings if needed |
 
 A partial run is reported like this:
@@ -453,6 +492,10 @@ web interface and the project directory by hand.
   copy.
 - **The framework needs SSH.** Without SSH access to Gitea the framework steps
   can only be skipped.
+- **The ignored framework files are not shared.** `.claude`, `.agents` and
+  `AGENTS.md` are excluded in the clone the script made, not in the repository,
+  so another clone does not have them (see
+  [The files git ignores](#the-files-git-ignores-in-the-new-project)).
 - **Tested on Windows (Git Bash) only so far.** Running the tests on Linux and
   macOS is an open follow-up.
 
@@ -484,9 +527,9 @@ file. The files are loaded from that directory only, by a fixed path.
 | `plan.sh` | printing what the script is about to do |
 | `repositories.sh` | creating the GitHub and Gitea repositories |
 | `mirror.sh` | the Gitea to GitHub push mirror |
-| `git.sh` | running git for the new project without prompts or tokens on a command line |
+| `git.sh` | running git for the new project without prompts or tokens on a command line, and adding entries to its `.git/info/exclude` |
 | `localproject.sh` | the local directory, git repository and remotes |
-| `framework.sh` | the framework submodule, skills, hooks and templates |
+| `framework.sh` | the framework submodule, skills, hooks and templates, and the git excludes for the files it installs |
 | `apply.sh` | confirmations and the apply flow; the only code that changes anything |
 | `cli.sh` | usage text and option parsing |
 
