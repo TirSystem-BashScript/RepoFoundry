@@ -282,6 +282,105 @@ test_existing_template_targets_are_replaced_only_after_a_yes() {
   assert_contains "reported" "$OUT" "kept existing AGENTS.md; copied docs/artifact-registry.md"
 }
 
+# ------------------------------------------------------------- git excludes
+
+# exclude_count FILE LINE: how many lines of FILE are exactly LINE.
+exclude_count() {
+  grep -cxF -e "$2" "$1" || true
+}
+
+test_the_framework_files_are_ignored_by_git_and_nothing_else_changes() {
+  setup_hosts
+  local dir="$WORK/project" exclude path listing
+  exclude="$dir/.git/info/exclude"
+  local_answers "$dir" y n
+  # create now, and create the project's .env as well
+  run_apply "$LOCAL_ANSWERS"$'y\ny\n'
+  assert_status "apply" 0 "$STATUS"
+  assert_contains "reported" "$OUT" "Git excludes      : created (/.claude /.agents /AGENTS.md added to .git/info/exclude)"
+  for path in /.claude /.agents /AGENTS.md; do
+    assert_eq "one entry for $path" "1" "$(exclude_count "$exclude" "$path")"
+  done
+  for path in .claude .agents AGENTS.md .claude/skills/coding-conventions/SKILL.md .agents/skills/.framework-skills; do
+    check
+    if ! project_git "$dir" check-ignore -q -- "$path"; then
+      fail "$path is not ignored by git"
+    fi
+  done
+  for path in framework .gitmodules docs/artifact-registry.md; do
+    check
+    if project_git "$dir" check-ignore -q --no-index -- "$path"; then
+      fail "$path is ignored by git but is part of the project"
+    fi
+  done
+  listing="$(project_git "$dir" status --porcelain)"
+  assert_not_contains ".claude is not listed" "$listing" ".claude"
+  assert_not_contains ".agents is not listed" "$listing" ".agents"
+  assert_not_contains "AGENTS.md is not listed" "$listing" "AGENTS.md"
+  assert_contains "the submodule is listed" "$listing" "framework"
+  assert_contains "the registry is listed" "$listing" "docs/"
+  assert_file_missing "no .gitignore is written" "$dir/.gitignore"
+  assert_eq "nothing was committed" "1" "$(project_git "$dir" rev-list --count HEAD)"
+  assert_eq "the .env keeps its own entry, once" "1" "$(exclude_count "$exclude" ".env")"
+  assert_contains "the .env comment is unchanged" "$(cat "$exclude")" "# RepoFoundry: the credentials file of this project"
+}
+
+test_the_git_excludes_are_written_once_and_keep_the_existing_lines() {
+  local dir="$WORK/p" exclude="$WORK/p/.git/info/exclude" path
+  mkdir -p "$dir"
+  project_git "$dir" init -q
+  printf 'build/' >"$exclude" # no trailing newline
+  run_lib "" 'PROJECT[directory]="'"$dir"'"
+exclude_framework_files
+echo "${STEP_STATUS["Git excludes"]}"
+exclude_framework_files
+echo "${STEP_STATUS["Git excludes"]} ${STEP_DETAIL["Git excludes"]}"'
+  assert_status "run" 0 "$STATUS"
+  assert_eq "created, then reused" $'created\nreused (/.claude /.agents /AGENTS.md already excluded)' "$OUT"
+  assert_eq "the old line is kept on its own line" "1" "$(exclude_count "$exclude" "build/")"
+  for path in /.claude /.agents /AGENTS.md; do
+    assert_eq "entry for $path written once" "1" "$(exclude_count "$exclude" "$path")"
+  done
+  assert_eq "one comment line" "1" "$(exclude_count "$exclude" "# RepoFoundry: the files installed from the framework")"
+}
+
+test_nothing_is_written_for_paths_git_already_ignores() {
+  local dir="$WORK/p" exclude="$WORK/p/.git/info/exclude"
+  mkdir -p "$dir"
+  project_git "$dir" init -q
+  printf '.claude\n.agents\nAGENTS.md\n' >"$dir/.gitignore"
+  run_lib "" 'PROJECT[directory]="'"$dir"'"
+exclude_framework_files
+echo "${STEP_STATUS["Git excludes"]}"'
+  assert_status "run" 0 "$STATUS"
+  assert_eq "reused" "reused" "$OUT"
+  assert_eq "no entry written" "0" "$(grep -c '^/' "$exclude" || true)"
+  assert_eq "no comment written" "0" "$(exclude_count "$exclude" "# RepoFoundry: the files installed from the framework")"
+}
+
+test_a_tracked_framework_file_stays_tracked_and_is_named() {
+  local dir="$WORK/p"
+  mkdir -p "$dir/.agents" "$dir/.claude"
+  project_git "$dir" init -q
+  printf 'mine\n' >"$dir/AGENTS.md"
+  printf 'x\n' >"$dir/.agents/keep"
+  printf 'y\n' >"$dir/.claude/new" # not tracked
+  project_git "$dir" add AGENTS.md .agents/keep
+  project_git "$dir" commit -q -m seed
+  run_lib "" 'PROJECT[directory]="'"$dir"'"
+exclude_framework_files
+echo "${STEP_STATUS["Git excludes"]} ${STEP_DETAIL["Git excludes"]}"'
+  assert_status "run" 0 "$STATUS"
+  assert_contains "names the tracked paths" "$OUT" "git tracks .agents AGENTS.md, so it is not ignored"
+  assert_eq "both are still tracked" $'.agents/keep\nAGENTS.md' "$(project_git "$dir" ls-files)"
+  assert_eq "the content is unchanged" "mine" "$(cat "$dir/AGENTS.md")"
+  assert_eq "nothing is staged or modified" "" "$(project_git "$dir" status --porcelain)"
+  check
+  if ! project_git "$dir" check-ignore -q -- .claude; then
+    fail ".claude, which git does not track, is not ignored"
+  fi
+}
+
 # ----------------------------------------------------------- SSH and errors
 
 test_without_ssh_the_run_stops_unless_the_framework_is_skipped() {
@@ -311,6 +410,9 @@ test_without_ssh_the_framework_steps_are_skipped_after_a_yes() {
   assert_contains "framework skipped" "$OUT" "Framework         : skipped (no SSH access to Gitea)"
   assert_contains "skills and hooks skipped" "$OUT" "Skills and hooks  : skipped (no SSH access to Gitea)"
   assert_contains "templates skipped" "$OUT" "Templates         : skipped (no SSH access to Gitea)"
+  assert_contains "git excludes skipped" "$OUT" "Git excludes      : skipped (no SSH access to Gitea)"
+  assert_not_contains "nothing excluded: .claude" "$(cat "$dir/.git/info/exclude")" "/.claude"
+  assert_not_contains "nothing excluded: AGENTS.md" "$(cat "$dir/.git/info/exclude")" "/AGENTS.md"
   assert_file_missing "no submodule" "$dir/.gitmodules"
   assert_file_missing "no AGENTS.md" "$dir/AGENTS.md"
 }
@@ -365,6 +467,7 @@ test_the_dry_run_plan_describes_the_local_steps_and_creates_nothing() {
   assert_contains "framework" "$OUT" "Framework         : add $SSH_FRAMEWORK_URL as a submodule"
   assert_contains "skills and hooks" "$OUT" "Skills and hooks  : install once; plan gate yes"
   assert_contains "templates" "$OUT" "Templates         : AGENTS.md and docs/artifact-registry.md (you are asked before a file is replaced)"
+  assert_contains "git excludes" "$OUT" "Git excludes      : /.claude /.agents /AGENTS.md go into .git/info/exclude (no tracked file changes)"
   assert_file_missing "nothing created" "$dir"
 }
 
@@ -378,6 +481,7 @@ test_the_plan_marks_an_existing_directory_and_missing_ssh() {
   run_dry "$LOCAL_ANSWERS"
   assert_contains "existing directory" "$OUT" "use the existing directory $dir, which has files (you will be asked)"
   assert_contains "no SSH" "$OUT" "NOT possible without SSH to Gitea; you will be asked whether to go on without it"
+  assert_not_contains "no git excludes without the framework" "$OUT" "Git excludes"
   assert_contains "HTTPS origin" "$OUT" "will use HTTPS (SSH test: failed"
 }
 

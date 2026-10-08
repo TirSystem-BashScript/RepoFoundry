@@ -291,6 +291,7 @@ echo done'
   local exclude
   exclude="$(cat "$WORK/p/.git/info/exclude")"
   assert_contains "old entry kept" "$exclude" "build/"
+  assert_contains "comment line" "$exclude" "# RepoFoundry: the credentials file of this project"
   assert_eq "entry added once" "1" "$(grep -c '^\.env$' "$WORK/p/.git/info/exclude")"
   assert_eq "old entry still on its own line" "1" "$(grep -c '^build/$' "$WORK/p/.git/info/exclude")"
 }
