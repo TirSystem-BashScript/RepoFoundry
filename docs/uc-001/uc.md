@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-08 | Accepted | Jens Tirsvad Nielsen | S02 | Postcondition, step 8 and its rule: origin is the only remote; no github remote (MIL-008) | [039a28c] |
-| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | Postcondition, step 9, extension 9f and a rule: `.claude`, `.agents` and `AGENTS.md` are excluded from git (MIL-009) | pending |
+| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | Postcondition, step 9, extension 9f and a rule: `.claude`, `.agents` and `AGENTS.md` are excluded from git (MIL-009) | [08cb484] |
 
 ---
 
@@ -109,3 +109,4 @@
 [SA-001]: ../stakeholder-analysis.md
 [DM-001]: ./dm.md
 [039a28c]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/039a28c01b56f8cf0af73f55d1a604b43d67ba03
+[08cb484]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/commit/08cb484498bab3d9480decda9df89e9564438185

@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-08 | Accepted | Jens Tirsvad Nielsen | S02 | A Local Project has one Remote, origin, no longer one or two (MIL-008) | [039a28c] |
-| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | Framework Setup and Template: the folders that hold the skills and the copy of AGENTS.md are ignored by git (UC-001, MIL-009) | pending |
+| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | Framework Setup and Template: the folders that hold the skills and the copy of AGENTS.md are ignored by git (UC-001, MIL-009) | [08cb484] |
 
 ---
 
@@ -208,3 +208,4 @@ WorkingFolder "1" --> "0..*" LocalProject : is the base of
 [DICT-001]: ./dictionary.md
 [DM-001]: ./uc-001/dm.md
 [039a28c]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/039a28c01b56f8cf0af73f55d1a604b43d67ba03
+[08cb484]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/commit/08cb484498bab3d9480decda9df89e9564438185

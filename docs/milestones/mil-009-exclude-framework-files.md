@@ -9,7 +9,7 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | Initial version | pending |
+| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | Initial version | [08cb484] |
 
 ---
 
@@ -83,3 +83,4 @@ The exclusion is not applied when the framework steps are skipped (no SSH to Git
 [DCD-002]: ../dcd.md
 [MIL-003]: ./mil-003-scaffold-and-release.md
 [MIL-005]: ./mil-005-credentials.md
+[08cb484]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/commit/08cb484498bab3d9480decda9df89e9564438185

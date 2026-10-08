@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-07 | Accepted | Jens Tirsvad Nielsen | S02 | `ConfigFiles` named as a system concept without a PO term | [0ab5006] |
-| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | Framework Setup and Template: the folders that hold the skills and the copy of AGENTS.md are ignored by git (MIL-009) | pending |
+| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | Framework Setup and Template: the folders that hold the skills and the copy of AGENTS.md are ignored by git (MIL-009) | [08cb484] |
 
 ---
 
@@ -69,3 +69,4 @@ Maps each Product Owner (PO) term to its professional IT term. PO language: Engl
 [OC-001]: ./uc-001/oc.md
 [DCD-001]: ./uc-001/dcd.md
 [0ab5006]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/0ab50068bf9e5be82a801af9dbe5b763eeaf7f31
+[08cb484]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/commit/08cb484498bab3d9480decda9df89e9564438185

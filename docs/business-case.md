@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-08 | Accepted | Jens Tirsvad Nielsen | S02 | Objective 4: the local project has one remote, origin; no github remote, because a push to origin reaches GitHub through the mirror (MIL-008) | [039a28c] |
-| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | Objective 5 and scope: the installed `.claude`, `.agents` and `AGENTS.md` are excluded from git in the new project (MIL-009) | pending |
+| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | Objective 5 and scope: the installed `.claude`, `.agents` and `AGENTS.md` are excluded from git in the new project (MIL-009) | [08cb484] |
 
 ---
 
@@ -155,3 +155,4 @@ Proceed — the procedure is small, well bounded and removes a repeated, securit
 [SA-001]: ./stakeholder-analysis.md
 [UCD-001]: ./use-case-diagram.md
 [039a28c]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/039a28c01b56f8cf0af73f55d1a604b43d67ba03
+[08cb484]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/commit/08cb484498bab3d9480decda9df89e9564438185

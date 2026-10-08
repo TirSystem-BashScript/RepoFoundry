@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-08 | Accepted | Jens Tirsvad Nielsen | S02 | US-001.03: one remote, origin; no github remote (MIL-008) | [039a28c] |
-| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | US-001.03: `.claude`, `.agents` and `AGENTS.md` are excluded from git; MIL-009 added to CrossReference | pending |
+| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | US-001.03: `.claude`, `.agents` and `AGENTS.md` are excluded from git; MIL-009 added to CrossReference | [08cb484] |
 
 ---
 
@@ -170,3 +170,4 @@ Valuable, Negotiable, Estimable, Small and Testable hold for each story. Indepen
 [MIL-009]: ./milestones/mil-009-exclude-framework-files.md
 [PP-001]: ./project-plan.md
 [039a28c]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/039a28c01b56f8cf0af73f55d1a604b43d67ba03
+[08cb484]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/commit/08cb484498bab3d9480decda9df89e9564438185

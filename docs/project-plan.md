@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-08 | Accepted | Jens Tirsvad Nielsen | S02 | Added phase MIL-008 (proposed dates 2026-12-14 to 2026-12-18): the local project has origin as its only remote | [039a28c] |
-| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | Added phase MIL-009 (proposed dates 2026-12-21 to 2026-12-23): the framework files .claude, .agents and AGENTS.md are excluded from git | pending |
+| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | Added phase MIL-009 (proposed dates 2026-12-21 to 2026-12-23): the framework files .claude, .agents and AGENTS.md are excluded from git | [08cb484] |
 
 ---
 
@@ -124,3 +124,4 @@ A No-Go moves every later date by the time needed to rework the failed criteria.
 [Milestone 44]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/milestone/44
 [Milestone 45]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/milestone/45
 [039a28c]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/039a28c01b56f8cf0af73f55d1a604b43d67ba03
+[08cb484]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/commit/08cb484498bab3d9480decda9df89e9564438185
