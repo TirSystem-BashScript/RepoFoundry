@@ -201,7 +201,8 @@ src/create-project.sh --apply        # asks only "Create these now (y/n) [n]"
 
 `.env` is ignored by git. The script warns if it is readable by other users or
 not ignored by git. See [Token permissions](#token-permissions) for what each
-token needs.
+token needs, and [How to create the access tokens](howto/create-access-tokens.md)
+for the steps, with pictures, to create the Gitea and the GitHub token.
 
 `.env` is optional, and so is each key in it. A credential that is not
 provided (the file is missing, the key is absent or its value is empty) is
