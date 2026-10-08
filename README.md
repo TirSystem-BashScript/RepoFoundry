@@ -325,6 +325,9 @@ Both tokens go in `.env` (never in `config.env`, never in a remote URL). The
 script sends them only in a request header, through a private temporary file,
 and never prints them.
 
+New to this? [How to create the access tokens](howto/create-access-tokens.md)
+walks through both, step by step, with pictures.
+
 ### GitHub token (`GITHUB_PAT`, only when you choose GitHub)
 
 The same token has two jobs: it creates the repository, and it is the
