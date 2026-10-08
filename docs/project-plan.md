@@ -4,23 +4,23 @@
 | Key | Value |
 | --- | --- |
 | ID | PP-001 |
-| CrossReference | [BC-001], [SA-001], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006], [MIL-007], [MIL-008], [US-001] |
+| CrossReference | [BC-001], [SA-001], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006], [MIL-007], [MIL-008], [MIL-009], [US-001] |
 
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-07 | Deprecated | Jens Tirsvad Nielsen | S02 | Added phase MIL-007 (proposed dates 2026-12-07 to 2026-12-11); MIL-006 deliverable names the public-only AGPL-3.0 default | [1cd27f7] |
 | 2026-10-08 | Accepted | Jens Tirsvad Nielsen | S02 | Added phase MIL-008 (proposed dates 2026-12-14 to 2026-12-18): the local project has origin as its only remote | [039a28c] |
+| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | Added phase MIL-009 (proposed dates 2026-12-21 to 2026-12-23): the framework files .claude, .agents and AGENTS.md are excluded from git | pending |
 
 ---
 
 ## Purpose
 
-Schedule the eight phases that deliver RepoFoundry (`create-project.sh` and its documentation) in dependency order. The Business Case sets no deadline, so the dates below are proposals for S01 to confirm.
+Schedule the nine phases that deliver RepoFoundry (`create-project.sh` and its documentation) in dependency order. The Business Case sets no deadline, so the dates below are proposals for S01 to confirm.
 
 ## Planning Assumptions
 
-- Week 1 starts 2026-10-05; the plan ends by 2026-12-18 (the last three phases are proposed).
+- Week 1 starts 2026-10-05; the plan ends by 2026-12-23 (the last four phases are proposed).
 - Phase length: two weeks.
 - S01 and S02 review each phase through a pull request, as described in [SA-001]. For now one person holds both roles.
 - The PO language is English, so no translated copies are kept.
@@ -37,6 +37,7 @@ Schedule the eight phases that deliver RepoFoundry (`create-project.sh` and its 
 | Project License | [MIL-006] | 2026-11-30 to 2026-12-04 | 2026-12-04 | S01 | US-001.06 | PROJECT_LICENSE in config.env; AGPL-3.0 default only for a public GitHub project | |
 | Framework Checklists and Usage | [MIL-007] | 2026-12-07 to 2026-12-11 | 2026-12-11 | S01 | US-001.07 | qc fetched with the framework; global command; README usage | |
 | Gitea Is the Only Remote | [MIL-008] | 2026-12-14 to 2026-12-18 | 2026-12-18 | S01 | US-001.03 | The local project has `origin` only; GitHub is reached through the mirror | |
+| Framework Files Excluded from Git | [MIL-009] | 2026-12-21 to 2026-12-23 | 2026-12-23 | S01 | US-001.03 | `.claude`, `.agents` and `AGENTS.md` excluded from git in the new project | |
 
 ```plantuml
 @startgantt
@@ -57,6 +58,8 @@ Project starts 2026-10-05
 [Framework Checklists and Usage Go/No-Go] happens 2026-12-11
 [Gitea Is the Only Remote] starts 2026-12-14 and ends 2026-12-18
 [Gitea Is the Only Remote Go/No-Go] happens 2026-12-18
+[Framework Files Excluded from Git] starts 2026-12-21 and ends 2026-12-23
+[Framework Files Excluded from Git Go/No-Go] happens 2026-12-23
 @endgantt
 ```
 
@@ -76,11 +79,12 @@ Project starts 2026-10-05
 | Framework's own submodules fetched | [MIL-007] |
 | README usage from the target folder and as a global command | [MIL-007] |
 | The local project has `origin` as its only remote | [MIL-008] |
+| `.claude`, `.agents` and `AGENTS.md` excluded from git in the new project | [MIL-009] |
 
 ## Dependencies
 
 ```
-MIL-001 → MIL-002 → MIL-003 → MIL-004 → MIL-005 → MIL-006 → MIL-007 → MIL-008
+MIL-001 → MIL-002 → MIL-003 → MIL-004 → MIL-005 → MIL-006 → MIL-007 → MIL-008 → MIL-009
 ```
 
 A No-Go moves every later date by the time needed to rework the failed criteria.
@@ -112,11 +116,11 @@ A No-Go moves every later date by the time needed to rework the failed criteria.
 [MIL-006]: ./milestones/mil-006-project-license.md
 [MIL-007]: ./milestones/mil-007-framework-checklists.md
 [MIL-008]: ./milestones/mil-008-gitea-only-remote.md
+[MIL-009]: ./milestones/mil-009-exclude-framework-files.md
 [US-001]: ./user-stories.md
 [UC-001]: ./uc-001/uc.md
 [SSD-001]: ./uc-001/ssd.md
 [Milestone 43]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/milestone/43
 [Milestone 44]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/milestone/44
 [Milestone 45]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/milestone/45
-[1cd27f7]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/1cd27f77ed844773a969210a11de0d8bb98ac98f
 [039a28c]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/039a28c01b56f8cf0af73f55d1a604b43d67ba03

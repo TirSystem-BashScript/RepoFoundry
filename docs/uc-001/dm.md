@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-07 | Deprecated | Jens Tirsvad Nielsen | S02 | License: the AGPL-3.0 default needs GitHub and a public project | [1cd27f7] |
 | 2026-10-08 | Accepted | Jens Tirsvad Nielsen | S02 | A Local Project has one Remote, origin, no longer one or two (MIL-008) | [039a28c] |
+| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | Framework Setup and Template: the folders that hold the skills and the copy of AGENTS.md are ignored by git (MIL-009) | pending |
 
 ---
 
@@ -135,8 +135,8 @@ Summary "1" --> "1" Project : reports on
 | Local Project | The project directory on the Maintainer's machine | directory | [UC-001] step 8 "local project" |
 | Remote | A named link from a Local Project to a Repository (`origin`) | name, address | [UC-001] step 8 "remote" |
 | Framework | The SQA-QC-Framework added to a Local Project | name, address | [UC-001] step 9 "framework submodule" |
-| Framework Setup | The skills and git hooks installed from the Framework, with the plan gate on or off | plan gate enabled | [UC-001] step 9 "skills and hooks", "plan gate" |
-| Template | A file the Framework provides to copy into a project (`AGENTS.md`, artifact registry) | name | [UC-001] step 9 "templates" |
+| Framework Setup | The skills and git hooks installed from the Framework, with the plan gate on or off; the folders that hold the skills (`.claude`, `.agents`) are ignored by git | plan gate enabled | [UC-001] step 9 "skills and hooks", "plan gate", "excludes from git" |
+| Template | A file the Framework provides to copy into a project (`AGENTS.md`, artifact registry); the copy of `AGENTS.md` is ignored by git | name | [UC-001] step 9 "templates", "excludes from git" |
 | Credentials File | The file in a Local Project that holds a copy of the Access Tokens (and the GitHub account name) the project needs; readable by its owner only and ignored by git | address | [UC-001] step 9 "credentials file" |
 | Summary | The report of what was created, skipped or failed and how to continue | created items, skipped items, next steps | [UC-001] step 10 "summary" |
 
@@ -180,5 +180,4 @@ Summary "1" --> "1" Project : reports on
 [SSD-001]: ./ssd.md
 [DICT-001]: ../dictionary.md
 [DM-002]: ../domain-model.md
-[1cd27f7]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/1cd27f77ed844773a969210a11de0d8bb98ac98f
 [039a28c]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/039a28c01b56f8cf0af73f55d1a604b43d67ba03

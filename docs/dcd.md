@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-07 | Deprecated | Jens Tirsvad Nielsen | S02 | .env is optional (as in UC-001 extension 2b): only config.env is required; a .env found nowhere means the token is asked | [24f1507] |
 | 2026-10-08 | Accepted | Jens Tirsvad Nielsen | S02 | LocalProjectBuilder.build() no longer takes the GitHub repository; a Local Project has one Remote, origin (MIL-008) | [039a28c] |
+| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | FrameworkInstaller.excludeFromGit() and InstallResult.trackedPaths: `.claude`, `.agents` and `AGENTS.md` are excluded from git; UC-001 P15 (MIL-009) | pending |
 
 ---
 
@@ -75,6 +75,7 @@ class LocalProjectBuilder {
 }
 class FrameworkInstaller {
   +install(project : LocalProject, enablePlanGate : Boolean) : InstallResult
+  -excludeFromGit(project : LocalProject) : String [0..*]
 }
 class SummaryReport {
   +compose(request : ProjectRequest) : Summary
@@ -183,7 +184,9 @@ class Template {
   -name : String
   -isCopied : Boolean
 }
-class InstallResult <<dto>>
+class InstallResult <<dto>> {
+  -trackedPaths : String [0..*]
+}
 class Summary {
   -createdItems : String [0..*]
   -skippedItems : String [0..*]
@@ -272,7 +275,7 @@ Repository "0..*" --> "1" Visibility
 | `GiteaClient` | Git Host (Gitea) | Hides the Gitea API and its token; creates the repository and the push mirror. | none beyond `GitHost` (uses `Configuration`) | `GiteaClient`, `hasLicense`, `createRepository`, `addPushMirror`, `requestSync` |
 | `GitHubClient` | Git Host (GitHub) | Hides the GitHub API and its token; creates the empty repository. | none beyond `GitHost` (uses `Configuration`) | `GitHubClient`, `createEmptyRepository` |
 | `LocalProjectBuilder` | Local Project, Remote | Creates the project directory, its git repository and its credential-free remotes. | none | `build` |
-| `FrameworkInstaller` | Framework, Framework Setup, Template | Adds the framework submodule, installs skills and hooks once, and copies the templates without overwriting. | none | `install` |
+| `FrameworkInstaller` | Framework, Framework Setup, Template | Adds the framework submodule, installs skills and hooks once, copies the templates without overwriting, and excludes `.claude`, `.agents` and `AGENTS.md` from git through `.git/info/exclude`. | none | `install`, `excludeFromGit` |
 | `SummaryReport` | Summary | Composes the report of what was created, skipped or failed. | none | `compose` |
 | `Run` | none (system concept) | Holds the state of one execution. | `isApply` | none |
 | `Configuration` | Configuration | Holds the service addresses, the credentials and any preset project details. | `giteaUrl`, `giteaApiUrl`, `githubWebUrl`, `githubApiUrl`, `giteaSshPort`, `mirrorInterval`, `frameworkRepo`, `presetDetails` | none |
@@ -293,7 +296,7 @@ Repository "0..*" --> "1" Visibility
 | `HookSetup` | Framework Setup | Records the skills and hooks installed and the plan gate state. | `areSkillsInstalled`, `areHooksInstalled`, `isPlanGateEnabled` | none |
 | `EnvFile` | Credentials File | The `.env` of the project: a copy of the credentials it needs. | `address`, `keys` | none |
 | `Template` | Template | A framework file copied into the project. | `name`, `isCopied` | none |
-| `InstallResult` | none (carries the result of one operation) | Returns the submodule, the hook setup and the templates of `install`. | none | none |
+| `InstallResult` | none (carries the result of one operation) | Returns the submodule, the hook setup and the templates of `install`, and the paths git already tracks that could not be excluded. | `trackedPaths` | none |
 | `Summary` | Summary | The report returned to the Maintainer; it contains no credential. | `createdItems`, `skippedItems`, `nextSteps` | none |
 | `Visibility` | none (enumeration of a Project and Repository attribute) | The two allowed visibilities. | `private`, `public` | none |
 
@@ -323,6 +326,7 @@ Repository "0..*" --> "1" Visibility
 | `GitHubClient.createEmptyRepository(request) : GitHubRepository` | [SD-001] `createEmptyRepository(request)`; P5 |
 | `LocalProjectBuilder.build(directory, source, sshPassed) : LocalProject` | [SD-001] `build(directory, giteaRepository, sshPassed)`; P7, P8, P9 |
 | `FrameworkInstaller.install(project, enablePlanGate) : InstallResult` | [SD-001] `install(localProject, enablePlanGate)`; P10, P11, P12 |
+| `FrameworkInstaller.excludeFromGit(project) : String [0..*]` | [SD-001] `excludeFromGit(localProject)`; P15 |
 | `SummaryReport.compose(request) : Summary` | [SD-001] `compose(projectRequest)`; P13 |
 
 ## Pattern Annotations
@@ -334,7 +338,7 @@ Repository "0..*" --> "1" Visibility
 | Pure Fabrication (GRASP) | `ConfigLoader`, `ToolChecker`, `CredentialCollector`, `EnvFileWriter`, `Preflight`, `LocalProjectBuilder`, `FrameworkInstaller`, `SummaryReport` | No domain concept owns these responsibilities; small units keep cohesion high |
 | Creator (GRASP) | `ConfigLoader` creates `Configuration`; `GiteaClient` creates `GiteaRepository` and `PushMirror` | The creating class holds the data needed to build the object |
 | Protection from variations (GRASP) | `GiteaClient`, `GitHubClient`, `ProjectRequest` | The optional GitHub path is decided by the controller; the clients do not know it |
-| Data Transfer Object (GoF-style) | `InstallResult` | Carries the three results of `install` in one return value |
+| Data Transfer Object (GoF-style) | `InstallResult` | Carries the results of `install` (the submodule, the hook setup, the templates and the tracked paths) in one return value |
 
 ## Dependency Check
 
@@ -373,5 +377,4 @@ SOLID check: no class has more than one reason to change (one host API, one kind
 [SD-001]: ./uc-001/sd.md
 [MIL-005]: ./milestones/mil-005-credentials.md
 [DICT-001]: ./dictionary.md
-[24f1507]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/24f15070fc73fb06e61865141fe0b825ea9e821e
 [039a28c]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/039a28c01b56f8cf0af73f55d1a604b43d67ba03
