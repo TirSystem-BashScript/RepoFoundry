@@ -103,7 +103,7 @@ test_usage_errors() {
   assert_contains "help shows exit codes" "$OUT" "Exit codes"
   run_cli "" --version
   assert_status "version" 0 "$STATUS"
-  assert_contains "version output" "$OUT" "RepoFoundry 0.3.0"
+  assert_contains "version output" "$OUT" "RepoFoundry 0.3.1"
 }
 
 test_warns_when_env_is_not_ignored_by_git() {

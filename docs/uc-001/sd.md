@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-07 | Deprecated | Jens Tirsvad Nielsen | S02 | P4: the license passed is AGPL-3.0 only for GitHub with a public project | [1cd27f7] |
-| 2026-10-07 | Accepted | Jens Tirsvad Nielsen | S02 | Note that SD-002 and DCD-002 supersede the signature of startProjectCreation | [0b0a3b4] |
+| 2026-10-07 | Deprecated | Jens Tirsvad Nielsen | S02 | Note that SD-002 and DCD-002 supersede the signature of startProjectCreation | [0b0a3b4] |
+| 2026-10-08 | Accepted | Jens Tirsvad Nielsen | S02 | build() no longer receives the GitHub repository and returns a local project with the remote origin; P9 (MIL-008) | [039a28c] |
 
 ---
 
@@ -146,9 +146,9 @@ opt githubOwner present
 end
 
 create LB
-PC -> LB : build(directory, giteaRepository, gitHubRepository, sshPassed)
+PC -> LB : build(directory, giteaRepository, sshPassed)
 activate LB
-LB --> PC : localProject (remotes origin, github)
+LB --> PC : localProject (remote origin)
 deactivate LB
 
 create FI
@@ -203,7 +203,7 @@ destroy SR
 | P6 PushMirror and first sync | `addPushMirror(...)` and `requestSync(pushMirror)` |
 | P7 LocalProject created, history from Gitea when not empty | `build(directory, ...)` |
 | P8 origin remote (SSH if the test passed, else HTTPS) | `build(..., sshPassed)` |
-| P9 github remote when chosen | `build(...)` |
+| P9 no other remote (GitHub is reached through the mirror) | `build(...)` adds `origin` only |
 | P10 framework Submodule | `install(localProject, ...)` |
 | P11 HookSetup, plan gate if chosen | `install(localProject, enablePlanGate)` |
 | P12 AGENTS.md and registry copied or kept | `install(...)` returning `templates` |
@@ -218,8 +218,8 @@ destroy SR
 
 [OC-001]: ./oc.md
 [DCD-001]: ./dcd.md
-[1cd27f7]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/1cd27f77ed844773a969210a11de0d8bb98ac98f
 [SD-002]: ../uc-002/sd.md
 [DCD-002]: ../dcd.md
 [UC-002]: ../uc-002/uc.md
 [0b0a3b4]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/0b0a3b419a1157b23bddd2f8957a08adaf6974a6
+[039a28c]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/039a28c01b56f8cf0af73f55d1a604b43d67ba03

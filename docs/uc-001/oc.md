@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-07 | Deprecated | Jens Tirsvad Nielsen | S02 | P4: the AGPL-3.0 default needs githubOwner and a public visibility; P10: the framework's own submodules were initialised, with an exception for a failed fetch | [1cd27f7] |
-| 2026-10-07 | Accepted | Jens Tirsvad Nielsen | S02 | Note that OC-002 and DCD-002 supersede the signature of startProjectCreation | [0b0a3b4] |
+| 2026-10-07 | Deprecated | Jens Tirsvad Nielsen | S02 | Note that OC-002 and DCD-002 supersede the signature of startProjectCreation | [0b0a3b4] |
+| 2026-10-08 | Accepted | Jens Tirsvad Nielsen | S02 | P9: no other remote is associated with the local project (MIL-008) | [039a28c] |
 
 ---
 
@@ -71,7 +71,7 @@ Concepts below use the IT terms of [DICT-001] for the PO concepts of [DM-001]. `
 - P6. If `githubOwner` is present, a `PushMirror` instance was created, associated with the `GiteaRepository` as source and the `GitHubRepository` as target, with its effective sync setting recorded, and a first sync was requested.
 - P7. A `LocalProject` instance was created at `directory`, associated with the `ProjectRequest`. If the `GiteaRepository` is not empty, the `LocalProject` holds its history, including the `LicenseFile` commit.
 - P8. A `Remote` named `origin` was associated with the `LocalProject`, pointing at the `GiteaRepository` over SSH if the SSH test passed, otherwise over HTTPS, with no credential in its URL.
-- P9. If `githubOwner` is present, a `Remote` named `github` was associated with the `LocalProject`, pointing at the `GitHubRepository`, with no credential in its URL.
+- P9. No other `Remote` was associated with the `LocalProject`, whether or not `githubOwner` is present: the `GitHubRepository`, when there is one, is reached through the `PushMirror` of P6, not through a remote.
 - P10. A `Submodule` named `framework` was associated with the `LocalProject`, and the submodules the framework itself holds (`qc`) were initialised.
 - P11. A `HookSetup` instance was associated with the `LocalProject`, recording that skills and git hooks were installed once and, if `enablePlanGate`, that the plan gate was enabled.
 - P12. `AGENTS.md` and `docs/artifact-registry.md` exist in the `LocalProject`, each either newly copied from the framework templates or left as it was because the Maintainer declined to replace it.
@@ -98,8 +98,8 @@ Concepts below use the IT terms of [DICT-001] for the PO concepts of [DM-001]. `
 [DM-001]: ./dm.md
 [DICT-001]: ../dictionary.md
 [SD-001]: ./sd.md
-[1cd27f7]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/1cd27f77ed844773a969210a11de0d8bb98ac98f
 [OC-002]: ../uc-002/oc.md
 [DCD-002]: ../dcd.md
 [UC-002]: ../uc-002/uc.md
 [0b0a3b4]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/0b0a3b419a1157b23bddd2f8957a08adaf6974a6
+[039a28c]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/039a28c01b56f8cf0af73f55d1a604b43d67ba03

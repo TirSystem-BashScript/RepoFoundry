@@ -5,7 +5,7 @@ RepoFoundry (`src/create-project.sh`) sets up a new project in one run:
 - a **Gitea** repository (the source of truth),
 - optionally an empty **GitHub** repository that receives everything through a
   **push mirror from Gitea to GitHub**,
-- and a **local project** with credential-free remotes and the
+- and a **local project** with one credential-free remote, `origin` (Gitea), and the
   [SQA-QC-Framework](https://git.tirsystem.com/TirSystem/SQA-QC-Framework)
   added as a git submodule, with its skills, git hooks (and optionally the plan
   gate) and templates installed.
@@ -266,9 +266,9 @@ Without `--apply` that is all that happens. With `--apply` the script asks
 1. the GitHub repository (empty), if chosen;
 2. the Gitea repository (with the license that applies: `PROJECT_LICENSE`, or AGPL-3.0 for a public project with GitHub);
 3. the push mirror Gitea -> GitHub, and a request for its first sync;
-4. the local directory, `git init` on `main`, the `origin` remote (and `github`
-   if chosen), and, if the Gitea repository holds the license commit, that
-   history;
+4. the local directory, `git init` on `main`, the `origin` remote (the only
+   remote: a push to it reaches GitHub through the mirror) and, if the Gitea
+   repository holds the license commit, that history;
 5. the framework as the submodule `framework`;
 6. the framework's skills and git hooks, and the plan gate if chosen;
 7. `AGENTS.md` and `docs/artifact-registry.md` from the framework's templates.
@@ -379,8 +379,10 @@ script stops before it creates anything when a preflight check is refused.
 - **No destructive commands.** The script never deletes a repository or a
   file and never uses a recursive delete; temporary files are removed one by
   one.
-- **Credential-free remotes.** `origin` is `ssh://git@host:port/owner/name.git`
-  (or plain HTTPS when SSH is not used) and `github` is a plain HTTPS address.
+- **Credential-free remote.** `origin` is `ssh://git@host:port/owner/name.git`
+  (or plain HTTPS when SSH is not used). There is no `github` remote: push to
+  `origin` and the mirror carries it to GitHub. A `github` remote made by an
+  earlier version is left alone; remove it with `git remote remove github`.
 - **Redirects are not followed,** so a token is only ever sent to the host in
   the URL it was meant for. Unknown SSH host keys are refused.
 - **Framework scripts run on the new project only.** They are run with

@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-07 | Deprecated | Jens Tirsvad Nielsen | S02 | Added objective 11 (global command, project created in the current folder), a scope item and success criterion 11 | [1cd27f7] |
-| 2026-10-07 | Accepted | Jens Tirsvad Nielsen | S02 | Objective 11, scope item and criterion 11: the configuration files default to the working folder's, then the checkout's | [0ab5006] |
+| 2026-10-07 | Deprecated | Jens Tirsvad Nielsen | S02 | Objective 11, scope item and criterion 11: the configuration files default to the working folder's, then the checkout's | [0ab5006] |
+| 2026-10-08 | Accepted | Jens Tirsvad Nielsen | S02 | Objective 4: the local project has one remote, origin; no github remote, because a push to origin reaches GitHub through the mirror (MIL-008) | [039a28c] |
 
 ---
 
@@ -37,7 +37,7 @@ One repeatable, reviewed procedure gives every new project the same secure basel
 1. Optionally create an empty GitHub repository under a chosen user or organization.
 2. Create a Gitea repository under a chosen user or organization, empty, or with a license: the one set in `config.env` (`PROJECT_LICENSE`), or AGPL-3.0 when GitHub is chosen, the project is public and none is set.
 3. When GitHub was chosen, configure the Gitea repository as a push mirror to GitHub (direction Gitea to GitHub).
-4. Create the local project directory with an `origin` (Gitea) remote and, when GitHub was chosen, a `github` remote, neither containing credentials.
+4. Create the local project directory with one remote, `origin` (Gitea), containing no credential. There is no `github` remote: a push to `origin` reaches GitHub through the push mirror.
 5. Add the SQA-QC-Framework as the `framework` submodule with its own submodules (the `qc` checklists) fetched, install its skills and git hooks, and copy its templates, optionally enabling the plan gate.
 6. Never print a token or put one in a URL, a remote or a log, write one to disk only in the new project's own `.env` and only after the Maintainer agrees, and never overwrite existing files or directories without consent.
 7. Document installation, configuration, usage, security decisions and error handling in clear English for GitHub readers.
@@ -153,5 +153,5 @@ Proceed — the procedure is small, well bounded and removes a repeated, securit
 
 [SA-001]: ./stakeholder-analysis.md
 [UCD-001]: ./use-case-diagram.md
-[1cd27f7]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/1cd27f77ed844773a969210a11de0d8bb98ac98f
 [0ab5006]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/0ab50068bf9e5be82a801af9dbe5b763eeaf7f31
+[039a28c]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/039a28c01b56f8cf0af73f55d1a604b43d67ba03

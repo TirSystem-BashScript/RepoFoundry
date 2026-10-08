@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-06 | Deprecated | Jens Tirsvad Nielsen | S02 | The license comes from PROJECT_LICENSE (step 6, extension 4c); AGPL-3.0 is only the default when GitHub is chosen | [d773fa9] |
-| 2026-10-07 | Accepted | Jens Tirsvad Nielsen | S02 | License rule: the AGPL-3.0 default needs GitHub and a public project (step 6, rule 6); step 9 and extension 9e fetch the framework's own submodules | [1cd27f7] |
+| 2026-10-07 | Deprecated | Jens Tirsvad Nielsen | S02 | License rule: the AGPL-3.0 default needs GitHub and a public project (step 6, rule 6); step 9 and extension 9e fetch the framework's own submodules | [1cd27f7] |
+| 2026-10-08 | Accepted | Jens Tirsvad Nielsen | S02 | Postcondition, step 8 and its rule: origin is the only remote; no github remote (MIL-008) | [039a28c] |
 
 ---
 
@@ -33,7 +33,7 @@
 - **Postconditions (success guarantee):**
   - A repository exists on Gitea under the chosen owner. It is empty, or it holds the license file that applies: the license set in `config.env`, or AGPL-3.0 when the Maintainer chose GitHub, the project is public and no license is set.
   - When the Maintainer chose to create a GitHub repository, an empty repository exists on GitHub under the chosen owner, the Gitea repository is a push mirror to it, and the license file, if any, reaches GitHub through the mirror.
-  - A local project directory exists with credential-free remotes `origin` (Gitea) and, when GitHub was chosen, `github`, the `framework` submodule, installed skills and hooks, and the copied templates.
+  - A local project directory exists with one credential-free remote, `origin` (Gitea), the `framework` submodule, installed skills and hooks, and the copied templates.
   - When the Maintainer agreed, the local project has a `.env` that holds only the credentials the project needs, is readable by its owner only and is ignored by git.
   - The Maintainer has a summary of what was created.
 
@@ -46,7 +46,7 @@
 5. Optional: if the Maintainer chose GitHub, the system creates the empty GitHub repository.
 6. The system creates the Gitea repository. If a license applies, the repository is created with its license file and so is not empty; otherwise it is empty. The license that applies is the one set in `config.env` (`PROJECT_LICENSE`; `none` means no license); when none is set it is AGPL-3.0 if the Maintainer chose GitHub and the project is public, and none otherwise. The license is never asked.
 7. Optional: if GitHub was chosen, the system configures the Gitea repository as a push mirror to GitHub and verifies it. A license file in the Gitea repository is pushed to GitHub by the mirror.
-8. The system creates the local project with the `origin` remote and, if GitHub was chosen, the `github` remote.
+8. The system creates the local project with the `origin` remote. It adds no `github` remote: a push to `origin` reaches GitHub through the mirror of step 7.
 9. The system adds the framework submodule and fetches its own submodules (the `qc` checklists), installs its skills and hooks (and the plan gate if chosen) and copies the templates. If the Maintainer agrees, it also creates the project's own `.env` with the credentials the project needs.
 10. The system reports a summary of what was created.
 
@@ -88,10 +88,10 @@
 | 9 | The project's `.env` is the only place a token is written. It is created only after a yes (default no), holds only the keys the project needs (`GITEA_TOKEN`; `GITHUB_PAT` and `GITHUB_USER` when GitHub was chosen), is readable by its owner only, is excluded from git without changing a tracked file, and is never replaced without a yes |
 | 3 | The GitHub owner and the Gitea owner are chosen separately; `GITHUB_USER` is only the authenticating account |
 | 3 | A project detail set in `config.env` (the key is present, even if empty where an empty value is allowed) is not asked; only the confirmations stay interactive |
-| 3, 5, 7 | GitHub is optional; without it no GitHub repository, mirror or `github` remote is created and the GitHub credentials are not required |
+| 3, 5, 7 | GitHub is optional; without it no GitHub repository or mirror is created and the GitHub credentials are not required |
 | 6 | The license that applies is added to the Gitea repository when it is created, so that repository is not empty: `PROJECT_LICENSE` if set (a Gitea license key such as `MIT`, or `none`), otherwise AGPL-3.0 when GitHub is chosen and the project is public, otherwise none. It is independent of the GitHub choice when set, and it is never asked |
 | 7 | The mirror direction is Gitea to GitHub; the GitHub repository stays empty and receives its content from the mirror |
-| 8 | `origin` uses HTTPS derived from `GITEA_URL`, or SSH when the SSH test in step 4 passed; when the Gitea repository is not empty (GitHub chosen) the local project is created by fetching it, not by an unrelated `git init` history |
+| 8 | `origin` is the only remote, with or without GitHub, and a remote already in the directory, such as a `github` remote made by an earlier version, is never removed or replaced. `origin` uses HTTPS derived from `GITEA_URL`, or SSH when the SSH test in step 4 passed; when the Gitea repository is not empty (GitHub chosen) the local project is created by fetching it, not by an unrelated `git init` history |
 | 8, 9 | Nothing is overwritten or deleted without consent, and no commit is made |
 
 ### Open Issues
@@ -104,5 +104,5 @@
 [US-001]: ../user-stories.md
 [SA-001]: ../stakeholder-analysis.md
 [DM-001]: ./dm.md
-[d773fa9]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/d773fa91df5a54090254e12e074880fb6526a9ff
 [1cd27f7]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/1cd27f77ed844773a969210a11de0d8bb98ac98f
+[039a28c]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/039a28c01b56f8cf0af73f55d1a604b43d67ba03
