@@ -10,6 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | Initial version | [039a28c] |
+| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | Task 4 and criterion 7: the version is raised to 0.3.1 and release v0.3.1 is tagged after the merge | pending |
 
 ---
 
@@ -19,7 +20,7 @@ Decide whether the local project can keep a single remote, `origin` (Gitea), wit
 
 ## Deliverable
 
-`create-project.sh` that adds only the `origin` remote to the local project, whether or not GitHub was chosen, and no longer builds a GitHub remote address. The documents agree with it: Business Case objective 4, US-001.03, UC-001 (postcondition and step 8), OC-001 P9, SD-001, DCD-001 and DCD-002, DM-001 and DM-002. `README.md` describes the one remote and says that a push to `origin` reaches GitHub through the mirror. The tests cover both cases.
+`create-project.sh` that adds only the `origin` remote to the local project, whether or not GitHub was chosen, and no longer builds a GitHub remote address. The documents agree with it: Business Case objective 4, US-001.03, UC-001 (postcondition and step 8), OC-001 P9, SD-001, DCD-001 and DCD-002, DM-001 and DM-002. `README.md` describes the one remote and says that a push to `origin` reaches GitHub through the mirror. The tests cover both cases. The version is raised to 0.3.1, and release `v0.3.1` is tagged on Gitea after the pull request is merged.
 
 A project that already has a `github` remote, such as one created by an earlier version of the script, keeps it: the script never removes or replaces a remote (it still refuses an `origin` that points elsewhere).
 
@@ -33,6 +34,7 @@ A project that already has a `github` remote, such as one created by an earlier 
 | 4 | With GitHub chosen the mirror, the license history and the other steps are unchanged | Tests pass | Any other step changed |
 | 5 | The README, UC-001, OC-001, SD-001, DCD-001, DCD-002, DM-001 and DM-002 all describe one remote and agree with the code | Reviewed by S02 in [RC-031] | A document still naming a `github` remote |
 | 6 | All acceptance criteria of US-001.03 in [US-001] are met | Verified | Any unmet |
+| 7 | `create-project.sh --version` prints `RepoFoundry 0.3.1` | Tests pass | Another version |
 
 ## Dependencies
 
@@ -67,6 +69,7 @@ A project that already has a `github` remote, such as one created by an earlier 
 | 1 | Add only the origin remote | In `create_local_project` (`src/lib/localproject.sh`) stop adding the `github` remote, with or without GitHub, and delete `github_remote_url` (`src/lib/hosts.sh`), which nothing else uses. `origin` is unchanged (SSH on the configured port when the SSH test passed, else HTTPS, no credential). An existing `github` remote is left alone; a different `origin` is still refused. Step 8 of [UC-001] and P9 of [OC-001]. | Yes | [UC-001] |
 | 2 | Describe the one remote in the README | Update the overview, the run steps and the "Credential-free remotes" security point: the project has one remote, `origin`, and a push to it reaches GitHub through the Gitea push mirror. Mention that a `github` remote from an earlier version can be removed with `git remote remove github`. | No | |
 | 3 | Test the single remote | Replace the `github` remote assertion of `test_local_project_gets_credential_free_remotes_and_the_license_history` with "only `origin`, no GitHub address in `.git/config`", keep the Gitea-only case, add a rerun on a directory that already has a `github` remote (kept, no failure), and drop the `github_remote_url` check from `test_remote_addresses_are_built_from_the_configuration`. | No | |
+| 4 | Bump the version to 0.3.1 | Set `VERSION` in `src/lib/constants.sh` to 0.3.1 and the `--version` check in `tests/test-security.sh` to match. Release `v0.3.1` is tagged on Gitea from the merge commit once the pull request is merged. | No | |
 
 ---
 

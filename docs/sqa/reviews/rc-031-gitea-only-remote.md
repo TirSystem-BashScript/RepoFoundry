@@ -10,6 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | Initial version | [039a28c] |
+| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | Criterion count of MIL-008 is seven (the version criterion) | pending |
 
 ---
 
@@ -25,7 +26,7 @@
 | # | Criterion | Status | Evidence/Notes |
 | --- | --- | --- | --- |
 | 1 | A concrete deliverable is defined for every gate | Pass | The script that adds `origin` only, the documents that agree with it, the README and the tests. |
-| 2 | Explicit Go/No-Go criteria are stated for each gate | Pass | Six criteria, each with an objective Go and No-Go: the remote list with and without GitHub, the contents of `.git/config`, an existing `github` remote kept, the other steps unchanged, the documents in agreement, and the acceptance criteria of US-001.03. |
+| 2 | Explicit Go/No-Go criteria are stated for each gate | Pass | Seven criteria, each with an objective Go and No-Go: the remote list with and without GitHub, the contents of `.git/config`, an existing `github` remote kept, the other steps unchanged, the documents in agreement, the acceptance criteria of US-001.03, and the version printed by `--version`. |
 | 3 | Dependencies on other milestones are explicitly mapped | Pass | [MIL-002] (the mirror makes the second remote unnecessary) and [MIL-003] (the step that changes), each with its reason. |
 | 4 | Each milestone is traceable to a Business Case objective or KPI | Pass | Objective 4 and success criteria 1 and 3 of [BC-001], and US-001.03. |
 | 5 | Milestone owner and approving reviewer are identified | Pass | Owner S01, approving reviewer S02. |
