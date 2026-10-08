@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-07 | Accepted | Jens Tirsvad Nielsen | S02 | Note that SD-002 and DCD-002 supersede the signature of startProjectCreation | [0b0a3b4] |
-| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | build() no longer receives the GitHub repository and returns a local project with the remote origin; P9 (MIL-008) | [039a28c] |
+| 2026-10-07 | Deprecated | Jens Tirsvad Nielsen | S02 | Note that SD-002 and DCD-002 supersede the signature of startProjectCreation | [0b0a3b4] |
+| 2026-10-08 | Accepted | Jens Tirsvad Nielsen | S02 | build() no longer receives the GitHub repository and returns a local project with the remote origin; P9 (MIL-008) | [039a28c] |
 
 ---
 

@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-05 | Accepted | Jens Tirsvad Nielsen | S02 | Optional GitHub; choosing GitHub applies the AGPL license to the Gitea repository<br>Cited US-001.03<br>Traces to objective 7<br>Criterion 2 names the framework URL<br>Target date accepted | [02875ae] |
-| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | Criterion 1 and task 1: origin is the only remote (MIL-008) | [039a28c] |
+| 2026-10-05 | Deprecated | Jens Tirsvad Nielsen | S02 | Optional GitHub; choosing GitHub applies the AGPL license to the Gitea repository<br>Cited US-001.03<br>Traces to objective 7<br>Criterion 2 names the framework URL<br>Target date accepted | [02875ae] |
+| 2026-10-08 | Accepted | Jens Tirsvad Nielsen | S02 | Criterion 1 and task 1: origin is the only remote (MIL-008) | [039a28c] |
 
 ---
 

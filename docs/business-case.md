@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-07 | Accepted | Jens Tirsvad Nielsen | S02 | Objective 11, scope item and criterion 11: the configuration files default to the working folder's, then the checkout's | [0ab5006] |
-| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | Objective 4: the local project has one remote, origin; no github remote, because a push to origin reaches GitHub through the mirror (MIL-008) | [039a28c] |
+| 2026-10-07 | Deprecated | Jens Tirsvad Nielsen | S02 | Objective 11, scope item and criterion 11: the configuration files default to the working folder's, then the checkout's | [0ab5006] |
+| 2026-10-08 | Accepted | Jens Tirsvad Nielsen | S02 | Objective 4: the local project has one remote, origin; no github remote, because a push to origin reaches GitHub through the mirror (MIL-008) | [039a28c] |
 
 ---
 

@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-07 | Accepted | Jens Tirsvad Nielsen | S02 | License rule: the AGPL-3.0 default needs GitHub and a public project (step 6, rule 6); step 9 and extension 9e fetch the framework's own submodules | [1cd27f7] |
-| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | Postcondition, step 8 and its rule: origin is the only remote; no github remote (MIL-008) | [039a28c] |
+| 2026-10-07 | Deprecated | Jens Tirsvad Nielsen | S02 | License rule: the AGPL-3.0 default needs GitHub and a public project (step 6, rule 6); step 9 and extension 9e fetch the framework's own submodules | [1cd27f7] |
+| 2026-10-08 | Accepted | Jens Tirsvad Nielsen | S02 | Postcondition, step 8 and its rule: origin is the only remote; no github remote (MIL-008) | [039a28c] |
 
 ---
 

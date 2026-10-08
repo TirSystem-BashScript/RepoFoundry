@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-07 | Accepted | Jens Tirsvad Nielsen | S02 | Added review RC-030 (.env optional) | [24f1507] |
-| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | Added MIL-008 with its review RC-031 (Gitea is the only remote) | [039a28c] |
+| 2026-10-07 | Deprecated | Jens Tirsvad Nielsen | S02 | Added review RC-030 (.env optional) | [24f1507] |
+| 2026-10-08 | Accepted | Jens Tirsvad Nielsen | S02 | Added MIL-008 with its review RC-031 (Gitea is the only remote) | [039a28c] |
 
 ---
 

@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | Initial version | [039a28c] |
-| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | Task 4 and criterion 7: the version is raised to 0.3.1 and release v0.3.1 is tagged after the merge | [1056639] |
+| 2026-10-08 | Deprecated | Jens Tirsvad Nielsen | S02 | Initial version | [039a28c] |
+| 2026-10-08 | Accepted | Jens Tirsvad Nielsen | S02 | Task 4 and criterion 7: the version is raised to 0.3.1 and release v0.3.1 is tagged after the merge | [1056639] |
 
 ---
 

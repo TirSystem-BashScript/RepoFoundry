@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-07 | Accepted | Jens Tirsvad Nielsen | S02 | Added phase MIL-007 (proposed dates 2026-12-07 to 2026-12-11); MIL-006 deliverable names the public-only AGPL-3.0 default | [1cd27f7] |
-| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | Added phase MIL-008 (proposed dates 2026-12-14 to 2026-12-18): the local project has origin as its only remote | [039a28c] |
+| 2026-10-07 | Deprecated | Jens Tirsvad Nielsen | S02 | Added phase MIL-007 (proposed dates 2026-12-07 to 2026-12-11); MIL-006 deliverable names the public-only AGPL-3.0 default | [1cd27f7] |
+| 2026-10-08 | Accepted | Jens Tirsvad Nielsen | S02 | Added phase MIL-008 (proposed dates 2026-12-14 to 2026-12-18): the local project has origin as its only remote | [039a28c] |
 
 ---
 

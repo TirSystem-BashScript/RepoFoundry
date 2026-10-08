@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-07 | Accepted | Jens Tirsvad Nielsen | S02 | US-002: only config.env is required; a .env found nowhere means the token is asked | [24f1507] |
-| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | US-001.03: one remote, origin; no github remote (MIL-008) | [039a28c] |
+| 2026-10-07 | Deprecated | Jens Tirsvad Nielsen | S02 | US-002: only config.env is required; a .env found nowhere means the token is asked | [24f1507] |
+| 2026-10-08 | Accepted | Jens Tirsvad Nielsen | S02 | US-001.03: one remote, origin; no github remote (MIL-008) | [039a28c] |
 
 ---
 

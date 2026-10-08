@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | Initial version | [039a28c] |
-| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | Criterion count of MIL-008 is seven (the version criterion) | [1056639] |
+| 2026-10-08 | Deprecated | Jens Tirsvad Nielsen | S02 | Initial version | [039a28c] |
+| 2026-10-08 | Accepted | Jens Tirsvad Nielsen | S02 | Criterion count of MIL-008 is seven (the version criterion) | [1056639] |
 
 ---
 
@@ -51,14 +51,13 @@ The code, the README and the tests (the three tasks of [MIL-008]) were changed a
 
 ## Overall Verdict
 
-Pending S02 — drafted by Claude Code for S02. The documents, the code, the README and the tests agree with each other. On a Go from S02 the Version History rows of the changed documents become `Accepted` and the rows before them `Deprecated`.
+Go — the documents, the code, the README and the tests agree with each other, and every criterion of the checklist passes. Drafted by Claude Code for S02; the author and reviewer are the same person for now. S02 gave the Go in chat on 2026-10-08 for [MIL-008] and the changes it causes, and the Version History rows of the changed documents were set to `Accepted` and the rows before them to `Deprecated`.
 
 ## Action Items
 
 | Action | Owner | Due |
 | --- | --- | --- |
-| Confirm the verdict and the proposed dates of [MIL-008] | S02 | 2026-10-15 |
-| Decide whether to sync the tasks of [MIL-008] as issues now that the work is done (the plan was waived for this change) | S01 | 2026-10-15 |
+| None | - | - |
 
 ---
 
