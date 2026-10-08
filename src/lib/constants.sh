@@ -30,8 +30,12 @@ readonly HINT_LICENSE="use a Gitea license key (letters, digits, '.', '+' or '-'
 readonly HINT_DIRECTORY="must not be empty, start with '-' or contain control characters"
 readonly HINT_TOKEN="8 to 255 letters, digits or _ . ~ + / = -"
 readonly ENV_FILE_NAME=".env"
+# What the framework installs into the new project that git must not list: the
+# folders of the skills and the copy of AGENTS.md, anchored to the project
+# root. They go into .git/info/exclude of the new project.
+readonly FRAMEWORK_EXCLUDES=(/.claude /.agents /AGENTS.md)
 readonly PLAN_STEPS=("GitHub repository" "Gitea repository" "Push mirror"
-  "Local project" "Framework" "Skills and hooks" "Templates" "Project .env")
+  "Local project" "Framework" "Skills and hooks" "Templates" "Git excludes" "Project .env")
 # shellcheck disable=SC2034  # read through namerefs (parse_env_file)
 readonly CONFIG_KEYS=(GITHUB_API_URL GITHUB_WEB_URL GITEA_URL GITEA_API_URL
   GITEA_SSH_PORT MIRROR_INTERVAL FRAMEWORK_REPO

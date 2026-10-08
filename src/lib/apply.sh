@@ -19,6 +19,7 @@ create_all() {
   add_framework
   install_framework
   copy_templates
+  exclude_framework_files
   create_env_file
 }
 

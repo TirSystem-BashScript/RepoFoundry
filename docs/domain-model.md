@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-08 | Accepted | Jens Tirsvad Nielsen | S02 | A Local Project has one Remote, origin, no longer one or two (MIL-008) | [039a28c] |
-| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | Framework Setup and Template: the folders that hold the skills and the copy of AGENTS.md are ignored by git (UC-001, MIL-009) | [08cb484] |
+| 2026-10-08 | Deprecated | Jens Tirsvad Nielsen | S02 | A Local Project has one Remote, origin, no longer one or two (MIL-008) | [039a28c] |
+| 2026-10-08 | Accepted | Jens Tirsvad Nielsen | S02 | Framework Setup and Template: the folders that hold the skills and the copy of AGENTS.md are ignored by git (UC-001, MIL-009) | [08cb484] |
 
 ---
 

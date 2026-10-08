@@ -9,7 +9,7 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | Initial version | [08cb484] |
+| 2026-10-08 | Accepted | Jens Tirsvad Nielsen | S02 | Initial version | [08cb484] |
 
 ---
 

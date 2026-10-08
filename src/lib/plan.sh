@@ -51,6 +51,7 @@ print_plan() {
     say "$(printf '  %-18s: %s' "Framework" "add $(framework_url) as a submodule")"
     say "$(printf '  %-18s: %s' "Skills and hooks" "install once; plan gate $(yes_no "${PROJECT[is_plan_gate_enabled]}")")"
     say "$(printf '  %-18s: %s' "Templates" "AGENTS.md and docs/artifact-registry.md (you are asked before a file is replaced)")"
+    say "$(printf '  %-18s: %s' "Git excludes" "${FRAMEWORK_EXCLUDES[*]} go into .git/info/exclude (no tracked file changes)")"
   else
     say "$(printf '  %-18s: %s' "Framework" "NOT possible without SSH to Gitea; you will be asked whether to go on without it")"
   fi

@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-08 | Accepted | Jens Tirsvad Nielsen | S02 | Added MIL-008 with its review RC-031 (Gitea is the only remote) | [039a28c] |
-| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | Added MIL-009 (framework files excluded from git); not yet reviewed | [08cb484] |
+| 2026-10-08 | Deprecated | Jens Tirsvad Nielsen | S02 | Added MIL-009 (framework files excluded from git); not yet reviewed | [08cb484] |
+| 2026-10-08 | Accepted | Jens Tirsvad Nielsen | S02 | Added review RC-032 (MIL-009: framework files excluded from git), Go | [1b1b6be] |
 
 ---
 
@@ -24,9 +24,9 @@ updated whenever an artifact instance is created or reviewed.
 
 | Artifact Instance | Type | Upstream (Backward Link) | Downstream (Forward Link) | Last Reviewed (RC-ID) |
 | --- | --- | --- | --- | --- |
-| [BC-001] | BC | - | [SA-001], [PP-001], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006], [MIL-007], [MIL-008], [MIL-009], [US-001], [UCD-001] | [RC-010], [RC-018], [RC-020], [RC-022], [RC-029], [RC-031] |
+| [BC-001] | BC | - | [SA-001], [PP-001], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006], [MIL-007], [MIL-008], [MIL-009], [US-001], [UCD-001] | [RC-010], [RC-018], [RC-020], [RC-022], [RC-029], [RC-031], [RC-032] |
 | [SA-001] | SA | [BC-001] | [UCD-001], [UC-001], [DICT-001] | [RC-013] |
-| [PP-001] | PP | [BC-001], [SA-001] | [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006], [MIL-007], [MIL-008], [MIL-009] | [RC-012], [RC-018], [RC-020], [RC-022], [RC-031] |
+| [PP-001] | PP | [BC-001], [SA-001] | [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006], [MIL-007], [MIL-008], [MIL-009] | [RC-012], [RC-018], [RC-020], [RC-022], [RC-031], [RC-032] |
 | [MIL-001] | MIL | [BC-001], [PP-001] | [US-001] | [RC-011], [RC-016] |
 | [MIL-002] | MIL | [BC-001], [PP-001] | [US-001] | [RC-014], [RC-017] |
 | [MIL-003] | MIL | [BC-001], [PP-001] | [US-001] | [RC-015], [RC-017], [RC-031] |
@@ -35,10 +35,10 @@ updated whenever an artifact instance is created or reviewed.
 | [MIL-006] | MIL | [BC-001], [PP-001] | [US-001] | [RC-022] |
 | [MIL-007] | MIL | [BC-001], [PP-001] | [US-001], [UC-002] | [RC-022], [RC-029], [RC-030] |
 | [MIL-008] | MIL | [BC-001], [PP-001] | [US-001] | [RC-031] |
-| [MIL-009] | MIL | [BC-001], [PP-001] | [US-001] | - |
+| [MIL-009] | MIL | [BC-001], [PP-001] | [US-001] | [RC-032] |
 | [UCD-001] | UCD | [BC-001], [SA-001] | [US-001], [UC-001], [UC-002] | [RC-009], [RC-023] |
-| [US-001] | US | [BC-001], [UCD-001], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006], [MIL-007], [MIL-008], [MIL-009] | [UC-001] | [RC-001], [RC-020], [RC-022], [RC-029], [RC-030], [RC-031] |
-| [UC-001] | UC | [UCD-001], [US-001], [SA-001] | [SSD-001], [DM-001] | [RC-002], [RC-020], [RC-023], [RC-031] |
+| [US-001] | US | [BC-001], [UCD-001], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006], [MIL-007], [MIL-008], [MIL-009] | [UC-001] | [RC-001], [RC-020], [RC-022], [RC-029], [RC-030], [RC-031], [RC-032] |
+| [UC-001] | UC | [UCD-001], [US-001], [SA-001] | [SSD-001], [DM-001] | [RC-002], [RC-020], [RC-023], [RC-031], [RC-032] |
 | [UC-002] | UC | [UCD-001], [US-001], [SA-001], [BC-001] | [SSD-002], [DM-003] | [RC-023], [RC-029], [RC-030] |
 | [SSD-002] | SSD | [UC-002], [DM-003] | [OC-002] | [RC-024], [RC-029] |
 | [DM-003] | DM | [UC-002], [UCD-001], [SSD-002], [DICT-001], [DM-001] | [OC-002], [DCD-003] | [RC-025], [RC-029] |
@@ -46,13 +46,13 @@ updated whenever an artifact instance is created or reviewed.
 | [SD-002] | SD | [OC-002], [DCD-003] | [DCD-003] | [RC-027], [RC-029] |
 | [DCD-003] | DCD | [DM-003], [SD-002], [DICT-001], [UC-002], [DCD-001] | [DCD-002] | [RC-028], [RC-029], [RC-030] |
 | [SSD-001] | SSD | [UC-001] | [OC-001] | [RC-003], [RC-020] |
-| [DM-001] | DM | [UC-001], [SSD-001] | [DM-002], [DICT-001], [OC-001], [DCD-001] | [RC-004], [RC-020], [RC-031] |
-| [DM-002] | DM | [DM-001] | [DICT-001], [DCD-001], [DCD-002] | [RC-005], [RC-020], [RC-025], [RC-029], [RC-031] |
-| [DICT-001] | DICT | [BC-001], [SA-001], [DM-001], [DM-002] | [OC-001], [SD-001] | [RC-008], [RC-020], [RC-025], [RC-029] |
-| [OC-001] | OC | [SSD-001], [DM-001] | [SD-001] | [RC-006], [RC-020], [RC-026], [RC-031] |
-| [SD-001] | SD | [OC-001] | [DCD-001] | [RC-007], [RC-020], [RC-021], [RC-031] |
-| [DCD-001] | DCD | [UC-001], [DM-001], [DM-002], [OC-001], [SD-001], [DICT-001] | [DCD-002] | [RC-021], [RC-031] |
-| [DCD-002] | DCD | [DCD-001], [DCD-003], [DM-002], [DICT-001] | - | [RC-021], [RC-028], [RC-029], [RC-030], [RC-031] |
+| [DM-001] | DM | [UC-001], [SSD-001] | [DM-002], [DICT-001], [OC-001], [DCD-001] | [RC-004], [RC-020], [RC-031], [RC-032] |
+| [DM-002] | DM | [DM-001] | [DICT-001], [DCD-001], [DCD-002] | [RC-005], [RC-020], [RC-025], [RC-029], [RC-031], [RC-032] |
+| [DICT-001] | DICT | [BC-001], [SA-001], [DM-001], [DM-002] | [OC-001], [SD-001] | [RC-008], [RC-020], [RC-025], [RC-029], [RC-032] |
+| [OC-001] | OC | [SSD-001], [DM-001] | [SD-001] | [RC-006], [RC-020], [RC-026], [RC-031], [RC-032] |
+| [SD-001] | SD | [OC-001] | [DCD-001] | [RC-007], [RC-020], [RC-021], [RC-031], [RC-032] |
+| [DCD-001] | DCD | [UC-001], [DM-001], [DM-002], [OC-001], [SD-001], [DICT-001] | [DCD-002] | [RC-021], [RC-031], [RC-032] |
+| [DCD-002] | DCD | [DCD-001], [DCD-003], [DM-002], [DICT-001] | - | [RC-021], [RC-028], [RC-029], [RC-030], [RC-031], [RC-032] |
 
 ## Coverage Notes
 
@@ -87,6 +87,7 @@ updated whenever an artifact instance is created or reviewed.
 [RC-029]: ./reviews/rc-029-default-config-files.md
 [RC-030]: ./reviews/rc-030-env-optional.md
 [RC-031]: ./reviews/rc-031-gitea-only-remote.md
+[RC-032]: ./reviews/rc-032-exclude-framework-files.md
 [DCD-001]: ../uc-001/dcd.md
 [DCD-002]: ../dcd.md
 [UCD-001]: ../use-case-diagram.md
@@ -121,5 +122,5 @@ updated whenever an artifact instance is created or reviewed.
 [RC-015]: ./reviews/rc-015-mil-003.md
 [RC-016]: ./reviews/rc-016-create-project-sh.md
 [RC-017]: ./reviews/rc-017-e2e-security-review.md
-[039a28c]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/039a28c01b56f8cf0af73f55d1a604b43d67ba03
 [08cb484]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/commit/08cb484498bab3d9480decda9df89e9564438185
+[1b1b6be]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/commit/1b1b6bec2effe5f566479ef94fcc5bc73a9fd609

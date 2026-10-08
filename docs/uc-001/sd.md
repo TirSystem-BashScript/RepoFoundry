@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-08 | Accepted | Jens Tirsvad Nielsen | S02 | build() no longer receives the GitHub repository and returns a local project with the remote origin; P9 (MIL-008) | [039a28c] |
-| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | install() excludes the installed files from git with excludeFromGit() and returns the tracked paths; P15 (MIL-009) | [08cb484] |
+| 2026-10-08 | Deprecated | Jens Tirsvad Nielsen | S02 | build() no longer receives the GitHub repository and returns a local project with the remote origin; P9 (MIL-008) | [039a28c] |
+| 2026-10-08 | Accepted | Jens Tirsvad Nielsen | S02 | install() excludes the installed files from git with excludeFromGit() and returns the tracked paths; P15 (MIL-009) | [08cb484] |
 
 ---
 
