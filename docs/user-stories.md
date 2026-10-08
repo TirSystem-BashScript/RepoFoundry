@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-08 | Accepted | Jens Tirsvad Nielsen | S02 | US-001.03: one remote, origin; no github remote (MIL-008) | [039a28c] |
-| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | US-001.03: `.claude`, `.agents` and `AGENTS.md` are excluded from git; MIL-009 added to CrossReference | [08cb484] |
+| 2026-10-08 | Deprecated | Jens Tirsvad Nielsen | S02 | US-001.03: one remote, origin; no github remote (MIL-008) | [039a28c] |
+| 2026-10-08 | Accepted | Jens Tirsvad Nielsen | S02 | US-001.03: `.claude`, `.agents` and `AGENTS.md` are excluded from git; MIL-009 added to CrossReference | [08cb484] |
 
 ---
 

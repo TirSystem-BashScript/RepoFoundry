@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-08 | Accepted | Jens Tirsvad Nielsen | S02 | Added phase MIL-008 (proposed dates 2026-12-14 to 2026-12-18): the local project has origin as its only remote | [039a28c] |
-| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | Added phase MIL-009 (proposed dates 2026-12-21 to 2026-12-23): the framework files .claude, .agents and AGENTS.md are excluded from git | [08cb484] |
+| 2026-10-08 | Deprecated | Jens Tirsvad Nielsen | S02 | Added phase MIL-008 (proposed dates 2026-12-14 to 2026-12-18): the local project has origin as its only remote | [039a28c] |
+| 2026-10-08 | Accepted | Jens Tirsvad Nielsen | S02 | Added phase MIL-009 (proposed dates 2026-12-21 to 2026-12-23): the framework files .claude, .agents and AGENTS.md are excluded from git | [08cb484] |
 
 ---
 

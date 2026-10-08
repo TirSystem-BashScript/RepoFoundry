@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-08 | Accepted | Jens Tirsvad Nielsen | S02 | P9: no other remote is associated with the local project (MIL-008) | [039a28c] |
-| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | P15 and two exceptions: `.claude`, `.agents` and `AGENTS.md` are excluded from git; a tracked path is reported (MIL-009) | [08cb484] |
+| 2026-10-08 | Deprecated | Jens Tirsvad Nielsen | S02 | P9: no other remote is associated with the local project (MIL-008) | [039a28c] |
+| 2026-10-08 | Accepted | Jens Tirsvad Nielsen | S02 | P15 and two exceptions: `.claude`, `.agents` and `AGENTS.md` are excluded from git; a tracked path is reported (MIL-009) | [08cb484] |
 
 ---
 

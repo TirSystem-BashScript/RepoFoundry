@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-08 | Accepted | Jens Tirsvad Nielsen | S02 | LocalProjectBuilder.build() no longer takes the GitHub repository; a Local Project has one Remote, origin (MIL-008) | [039a28c] |
-| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | FrameworkInstaller.excludeFromGit() and InstallResult.trackedPaths: `.claude`, `.agents` and `AGENTS.md` are excluded from git; UC-001 P15 (MIL-009) | [08cb484] |
+| 2026-10-08 | Deprecated | Jens Tirsvad Nielsen | S02 | LocalProjectBuilder.build() no longer takes the GitHub repository; a Local Project has one Remote, origin (MIL-008) | [039a28c] |
+| 2026-10-08 | Accepted | Jens Tirsvad Nielsen | S02 | FrameworkInstaller.excludeFromGit() and InstallResult.trackedPaths: `.claude`, `.agents` and `AGENTS.md` are excluded from git; UC-001 P15 (MIL-009) | [08cb484] |
 
 ---
 

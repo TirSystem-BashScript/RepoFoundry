@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-08 | Accepted | Jens Tirsvad Nielsen | S02 | Objective 4: the local project has one remote, origin; no github remote, because a push to origin reaches GitHub through the mirror (MIL-008) | [039a28c] |
-| 2026-10-08 | Proposed | Jens Tirsvad Nielsen | S02 | Objective 5 and scope: the installed `.claude`, `.agents` and `AGENTS.md` are excluded from git in the new project (MIL-009) | [08cb484] |
+| 2026-10-08 | Deprecated | Jens Tirsvad Nielsen | S02 | Objective 4: the local project has one remote, origin; no github remote, because a push to origin reaches GitHub through the mirror (MIL-008) | [039a28c] |
+| 2026-10-08 | Accepted | Jens Tirsvad Nielsen | S02 | Objective 5 and scope: the installed `.claude`, `.agents` and `AGENTS.md` are excluded from git in the new project (MIL-009) | [08cb484] |
 
 ---
 
