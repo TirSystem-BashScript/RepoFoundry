@@ -8,7 +8,7 @@
 # shellcheck disable=SC2034  # read and written by the other library files
 
 readonly PROJECT_NAME="${REPOFOUNDRY_NAME:-RepoFoundry}"
-readonly VERSION="0.3.2"
+readonly VERSION="0.3.3"
 readonly EXIT_FAILURE=1
 readonly EXIT_USAGE=2
 readonly MAX_VALUE_LENGTH=2048
