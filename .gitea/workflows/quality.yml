@@ -1,0 +1,18 @@
+name: Quality
+
+# Calls the shared quality-check workflow of TirSystem/github-action
+# (contract: ADR-0005 there). It runs shellcheck and shfmt on the tracked
+# shell files and changes no file. Configuration comes from .shellcheckrc
+# and .editorconfig in this repository.
+on:
+  pull_request:
+  push:
+    branches: [ main ]
+
+jobs:
+  quality:
+    permissions:
+      contents: read
+    uses: TirSystem/github-action/.gitea/workflows/quality-checks.yml@main
+    with:
+      languages: shell
