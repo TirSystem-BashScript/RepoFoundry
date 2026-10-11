@@ -1,0 +1,56 @@
+name: Release
+
+# Releases this repository: creates the version tag and the release page from
+# the CHANGELOG.md entry, and only when the commit is the tip of main, its
+# Quality run is green and the changelog has an entry for the version. The
+# script is a file of TirSystem/github-action (tools/release.py), fetched at an
+# exact tag. dry_run defaults to true: it checks and prints and writes nothing,
+# so a release is a deliberate second run with dry_run false.
+#
+# release.py also keeps a moving major tag (v0 for 0.x versions) pointing to
+# the highest release of its major version, as in TirSystem/github-action.
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version to release, MAJOR.MINOR.PATCH without a leading v"
+        required: true
+      dry_run:
+        description: "true checks only; false creates the tag and the release page"
+        required: false
+        default: "true"
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4.2.2
+
+      - name: Fetch the shared script
+        uses: actions/checkout@v4.2.2
+        with:
+          repository: TirSystem/github-action
+          ref: v1.1.0
+          path: shared-scripts
+
+      - name: Check and publish the release
+        env:
+          GITEA_API_URL: ${{ gitea.api_url }}
+          SOURCE_REPOSITORY: ${{ gitea.repository }}
+          RELEASE_CREDENTIALS: ${{ secrets.TOKEN_FOR_GITEA_RELEASE || github.token }}
+          RELEASE_VERSION: ${{ inputs.version }}
+          RELEASE_DRY_RUN: ${{ inputs.dry_run }}
+          RELEASE_SHA: ${{ gitea.sha }}
+          # The status context of the Quality run on the commit. Check the exact
+          # text on a pull request and correct it here if the dry run says the
+          # run was not found.
+          VALIDATION_CONTEXT: "Quality / quality / quality-checks (push)"
+        run: python3 shared-scripts/tools/release.py
