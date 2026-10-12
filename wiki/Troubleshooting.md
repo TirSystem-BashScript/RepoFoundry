@@ -1,3 +1,5 @@
+English | [Dansk](Troubleshooting.da) | [Bahasa Melayu](Troubleshooting.ms)
+
 # Troubleshooting
 
 | Symptom | What to check |

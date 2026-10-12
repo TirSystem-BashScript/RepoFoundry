@@ -1,3 +1,5 @@
+English | [Dansk](UpdatingTheFramework.da) | [Bahasa Melayu](UpdatingTheFramework.ms)
+
 # Updating the framework
 
 A project created by Repo Foundry holds the SQA-QC-Framework as the git submodule `framework`. A clone or a `git pull` does not move it: the project stays on the framework commit it recorded. To keep the framework up to date, run this in the project, from its root:
@@ -49,7 +51,7 @@ git submodule update --init --remote --recursive framework
 
 3. If you added your own rules, copy the new or changed template sections into `AGENTS.md` by hand and keep yours. Replacing the file would lose them.
 
-Repo Foundry adds `/AGENTS.md` to `.git/info/exclude` in the new project, so git does not list the file and the change is not a commit: it only affects your working copy. Do not do the same with `docs/artifact-registry.md`: it holds your project's own rows, so only compare it with `framework/templates/artifact-registry-template.md` and copy what you need.
+Repo Foundry adds `/AGENTS.md` to `.git/info/exclude` in the new project, so git does not list the file and the change is not a commit: it only affects your working copy. Do not replace `docs/artifact-registry.md` the same way: it holds your project's own rows, so only compare it with `framework/templates/artifact-registry-template.md` and copy what you need.
 
 ## Notes
 

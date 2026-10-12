@@ -1,3 +1,5 @@
+English | [Dansk](GettingStarted.da) | [Bahasa Melayu](GettingStarted.ms)
+
 # Getting started
 
 ## Requirements

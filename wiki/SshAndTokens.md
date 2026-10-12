@@ -1,3 +1,5 @@
+English | [Dansk](SshAndTokens.da) | [Bahasa Melayu](SshAndTokens.ms)
+
 # SSH and tokens
 
 ## SSH access to Gitea

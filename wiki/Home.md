@@ -1,3 +1,5 @@
+English | [Dansk](Home.da) | [Bahasa Melayu](Home.ms)
+
 # Repo Foundry
 
 Repo Foundry (`src/create-project.sh`) sets up a new project in one run:
