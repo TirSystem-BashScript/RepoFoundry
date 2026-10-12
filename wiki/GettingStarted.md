@@ -22,7 +22,7 @@ Nothing is installed system-wide: the script runs from the checkout.
 
 ## Configure
 
-Copy `config.env.example` to `config.env` and `.env.example` to `.env`, then set the service addresses and the tokens (see [SSH and tokens](SSH-and-tokens)). `.env` holds credentials and is never committed.
+Copy `config.env.example` to `config.env` and `.env.example` to `.env`, then set the service addresses and the tokens (see [SSH and tokens](SshAndTokens)). `.env` holds credentials and is never committed.
 
 ## Run
 
