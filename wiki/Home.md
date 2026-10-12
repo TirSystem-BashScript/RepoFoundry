@@ -14,6 +14,7 @@ It is a Bash script. It shows a plan first and creates nothing until you pass `-
 | --- | --- |
 | [Getting started](GettingStarted) | Requirements, install and the first run |
 | [SSH and tokens](SshAndTokens) | SSH access to Gitea and the two access tokens |
+| [Updating the framework](UpdatingTheFramework) | Keep the framework submodule of a project up to date |
 | [Troubleshooting](Troubleshooting) | Common failures and what to do |
 
 The full reference (configuration files, security decisions, error handling, known limitations) is the [README](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/src/branch/main/README.md).

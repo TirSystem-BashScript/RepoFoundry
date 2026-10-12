@@ -1,4 +1,5 @@
 - [Home](Home)
 - [Getting started](GettingStarted)
 - [SSH and tokens](SshAndTokens)
+- [Updating the framework](UpdatingTheFramework)
 - [Troubleshooting](Troubleshooting)
