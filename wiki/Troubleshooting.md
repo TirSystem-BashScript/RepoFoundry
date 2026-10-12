@@ -7,4 +7,4 @@
 | A host rejects the token | The token is current and has the scopes in [SSH and tokens](SSH-and-tokens) |
 | A run stopped half way | Fix the cause and run the same command again with `--apply`: what was already created is offered for reuse |
 
-More: [Error handling and recovery](https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/src/branch/main/README.md#error-handling-and-recovery) and [Known limitations](https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/src/branch/main/README.md#known-limitations) in the README.
+More: [Error handling and recovery](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/src/branch/main/README.md#error-handling-and-recovery) and [Known limitations](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/src/branch/main/README.md#known-limitations) in the README.

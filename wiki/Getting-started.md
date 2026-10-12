@@ -13,8 +13,8 @@
 ## Install
 
 ```bash
-git clone https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry.git
-cd RepoFoundry
+git clone https://git.tirsystem.com/TirSystem-BashScript/repo-foundry.git
+cd repo-foundry
 src/create-project.sh --help
 ```
 

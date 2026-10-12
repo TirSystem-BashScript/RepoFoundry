@@ -16,5 +16,5 @@ It is a Bash script. It shows a plan first and creates nothing until you pass `-
 | [SSH and tokens](SSH-and-tokens) | SSH access to Gitea and the two access tokens |
 | [Troubleshooting](Troubleshooting) | Common failures and what to do |
 
-The full reference (configuration files, security decisions, error handling, known limitations) is the [README](https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/src/branch/main/README.md).
-Report a problem as an [issue](https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/issues).
+The full reference (configuration files, security decisions, error handling, known limitations) is the [README](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/src/branch/main/README.md).
+Report a problem as an [issue](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/issues).
