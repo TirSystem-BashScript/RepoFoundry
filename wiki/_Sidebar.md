@@ -1,4 +1,4 @@
 - [Home](Home)
-- [Getting started](Getting-started)
-- [SSH and tokens](SSH-and-tokens)
+- [Getting started](GettingStarted)
+- [SSH and tokens](SshAndTokens)
 - [Troubleshooting](Troubleshooting)
