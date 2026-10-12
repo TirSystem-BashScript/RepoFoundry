@@ -1,8 +1,10 @@
 name: Quality
 
-# Shell checks (shellcheck, shfmt) with the shared reusable workflow of
-# TirSystem/github-action. It changes no file and needs no secret. The release
-# workflow requires this run to be green on the commit it releases.
+# Calls the shared quality-check workflow of TirSystem/github-action
+# (contract: ADR-0005 there). It runs shellcheck and shfmt on the tracked
+# shell files and changes no file. Configuration comes from .shellcheckrc
+# and .editorconfig in this repository. The release workflow requires this run
+# to be green on the commit it releases.
 on:
   pull_request:
   push:
@@ -13,8 +15,9 @@ jobs:
   quality:
     permissions:
       contents: read
+    # Pinned to an exact tag, never to main; tools-ref pins the script to the
+    # same tag, so the whole check is fixed.
     uses: TirSystem/github-action/.gitea/workflows/quality-checks.yml@v1.1.0
     with:
       languages: shell
-      # Pinned to the same tag as the workflow, so the whole check is fixed.
       tools-ref: v1.1.0
