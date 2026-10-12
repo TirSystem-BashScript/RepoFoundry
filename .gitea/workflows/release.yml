@@ -52,5 +52,5 @@ jobs:
           # The status context of the Quality run on the commit. Check the exact
           # text on a pull request and correct it here if the dry run says the
           # run was not found.
-          VALIDATION_CONTEXT: "Quality / quality / quality-checks (push)"
+          VALIDATION_CONTEXT: "Quality / quality (push)"
         run: python3 shared-scripts/tools/release.py
