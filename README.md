@@ -52,8 +52,8 @@ Requirements:
 | `jq` (optional) | JSON parsing; without it a small built-in reader is used |
 
 ```bash
-git clone https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry.git
-cd RepoFoundry
+git clone https://git.tirsystem.com/TirSystem-BashScript/repo-foundry.git
+cd repo-foundry
 src/create-project.sh --help
 ```
 
@@ -69,7 +69,7 @@ command (below):
 
 ```bash
 cd ~/work                                  # the folder that will hold my-app
-~/src/RepoFoundry/src/create-project.sh    # creates ~/work/my-app
+~/src/repo-foundry/src/create-project.sh    # creates ~/work/my-app
 ```
 
 ### Make it a global command
@@ -104,7 +104,7 @@ run `export MSYS=winsymlinks:nativestrict` before the `ln -s`, or use an alias
 in `~/.bashrc`, which works because the script finds its own folder:
 
 ```bash
-alias repo-foundry='bash /c/Users/me/RepoFoundry/src/create-project.sh'
+alias repo-foundry='bash /c/Users/me/repo-foundry/src/create-project.sh'
 ```
 
 ## Configuration
