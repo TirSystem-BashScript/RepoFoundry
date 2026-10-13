@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-08 | Deprecated | Jens Tirsvad Nielsen | S02 | US-001.03: `.claude`, `.agents` and `AGENTS.md` are excluded from git; MIL-009 added to CrossReference | [08cb484] |
-| 2026-10-13 | Accepted | Jens Tirsvad Nielsen | S02 | US-001.05: a `.env` shared with the wiki publishing may hold `TOKEN_FOR_GITEA_WIKI`, which is never asked for; MIL-010 added to CrossReference | pending |
+| 2026-10-13 | Accepted | Jens Tirsvad Nielsen | S02 | US-001.05: a `.env` shared with the wiki publishing may hold `TOKEN_FOR_GITEA_WIKI`, which is never asked for; MIL-010 added to CrossReference | [9cca295] |
 
 ---
 
@@ -172,3 +172,4 @@ Valuable, Negotiable, Estimable, Small and Testable hold for each story. Indepen
 [MIL-010]: ./milestones/mil-010-wiki-token-and-access-token-guide.md
 [PP-001]: ./project-plan.md
 [08cb484]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/commit/08cb484498bab3d9480decda9df89e9564438185
+[9cca295]: https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/commit/9cca29579f032538902e9cfe929bb3c7768281ab

@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-08 | Deprecated | Jens Tirsvad Nielsen | S02 | Added phase MIL-009 (proposed dates 2026-12-21 to 2026-12-23): the framework files .claude, .agents and AGENTS.md are excluded from git | [08cb484] |
-| 2026-10-13 | Accepted | Jens Tirsvad Nielsen | S02 | Added phase MIL-010 (proposed dates 2026-12-28 to 2026-12-30): the wiki token is accepted in .env and the access-token guide moves to the wiki | pending |
+| 2026-10-13 | Accepted | Jens Tirsvad Nielsen | S02 | Added phase MIL-010 (proposed dates 2026-12-28 to 2026-12-30): the wiki token is accepted in .env and the access-token guide moves to the wiki | [9cca295] |
 
 ---
 
@@ -129,3 +129,4 @@ A No-Go moves every later date by the time needed to rework the failed criteria.
 [Milestone 44]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/milestone/44
 [Milestone 45]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/milestone/45
 [08cb484]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/commit/08cb484498bab3d9480decda9df89e9564438185
+[9cca295]: https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/commit/9cca29579f032538902e9cfe929bb3c7768281ab

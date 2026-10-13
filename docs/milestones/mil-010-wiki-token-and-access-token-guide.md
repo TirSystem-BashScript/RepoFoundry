@@ -9,7 +9,7 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-13 | Accepted | Jens Tirsvad Nielsen | S02 | Initial version | pending |
+| 2026-10-13 | Accepted | Jens Tirsvad Nielsen | S02 | Initial version | [9cca295] |
 
 ---
 
@@ -74,3 +74,4 @@ The credentials the script asks for do not change, and no host request changes. 
 [BC-001]: ../business-case.md
 [US-001]: ../user-stories.md
 [MIL-005]: ./mil-005-credentials.md
+[9cca295]: https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/commit/9cca29579f032538902e9cfe929bb3c7768281ab
