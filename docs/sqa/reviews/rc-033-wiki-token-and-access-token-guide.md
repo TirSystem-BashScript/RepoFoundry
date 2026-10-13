@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-13 | Deprecated | Jens Tirsvad Nielsen | S02 | Initial version: draft for S02's decision | [9cca295] |
-| 2026-10-13 | Accepted | Jens Tirsvad Nielsen | S02 | Action item closed: the published wiki did not show the pictures, so the guide references them by their address on `main` | [bfe402d] |
+| 2026-10-13 | Deprecated | Jens Tirsvad Nielsen | S02 | Action item closed: the published wiki did not show the pictures, so the guide references them by their address on `main` | [bfe402d] |
+| 2026-10-13 | Accepted | Jens Tirsvad Nielsen | S02 | Last action item closed: the nine pictures of AccessTokens, in three languages, return 200 on the published wiki | [294bb61] |
 
 ---
 
@@ -59,7 +59,7 @@ Go — every criterion of the checklist passes and the changed documents agree w
 
 | Action | Owner | Due |
 | --- | --- | --- |
-| Closed 2026-10-13: the check found the pictures missing and the pages now use addresses on `main`. Open: confirm after the merge that the nine pictures show on the published wiki | S01 | After the merge |
+| Closed 2026-10-13: the pictures were missing, the pages now use addresses on `main`, and after the merge of the fix all 27 picture references (nine in each of the three languages) return 200 on the published wiki | S01 | Done |
 
 ---
 
@@ -72,5 +72,5 @@ Go — every criterion of the checklist passes and the changed documents agree w
 [PP-001]: ../../project-plan.md
 [TM-001]: ../traceability-matrix.md
 [RC-032]: ./rc-032-exclude-framework-files.md
-[9cca295]: https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/commit/9cca29579f032538902e9cfe929bb3c7768281ab
 [bfe402d]: https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/commit/bfe402d217df6559ce9c018011393ba33e199592
+[294bb61]: https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/commit/294bb61e53142fffce8eb6545356163ddd791148
