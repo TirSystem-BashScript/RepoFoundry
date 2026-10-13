@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-13 | Deprecated | Jens Tirsvad Nielsen | S02 | Added MIL-010 (wiki token accepted, access-token guide in the wiki) and review RC-033, Go | [9cca295] |
-| 2026-10-13 | Accepted | Jens Tirsvad Nielsen | S02 | Added MIL-011 (release 0.3.4) and review RC-034, Go | pending |
+| 2026-10-13 | Accepted | Jens Tirsvad Nielsen | S02 | Added MIL-011 (release 0.3.4) and review RC-034, Go | [5f42d66] |
 
 ---
 
@@ -129,3 +129,4 @@ updated whenever an artifact instance is created or reviewed.
 [RC-016]: ./reviews/rc-016-create-project-sh.md
 [RC-017]: ./reviews/rc-017-e2e-security-review.md
 [9cca295]: https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/commit/9cca29579f032538902e9cfe929bb3c7768281ab
+[5f42d66]: https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/commit/5f42d660cf2a4a5e8b7ef7fa20824bc527802597

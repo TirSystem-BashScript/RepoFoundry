@@ -9,7 +9,7 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-13 | Accepted | Jens Tirsvad Nielsen | S02 | Initial version | pending |
+| 2026-10-13 | Accepted | Jens Tirsvad Nielsen | S02 | Initial version | [5f42d66] |
 
 ---
 
@@ -70,3 +70,4 @@ The change is a patch release: the one change to the script is that a `.env` tha
 [BC-001]: ../business-case.md
 [US-001]: ../user-stories.md
 [MIL-010]: ./mil-010-wiki-token-and-access-token-guide.md
+[5f42d66]: https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/commit/5f42d660cf2a4a5e8b7ef7fa20824bc527802597

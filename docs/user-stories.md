@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-13 | Deprecated | Jens Tirsvad Nielsen | S02 | US-001.05: a `.env` shared with the wiki publishing may hold `TOKEN_FOR_GITEA_WIKI`, which is never asked for; MIL-010 added to CrossReference | [9cca295] |
-| 2026-10-13 | Accepted | Jens Tirsvad Nielsen | S02 | MIL-011 added to CrossReference | pending |
+| 2026-10-13 | Accepted | Jens Tirsvad Nielsen | S02 | MIL-011 added to CrossReference | [5f42d66] |
 
 ---
 
@@ -173,3 +173,4 @@ Valuable, Negotiable, Estimable, Small and Testable hold for each story. Indepen
 [MIL-011]: ./milestones/mil-011-release-0-3-4.md
 [PP-001]: ./project-plan.md
 [9cca295]: https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/commit/9cca29579f032538902e9cfe929bb3c7768281ab
+[5f42d66]: https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/commit/5f42d660cf2a4a5e8b7ef7fa20824bc527802597

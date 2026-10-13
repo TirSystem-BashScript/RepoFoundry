@@ -9,7 +9,7 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-13 | Accepted | Jens Tirsvad Nielsen | S02 | Initial version: draft for S02's decision | pending |
+| 2026-10-13 | Accepted | Jens Tirsvad Nielsen | S02 | Initial version: draft for S02's decision | [5f42d66] |
 
 ---
 
@@ -68,3 +68,4 @@ Go — every criterion of the checklist passes and the changed documents agree w
 [PP-001]: ../../project-plan.md
 [TM-001]: ../traceability-matrix.md
 [RC-033]: ./rc-033-wiki-token-and-access-token-guide.md
+[5f42d66]: https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/commit/5f42d660cf2a4a5e8b7ef7fa20824bc527802597
