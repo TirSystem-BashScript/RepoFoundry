@@ -188,3 +188,5 @@ repofoundry.*/
 
 !src/lib
 config.env
+.agents/
+.claude/
