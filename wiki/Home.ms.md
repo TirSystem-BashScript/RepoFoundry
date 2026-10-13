@@ -1,4 +1,4 @@
-<!-- translation of Home.md, source sha256 3ab3ef0f5a55 -->
+<!-- translation of Home.md, source sha256 18808e63abb7 -->
 
 > Ini ialah terjemahan [`Home`](Home). Halaman bahasa Inggeris ialah teks yang sah, dan perubahan di sini akan ditimpa pada penerbitan wiki yang seterusnya.
 
@@ -20,6 +20,7 @@ Ia ialah skrip Bash. Ia memaparkan pelan dahulu dan tidak mencipta apa-apa sehin
 | --- | --- |
 | [Bermula](GettingStarted.ms) | Keperluan, pemasangan dan larian pertama |
 | [SSH dan token](SshAndTokens.ms) | Akses SSH ke Gitea dan dua token akses |
+| [Token akses](AccessTokens.ms) | Cipta token akses langkah demi langkah dengan gambar |
 | [Mengemas kini framework](UpdatingTheFramework.ms) | Pastikan submodul framework projek sentiasa terkini |
 | [Diagnosis](Troubleshooting.ms) | Kegagalan lazim dan tindakan yang perlu diambil |
 

@@ -1,4 +1,4 @@
-<!-- translation of SshAndTokens.md, source sha256 52d740c096c8 -->
+<!-- translation of SshAndTokens.md, source sha256 ec9001c0248b -->
 
 > Dette er en oversættelse af [`SshAndTokens`](SshAndTokens). Den engelske side er autoritativ, og ændringer her bliver overskrevet, næste gang wikien publiceres.
 
@@ -26,6 +26,7 @@ Framework-submodulet hentes over SSH på port **10022**. Før du kører scriptet
 | Token | Nøgle i `.env` | Nødvendig | Type |
 | --- | --- | --- | --- |
 | Gitea-adgangstoken | `GITEA_TOKEN` | altid | adgangstoken med scopes |
-| GitHub personal access token | `GITHUB_PAT` | kun hvis du vælger GitHub | **klassisk** personal access token |
+| GitHub personal access token | `GITHUB_PAT` | påkrævet, når du vælger GitHub (spejlet) | **klassisk** personal access token |
+| Gitea-adgangstoken til wikien | `TOKEN_FOR_GITEA_WIKI` | valgfri (kun for at udgive wikien) | adgangstoken kun med repository-skriveadgang (`write:repository`); scriptet accepterer den, men bruger den aldrig |
 
-Trin for trin med billeder: [sådan opretter du adgangstokens](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/src/branch/main/howto/create-access-tokens.md). De præcise tilladelser står under [Token permissions](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/src/branch/main/README.md#token-permissions) i README.
+Trin for trin med billeder: [sådan opretter du adgangstokens](AccessTokens.da). De præcise tilladelser står under [Token permissions](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/src/branch/main/README.md#token-permissions) i README.

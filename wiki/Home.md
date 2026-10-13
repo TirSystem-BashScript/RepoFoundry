@@ -16,6 +16,7 @@ It is a Bash script. It shows a plan first and creates nothing until you pass `-
 | --- | --- |
 | [Getting started](GettingStarted) | Requirements, install and the first run |
 | [SSH and tokens](SshAndTokens) | SSH access to Gitea and the two access tokens |
+| [Access tokens](AccessTokens) | Create the access tokens, step by step with pictures |
 | [Updating the framework](UpdatingTheFramework) | Keep the framework submodule of a project up to date |
 | [Troubleshooting](Troubleshooting) | Common failures and what to do |
 

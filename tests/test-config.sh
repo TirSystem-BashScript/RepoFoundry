@@ -100,6 +100,7 @@ token too short|GITEA_TOKEN=short\n|not a valid token
 token with a backslash|GITEA_TOKEN=abc\\defgh12345\n|not a valid token
 bad GitHub token|GITEA_TOKEN=abcdefgh12345\nGITHUB_PAT=bad token\n|GITHUB_PAT
 bad GitHub user|GITEA_TOKEN=abcdefgh12345\nGITHUB_USER=-bad-\n|GITHUB_USER
+bad wiki token|TOKEN_FOR_GITEA_WIKI=short\n|TOKEN_FOR_GITEA_WIKI
 EOF
 }
 

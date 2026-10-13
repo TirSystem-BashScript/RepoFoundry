@@ -197,12 +197,13 @@ src/create-project.sh --apply        # asks only "Create these now (y/n) [n]"
 | Key | Meaning |
 | --- | --- |
 | `GITEA_TOKEN` | Gitea access token |
-| `GITHUB_PAT` | GitHub personal access token (only when you choose GitHub) |
-| `GITHUB_USER` | the GitHub account the token belongs to (only when you choose GitHub) |
+| `GITHUB_PAT` | GitHub personal access token (required when you choose GitHub, so the mirror can be created; not used otherwise) |
+| `GITHUB_USER` | the GitHub account the token belongs to (required when you choose GitHub; not used otherwise) |
+| `TOKEN_FOR_GITEA_WIKI` | optional: Gitea access token for publishing the wiki, with the repository write scope (`write:repository`) only; accepted so one `.env` serves both, never used or asked for by this script |
 
 `.env` is ignored by git. The script warns if it is readable by other users or
 not ignored by git. See [Token permissions](#token-permissions) for what each
-token needs, and [How to create the access tokens](howto/create-access-tokens.md)
+token needs, and [How to create the access tokens](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/wiki/AccessTokens)
 for the steps, with pictures, to create the Gitea and the GitHub token.
 
 `.env` is optional, and so is each key in it. A credential that is not
@@ -364,7 +365,7 @@ Both tokens go in `.env` (never in `config.env`, never in a remote URL). The
 script sends them only in a request header, through a private temporary file,
 and never prints them.
 
-New to this? [How to create the access tokens](howto/create-access-tokens.md)
+New to this? [How to create the access tokens](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/wiki/AccessTokens)
 walks through both, step by step, with pictures.
 
 ### GitHub token (`GITHUB_PAT`, only when you choose GitHub)

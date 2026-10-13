@@ -4,13 +4,13 @@
 | Key | Value |
 | --- | --- |
 | ID | US-001 |
-| CrossReference | [BC-001], [UCD-001], [UC-002], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006], [MIL-007], [MIL-008], [MIL-009] |
+| CrossReference | [BC-001], [UCD-001], [UC-002], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006], [MIL-007], [MIL-008], [MIL-009], [MIL-010] |
 
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-08 | Deprecated | Jens Tirsvad Nielsen | S02 | US-001.03: one remote, origin; no github remote (MIL-008) | [039a28c] |
-| 2026-10-08 | Accepted | Jens Tirsvad Nielsen | S02 | US-001.03: `.claude`, `.agents` and `AGENTS.md` are excluded from git; MIL-009 added to CrossReference | [08cb484] |
+| 2026-10-08 | Deprecated | Jens Tirsvad Nielsen | S02 | US-001.03: `.claude`, `.agents` and `AGENTS.md` are excluded from git; MIL-009 added to CrossReference | [08cb484] |
+| 2026-10-13 | Accepted | Jens Tirsvad Nielsen | S02 | US-001.05: a `.env` shared with the wiki publishing may hold `TOKEN_FOR_GITEA_WIKI`, which is never asked for; MIL-010 added to CrossReference | [9cca295] |
 
 ---
 
@@ -90,11 +90,12 @@ The epic is split into seven stories, one per milestone (US-001.01 to US-001.07)
 - Given an entered credential is not valid, when the script checks it, then it asks again and never shows the value.
 - Given the project exists, when the Maintainer agrees, then the new project has a `.env` that holds only the credentials the project needs, is readable by its owner only and is ignored by git.
 - Given the Maintainer declines, or `.env` already exists in the project and the Maintainer declines replacing it, then no `.env` is written or replaced and the summary says so.
+- Given `.env` also holds `TOKEN_FOR_GITEA_WIKI`, when the script runs, then it is read without an error, is never asked for, with or without GitHub chosen, and never appears in output.
 - Given any run, then no credential appears in output, remotes, tracked files or the summary.
 
 | Traces to | Size | INVEST exceptions |
 | --- | --- | --- |
-| [UC-001] steps 2 and 9, [MIL-005] | fits one phase | Independent: needs the local project of US-001.03 |
+| [UC-001] steps 2 and 9, [MIL-005], [MIL-010] | fits one phase | Independent: needs the local project of US-001.03 |
 
 ### US-001.06 — Create a new project: choose the license in `config.env`
 
@@ -168,6 +169,7 @@ Valuable, Negotiable, Estimable, Small and Testable hold for each story. Indepen
 [MIL-007]: ./milestones/mil-007-framework-checklists.md
 [MIL-008]: ./milestones/mil-008-gitea-only-remote.md
 [MIL-009]: ./milestones/mil-009-exclude-framework-files.md
+[MIL-010]: ./milestones/mil-010-wiki-token-and-access-token-guide.md
 [PP-001]: ./project-plan.md
-[039a28c]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/039a28c01b56f8cf0af73f55d1a604b43d67ba03
 [08cb484]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/commit/08cb484498bab3d9480decda9df89e9564438185
+[9cca295]: https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/commit/9cca29579f032538902e9cfe929bb3c7768281ab
