@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-13 | Deprecated | Jens Tirsvad Nielsen | S02 | Action item closed: the published wiki did not show the pictures, so the guide references them by their address on `main` | [bfe402d] |
-| 2026-10-13 | Accepted | Jens Tirsvad Nielsen | S02 | Last action item closed: the nine pictures of AccessTokens, in three languages, return 200 on the published wiki | pending |
+| 2026-10-13 | Accepted | Jens Tirsvad Nielsen | S02 | Last action item closed: the nine pictures of AccessTokens, in three languages, return 200 on the published wiki | [294bb61] |
 
 ---
 
@@ -73,3 +73,4 @@ Go — every criterion of the checklist passes and the changed documents agree w
 [TM-001]: ../traceability-matrix.md
 [RC-032]: ./rc-032-exclude-framework-files.md
 [bfe402d]: https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/commit/bfe402d217df6559ce9c018011393ba33e199592
+[294bb61]: https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/commit/294bb61e53142fffce8eb6545356163ddd791148
