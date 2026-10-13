@@ -9,7 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-13 | Accepted | Jens Tirsvad Nielsen | S02 | Initial version: draft for S02's decision | [9cca295] |
+| 2026-10-13 | Deprecated | Jens Tirsvad Nielsen | S02 | Initial version: draft for S02's decision | [9cca295] |
+| 2026-10-13 | Accepted | Jens Tirsvad Nielsen | S02 | Action item closed: the published wiki did not show the pictures, so the guide references them by their address on `main` | pending |
 
 ---
 
@@ -47,7 +48,7 @@ Not covered by this review: the code, the wiki pages and the README are the task
 
 ## Consequences S02 accepts with a Go
 
-- The wiki pictures are published only if the shared `publish-wiki` workflow copies files other than Markdown. This was not verified here; if it does not, the pictures must be referenced by their address on `main` instead.
+- The shared `publish-wiki` workflow publishes the Markdown pages but not `wiki/img/`: the pictures returned 404 on the published wiki. The three pages therefore reference them by their address on `main` (`raw/branch/main/wiki/img/`), which resolves once the pull request is merged.
 - The pictures keep their English labels in the Danish and Bahasa Malaysia pages.
 
 ## Overall Verdict
@@ -58,7 +59,7 @@ Go — every criterion of the checklist passes and the changed documents agree w
 
 | Action | Owner | Due |
 | --- | --- | --- |
-| Check that the published wiki shows the pictures of `AccessTokens`, and fall back to addresses on `main` if it does not | S01 | After the wiki is published |
+| Closed 2026-10-13: the check found the pictures missing and the pages now use addresses on `main`. Open: confirm after the merge that the nine pictures show on the published wiki | S01 | After the merge |
 
 ---
 

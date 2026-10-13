@@ -47,7 +47,7 @@ the address you set as `GITEA_URL` in `config.env`.
 Sign in to Gitea. Click your **avatar** in the top-right corner (1), then
 choose **Settings** (2).
 
-![Step 1: the avatar menu in the top-right corner, with Settings highlighted](img/gitea-1-open-settings.svg)
+![Step 1: the avatar menu in the top-right corner, with Settings highlighted](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/wiki/img/gitea-1-open-settings.svg)
 
 ### Step 2. Open "Applications"
 
@@ -55,7 +55,7 @@ In the menu on the left, click **Applications** (1).
 
 You can also go straight there: `<your Gitea address>/user/settings/applications`.
 
-![Step 2: the Applications entry in the left menu of the settings](img/gitea-2-applications.svg)
+![Step 2: the Applications entry in the left menu of the settings](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/wiki/img/gitea-2-applications.svg)
 
 ### Step 3. Fill in the token form
 
@@ -76,7 +76,7 @@ Scroll to **Generate New Token** and fill it in:
 
 4. Click **Generate Token**.
 
-![Step 3: the token form with the name, the access choice and three permissions set to Read and Write](img/gitea-3-token-form.svg)
+![Step 3: the token form with the name, the access choice and three permissions set to Read and Write](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/wiki/img/gitea-3-token-form.svg)
 
 > **Only creating projects in organizations?** Then `user` can stay at **Read**.
 > `Read and Write` on `user` is needed only to create a repository under your
@@ -93,7 +93,7 @@ value again.
 
 If you lose the value, delete that token and generate a new one.
 
-![Step 4: the green message with the new token and a Copy button, and the token in the list below](img/gitea-4-copy-token.svg)
+![Step 4: the green message with the new token and a Copy button, and the token in the list below](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/wiki/img/gitea-4-copy-token.svg)
 
 ---
 
@@ -111,14 +111,14 @@ repository.
 Sign in to GitHub. Click your **profile picture** in the top-right corner (1),
 then **Settings** (2).
 
-![Step 1: the profile menu in the top-right corner, with Settings highlighted](img/github-1-open-settings.svg)
+![Step 1: the profile menu in the top-right corner, with Settings highlighted](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/wiki/img/github-1-open-settings.svg)
 
 ### Step 2. Open "Developer settings"
 
 In the left sidebar, scroll to the bottom and click **Developer settings** (1).
 It is the last entry.
 
-![Step 2: Developer settings at the bottom of the left sidebar](img/github-2-developer-settings.svg)
+![Step 2: Developer settings at the bottom of the left sidebar](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/wiki/img/github-2-developer-settings.svg)
 
 ### Step 3. Choose "Tokens (classic)"
 
@@ -131,7 +131,7 @@ It is the last entry.
 GitHub may ask you to confirm your password or a two-factor code. Do that
 yourself; nobody else should type it.
 
-![Step 3: Tokens (classic) in the sidebar, and Generate new token (classic) in the button menu](img/github-3-tokens-classic.svg)
+![Step 3: Tokens (classic) in the sidebar, and Generate new token (classic) in the button menu](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/wiki/img/github-3-tokens-classic.svg)
 
 > Direct address: `https://github.com/settings/tokens/new`
 
@@ -154,7 +154,7 @@ yourself; nobody else should type it.
 
 4. Scroll down and click **Generate token** (4).
 
-![Step 4: the new token form with a note, an expiration, the repo scope ticked and the Generate token button](img/github-4-token-form.svg)
+![Step 4: the new token form with a note, an expiration, the repo scope ticked and the Generate token button](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/wiki/img/github-4-token-form.svg)
 
 > **`read:org` and `admin:org`.** The README records that the check worked with
 > a token that had `repo` and `admin:org`, and that `read:org` alone is
@@ -172,7 +172,7 @@ sign-on, the token must also be authorised for that organization: in the token
 list click **Configure SSO** (2) next to the token and then **Authorize**
 for the organization.
 
-![Step 5: the green box with the new token and a copy icon, and Configure SSO in the token list](img/github-5-copy-token.svg)
+![Step 5: the green box with the new token and a copy icon, and Configure SSO in the token list](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/wiki/img/github-5-copy-token.svg)
 
 ---
 
