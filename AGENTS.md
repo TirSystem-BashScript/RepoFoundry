@@ -122,9 +122,12 @@ A change that spans repositories:
 ## Workflow order
 
 Business Case, Stakeholder Analysis, Project Plan, milestones, tasks synced as
-issues, then code. Nothing goes under `src/` or `tests/` unless a milestone
-document (`MIL-*`) is accepted and the task is a row in it (ideally a synced
-issue). If those are missing, plan with the `project-planning` skill, show the
+issues, then code, each step reviewed before the next (an artifact is done when
+its `RC-*` says `Go` and its row is `Accepted`; code is reviewed against its
+`qc-programming-*` checklist before the pull request). Nothing goes under `src/`
+or `tests/` unless a milestone document (`MIL-*`) is accepted, its latest review
+is a `Go`, and the task is a row in it (ideally a synced issue). If those are
+missing, plan with the `project-planning` skill, show the
 dry-run output of `bash framework/scripts/sync-project.sh`, and stop. The rule
 is defined once in `framework/process/plan-first-gate.md`.
 
@@ -135,7 +138,15 @@ A project with no baseline yet starts with the `create-project` skill.
 
 To enforce the gate at commit time, run
 `bash framework/scripts/install-git-hooks.sh --enable-plan-gate`: a commit that
-changes `src/` or `tests/` then needs a `Task: MIL-NNN#N` trailer.
+changes `src/` or `tests/` then needs a `Task: MIL-NNN#N` trailer for an
+accepted, reviewed milestone.
+
+A milestone that is `Accepted` with a `Go` review is published to the git host by
+the publish workflow after its merge, when the project has installed it
+(`.gitea/workflows/sync-milestones.yml` or `.github/workflows/sync-milestones.yml`,
+from `framework/templates/ci/`); do not run `sync-project.sh --apply` for it then.
+Without the workflow, or for a milestone that is still `Proposed`, running
+`--apply` is the user's decision.
 
 ## Languages
 
