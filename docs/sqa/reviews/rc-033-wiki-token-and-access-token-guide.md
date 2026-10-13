@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-13 | Deprecated | Jens Tirsvad Nielsen | S02 | Initial version: draft for S02's decision | [9cca295] |
-| 2026-10-13 | Accepted | Jens Tirsvad Nielsen | S02 | Action item closed: the published wiki did not show the pictures, so the guide references them by their address on `main` | pending |
+| 2026-10-13 | Accepted | Jens Tirsvad Nielsen | S02 | Action item closed: the published wiki did not show the pictures, so the guide references them by their address on `main` | [bfe402d] |
 
 ---
 
@@ -73,3 +73,4 @@ Go — every criterion of the checklist passes and the changed documents agree w
 [TM-001]: ../traceability-matrix.md
 [RC-032]: ./rc-032-exclude-framework-files.md
 [9cca295]: https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/commit/9cca29579f032538902e9cfe929bb3c7768281ab
+[bfe402d]: https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/commit/bfe402d217df6559ce9c018011393ba33e199592
