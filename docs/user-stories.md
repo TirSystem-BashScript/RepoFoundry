@@ -4,13 +4,13 @@
 | Key | Value |
 | --- | --- |
 | ID | US-001 |
-| CrossReference | [BC-001], [UCD-001], [UC-002], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006], [MIL-007], [MIL-008], [MIL-009], [MIL-010] |
+| CrossReference | [BC-001], [UCD-001], [UC-002], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006], [MIL-007], [MIL-008], [MIL-009], [MIL-010], [MIL-011] |
 
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-08 | Deprecated | Jens Tirsvad Nielsen | S02 | US-001.03: `.claude`, `.agents` and `AGENTS.md` are excluded from git; MIL-009 added to CrossReference | [08cb484] |
-| 2026-10-13 | Accepted | Jens Tirsvad Nielsen | S02 | US-001.05: a `.env` shared with the wiki publishing may hold `TOKEN_FOR_GITEA_WIKI`, which is never asked for; MIL-010 added to CrossReference | [9cca295] |
+| 2026-10-13 | Deprecated | Jens Tirsvad Nielsen | S02 | US-001.05: a `.env` shared with the wiki publishing may hold `TOKEN_FOR_GITEA_WIKI`, which is never asked for; MIL-010 added to CrossReference | [9cca295] |
+| 2026-10-13 | Accepted | Jens Tirsvad Nielsen | S02 | MIL-011 added to CrossReference | [5f42d66] |
 
 ---
 
@@ -170,6 +170,7 @@ Valuable, Negotiable, Estimable, Small and Testable hold for each story. Indepen
 [MIL-008]: ./milestones/mil-008-gitea-only-remote.md
 [MIL-009]: ./milestones/mil-009-exclude-framework-files.md
 [MIL-010]: ./milestones/mil-010-wiki-token-and-access-token-guide.md
+[MIL-011]: ./milestones/mil-011-release-0-3-4.md
 [PP-001]: ./project-plan.md
-[08cb484]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/commit/08cb484498bab3d9480decda9df89e9564438185
 [9cca295]: https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/commit/9cca29579f032538902e9cfe929bb3c7768281ab
+[5f42d66]: https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/commit/5f42d660cf2a4a5e8b7ef7fa20824bc527802597
