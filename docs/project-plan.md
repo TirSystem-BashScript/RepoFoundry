@@ -4,23 +4,23 @@
 | Key | Value |
 | --- | --- |
 | ID | PP-001 |
-| CrossReference | [BC-001], [SA-001], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006], [MIL-007], [MIL-008], [MIL-009], [US-001] |
+| CrossReference | [BC-001], [SA-001], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006], [MIL-007], [MIL-008], [MIL-009], [MIL-010], [US-001] |
 
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-08 | Deprecated | Jens Tirsvad Nielsen | S02 | Added phase MIL-008 (proposed dates 2026-12-14 to 2026-12-18): the local project has origin as its only remote | [039a28c] |
-| 2026-10-08 | Accepted | Jens Tirsvad Nielsen | S02 | Added phase MIL-009 (proposed dates 2026-12-21 to 2026-12-23): the framework files .claude, .agents and AGENTS.md are excluded from git | [08cb484] |
+| 2026-10-08 | Deprecated | Jens Tirsvad Nielsen | S02 | Added phase MIL-009 (proposed dates 2026-12-21 to 2026-12-23): the framework files .claude, .agents and AGENTS.md are excluded from git | [08cb484] |
+| 2026-10-13 | Accepted | Jens Tirsvad Nielsen | S02 | Added phase MIL-010 (proposed dates 2026-12-28 to 2026-12-30): the wiki token is accepted in .env and the access-token guide moves to the wiki | pending |
 
 ---
 
 ## Purpose
 
-Schedule the nine phases that deliver RepoFoundry (`create-project.sh` and its documentation) in dependency order. The Business Case sets no deadline, so the dates below are proposals for S01 to confirm.
+Schedule the ten phases that deliver RepoFoundry (`create-project.sh` and its documentation) in dependency order. The Business Case sets no deadline, so the dates below are proposals for S01 to confirm.
 
 ## Planning Assumptions
 
-- Week 1 starts 2026-10-05; the plan ends by 2026-12-23 (the last four phases are proposed).
+- Week 1 starts 2026-10-05; the plan ends by 2026-12-30 (the last five phases are proposed).
 - Phase length: two weeks.
 - S01 and S02 review each phase through a pull request, as described in [SA-001]. For now one person holds both roles.
 - The PO language is English, so no translated copies are kept.
@@ -38,6 +38,7 @@ Schedule the nine phases that deliver RepoFoundry (`create-project.sh` and its d
 | Framework Checklists and Usage | [MIL-007] | 2026-12-07 to 2026-12-11 | 2026-12-11 | S01 | US-001.07 | qc fetched with the framework; global command; README usage | |
 | Gitea Is the Only Remote | [MIL-008] | 2026-12-14 to 2026-12-18 | 2026-12-18 | S01 | US-001.03 | The local project has `origin` only; GitHub is reached through the mirror | |
 | Framework Files Excluded from Git | [MIL-009] | 2026-12-21 to 2026-12-23 | 2026-12-23 | S01 | US-001.03 | `.claude`, `.agents` and `AGENTS.md` excluded from git in the new project | |
+| Wiki Token and Access-Token Guide | [MIL-010] | 2026-12-28 to 2026-12-30 | 2026-12-30 | S01 | US-001.05 | `TOKEN_FOR_GITEA_WIKI` accepted in `.env`; access-token guide in the wiki | |
 
 ```plantuml
 @startgantt
@@ -60,6 +61,8 @@ Project starts 2026-10-05
 [Gitea Is the Only Remote Go/No-Go] happens 2026-12-18
 [Framework Files Excluded from Git] starts 2026-12-21 and ends 2026-12-23
 [Framework Files Excluded from Git Go/No-Go] happens 2026-12-23
+[Wiki Token and Access-Token Guide] starts 2026-12-28 and ends 2026-12-30
+[Wiki Token and Access-Token Guide Go/No-Go] happens 2026-12-30
 @endgantt
 ```
 
@@ -80,11 +83,12 @@ Project starts 2026-10-05
 | README usage from the target folder and as a global command | [MIL-007] |
 | The local project has `origin` as its only remote | [MIL-008] |
 | `.claude`, `.agents` and `AGENTS.md` excluded from git in the new project | [MIL-009] |
+| `TOKEN_FOR_GITEA_WIKI` accepted in `.env`; access-token guide in the wiki | [MIL-010] |
 
 ## Dependencies
 
 ```
-MIL-001 → MIL-002 → MIL-003 → MIL-004 → MIL-005 → MIL-006 → MIL-007 → MIL-008 → MIL-009
+MIL-001 → MIL-002 → MIL-003 → MIL-004 → MIL-005 → MIL-006 → MIL-007 → MIL-008 → MIL-009 → MIL-010
 ```
 
 A No-Go moves every later date by the time needed to rework the failed criteria.
@@ -117,11 +121,11 @@ A No-Go moves every later date by the time needed to rework the failed criteria.
 [MIL-007]: ./milestones/mil-007-framework-checklists.md
 [MIL-008]: ./milestones/mil-008-gitea-only-remote.md
 [MIL-009]: ./milestones/mil-009-exclude-framework-files.md
+[MIL-010]: ./milestones/mil-010-wiki-token-and-access-token-guide.md
 [US-001]: ./user-stories.md
 [UC-001]: ./uc-001/uc.md
 [SSD-001]: ./uc-001/ssd.md
 [Milestone 43]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/milestone/43
 [Milestone 44]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/milestone/44
 [Milestone 45]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/milestone/45
-[039a28c]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/039a28c01b56f8cf0af73f55d1a604b43d67ba03
 [08cb484]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/commit/08cb484498bab3d9480decda9df89e9564438185

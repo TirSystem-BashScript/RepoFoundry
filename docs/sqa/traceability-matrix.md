@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-08 | Deprecated | Jens Tirsvad Nielsen | S02 | Added MIL-009 (framework files excluded from git); not yet reviewed | [08cb484] |
-| 2026-10-08 | Accepted | Jens Tirsvad Nielsen | S02 | Added review RC-032 (MIL-009: framework files excluded from git), Go | [1b1b6be] |
+| 2026-10-08 | Deprecated | Jens Tirsvad Nielsen | S02 | Added review RC-032 (MIL-009: framework files excluded from git), Go | [1b1b6be] |
+| 2026-10-13 | Accepted | Jens Tirsvad Nielsen | S02 | Added MIL-010 (wiki token accepted, access-token guide in the wiki) and review RC-033, Go | pending |
 
 ---
 
@@ -24,9 +24,9 @@ updated whenever an artifact instance is created or reviewed.
 
 | Artifact Instance | Type | Upstream (Backward Link) | Downstream (Forward Link) | Last Reviewed (RC-ID) |
 | --- | --- | --- | --- | --- |
-| [BC-001] | BC | - | [SA-001], [PP-001], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006], [MIL-007], [MIL-008], [MIL-009], [US-001], [UCD-001] | [RC-010], [RC-018], [RC-020], [RC-022], [RC-029], [RC-031], [RC-032] |
+| [BC-001] | BC | - | [SA-001], [PP-001], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006], [MIL-007], [MIL-008], [MIL-009], [MIL-010], [US-001], [UCD-001] | [RC-010], [RC-018], [RC-020], [RC-022], [RC-029], [RC-031], [RC-032], [RC-033] |
 | [SA-001] | SA | [BC-001] | [UCD-001], [UC-001], [DICT-001] | [RC-013] |
-| [PP-001] | PP | [BC-001], [SA-001] | [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006], [MIL-007], [MIL-008], [MIL-009] | [RC-012], [RC-018], [RC-020], [RC-022], [RC-031], [RC-032] |
+| [PP-001] | PP | [BC-001], [SA-001] | [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006], [MIL-007], [MIL-008], [MIL-009], [MIL-010] | [RC-012], [RC-018], [RC-020], [RC-022], [RC-031], [RC-032], [RC-033] |
 | [MIL-001] | MIL | [BC-001], [PP-001] | [US-001] | [RC-011], [RC-016] |
 | [MIL-002] | MIL | [BC-001], [PP-001] | [US-001] | [RC-014], [RC-017] |
 | [MIL-003] | MIL | [BC-001], [PP-001] | [US-001] | [RC-015], [RC-017], [RC-031] |
@@ -36,8 +36,9 @@ updated whenever an artifact instance is created or reviewed.
 | [MIL-007] | MIL | [BC-001], [PP-001] | [US-001], [UC-002] | [RC-022], [RC-029], [RC-030] |
 | [MIL-008] | MIL | [BC-001], [PP-001] | [US-001] | [RC-031] |
 | [MIL-009] | MIL | [BC-001], [PP-001] | [US-001] | [RC-032] |
+| [MIL-010] | MIL | [BC-001], [PP-001], [MIL-005] | [US-001] | [RC-033] |
 | [UCD-001] | UCD | [BC-001], [SA-001] | [US-001], [UC-001], [UC-002] | [RC-009], [RC-023] |
-| [US-001] | US | [BC-001], [UCD-001], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006], [MIL-007], [MIL-008], [MIL-009] | [UC-001] | [RC-001], [RC-020], [RC-022], [RC-029], [RC-030], [RC-031], [RC-032] |
+| [US-001] | US | [BC-001], [UCD-001], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006], [MIL-007], [MIL-008], [MIL-009], [MIL-010] | [UC-001] | [RC-001], [RC-020], [RC-022], [RC-029], [RC-030], [RC-031], [RC-032], [RC-033] |
 | [UC-001] | UC | [UCD-001], [US-001], [SA-001] | [SSD-001], [DM-001] | [RC-002], [RC-020], [RC-023], [RC-031], [RC-032] |
 | [UC-002] | UC | [UCD-001], [US-001], [SA-001], [BC-001] | [SSD-002], [DM-003] | [RC-023], [RC-029], [RC-030] |
 | [SSD-002] | SSD | [UC-002], [DM-003] | [OC-002] | [RC-024], [RC-029] |
@@ -73,6 +74,7 @@ updated whenever an artifact instance is created or reviewed.
 [MIL-007]: ../milestones/mil-007-framework-checklists.md
 [MIL-008]: ../milestones/mil-008-gitea-only-remote.md
 [MIL-009]: ../milestones/mil-009-exclude-framework-files.md
+[MIL-010]: ../milestones/mil-010-wiki-token-and-access-token-guide.md
 [RC-018]: ./reviews/rc-018-mil-004.md
 [RC-019]: ./reviews/rc-019-mil-004-code.md
 [RC-020]: ./reviews/rc-020-mil-005.md
@@ -88,6 +90,7 @@ updated whenever an artifact instance is created or reviewed.
 [RC-030]: ./reviews/rc-030-env-optional.md
 [RC-031]: ./reviews/rc-031-gitea-only-remote.md
 [RC-032]: ./reviews/rc-032-exclude-framework-files.md
+[RC-033]: ./reviews/rc-033-wiki-token-and-access-token-guide.md
 [DCD-001]: ../uc-001/dcd.md
 [DCD-002]: ../dcd.md
 [UCD-001]: ../use-case-diagram.md
@@ -122,5 +125,4 @@ updated whenever an artifact instance is created or reviewed.
 [RC-015]: ./reviews/rc-015-mil-003.md
 [RC-016]: ./reviews/rc-016-create-project-sh.md
 [RC-017]: ./reviews/rc-017-e2e-security-review.md
-[08cb484]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/commit/08cb484498bab3d9480decda9df89e9564438185
 [1b1b6be]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/commit/1b1b6bec2effe5f566479ef94fcc5bc73a9fd609

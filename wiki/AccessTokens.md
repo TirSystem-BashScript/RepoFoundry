@@ -1,3 +1,5 @@
+English | [Dansk](AccessTokens.da) | [Bahasa Melayu](AccessTokens.ms)
+
 # How to create the access tokens RepoFoundry needs
 
 RepoFoundry talks to two hosts and needs one token for each:
@@ -5,10 +7,15 @@ RepoFoundry talks to two hosts and needs one token for each:
 | Token | Key | Needed | Type |
 | --- | --- | --- | --- |
 | Gitea access token | `GITEA_TOKEN` | always | an access token with scopes |
-| GitHub personal access token | `GITHUB_PAT` | only when you choose GitHub | a **classic** personal access token (PAT) |
+| GitHub personal access token | `GITHUB_PAT` | required when you choose GitHub (the mirror) | a **classic** personal access token (PAT) |
+| Gitea access token for the wiki | `TOKEN_FOR_GITEA_WIKI` | optional (only to publish the wiki) | an access token with the repository write scope (`write:repository`) only |
 
-This guide shows both, step by step. The red numbers in each picture match the
-numbered steps next to it.
+`TOKEN_FOR_GITEA_WIKI` is not used by RepoFoundry. It is listed because the
+same `.env` may hold it, and RepoFoundry accepts it there. Create it the same
+way as the Gitea token in part 1, ticking only the repository write scope.
+
+This guide shows the first two, step by step. The red numbers in each picture
+match the numbered steps next to it.
 
 > **About the pictures.** They are drawings of the pages, not screenshots, so
 > that they show no account data. Names, colors and the position of a control
@@ -17,7 +24,7 @@ numbered steps next to it.
 > pictures; on your screen you see its real value.
 
 The full list of what each token may do is in
-[Token permissions](../README.md#token-permissions) in the README. This guide
+[Token permissions](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/src/branch/main/README.md#token-permissions) in the README. This guide
 is the click-by-click version of it.
 
 Contents:
@@ -195,10 +202,12 @@ remove the brackets:
 GITEA_TOKEN=<the Gitea token>
 GITHUB_PAT=<the GitHub token>
 GITHUB_USER=<your GitHub account name>
+TOKEN_FOR_GITEA_WIKI=<the Gitea token for the wiki, repository write scope only>
 ```
 
-`GITHUB_PAT` and `GITHUB_USER` are needed only when you create a GitHub
-repository. Git ignores `.env`. Never commit it, send it, or paste it into a
+`GITHUB_PAT` and `GITHUB_USER` are required only when you choose GitHub (the
+mirror); otherwise leave them out. `TOKEN_FOR_GITEA_WIKI` is optional and only
+needed to publish the wiki. Git ignores `.env`. Never commit it, send it, or paste it into a
 chat or an issue.
 
 Then check the setup with a dry run, which only reads from the hosts and

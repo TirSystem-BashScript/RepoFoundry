@@ -40,8 +40,9 @@
 #               the optional GITEA_SSH_PORT (default 10022), MIRROR_INTERVAL
 #               (default 10m0s) and FRAMEWORK_REPO (default
 #               TirSystem/SQA-QC-Framework, the submodule's OWNER/NAME)
-#   .env        GITHUB_PAT, GITHUB_USER, GITEA_TOKEN (all optional, each
-#               asked when missing)
+#   .env        GITHUB_PAT, GITHUB_USER (required only when GitHub is chosen),
+#               GITEA_TOKEN (always required); each is asked when missing.
+#               TOKEN_FOR_GITEA_WIKI is optional and not used here
 #
 # Environment
 #   REPOFOUNDRY_NAME       project name used in messages (default: RepoFoundry)

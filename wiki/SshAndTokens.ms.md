@@ -1,4 +1,4 @@
-<!-- translation of SshAndTokens.md, source sha256 52d740c096c8 -->
+<!-- translation of SshAndTokens.md, source sha256 ec9001c0248b -->
 
 > Ini ialah terjemahan [`SshAndTokens`](SshAndTokens). Halaman bahasa Inggeris ialah teks yang sah, dan perubahan di sini akan ditimpa pada penerbitan wiki yang seterusnya.
 
@@ -26,6 +26,7 @@ Submodul framework diambil melalui SSH pada port **10022**. Sebelum anda menjala
 | Token | Kunci dalam `.env` | Diperlukan | Jenis |
 | --- | --- | --- | --- |
 | Token akses Gitea | `GITEA_TOKEN` | sentiasa | token akses dengan skop |
-| GitHub personal access token | `GITHUB_PAT` | hanya jika anda memilih GitHub | personal access token **klasik** |
+| GitHub personal access token | `GITHUB_PAT` | diperlukan apabila anda memilih GitHub (cermin) | personal access token **klasik** |
+| Token akses Gitea untuk wiki | `TOKEN_FOR_GITEA_WIKI` | pilihan (hanya untuk menerbitkan wiki) | token akses dengan skop tulis repositori sahaja (`write:repository`); skrip menerimanya tetapi tidak pernah menggunakannya |
 
-Langkah demi langkah dengan gambar: [cara mencipta token akses](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/src/branch/main/howto/create-access-tokens.md). Kebenaran yang tepat terdapat di bawah [Token permissions](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/src/branch/main/README.md#token-permissions) dalam README.
+Langkah demi langkah dengan gambar: [cara mencipta token akses](AccessTokens.ms). Kebenaran yang tepat terdapat di bawah [Token permissions](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/src/branch/main/README.md#token-permissions) dalam README.

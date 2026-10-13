@@ -155,6 +155,11 @@ validate_credentials() {
   if [[ -n ${CREDENTIALS[GITHUB_PAT]:-} ]]; then
     SECRET_VALUES+=("${CREDENTIALS[GITHUB_PAT]}")
   fi
+  if [[ -n ${CREDENTIALS[TOKEN_FOR_GITEA_WIKI]:-} ]]; then
+    SECRET_VALUES+=("${CREDENTIALS[TOKEN_FOR_GITEA_WIKI]}")
+    is_valid_token "${CREDENTIALS[TOKEN_FOR_GITEA_WIKI]}" ||
+      die "TOKEN_FOR_GITEA_WIKI in $ENV_FILE is not a valid token ($HINT_TOKEN)"
+  fi
   if [[ -n ${CREDENTIALS[GITEA_TOKEN]:-} ]] &&
     ! is_valid_token "${CREDENTIALS[GITEA_TOKEN]}"; then
     die "GITEA_TOKEN in $ENV_FILE is not a valid token ($HINT_TOKEN)"

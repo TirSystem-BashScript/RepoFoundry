@@ -1,4 +1,4 @@
-<!-- translation of Home.md, source sha256 3ab3ef0f5a55 -->
+<!-- translation of Home.md, source sha256 18808e63abb7 -->
 
 > Dette er en oversættelse af [`Home`](Home). Den engelske side er autoritativ, og ændringer her bliver overskrevet, næste gang wikien publiceres.
 
@@ -20,6 +20,7 @@ Det er et Bash-script. Det viser først en plan og opretter intet, før du angiv
 | --- | --- |
 | [Kom godt i gang](GettingStarted.da) | Krav, installation og første kørsel |
 | [SSH og tokens](SshAndTokens.da) | SSH-adgang til Gitea og de to adgangstokens |
+| [Adgangstokens](AccessTokens.da) | Opret adgangstokens trin for trin med billeder |
 | [Opdatering af frameworket](UpdatingTheFramework.da) | Hold et projekts framework-submodul opdateret |
 | [Fejlfinding](Troubleshooting.da) | Almindelige fejl og hvad du skal gøre |
 

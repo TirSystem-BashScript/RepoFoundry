@@ -136,6 +136,21 @@ test_github_credentials_are_asked_only_when_github_is_chosen() {
   assert_not_contains "token not shown" "$OUT$ERR" "$FAKE_GITHUB_PAT"
 }
 
+test_the_wiki_token_is_accepted_never_asked_and_never_shown() {
+  local wiki_token="wikiFAKEtoken1234567890"
+  setup_hosts
+  printf 'GITEA_TOKEN=%s\nTOKEN_FOR_GITEA_WIKI=%s\n' "$FAKE_GITEA_TOKEN" "$wiki_token" >"$WORK/.env"
+  run_dry_cred "$ANSWERS_GITEA_ONLY"
+  assert_status "accepted in .env" 0 "$STATUS"
+  assert_not_contains "not asked" "$ERR" "wiki"
+  assert_not_contains "not shown" "$OUT$ERR" "$wiki_token"
+  run_dry_cred "$ANSWERS_GITHUB$FAKE_GITHUB_PAT${NL}octo-user$NL"
+  assert_status "accepted with GitHub chosen" 0 "$STATUS"
+  assert_not_contains "not asked with GitHub" "$ERR" "wiki"
+  assert_not_contains "not shown with GitHub" "$OUT$ERR" "$wiki_token"
+  assert_not_contains "never sent to a host" "$(calls)" "$wiki_token"
+}
+
 test_an_invalid_asked_value_is_asked_again_and_never_shown() {
   setup_hosts
   without_env
