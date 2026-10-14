@@ -195,6 +195,86 @@ test_token_for_another_github_account_is_reported() {
   assert_contains "mirror uses the account the token belongs to" "$(cat "$WORK/curl.bodies")" '"remote_username":"someone-else"'
 }
 
+# ----------------------------------- apply: a create request that times out
+
+# append_route LINE: answer a request after the routes already written, so the
+# route that answered earlier calls keeps its turn.
+append_route() {
+  printf '%s
+' "$1" >>"$WORK/routes"
+}
+
+test_a_timed_out_github_create_that_made_an_empty_repository_is_reused() {
+  setup_hosts
+  prepend_route 'POST|api.github.com/orgs/acme-org/repos|exit28|'
+  append_route 'GET|api.github.com/repos/acme-org/my-app|200|{"empty":true}'
+  append_route 'GET|api.github.com/repos/acme-org/my-app/contents|404|{"message":"This repository is empty."}'
+  run_apply "$ANSWERS_GITHUB"$'y
+'
+  assert_status "apply" 0 "$STATUS"
+  assert_contains "reported as reused" "$OUT" "GitHub repository : reused https://github.com/acme-org/my-app"
+  assert_contains "the run goes on" "$OUT" "Gitea repository  : created"
+  assert_not_contains "no second create" "$(calls | grep -c 'POST api.github.com/orgs/acme-org/repos' || true)" "2"
+}
+
+test_a_timed_out_github_create_that_made_nothing_says_so() {
+  setup_hosts
+  prepend_route 'POST|api.github.com/orgs/acme-org/repos|exit28|'
+  run_apply "$ANSWERS_GITHUB"$'y
+'
+  assert_status "apply" 1 "$STATUS"
+  assert_contains "message" "$ERR" "the request to create the GitHub repository timed out and the repository acme-org/my-app does not exist: nothing was created on GitHub"
+  assert_not_contains "Gitea is not reached" "$(calls)" "POST https://git.example.test"
+}
+
+test_a_timed_out_github_create_that_left_content_is_not_touched() {
+  setup_hosts
+  prepend_route 'POST|api.github.com/orgs/acme-org/repos|exit28|'
+  append_route 'GET|api.github.com/repos/acme-org/my-app|200|{"empty":false}'
+  append_route 'GET|api.github.com/repos/acme-org/my-app/contents|200|[{"name":"notes.txt","type":"file"}]'
+  run_apply "$ANSWERS_GITHUB"$'y
+'
+  assert_status "apply" 1 "$STATUS"
+  assert_contains "message" "$ERR" "exists with content that this run did not add; it was not touched"
+  assert_not_contains "nothing changed" "$(calls)" "DELETE"
+  assert_not_contains "nothing changed" "$(calls)" "PUT"
+  assert_not_contains "nothing changed" "$(calls)" "PATCH"
+  assert_not_contains "Gitea is not reached" "$(calls)" "POST https://git.example.test"
+}
+
+test_a_timed_out_gitea_create_that_made_an_empty_repository_is_reused() {
+  setup_hosts
+  prepend_route 'POST|/api/v1/orgs/TirSystem/repos|exit28|'
+  append_route 'GET|/api/v1/repos/TirSystem/my-app|200|{"empty":true}'
+  append_route 'GET|/api/v1/repos/TirSystem/my-app/contents|404|{"message":"empty"}'
+  run_apply "$ANSWERS_GITHUB"$'y
+'
+  assert_status "apply" 0 "$STATUS"
+  assert_contains "GitHub was created" "$OUT" "GitHub repository : created"
+  assert_contains "Gitea reported as reused" "$OUT" "Gitea repository  : reused https://git.example.test/TirSystem/my-app"
+  assert_contains "the mirror is made" "$OUT" "Push mirror       : created"
+}
+
+test_a_timed_out_gitea_create_that_made_nothing_says_so() {
+  setup_hosts
+  prepend_route 'POST|/api/v1/orgs/TirSystem/repos|exit28|'
+  run_apply "$ANSWERS_GITHUB"$'y
+'
+  assert_status "apply" 1 "$STATUS"
+  assert_contains "message" "$ERR" "the request to create the Gitea repository timed out and the repository TirSystem/my-app does not exist: nothing was created on Gitea"
+  assert_not_contains "no mirror" "$(calls)" "push_mirrors"
+}
+
+test_a_connection_failure_of_a_create_request_is_not_treated_as_a_timeout() {
+  setup_hosts
+  prepend_route 'POST|api.github.com/orgs/acme-org/repos|exit7|'
+  run_apply "$ANSWERS_GITHUB"$'y
+'
+  assert_status "apply" 1 "$STATUS"
+  assert_contains "message" "$ERR" "could not reach api.github.com: could not connect"
+  assert_not_contains "no read back" "$(calls)" "GET https://api.github.com/repos/acme-org/my-app/contents"
+}
+
 # ------------------------------------------------------------ apply: success
 
 test_apply_creates_repositories_and_mirror_in_order() {

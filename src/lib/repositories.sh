@@ -4,7 +4,7 @@
 #
 # Part of create-project.sh: sourced by it, never run on its own.
 #
-# Provides: repo_body, create_repository
+# Provides: repo_body, settle_timed_out_create, create_repository
 
 # repo_body HOST: the JSON body that creates the repository on HOST.
 repo_body() {
@@ -27,6 +27,28 @@ repo_body() {
     "${PROJECT[name]}" "$description" "$private" "$DEFAULT_BRANCH" "$extra"
 }
 
+# settle_timed_out_create HOST LABEL: the create request got no answer, so the
+# host may have made the repository anyway. Ask the host and go on only when
+# the repository exists and holds nothing but what this script adds; the
+# repository was free before the request, so it is the one this run made.
+settle_timed_out_create() {
+  local host="$1" label="$2" owner
+  owner="$(repo_owner "$host")"
+  inspect_repository "$host"
+  case "${STATE[${host}_repo]}" in
+    free)
+      die "the request to create the $label timed out and the repository $owner/${PROJECT[name]} does not exist: nothing was created on $(host_label "$host"); run the same command again"
+      ;;
+    empty) return 0 ;;
+    initial_only)
+      if [[ $host == gitea && -n ${PROJECT[license]} ]]; then
+        return 0
+      fi
+      ;;
+  esac
+  die "the request to create the $label timed out and the repository $owner/${PROJECT[name]} exists with content that this run did not add; it was not touched"
+}
+
 # create_repository HOST: create the repository, or reuse the existing one.
 create_repository() {
   local host="$1" label owner path
@@ -41,7 +63,13 @@ create_repository() {
   if [[ ${STATE[${host}_owner_kind]} == organization ]]; then
     path="/orgs/$owner/repos"
   fi
-  api_call "$host" POST "$path" "$(repo_body "$host")"
+  if ! try_api_call "$host" POST "$path" "$(repo_body "$host")"; then
+    # Only a timeout leaves the outcome open; any other failure ends the run.
+    ((HTTP_CURL_STATUS == 28)) || die "$HTTP_ERROR"
+    settle_timed_out_create "$host" "$label"
+    finish_step "$label" "reused" "$(repo_url "$host")"
+    return 0
+  fi
   expect_status "cannot create the $label" 201
   finish_step "$label" "created" "$(repo_url "$host")"
 }

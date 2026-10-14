@@ -4,7 +4,7 @@
 #
 # Part of create-project.sh: sourced by it, never run on its own.
 #
-# Provides: host_label, api_call, server_message, fail_request, expect_status
+# Provides: host_label, try_api_call, api_call, server_message, fail_request, expect_status
 
 host_label() {
   case "$1" in
@@ -14,21 +14,29 @@ host_label() {
   esac
 }
 
-# api_call HOST METHOD PATH [BODY]: HOST is gitea or github. A network
-# failure ends the run; the HTTP status is left in HTTP_STATUS.
-api_call() {
+# try_api_call HOST METHOD PATH [BODY]: HOST is gitea or github. Returns 1
+# on a network failure, with HTTP_ERROR and HTTP_CURL_STATUS set, so the
+# caller can decide what a failure means; the HTTP status is left in
+# HTTP_STATUS.
+try_api_call() {
   local host="$1" method="$2" path="$3" body="${4:-}"
   case "$host" in
     gitea)
       http_request "$method" "${CONFIG[GITEA_API_URL]}$path" token \
-        "${CREDENTIALS[GITEA_TOKEN]}" "$body" || die "$HTTP_ERROR"
+        "${CREDENTIALS[GITEA_TOKEN]}" "$body"
       ;;
     github)
       http_request "$method" "${CONFIG[GITHUB_API_URL]}$path" bearer \
-        "${CREDENTIALS[GITHUB_PAT]}" "$body" || die "$HTTP_ERROR"
+        "${CREDENTIALS[GITHUB_PAT]}" "$body"
       ;;
     *) die "internal error: unknown host" ;;
   esac
+}
+
+# api_call HOST METHOD PATH [BODY]: like try_api_call, but a network failure
+# ends the run.
+api_call() {
+  try_api_call "$@" || die "$HTTP_ERROR"
 }
 
 # server_message: the "message" of the last response, cleaned and shortened.
