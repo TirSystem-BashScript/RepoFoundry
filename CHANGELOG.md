@@ -13,11 +13,25 @@ file.
 
 ## [Unreleased]
 
+## [0.3.5] - 2026-10-14
+
 ### Changed
 
 - The wiki pages move from `wiki/` to `docs/wiki/` and the `.publish` marker
   is removed. The `Publish wiki` workflow (`.gitea/workflows/publish-wiki.yml`,
   from `framework/templates/ci/`) now publishes them on a push to `main`.
+- The framework submodule moves from `v0.6.2-2` to `v0.8.0` (through
+  `v0.6.3` and `v0.7.0`; `v0.8.0` adds the clean architecture folder
+  structure and names per language).
+- `AGENTS.md` takes the review gate and the milestone publishing text from the
+  framework's template.
+- The four Gitea pictures in the Access tokens wiki page are annotated
+  screenshots with numbered markers, in place of the drawn mockups. Names,
+  photos and repositories in them are blurred. The GitHub pictures are
+  unchanged.
+- The README and the wiki Home page (English, Danish and Bahasa Malaysia) say
+  that the SQA-QC-Framework is copyrighted, that access is not given by
+  default, and whom to contact.
 
 ## [0.3.4] - 2026-10-13
 
