@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-14 | Deprecated | Jens Tirsvad Nielsen | S02 | Added MIL-013 (launch tests follow the qc layout) and review RC-036 | [1348892] |
-| 2026-10-14 | Accepted | Jens Tirsvad Nielsen | S02 | Added MIL-014 (timeout of a repository create request) and review RC-037 | pending |
+| 2026-10-14 | Accepted | Jens Tirsvad Nielsen | S02 | Added MIL-014 (timeout of a repository create request) and review RC-037 | [d1120f7] |
 
 ---
 
@@ -138,3 +138,4 @@ updated whenever an artifact instance is created or reviewed.
 [RC-016]: ./reviews/rc-016-create-project-sh.md
 [RC-017]: ./reviews/rc-017-e2e-security-review.md
 [1348892]: https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/commit/13488929a11990123e5bced7c945b57f448bc9e5
+[d1120f7]: https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/commit/d1120f7da03f41e6af8b5f35d860eee5bfd5f015
