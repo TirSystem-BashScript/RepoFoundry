@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-14 | Deprecated | Jens Tirsvad Nielsen | S02 | Added MIL-012 (release 0.3.5) and review RC-035 | [4b4ec59] |
-| 2026-10-14 | Accepted | Jens Tirsvad Nielsen | S02 | Added MIL-013 (launch tests follow the qc layout) and review RC-036 | [1348892] |
+| 2026-10-14 | Deprecated | Jens Tirsvad Nielsen | S02 | Added MIL-013 (launch tests follow the qc layout) and review RC-036 | [1348892] |
+| 2026-10-14 | Accepted | Jens Tirsvad Nielsen | S02 | Added MIL-014 (timeout of a repository create request) and review RC-037 | pending |
 
 ---
 
@@ -24,9 +24,9 @@ updated whenever an artifact instance is created or reviewed.
 
 | Artifact Instance | Type | Upstream (Backward Link) | Downstream (Forward Link) | Last Reviewed (RC-ID) |
 | --- | --- | --- | --- | --- |
-| [BC-001] | BC | - | [SA-001], [PP-001], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006], [MIL-007], [MIL-008], [MIL-009], [MIL-010], [MIL-011], [MIL-012], [MIL-013], [US-001], [UCD-001] | [RC-010], [RC-018], [RC-020], [RC-022], [RC-029], [RC-031], [RC-032], [RC-033], [RC-034], [RC-035], [RC-036] |
+| [BC-001] | BC | - | [SA-001], [PP-001], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006], [MIL-007], [MIL-008], [MIL-009], [MIL-010], [MIL-011], [MIL-012], [MIL-013], [MIL-014], [US-001], [UCD-001] | [RC-010], [RC-018], [RC-020], [RC-022], [RC-029], [RC-031], [RC-032], [RC-033], [RC-034], [RC-035], [RC-036], [RC-037] |
 | [SA-001] | SA | [BC-001] | [UCD-001], [UC-001], [DICT-001] | [RC-013] |
-| [PP-001] | PP | [BC-001], [SA-001] | [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006], [MIL-007], [MIL-008], [MIL-009], [MIL-010], [MIL-011], [MIL-012], [MIL-013] | [RC-012], [RC-018], [RC-020], [RC-022], [RC-031], [RC-032], [RC-033], [RC-034], [RC-035], [RC-036] |
+| [PP-001] | PP | [BC-001], [SA-001] | [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006], [MIL-007], [MIL-008], [MIL-009], [MIL-010], [MIL-011], [MIL-012], [MIL-013], [MIL-014] | [RC-012], [RC-018], [RC-020], [RC-022], [RC-031], [RC-032], [RC-033], [RC-034], [RC-035], [RC-036], [RC-037] |
 | [MIL-001] | MIL | [BC-001], [PP-001] | [US-001] | [RC-011], [RC-016] |
 | [MIL-002] | MIL | [BC-001], [PP-001] | [US-001] | [RC-014], [RC-017] |
 | [MIL-003] | MIL | [BC-001], [PP-001] | [US-001] | [RC-015], [RC-017], [RC-031] |
@@ -40,8 +40,9 @@ updated whenever an artifact instance is created or reviewed.
 | [MIL-011] | MIL | [BC-001], [PP-001], [MIL-010] | [US-001] | [RC-034] |
 | [MIL-012] | MIL | [BC-001], [PP-001], [MIL-011] | [US-001] | [RC-035] |
 | [MIL-013] | MIL | [BC-001], [PP-001], [MIL-012] | [US-001] | [RC-036] |
+| [MIL-014] | MIL | [BC-001], [PP-001], [MIL-013] | [US-001] | [RC-037] |
 | [UCD-001] | UCD | [BC-001], [SA-001] | [US-001], [UC-001], [UC-002] | [RC-009], [RC-023] |
-| [US-001] | US | [BC-001], [UCD-001], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006], [MIL-007], [MIL-008], [MIL-009], [MIL-010], [MIL-011], [MIL-012], [MIL-013] | [UC-001] | [RC-001], [RC-020], [RC-022], [RC-029], [RC-030], [RC-031], [RC-032], [RC-033], [RC-034], [RC-035], [RC-036] |
+| [US-001] | US | [BC-001], [UCD-001], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006], [MIL-007], [MIL-008], [MIL-009], [MIL-010], [MIL-011], [MIL-012], [MIL-013], [MIL-014] | [UC-001] | [RC-001], [RC-020], [RC-022], [RC-029], [RC-030], [RC-031], [RC-032], [RC-033], [RC-034], [RC-035], [RC-036], [RC-037] |
 | [UC-001] | UC | [UCD-001], [US-001], [SA-001] | [SSD-001], [DM-001] | [RC-002], [RC-020], [RC-023], [RC-031], [RC-032] |
 | [UC-002] | UC | [UCD-001], [US-001], [SA-001], [BC-001] | [SSD-002], [DM-003] | [RC-023], [RC-029], [RC-030] |
 | [SSD-002] | SSD | [UC-002], [DM-003] | [OC-002] | [RC-024], [RC-029] |
@@ -81,6 +82,7 @@ updated whenever an artifact instance is created or reviewed.
 [MIL-011]: ../milestones/mil-011-release-0-3-4.md
 [MIL-012]: ../milestones/mil-012-release-0-3-5.md
 [MIL-013]: ../milestones/mil-013-launch-tests-qc-layout.md
+[MIL-014]: ../milestones/mil-014-github-create-timeout.md
 [RC-018]: ./reviews/rc-018-mil-004.md
 [RC-019]: ./reviews/rc-019-mil-004-code.md
 [RC-020]: ./reviews/rc-020-mil-005.md
@@ -100,6 +102,7 @@ updated whenever an artifact instance is created or reviewed.
 [RC-034]: ./reviews/rc-034-release-0-3-4.md
 [RC-035]: ./reviews/rc-035-release-0-3-5.md
 [RC-036]: ./reviews/rc-036-launch-tests-qc-layout.md
+[RC-037]: ./reviews/rc-037-github-create-timeout.md
 [DCD-001]: ../uc-001/dcd.md
 [DCD-002]: ../dcd.md
 [UCD-001]: ../use-case-diagram.md
@@ -134,5 +137,4 @@ updated whenever an artifact instance is created or reviewed.
 [RC-015]: ./reviews/rc-015-mil-003.md
 [RC-016]: ./reviews/rc-016-create-project-sh.md
 [RC-017]: ./reviews/rc-017-e2e-security-review.md
-[4b4ec59]: https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/commit/4b4ec5914d18837229296562d3a7d2283e9aa5fb
 [1348892]: https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/commit/13488929a11990123e5bced7c945b57f448bc9e5
