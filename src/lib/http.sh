@@ -33,7 +33,8 @@ describe_curl_error() {
 # private curl config file, never onto the command line where other users
 # could see it. Redirects are not followed, so the token is only ever sent
 # to the host named in URL. On success HTTP_STATUS and HTTP_BODY_FILE are
-# set; on a network failure the function returns 1 with HTTP_ERROR set.
+# set; on a network failure the function returns 1 with HTTP_ERROR and
+# HTTP_CURL_STATUS (curl's exit code, 28 for a timeout) set.
 # shellcheck disable=SC2034  # HTTP_* are results read by the callers
 http_request() {
   local method="$1" url="$2" scheme="$3" token="$4" body="${5:-}"
@@ -79,9 +80,11 @@ http_request() {
     host="${url#https://}"
     host="${host%%/*}"
     HTTP_STATUS=0
+    HTTP_CURL_STATUS="$curl_status"
     HTTP_ERROR="could not reach $host: $(describe_curl_error "$curl_status")"
     return 1
   fi
+  HTTP_CURL_STATUS=0
   HTTP_BODY_FILE="$out_file"
   HTTP_ERROR=""
 }

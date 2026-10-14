@@ -15,6 +15,17 @@ file.
 
 ### Changed
 
+- A request to a host waits 240 seconds, not 30, before it counts as timed
+  out (`HTTP_TIMEOUT_SECONDS`).
+- When the request that creates a repository times out, the script asks the
+  host whether the repository exists instead of stopping on the timeout. It
+  goes on when the repository exists and is empty (Gitea: or holds just the
+  license), and stops with a message that says what exists otherwise: nothing
+  was created, or it holds content this run did not add and was not touched.
+  Another network failure still stops the run at once.
+
+### Changed
+
 - The five GitHub pictures in the Access tokens wiki page are annotated
   screenshots with numbered markers, in place of the drawn mockups, and the
   page has two more: the Confirm access page and the Generate token button.

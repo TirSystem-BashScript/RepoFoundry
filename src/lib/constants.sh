@@ -13,7 +13,7 @@ readonly EXIT_FAILURE=1
 readonly EXIT_USAGE=2
 readonly MAX_VALUE_LENGTH=2048
 readonly MAX_DESCRIPTION_LENGTH=350
-readonly HTTP_TIMEOUT_SECONDS=30
+readonly HTTP_TIMEOUT_SECONDS=240
 readonly DEFAULT_MIRROR_INTERVAL="10m0s"
 readonly DEFAULT_SSH_PORT=10022
 readonly DEFAULT_FRAMEWORK_REPO="TirSystem/SQA-QC-Framework"
@@ -58,6 +58,8 @@ HAS_JQ=0
 HTTP_STATUS=0
 HTTP_BODY_FILE=""
 HTTP_ERROR=""
+# curl's exit code of the last request that did not get an answer (0 if it did).
+HTTP_CURL_STATUS=0
 REPLY=""
 IS_APPLY=0
 IS_CREATION_STARTED=0
