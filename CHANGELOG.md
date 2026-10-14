@@ -13,6 +13,12 @@ file.
 
 ## [Unreleased]
 
+### Changed
+
+- The wiki pages move from `wiki/` to `docs/wiki/` and the `.publish` marker
+  is removed. The `Publish wiki` workflow (`.gitea/workflows/publish-wiki.yml`,
+  from `framework/templates/ci/`) now publishes them on a push to `main`.
+
 ## [0.3.4] - 2026-10-13
 
 ### Added

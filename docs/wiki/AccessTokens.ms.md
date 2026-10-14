@@ -1,4 +1,4 @@
-<!-- translation of AccessTokens.md, source sha256 ed97e5f40645 -->
+<!-- translation of AccessTokens.md, source sha256 5828629072af -->
 
 > Ini ialah terjemahan [`AccessTokens`](AccessTokens). Halaman bahasa Inggeris ialah teks yang sah, dan perubahan di sini akan ditimpa pada penerbitan wiki yang seterusnya.
 
@@ -40,7 +40,7 @@ Contoh menggunakan `https://git.tirsystem.com`. Jika Gitea anda berada di tempat
 
 Log masuk ke Gitea. Klik **avatar** anda di penjuru kanan atas (1), kemudian pilih **Settings** (2).
 
-![Langkah 1: menu avatar di penjuru kanan atas dengan Settings ditonjolkan](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/wiki/img/gitea-1-open-settings.svg)
+![Langkah 1: menu avatar di penjuru kanan atas dengan Settings ditonjolkan](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/gitea-1-open-settings.svg)
 
 ### Langkah 2. Buka "Applications"
 
@@ -48,7 +48,7 @@ Dalam menu di sebelah kiri, klik **Applications** (1).
 
 Anda juga boleh terus ke sana: `<alamat Gitea anda>/user/settings/applications`.
 
-![Langkah 2: entri Applications dalam menu kiri tetapan](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/wiki/img/gitea-2-applications.svg)
+![Langkah 2: entri Applications dalam menu kiri tetapan](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/gitea-2-applications.svg)
 
 ### Langkah 3. Isi borang token
 
@@ -66,7 +66,7 @@ Tatal ke **Generate New Token** dan isikannya:
 
 4. Klik **Generate Token**.
 
-![Langkah 3: borang token dengan nama, pilihan akses dan tiga permission ditetapkan kepada Read and Write](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/wiki/img/gitea-3-token-form.svg)
+![Langkah 3: borang token dengan nama, pilihan akses dan tiga permission ditetapkan kepada Read and Write](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/gitea-3-token-form.svg)
 
 > **Hanya mencipta projek dalam organisasi?** Maka `user` boleh kekal pada **Read**. `Read and Write` pada `user` hanya diperlukan untuk mencipta repositori di bawah akaun anda sendiri; tanpanya Gitea menjawab `required=[write:user]`.
 
@@ -76,7 +76,7 @@ Gitea menunjukkan token baharu **sekali sahaja**, dalam mesej hijau di bahagian 
 
 Jika anda kehilangan nilai itu, padam token tersebut dan jana yang baharu.
 
-![Langkah 4: mesej hijau dengan token baharu dan butang Copy, serta token dalam senarai di bawah](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/wiki/img/gitea-4-copy-token.svg)
+![Langkah 4: mesej hijau dengan token baharu dan butang Copy, serta token dalam senarai di bawah](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/gitea-4-copy-token.svg)
 
 ---
 
@@ -90,13 +90,13 @@ Gunakan token **klasik**. RepoFoundry belum diuji dengan token fine-grained, ker
 
 Log masuk ke GitHub. Klik **gambar profil** anda di penjuru kanan atas (1), kemudian **Settings** (2).
 
-![Langkah 1: menu profil di penjuru kanan atas dengan Settings ditonjolkan](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/wiki/img/github-1-open-settings.svg)
+![Langkah 1: menu profil di penjuru kanan atas dengan Settings ditonjolkan](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/github-1-open-settings.svg)
 
 ### Langkah 2. Buka "Developer settings"
 
 Dalam bar sisi kiri, tatal ke bahagian bawah dan klik **Developer settings** (1). Ia ialah entri terakhir.
 
-![Langkah 2: Developer settings di bahagian bawah bar sisi kiri](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/wiki/img/github-2-developer-settings.svg)
+![Langkah 2: Developer settings di bahagian bawah bar sisi kiri](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/github-2-developer-settings.svg)
 
 ### Langkah 3. Pilih "Tokens (classic)"
 
@@ -106,7 +106,7 @@ Dalam bar sisi kiri, tatal ke bahagian bawah dan klik **Developer settings** (1)
 
 GitHub mungkin meminta anda mengesahkan kata laluan atau kod dua faktor. Lakukannya sendiri; tiada orang lain patut menaipnya.
 
-![Langkah 3: Tokens (classic) dalam bar sisi, dan Generate new token (classic) dalam menu butang](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/wiki/img/github-3-tokens-classic.svg)
+![Langkah 3: Tokens (classic) dalam bar sisi, dan Generate new token (classic) dalam menu butang](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/github-3-tokens-classic.svg)
 
 > Alamat terus: `https://github.com/settings/tokens/new`
 
@@ -126,7 +126,7 @@ GitHub mungkin meminta anda mengesahkan kata laluan atau kod dua faktor. Lakukan
 
 4. Tatal ke bawah dan klik **Generate token** (4).
 
-![Langkah 4: borang token baharu dengan nota, tarikh luput, skop repo ditandakan dan butang Generate token](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/wiki/img/github-4-token-form.svg)
+![Langkah 4: borang token baharu dengan nota, tarikh luput, skop repo ditandakan dan butang Generate token](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/github-4-token-form.svg)
 
 > **`read:org` dan `admin:org`.** README mencatatkan bahawa semakan itu berjaya dengan token yang mempunyai `repo` dan `admin:org`, dan bahawa `read:org` sahaja belum diuji. Cuba `read:org` dahulu. `admin:org` memberi kuasa jauh lebih banyak daripada yang diperlukan RepoFoundry, jadi gunakannya hanya jika `read:org` tidak mencukupi.
 
@@ -136,7 +136,7 @@ GitHub menunjukkan token **sekali sahaja**, dalam kotak hijau di bahagian atas (
 
 Jika pemilik repositori baharu ialah organisasi yang menggunakan SAML single sign-on, token juga mesti dibenarkan untuk organisasi itu: dalam senarai token, klik **Configure SSO** (2) di sebelah token dan kemudian **Authorize** untuk organisasi.
 
-![Langkah 5: kotak hijau dengan token baharu dan ikon salin, serta Configure SSO dalam senarai token](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/wiki/img/github-5-copy-token.svg)
+![Langkah 5: kotak hijau dengan token baharu dan ikon salin, serta Configure SSO dalam senarai token](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/github-5-copy-token.svg)
 
 ---
 

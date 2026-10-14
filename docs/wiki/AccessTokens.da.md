@@ -1,4 +1,4 @@
-<!-- translation of AccessTokens.md, source sha256 ed97e5f40645 -->
+<!-- translation of AccessTokens.md, source sha256 5828629072af -->
 
 > Dette er en oversættelse af [`AccessTokens`](AccessTokens). Den engelske side er autoritativ, og ændringer her bliver overskrevet, næste gang wikien publiceres.
 
@@ -40,7 +40,7 @@ Eksemplerne bruger `https://git.tirsystem.com`. Hvis din Gitea kører et andet s
 
 Log ind på Gitea. Klik på din **avatar** øverst til højre (1), og vælg **Settings** (2).
 
-![Trin 1: avatarmenuen øverst til højre med Settings fremhævet](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/wiki/img/gitea-1-open-settings.svg)
+![Trin 1: avatarmenuen øverst til højre med Settings fremhævet](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/gitea-1-open-settings.svg)
 
 ### Trin 2. Åbn "Applications"
 
@@ -48,7 +48,7 @@ Klik på **Applications** (1) i menuen til venstre.
 
 Du kan også gå direkte dertil: `<din Gitea-adresse>/user/settings/applications`.
 
-![Trin 2: Applications i venstre menu i indstillingerne](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/wiki/img/gitea-2-applications.svg)
+![Trin 2: Applications i venstre menu i indstillingerne](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/gitea-2-applications.svg)
 
 ### Trin 3. Udfyld token-formularen
 
@@ -66,7 +66,7 @@ Rul til **Generate New Token** og udfyld den:
 
 4. Klik på **Generate Token**.
 
-![Trin 3: token-formularen med navn, adgangsvalg og tre permissions sat til Read and Write](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/wiki/img/gitea-3-token-form.svg)
+![Trin 3: token-formularen med navn, adgangsvalg og tre permissions sat til Read and Write](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/gitea-3-token-form.svg)
 
 > **Opretter du kun projekter i organisationer?** Så kan `user` blive på **Read**. `Read and Write` på `user` er kun nødvendigt for at oprette et repository under din egen konto; uden det svarer Gitea `required=[write:user]`.
 
@@ -76,7 +76,7 @@ Gitea viser det nye token **én gang**, i en grøn besked øverst på siden (1).
 
 Hvis du mister værdien, så slet tokenet og opret et nyt.
 
-![Trin 4: den grønne besked med det nye token og en Copy-knap, og tokenet på listen nedenunder](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/wiki/img/gitea-4-copy-token.svg)
+![Trin 4: den grønne besked med det nye token og en Copy-knap, og tokenet på listen nedenunder](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/gitea-4-copy-token.svg)
 
 ---
 
@@ -90,13 +90,13 @@ Brug et **klassisk** token. RepoFoundry er ikke testet med fine-grained tokens, 
 
 Log ind på GitHub. Klik på dit **profilbillede** øverst til højre (1), og vælg **Settings** (2).
 
-![Trin 1: profilmenuen øverst til højre med Settings fremhævet](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/wiki/img/github-1-open-settings.svg)
+![Trin 1: profilmenuen øverst til højre med Settings fremhævet](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/github-1-open-settings.svg)
 
 ### Trin 2. Åbn "Developer settings"
 
 Rul ned i bunden af sidebjælken til venstre, og klik på **Developer settings** (1). Det er det sidste punkt.
 
-![Trin 2: Developer settings nederst i sidebjælken til venstre](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/wiki/img/github-2-developer-settings.svg)
+![Trin 2: Developer settings nederst i sidebjælken til venstre](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/github-2-developer-settings.svg)
 
 ### Trin 3. Vælg "Tokens (classic)"
 
@@ -106,7 +106,7 @@ Rul ned i bunden af sidebjælken til venstre, og klik på **Developer settings**
 
 GitHub kan bede dig bekræfte din adgangskode eller en tofaktorkode. Gør det selv; ingen andre bør skrive den.
 
-![Trin 3: Tokens (classic) i sidebjælken og Generate new token (classic) i knapmenuen](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/wiki/img/github-3-tokens-classic.svg)
+![Trin 3: Tokens (classic) i sidebjælken og Generate new token (classic) i knapmenuen](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/github-3-tokens-classic.svg)
 
 > Direkte adresse: `https://github.com/settings/tokens/new`
 
@@ -126,7 +126,7 @@ GitHub kan bede dig bekræfte din adgangskode eller en tofaktorkode. Gør det se
 
 4. Rul ned, og klik på **Generate token** (4).
 
-![Trin 4: formularen til et nyt token med note, udløb, scopet repo afkrydset og knappen Generate token](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/wiki/img/github-4-token-form.svg)
+![Trin 4: formularen til et nyt token med note, udløb, scopet repo afkrydset og knappen Generate token](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/github-4-token-form.svg)
 
 > **`read:org` og `admin:org`.** README fastslår, at kontrollen virkede med et token, der havde `repo` og `admin:org`, og at `read:org` alene er utestet. Prøv `read:org` først. `admin:org` giver langt mere magt, end RepoFoundry har brug for, så brug det kun, hvis `read:org` ikke er nok.
 
@@ -136,7 +136,7 @@ GitHub viser tokenet **én gang**, i en grøn boks øverst (1). Klik på kopiiko
 
 Hvis ejeren af det nye repository er en organisation, der bruger SAML single sign-on, skal tokenet også godkendes til den organisation: klik på listen over tokens på **Configure SSO** (2) ved tokenet og derefter **Authorize** for organisationen.
 
-![Trin 5: den grønne boks med det nye token og et kopiikon, og Configure SSO på listen over tokens](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/wiki/img/github-5-copy-token.svg)
+![Trin 5: den grønne boks med det nye token og et kopiikon, og Configure SSO på listen over tokens](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/github-5-copy-token.svg)
 
 ---
 
