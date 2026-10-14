@@ -11,7 +11,7 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-14 | Proposed | Jens Tirsvad Nielsen | S02 | Initial version | [4b4ec59] |
+| 2026-10-14 | Accepted | Jens Tirsvad Nielsen | S02 | Initial version | [4b4ec59] |
 
 ---
 
