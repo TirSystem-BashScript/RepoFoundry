@@ -11,7 +11,7 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-14 | Accepted | Jens Tirsvad Nielsen | S02 | Initial version | pending |
+| 2026-10-14 | Accepted | Jens Tirsvad Nielsen | S02 | Initial version | [1348892] |
 
 ---
 
@@ -67,3 +67,4 @@ Decide whether the two launch tests that fail since the framework pin moved are 
 [BC-001]: ../business-case.md
 [US-001]: ../user-stories.md
 [MIL-012]: ./mil-012-release-0-3-5.md
+[1348892]: https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/commit/13488929a11990123e5bced7c945b57f448bc9e5

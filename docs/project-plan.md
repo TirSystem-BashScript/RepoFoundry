@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-14 | Deprecated | Jens Tirsvad Nielsen | S02 | Added phase MIL-012 (proposed dates 2027-01-06 to 2027-01-07): release 0.3.5 | [4b4ec59] |
-| 2026-10-14 | Accepted | Jens Tirsvad Nielsen | S02 | Added phase MIL-013 (proposed date 2027-01-08): the launch tests follow the qc layout of framework v0.8.0 | pending |
+| 2026-10-14 | Accepted | Jens Tirsvad Nielsen | S02 | Added phase MIL-013 (proposed date 2027-01-08): the launch tests follow the qc layout of framework v0.8.0 | [1348892] |
 
 ---
 
@@ -144,3 +144,4 @@ A No-Go moves every later date by the time needed to rework the failed criteria.
 [Milestone 44]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/milestone/44
 [Milestone 45]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/milestone/45
 [4b4ec59]: https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/commit/4b4ec5914d18837229296562d3a7d2283e9aa5fb
+[1348892]: https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/commit/13488929a11990123e5bced7c945b57f448bc9e5
