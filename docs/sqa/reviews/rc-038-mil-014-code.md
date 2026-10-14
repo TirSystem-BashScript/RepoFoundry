@@ -9,7 +9,7 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-14 | Proposed | Jens Tirsvad Nielsen | AI as stand-in for S02 | Initial version | [0db0fdf] |
+| 2026-10-14 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S02 | Initial version | [0db0fdf] |
 
 ---
 
@@ -54,7 +54,7 @@ No finding affects credentials, ownership, the mirror direction or the confirmat
 
 ## Overall Verdict
 
-Go once the full suite, rerun after the fix for F1, reports no failed check; every mandatory criterion passes. Reviewed by Claude Code as stand-in for S02 in autonomous mode, not an independent review; S02 may challenge it in the run summary. The status of this record is set to `Accepted` when that run is recorded.
+Go: every mandatory criterion passes after the fix for F1, and the full suite run on `main` after the merge of the change reported no failed check (result on the pull request that sets this status). Reviewed by Claude Code as stand-in for S02 in autonomous mode, not an independent review; S02 may challenge it in the run summary. S02 asked in chat on 2026-10-14 for this record to be set to `Accepted`.
 
 ## Action Items
 
