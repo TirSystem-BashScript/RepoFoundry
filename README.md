@@ -11,6 +11,11 @@ RepoFoundry (`src/create-project.sh`) sets up a new project in one run:
   gate) and templates installed. The files it installs (`.claude`, `.agents` and
   `AGENTS.md`) are excluded from git in the new project.
 
+> **Framework access.** The SQA-QC-Framework is copyrighted and you do not have
+> access to it by default. Contact [Jens Tirsvad](https://www.linkedin.com/in/tirsvad74/)
+> to get access. A website with our contact information is coming at
+> <https://www.tirsystem.com>.
+
 It is a Bash script. It asks for the repository name, description, visibility
 and owner (a user or an organization, separately on each host), shows a plan,
 and only creates anything after you pass `--apply` and answer yes.
@@ -491,8 +496,9 @@ web interface and the project directory by hand.
 - **No rollback.** See [Error handling and recovery](#error-handling-and-recovery).
 - **Mirror direction is Gitea to GitHub only.** Push to Gitea; GitHub is a
   copy.
-- **The framework needs SSH.** Without SSH access to Gitea the framework steps
-  can only be skipped.
+- **The framework needs SSH and access.** Without SSH access to Gitea the
+  framework steps can only be skipped. The framework is copyrighted: ask
+  [Jens Tirsvad](https://www.linkedin.com/in/tirsvad74/) for access.
 - **The ignored framework files are not shared.** `.claude`, `.agents` and
   `AGENTS.md` are excluded in the clone the script made, not in the repository,
   so another clone does not have them (see
