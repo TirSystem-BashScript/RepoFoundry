@@ -9,8 +9,8 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-14 | Accepted | Jens Tirsvad Nielsen | S02 | Added MIL-014 (timeout of a repository create request) and review RC-037 | [d1120f7] |
-| 2026-10-14 | Proposed | Jens Tirsvad Nielsen | AI as stand-in for S02 | Added review RC-038 (shell code review of the MIL-014 change) | [0db0fdf] |
+| 2026-10-14 | Deprecated | Jens Tirsvad Nielsen | S02 | Added MIL-014 (timeout of a repository create request) and review RC-037 | [d1120f7] |
+| 2026-10-14 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S02 | Added review RC-038 (shell code review of the MIL-014 change) | [0db0fdf] |
 
 ---
 
