@@ -8,6 +8,8 @@ Repo Foundry (`src/create-project.sh`) sets up a new project in one run:
 - optionally an empty **GitHub** repository that receives everything through a push mirror from Gitea;
 - a **local project** with one credential-free remote, `origin`, and the SQA-QC-Framework as a git submodule, with its skills, git hooks and templates installed.
 
+> **Framework access.** The SQA-QC-Framework is copyrighted and you do not have access to it by default. Contact [Jens Tirsvad](https://www.linkedin.com/in/tirsvad74/) to get access. A website with our contact information is coming at <https://www.tirsystem.com>.
+
 It is a Bash script. It shows a plan first and creates nothing until you pass `--apply` and answer yes.
 
 ## Pages

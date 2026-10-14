@@ -1,4 +1,4 @@
-<!-- translation of Home.md, source sha256 18808e63abb7 -->
+<!-- translation of Home.md, source sha256 054f37c6e99b -->
 
 > Ini ialah terjemahan [`Home`](Home). Halaman bahasa Inggeris ialah teks yang sah, dan perubahan di sini akan ditimpa pada penerbitan wiki yang seterusnya.
 
@@ -11,6 +11,8 @@ Repo Foundry (`src/create-project.sh`) menyediakan projek baharu dalam satu lari
 - repositori **Gitea**, iaitu sumber yang sah;
 - secara pilihan repositori **GitHub** kosong yang menerima semuanya melalui push mirror dari Gitea;
 - **projek tempatan** dengan satu remote tanpa kelayakan (credentials), `origin`, dan SQA-QC-Framework sebagai submodul git, dengan skill, git hook dan templatnya terpasang.
+
+> **Akses kepada framework.** SQA-QC-Framework dilindungi hak cipta dan anda tidak mempunyai akses kepadanya secara lalai. Hubungi [Jens Tirsvad](https://www.linkedin.com/in/tirsvad74/) untuk mendapatkan akses. Laman web dengan maklumat hubungan kami akan tersedia di <https://www.tirsystem.com>.
 
 Ia ialah skrip Bash. Ia memaparkan pelan dahulu dan tidak mencipta apa-apa sehingga anda memberikan `--apply` dan menjawab ya.
 
