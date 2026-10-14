@@ -9,7 +9,7 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-14 | Proposed | Jens Tirsvad Nielsen | AI as stand-in for S02 | Initial version | pending |
+| 2026-10-14 | Proposed | Jens Tirsvad Nielsen | AI as stand-in for S02 | Initial version | [0db0fdf] |
 
 ---
 
@@ -67,3 +67,4 @@ Go once the full suite, rerun after the fix for F1, reports no failed check; eve
 [MIL-014]: ../../milestones/mil-014-github-create-timeout.md
 [QC-SH-001]: ../../../framework/qc/code/qc-programming-shell.md
 [RC-019]: ./rc-019-mil-004-code.md
+[0db0fdf]: https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/commit/0db0fdf20b59f7d841637fa63b6414e6571d9b59

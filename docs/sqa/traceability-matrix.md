@@ -10,7 +10,7 @@
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
 | 2026-10-14 | Accepted | Jens Tirsvad Nielsen | S02 | Added MIL-014 (timeout of a repository create request) and review RC-037 | [d1120f7] |
-| 2026-10-14 | Proposed | Jens Tirsvad Nielsen | AI as stand-in for S02 | Added review RC-038 (shell code review of the MIL-014 change) | pending |
+| 2026-10-14 | Proposed | Jens Tirsvad Nielsen | AI as stand-in for S02 | Added review RC-038 (shell code review of the MIL-014 change) | [0db0fdf] |
 
 ---
 
@@ -139,3 +139,4 @@ updated whenever an artifact instance is created or reviewed.
 [RC-016]: ./reviews/rc-016-create-project-sh.md
 [RC-017]: ./reviews/rc-017-e2e-security-review.md
 [d1120f7]: https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/commit/d1120f7da03f41e6af8b5f35d860eee5bfd5f015
+[0db0fdf]: https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/commit/0db0fdf20b59f7d841637fa63b6414e6571d9b59
