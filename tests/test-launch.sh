@@ -46,7 +46,7 @@ test_the_framework_checklists_are_fetched() {
   run_apply "$answers"$'y\n'
   assert_status "apply" 0 "$STATUS"
   assert_file_exists "the framework" "$dir/framework/README.md"
-  assert_file_exists "qc is filled" "$dir/framework/qc/qc-business-case.md"
+  assert_file_exists "qc is filled" "$dir/framework/qc/artifacts/qc-business-case.md"
   assert_eq "no submodule is left uninitialised" "" "$(GIT_CONFIG_GLOBAL="$WORK/gitconfig" git -C "$dir" submodule status --recursive | grep '^-' || true)"
 }
 
@@ -59,10 +59,10 @@ test_an_empty_qc_is_filled_by_a_second_run_and_a_complete_one_is_not_changed() {
   assert_status "first run" 0 "$STATUS"
   git_in() { GIT_CONFIG_GLOBAL="$WORK/gitconfig" GIT_CONFIG_NOSYSTEM=1 git -C "$dir/framework" "$@"; }
   git_in submodule deinit -f qc >/dev/null 2>&1
-  assert_file_missing "qc emptied" "$dir/framework/qc/qc-business-case.md"
+  assert_file_missing "qc emptied" "$dir/framework/qc/artifacts/qc-business-case.md"
   run_lib "" "setup_temp_dir; init_framework_submodules '$dir'"
   assert_status "repair" 0 "$STATUS"
-  assert_file_exists "qc filled again" "$dir/framework/qc/qc-business-case.md"
+  assert_file_exists "qc filled again" "$dir/framework/qc/artifacts/qc-business-case.md"
   local before after
   before="$(git_in status --porcelain)"
   run_lib "" "setup_temp_dir; init_framework_submodules '$dir'"
