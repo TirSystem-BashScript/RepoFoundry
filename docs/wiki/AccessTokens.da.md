@@ -1,4 +1,4 @@
-<!-- translation of AccessTokens.md, source sha256 5b50dc96a057 -->
+<!-- translation of AccessTokens.md, source sha256 d47b9f31557a -->
 
 > Dette er en oversættelse af [`AccessTokens`](AccessTokens). Den engelske side er autoritativ, og ændringer her bliver overskrevet, næste gang wikien publiceres.
 
@@ -90,13 +90,13 @@ Brug et **klassisk** token. RepoFoundry er ikke testet med fine-grained tokens, 
 
 Log ind på GitHub. Klik på dit **profilbillede** øverst til højre (1), og vælg **Settings** (2).
 
-![Trin 1: profilmenuen øverst til højre med Settings fremhævet](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/github-1-open-settings.svg)
+![Trin 1: profilmenuen øverst til højre med Settings fremhævet](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/github-1-open-settings.png)
 
 ### Trin 2. Åbn "Developer settings"
 
 Rul ned i bunden af sidebjælken til venstre, og klik på **Developer settings** (1). Det er det sidste punkt.
 
-![Trin 2: Developer settings nederst i sidebjælken til venstre](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/github-2-developer-settings.svg)
+![Trin 2: Developer settings nederst i sidebjælken til venstre](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/github-2-developer-settings.png)
 
 ### Trin 3. Vælg "Tokens (classic)"
 
@@ -106,7 +106,9 @@ Rul ned i bunden af sidebjælken til venstre, og klik på **Developer settings**
 
 GitHub kan bede dig bekræfte din adgangskode eller en tofaktorkode. Gør det selv; ingen andre bør skrive den.
 
-![Trin 3: Tokens (classic) i sidebjælken og Generate new token (classic) i knapmenuen](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/github-3-tokens-classic.svg)
+![Trin 3: Tokens (classic) i sidebjælken og Generate new token (classic) i knapmenuen](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/github-3-tokens-classic.png)
+
+![Siden Confirm access, som GitHub kan vise før formularen](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/github-3-confirm-access.png)
 
 > Direkte adresse: `https://github.com/settings/tokens/new`
 
@@ -126,7 +128,9 @@ GitHub kan bede dig bekræfte din adgangskode eller en tofaktorkode. Gør det se
 
 4. Rul ned, og klik på **Generate token** (4).
 
-![Trin 4: formularen til et nyt token med note, udløb, scopet repo afkrydset og knappen Generate token](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/github-4-token-form.svg)
+![Trin 4: formularen til et nyt token med note, udløb, scopet repo afkrydset og knappen Generate token](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/github-4-token-form.png)
+
+![Trin 4: knappen Generate token nederst i formularen](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/github-4-generate-token.png)
 
 > **`read:org` og `admin:org`.** README fastslår, at kontrollen virkede med et token, der havde `repo` og `admin:org`, og at `read:org` alene er utestet. Prøv `read:org` først. `admin:org` giver langt mere magt, end RepoFoundry har brug for, så brug det kun, hvis `read:org` ikke er nok.
 
@@ -134,9 +138,9 @@ GitHub kan bede dig bekræfte din adgangskode eller en tofaktorkode. Gør det se
 
 GitHub viser tokenet **én gang**, i en grøn boks øverst (1). Klik på kopiikonet ved siden af. Det begynder med `ghp_`. Gem det til [del 3 i denne vejledning](#3-giv-tokens-til-repofoundry).
 
-Hvis ejeren af det nye repository er en organisation, der bruger SAML single sign-on, skal tokenet også godkendes til den organisation: klik på listen over tokens på **Configure SSO** (2) ved tokenet og derefter **Authorize** for organisationen.
+Hvis ejeren af det nye repository er en organisation, der bruger SAML single sign-on, skal tokenet også godkendes til den organisation: klik på listen over tokens på **Configure SSO** ved tokenet og derefter **Authorize** for organisationen.
 
-![Trin 5: den grønne boks med det nye token og et kopiikon, og Configure SSO på listen over tokens](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/github-5-copy-token.svg)
+![Trin 5: det nye token i den grønne boks øverst på listen over tokens, med kopiikonet](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/github-5-copy-token.png)
 
 ---
 
