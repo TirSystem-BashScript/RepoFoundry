@@ -111,14 +111,14 @@ repository.
 Sign in to GitHub. Click your **profile picture** in the top-right corner (1),
 then **Settings** (2).
 
-![Step 1: the profile menu in the top-right corner, with Settings highlighted](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/github-1-open-settings.svg)
+![Step 1: the profile menu in the top-right corner, with Settings highlighted](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/github-1-open-settings.png)
 
 ### Step 2. Open "Developer settings"
 
 In the left sidebar, scroll to the bottom and click **Developer settings** (1).
 It is the last entry.
 
-![Step 2: Developer settings at the bottom of the left sidebar](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/github-2-developer-settings.svg)
+![Step 2: Developer settings at the bottom of the left sidebar](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/github-2-developer-settings.png)
 
 ### Step 3. Choose "Tokens (classic)"
 
@@ -131,7 +131,9 @@ It is the last entry.
 GitHub may ask you to confirm your password or a two-factor code. Do that
 yourself; nobody else should type it.
 
-![Step 3: Tokens (classic) in the sidebar, and Generate new token (classic) in the button menu](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/github-3-tokens-classic.svg)
+![Step 3: Tokens (classic) in the sidebar, and Generate new token (classic) in the button menu](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/github-3-tokens-classic.png)
+
+![The Confirm access page GitHub may show before the form](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/github-3-confirm-access.png)
 
 > Direct address: `https://github.com/settings/tokens/new`
 
@@ -154,7 +156,9 @@ yourself; nobody else should type it.
 
 4. Scroll down and click **Generate token** (4).
 
-![Step 4: the new token form with a note, an expiration, the repo scope ticked and the Generate token button](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/github-4-token-form.svg)
+![Step 4: the new token form with a note, an expiration, the repo scope ticked and the Generate token button](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/github-4-token-form.png)
+
+![Step 4: the Generate token button at the bottom of the form](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/github-4-generate-token.png)
 
 > **`read:org` and `admin:org`.** The README records that the check worked with
 > a token that had `repo` and `admin:org`, and that `read:org` alone is
@@ -169,10 +173,10 @@ icon next to it. It starts with `ghp_`. Keep it for
 
 If the owner of the new repository is an organization that uses SAML single
 sign-on, the token must also be authorised for that organization: in the token
-list click **Configure SSO** (2) next to the token and then **Authorize**
+list click **Configure SSO** next to the token and then **Authorize**
 for the organization.
 
-![Step 5: the green box with the new token and a copy icon, and Configure SSO in the token list](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/github-5-copy-token.svg)
+![Step 5: the new token in the green box at the top of the token list, with its copy icon](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/github-5-copy-token.png)
 
 ---
 

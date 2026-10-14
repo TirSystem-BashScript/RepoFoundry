@@ -13,6 +13,13 @@ file.
 
 ## [Unreleased]
 
+### Changed
+
+- The five GitHub pictures in the Access tokens wiki page are annotated
+  screenshots with numbered markers, in place of the drawn mockups, and the
+  page has two more: the Confirm access page and the Generate token button.
+  Names, photos and repositories in them are blurred.
+
 ## [0.3.5] - 2026-10-14
 
 ### Changed
