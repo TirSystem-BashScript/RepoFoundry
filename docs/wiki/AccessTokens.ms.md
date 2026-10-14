@@ -1,4 +1,4 @@
-<!-- translation of AccessTokens.md, source sha256 ed97e5f40645 -->
+<!-- translation of AccessTokens.md, source sha256 5828629072af -->
 
 > Ini ialah terjemahan [`AccessTokens`](AccessTokens). Halaman bahasa Inggeris ialah teks yang sah, dan perubahan di sini akan ditimpa pada penerbitan wiki yang seterusnya.
 
