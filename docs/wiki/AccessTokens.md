@@ -47,7 +47,7 @@ the address you set as `GITEA_URL` in `config.env`.
 Sign in to Gitea. Click your **avatar** in the top-right corner (1), then
 choose **Settings** (2).
 
-![Step 1: the avatar menu in the top-right corner, with Settings highlighted](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/gitea-1-open-settings.svg)
+![Step 1: the avatar menu in the top-right corner, with Settings highlighted](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/gitea-1-open-settings.png)
 
 ### Step 2. Open "Applications"
 
@@ -55,7 +55,7 @@ In the menu on the left, click **Applications** (1).
 
 You can also go straight there: `<your Gitea address>/user/settings/applications`.
 
-![Step 2: the Applications entry in the left menu of the settings](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/gitea-2-applications.svg)
+![Step 2: the Applications entry in the left menu of the settings](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/gitea-2-applications.png)
 
 ### Step 3. Fill in the token form
 
@@ -76,7 +76,7 @@ Scroll to **Generate New Token** and fill it in:
 
 4. Click **Generate Token**.
 
-![Step 3: the token form with the name, the access choice and three permissions set to Read and Write](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/gitea-3-token-form.svg)
+![Step 3: the token form with the name, the access choice and three permissions set to Read and Write](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/gitea-3-token-form.png)
 
 > **Only creating projects in organizations?** Then `user` can stay at **Read**.
 > `Read and Write` on `user` is needed only to create a repository under your
@@ -93,7 +93,7 @@ value again.
 
 If you lose the value, delete that token and generate a new one.
 
-![Step 4: the green message with the new token and a Copy button, and the token in the list below](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/gitea-4-copy-token.svg)
+![Step 4: the green message with the new token and a Copy button, and the token in the list below](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/gitea-4-copy-token.png)
 
 ---
 
