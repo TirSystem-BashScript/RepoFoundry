@@ -33,6 +33,6 @@ jobs:
     uses: TirSystem/github-action/.gitea/workflows/publish-wiki-pages.yml@v1
     with:
       wiki_dir: docs/wiki
-      prune: "true"
+      prune: "false"
     secrets:
       TOKEN_FOR_GITEA_WIKI: ${{ secrets.TOKEN_FOR_GITEA_WIKI }}
