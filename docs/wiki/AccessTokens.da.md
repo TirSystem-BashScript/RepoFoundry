@@ -1,4 +1,4 @@
-<!-- translation of AccessTokens.md, source sha256 5828629072af -->
+<!-- translation of AccessTokens.md, source sha256 5b50dc96a057 -->
 
 > Dette er en oversættelse af [`AccessTokens`](AccessTokens). Den engelske side er autoritativ, og ændringer her bliver overskrevet, næste gang wikien publiceres.
 
@@ -40,7 +40,7 @@ Eksemplerne bruger `https://git.tirsystem.com`. Hvis din Gitea kører et andet s
 
 Log ind på Gitea. Klik på din **avatar** øverst til højre (1), og vælg **Settings** (2).
 
-![Trin 1: avatarmenuen øverst til højre med Settings fremhævet](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/gitea-1-open-settings.svg)
+![Trin 1: avatarmenuen øverst til højre med Settings fremhævet](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/gitea-1-open-settings.png)
 
 ### Trin 2. Åbn "Applications"
 
@@ -48,7 +48,7 @@ Klik på **Applications** (1) i menuen til venstre.
 
 Du kan også gå direkte dertil: `<din Gitea-adresse>/user/settings/applications`.
 
-![Trin 2: Applications i venstre menu i indstillingerne](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/gitea-2-applications.svg)
+![Trin 2: Applications i venstre menu i indstillingerne](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/gitea-2-applications.png)
 
 ### Trin 3. Udfyld token-formularen
 
@@ -66,7 +66,7 @@ Rul til **Generate New Token** og udfyld den:
 
 4. Klik på **Generate Token**.
 
-![Trin 3: token-formularen med navn, adgangsvalg og tre permissions sat til Read and Write](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/gitea-3-token-form.svg)
+![Trin 3: token-formularen med navn, adgangsvalg og tre permissions sat til Read and Write](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/gitea-3-token-form.png)
 
 > **Opretter du kun projekter i organisationer?** Så kan `user` blive på **Read**. `Read and Write` på `user` er kun nødvendigt for at oprette et repository under din egen konto; uden det svarer Gitea `required=[write:user]`.
 
@@ -76,7 +76,7 @@ Gitea viser det nye token **én gang**, i en grøn besked øverst på siden (1).
 
 Hvis du mister værdien, så slet tokenet og opret et nyt.
 
-![Trin 4: den grønne besked med det nye token og en Copy-knap, og tokenet på listen nedenunder](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/gitea-4-copy-token.svg)
+![Trin 4: den grønne besked med det nye token og en Copy-knap, og tokenet på listen nedenunder](https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/raw/branch/main/docs/wiki/img/gitea-4-copy-token.png)
 
 ---
 
