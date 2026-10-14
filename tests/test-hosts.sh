@@ -212,6 +212,7 @@ test_a_timed_out_github_create_that_made_an_empty_repository_is_reused() {
   run_apply "$ANSWERS_GITHUB"$'y
 '
   assert_status "apply" 0 "$STATUS"
+  assert_contains "says why it asks" "$ERR" "the request to create the GitHub repository timed out; asking GitHub whether it exists"
   assert_contains "reported as reused" "$OUT" "GitHub repository : reused https://github.com/acme-org/my-app"
   assert_contains "the run goes on" "$OUT" "Gitea repository  : created"
   assert_not_contains "no second create" "$(calls | grep -c 'POST api.github.com/orgs/acme-org/repos' || true)" "2"

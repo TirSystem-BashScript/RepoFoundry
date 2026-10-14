@@ -34,6 +34,7 @@ repo_body() {
 settle_timed_out_create() {
   local host="$1" label="$2" owner
   owner="$(repo_owner "$host")"
+  warn "the request to create the $label timed out; asking $(host_label "$host") whether it exists"
   inspect_repository "$host"
   case "${STATE[${host}_repo]}" in
     free)
