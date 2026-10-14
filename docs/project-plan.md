@@ -4,23 +4,23 @@
 | Key | Value |
 | --- | --- |
 | ID | PP-001 |
-| CrossReference | [BC-001], [SA-001], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006], [MIL-007], [MIL-008], [MIL-009], [MIL-010], [MIL-011], [US-001] |
+| CrossReference | [BC-001], [SA-001], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006], [MIL-007], [MIL-008], [MIL-009], [MIL-010], [MIL-011], [MIL-012], [US-001] |
 
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-13 | Deprecated | Jens Tirsvad Nielsen | S02 | Added phase MIL-010 (proposed dates 2026-12-28 to 2026-12-30): the wiki token is accepted in .env and the access-token guide moves to the wiki | [9cca295] |
-| 2026-10-13 | Accepted | Jens Tirsvad Nielsen | S02 | Added phase MIL-011 (proposed dates 2027-01-04 to 2027-01-05): release 0.3.4 | [5f42d66] |
+| 2026-10-13 | Deprecated | Jens Tirsvad Nielsen | S02 | Added phase MIL-011 (proposed dates 2027-01-04 to 2027-01-05): release 0.3.4 | [5f42d66] |
+| 2026-10-14 | Accepted | Jens Tirsvad Nielsen | S02 | Added phase MIL-012 (proposed dates 2027-01-06 to 2027-01-07): release 0.3.5 | [4b4ec59] |
 
 ---
 
 ## Purpose
 
-Schedule the eleven phases that deliver RepoFoundry (`create-project.sh` and its documentation) in dependency order. The Business Case sets no deadline, so the dates below are proposals for S01 to confirm.
+Schedule the twelve phases that deliver RepoFoundry (`create-project.sh` and its documentation) in dependency order. The Business Case sets no deadline, so the dates below are proposals for S01 to confirm.
 
 ## Planning Assumptions
 
-- Week 1 starts 2026-10-05; the plan ends by 2027-01-05 (the last six phases are proposed).
+- Week 1 starts 2026-10-05; the plan ends by 2027-01-07 (the last seven phases are proposed).
 - Phase length: two weeks.
 - S01 and S02 review each phase through a pull request, as described in [SA-001]. For now one person holds both roles.
 - The PO language is English, so no translated copies are kept.
@@ -40,6 +40,7 @@ Schedule the eleven phases that deliver RepoFoundry (`create-project.sh` and its
 | Framework Files Excluded from Git | [MIL-009] | 2026-12-21 to 2026-12-23 | 2026-12-23 | S01 | US-001.03 | `.claude`, `.agents` and `AGENTS.md` excluded from git in the new project | |
 | Wiki Token and Access-Token Guide | [MIL-010] | 2026-12-28 to 2026-12-30 | 2026-12-30 | S01 | US-001.05 | `TOKEN_FOR_GITEA_WIKI` accepted in `.env`; access-token guide in the wiki | |
 | Release 0.3.4 | [MIL-011] | 2027-01-04 to 2027-01-05 | 2027-01-05 | S01 | US-001 | Version 0.3.4 released on Gitea with its changelog entry | |
+| Release 0.3.5 | [MIL-012] | 2027-01-06 to 2027-01-07 | 2027-01-07 | S01 | US-001 | Version 0.3.5 released on Gitea with its changelog entry | |
 
 ```plantuml
 @startgantt
@@ -66,6 +67,8 @@ Project starts 2026-10-05
 [Wiki Token and Access-Token Guide Go/No-Go] happens 2026-12-30
 [Release 0.3.4] starts 2027-01-04 and ends 2027-01-05
 [Release 0.3.4 Go/No-Go] happens 2027-01-05
+[Release 0.3.5] starts 2027-01-06 and ends 2027-01-07
+[Release 0.3.5 Go/No-Go] happens 2027-01-07
 @endgantt
 ```
 
@@ -88,11 +91,12 @@ Project starts 2026-10-05
 | `.claude`, `.agents` and `AGENTS.md` excluded from git in the new project | [MIL-009] |
 | `TOKEN_FOR_GITEA_WIKI` accepted in `.env`; access-token guide in the wiki | [MIL-010] |
 | Version 0.3.4 released | [MIL-011] |
+| Version 0.3.5 released | [MIL-012] |
 
 ## Dependencies
 
 ```
-MIL-001 → MIL-002 → MIL-003 → MIL-004 → MIL-005 → MIL-006 → MIL-007 → MIL-008 → MIL-009 → MIL-010 → MIL-011
+MIL-001 → MIL-002 → MIL-003 → MIL-004 → MIL-005 → MIL-006 → MIL-007 → MIL-008 → MIL-009 → MIL-010 → MIL-011 → MIL-012
 ```
 
 A No-Go moves every later date by the time needed to rework the failed criteria.
@@ -127,11 +131,12 @@ A No-Go moves every later date by the time needed to rework the failed criteria.
 [MIL-009]: ./milestones/mil-009-exclude-framework-files.md
 [MIL-010]: ./milestones/mil-010-wiki-token-and-access-token-guide.md
 [MIL-011]: ./milestones/mil-011-release-0-3-4.md
+[MIL-012]: ./milestones/mil-012-release-0-3-5.md
 [US-001]: ./user-stories.md
 [UC-001]: ./uc-001/uc.md
 [SSD-001]: ./uc-001/ssd.md
 [Milestone 43]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/milestone/43
 [Milestone 44]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/milestone/44
 [Milestone 45]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/milestone/45
-[9cca295]: https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/commit/9cca29579f032538902e9cfe929bb3c7768281ab
 [5f42d66]: https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/commit/5f42d660cf2a4a5e8b7ef7fa20824bc527802597
+[4b4ec59]: https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/commit/4b4ec5914d18837229296562d3a7d2283e9aa5fb
