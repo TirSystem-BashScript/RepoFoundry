@@ -11,7 +11,7 @@
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-15 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S02 | Initial version | pending |
+| 2026-10-15 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S02 | Initial version | [7823687] |
 
 ---
 
@@ -72,3 +72,4 @@ The change is a patch release: the only change to the script in this phase is it
 [BC-001]: ../business-case.md
 [US-001]: ../user-stories.md
 [MIL-014]: ./mil-014-github-create-timeout.md
+[7823687]: https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/commit/7823687baf39c26161876c59382eaa3f8683940e
