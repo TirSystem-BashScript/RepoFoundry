@@ -158,8 +158,8 @@ Valuable, Negotiable, Estimable, Small and Testable hold for each story. Indepen
 
 [BC-001]: ./business-case.md
 [UCD-001]: ./use-case-diagram.md
-[UC-001]: ./uc-001/uc.md
-[UC-002]: ./uc-002/uc.md
+[UC-001]: ./use-cases/uc-001/uc.md
+[UC-002]: ./use-cases/uc-002/uc.md
 [MIL-001]: ./milestones/mil-001-foundation.md
 [MIL-002]: ./milestones/mil-002-repositories-and-mirror.md
 [MIL-003]: ./milestones/mil-003-scaffold-and-release.md

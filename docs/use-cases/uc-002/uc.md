@@ -74,9 +74,9 @@
 
 ---
 
-[UCD-001]: ../use-case-diagram.md
-[US-001]: ../user-stories.md
-[SA-001]: ../stakeholder-analysis.md
-[BC-001]: ../business-case.md
+[UCD-001]: ../../use-case-diagram.md
+[US-001]: ../../user-stories.md
+[SA-001]: ../../stakeholder-analysis.md
+[BC-001]: ../../business-case.md
 [0ab5006]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/0ab50068bf9e5be82a801af9dbe5b763eeaf7f31
 [24f1507]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/24f15070fc73fb06e61865141fe0b825ea9e821e

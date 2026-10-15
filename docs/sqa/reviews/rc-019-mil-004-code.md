@@ -64,7 +64,7 @@ Go — all mandatory criteria pass after the fixes for F1 and F2 (found and fixe
 ---
 
 [MIL-004]: ../../milestones/mil-004-configurable-details.md
-[UC-001]: ../../uc-001/uc.md
+[UC-001]: ../../use-cases/uc-001/uc.md
 [RC-016]: ./rc-016-create-project-sh.md
 [QC-SH-001]: ../../../framework/qc/qc-programming-shell.md
 [ceaa7d1]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/ceaa7d18d8908b4d1e3fb089f238c99b883d71e0

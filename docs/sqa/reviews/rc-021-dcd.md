@@ -54,10 +54,10 @@ Go — all mandatory criteria pass after the fix for criterion 4, and the option
 
 ---
 
-[DCD-001]: ../../uc-001/dcd.md
+[DCD-001]: ../../use-cases/uc-001/dcd.md
 [DCD-002]: ../../dcd.md
-[SD-001]: ../../uc-001/sd.md
-[OC-001]: ../../uc-001/oc.md
+[SD-001]: ../../use-cases/uc-001/sd.md
+[OC-001]: ../../use-cases/uc-001/oc.md
 [DICT-001]: ../../dictionary.md
 [MIL-005]: ../../milestones/mil-005-credentials.md
 [QC-DCD-001]: ../../../framework/qc/qc-dcd.md

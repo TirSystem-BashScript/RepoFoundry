@@ -86,6 +86,6 @@ The keys (a key that is present counts as set, even when empty, but only the des
 
 [BC-001]: ../business-case.md
 [US-001]: ../user-stories.md
-[UC-001]: ../uc-001/uc.md
+[UC-001]: ../use-cases/uc-001/uc.md
 [MIL-003]: ./mil-003-scaffold-and-release.md
 [2a6bb8e]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/2a6bb8e8afadfe6ca4a621da30e44a372898ca62

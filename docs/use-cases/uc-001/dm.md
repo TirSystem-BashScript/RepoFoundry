@@ -178,7 +178,7 @@ Summary "1" --> "1" Project : reports on
 
 [UC-001]: ./uc.md
 [SSD-001]: ./ssd.md
-[DICT-001]: ../dictionary.md
-[DM-002]: ../domain-model.md
+[DICT-001]: ../../dictionary.md
+[DM-002]: ../../domain-model.md
 [039a28c]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/039a28c01b56f8cf0af73f55d1a604b43d67ba03
 [08cb484]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/commit/08cb484498bab3d9480decda9df89e9564438185

@@ -75,7 +75,7 @@ Complete `create-project.sh` (local directory, credential-free remotes, framewor
 
 [BC-001]: ../business-case.md
 [US-001]: ../user-stories.md
-[UC-001]: ../uc-001/uc.md
+[UC-001]: ../use-cases/uc-001/uc.md
 [MIL-002]: ./mil-002-repositories-and-mirror.md
 [MIL-008]: ./mil-008-gitea-only-remote.md
 [02875ae]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/02875aee5f2953473924074eea0056eb31af6b7a

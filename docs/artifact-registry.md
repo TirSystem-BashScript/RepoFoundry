@@ -7,7 +7,7 @@ each document lives in *this* project and the next version to use.
 
 Delete rows for types you don't use. Add a row the first time you create a
 document of a type. `Primary File` may contain a glob (e.g.
-`docs/uc-*/uc.md`); `framework/scripts/find-crossreferences.sh` reads it.
+`docs/use-cases/uc-*/uc.md`); `framework/scripts/find-crossreferences.sh` reads it.
 
 | Short Name | Artifact Type | Primary File | Next Available Version |
 | --- | --- | --- | --- |
@@ -16,10 +16,10 @@ document of a type. `Primary File` may contain a glob (e.g.
 | PP | Project Plan | docs/project-plan.md | 002 |
 | MIL | Milestone / Gateway | docs/milestones/*.md | 015 |
 | US | User Story | docs/user-stories.md | 002 |
-| UC | Use Case | docs/uc-*/uc.md | 003 |
-| SSD | System Sequence Diagram | docs/uc-*/ssd.md | 003 |
-| OC | Operation Contract | docs/uc-*/oc.md | 003 |
-| SD | Sequence Diagram | docs/uc-*/sd.md | 003 |
+| UC | Use Case | docs/use-cases/uc-*/uc.md | 003 |
+| SSD | System Sequence Diagram | docs/use-cases/uc-*/ssd.md | 003 |
+| OC | Operation Contract | docs/use-cases/uc-*/oc.md | 003 |
+| SD | Sequence Diagram | docs/use-cases/uc-*/sd.md | 003 |
 | DM | Domain Model | docs/domain-model.md | 004 |
 | DCD | Design Class Diagram | docs/dcd.md | 004 |
 | DICT | Domain Dictionary (PO and IT terms) | docs/dictionary.md | 002 |

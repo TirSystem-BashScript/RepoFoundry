@@ -90,7 +90,7 @@ deactivate L
 
 [OC-002]: ./oc.md
 [DCD-003]: ./dcd.md
-[DICT-001]: ../dictionary.md
+[DICT-001]: ../../dictionary.md
 [SD-001]: ../uc-001/sd.md
 [1cd27f7]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/1cd27f77ed844773a969210a11de0d8bb98ac98f
 [0ab5006]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/0ab50068bf9e5be82a801af9dbe5b763eeaf7f31

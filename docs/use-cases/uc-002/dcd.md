@@ -94,9 +94,9 @@ The concept Command Link has no class: it is a link the Maintainer makes with th
 
 [DM-003]: ./dm.md
 [SD-002]: ./sd.md
-[DICT-001]: ../dictionary.md
+[DICT-001]: ../../dictionary.md
 [UC-002]: ./uc.md
 [DCD-001]: ../uc-001/dcd.md
-[DCD-002]: ../dcd.md
+[DCD-002]: ../../dcd.md
 [0ab5006]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/0ab50068bf9e5be82a801af9dbe5b763eeaf7f31
 [24f1507]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/24f15070fc73fb06e61865141fe0b825ea9e821e

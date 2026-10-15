@@ -143,8 +143,8 @@ A No-Go moves every later date by the time needed to rework the failed criteria.
 [MIL-013]: ./milestones/mil-013-launch-tests-qc-layout.md
 [MIL-014]: ./milestones/mil-014-github-create-timeout.md
 [US-001]: ./user-stories.md
-[UC-001]: ./uc-001/uc.md
-[SSD-001]: ./uc-001/ssd.md
+[UC-001]: ./use-cases/uc-001/uc.md
+[SSD-001]: ./use-cases/uc-001/ssd.md
 [Milestone 43]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/milestone/43
 [Milestone 44]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/milestone/44
 [Milestone 45]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/milestone/45

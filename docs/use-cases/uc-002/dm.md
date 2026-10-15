@@ -80,10 +80,10 @@ WorkingFolder "1" --> "0..*" LocalProject : is the base of
 ---
 
 [UC-002]: ./uc.md
-[UCD-001]: ../use-case-diagram.md
+[UCD-001]: ../../use-case-diagram.md
 [SSD-002]: ./ssd.md
-[DICT-001]: ../dictionary.md
+[DICT-001]: ../../dictionary.md
 [DM-001]: ../uc-001/dm.md
-[DM-002]: ../domain-model.md
+[DM-002]: ../../domain-model.md
 [1cd27f7]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/1cd27f77ed844773a969210a11de0d8bb98ac98f
 [0ab5006]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/0ab50068bf9e5be82a801af9dbe5b763eeaf7f31

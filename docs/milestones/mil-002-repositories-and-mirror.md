@@ -74,7 +74,7 @@ Decide whether the script creates the Gitea repository and, if GitHub is chosen,
 
 [BC-001]: ../business-case.md
 [US-001]: ../user-stories.md
-[UC-001]: ../uc-001/uc.md
+[UC-001]: ../use-cases/uc-001/uc.md
 [MIL-001]: ./mil-001-foundation.md
 [02875ae]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/02875aee5f2953473924074eea0056eb31af6b7a
 [613a288]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/613a288dead4c19c00dee6fbb60d46bc3edf8889
