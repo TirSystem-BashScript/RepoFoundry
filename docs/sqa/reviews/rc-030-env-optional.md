@@ -56,13 +56,13 @@ Go — the wording now agrees with the credentials behaviour on `main`, with the
 
 [MIL-007]: ../../milestones/mil-007-framework-checklists.md
 [QC-MIL-001]: ../../../framework/qc/qc-milestones-gateways.md
-[UC-002]: ../../uc-002/uc.md
+[UC-002]: ../../use-cases/uc-002/uc.md
 [US-001]: ../../user-stories.md
-[OC-002]: ../../uc-002/oc.md
-[OC-001]: ../../uc-001/oc.md
-[DCD-003]: ../../uc-002/dcd.md
+[OC-002]: ../../use-cases/uc-002/oc.md
+[OC-001]: ../../use-cases/uc-001/oc.md
+[DCD-003]: ../../use-cases/uc-002/dcd.md
 [DCD-002]: ../../dcd.md
 [RC-029]: ./rc-029-default-config-files.md
 [RC-028]: ./rc-028-dcd-003.md
 [24f1507]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/24f15070fc73fb06e61865141fe0b825ea9e821e
-[SD-002]: ../../uc-002/sd.md
+[SD-002]: ../../use-cases/uc-002/sd.md

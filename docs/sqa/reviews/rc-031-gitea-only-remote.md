@@ -67,12 +67,12 @@ Go — the documents, the code, the README and the tests agree with each other, 
 [QC-MIL-001]: ../../../framework/qc/qc-milestones-gateways.md
 [BC-001]: ../../business-case.md
 [US-001]: ../../user-stories.md
-[UC-001]: ../../uc-001/uc.md
-[OC-001]: ../../uc-001/oc.md
-[SD-001]: ../../uc-001/sd.md
-[DCD-001]: ../../uc-001/dcd.md
+[UC-001]: ../../use-cases/uc-001/uc.md
+[OC-001]: ../../use-cases/uc-001/oc.md
+[SD-001]: ../../use-cases/uc-001/sd.md
+[DCD-001]: ../../use-cases/uc-001/dcd.md
 [DCD-002]: ../../dcd.md
-[DM-001]: ../../uc-001/dm.md
+[DM-001]: ../../use-cases/uc-001/dm.md
 [DM-002]: ../../domain-model.md
 [PP-001]: ../../project-plan.md
 [TM-001]: ../traceability-matrix.md

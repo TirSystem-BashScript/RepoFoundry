@@ -78,8 +78,8 @@ The exclusion is not applied when the framework steps are skipped (no SSH to Git
 
 [BC-001]: ../business-case.md
 [US-001]: ../user-stories.md
-[UC-001]: ../uc-001/uc.md
-[OC-001]: ../uc-001/oc.md
+[UC-001]: ../use-cases/uc-001/uc.md
+[OC-001]: ../use-cases/uc-001/oc.md
 [DCD-002]: ../dcd.md
 [MIL-003]: ./mil-003-scaffold-and-release.md
 [MIL-005]: ./mil-005-credentials.md

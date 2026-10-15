@@ -337,12 +337,12 @@ SOLID check: no class has more than one reason to change (one host API, one kind
 
 [UC-001]: ./uc.md
 [DM-001]: ./dm.md
-[DM-002]: ../domain-model.md
+[DM-002]: ../../domain-model.md
 [OC-001]: ./oc.md
 [SD-001]: ./sd.md
-[MIL-005]: ../milestones/mil-005-credentials.md
-[DICT-001]: ../dictionary.md
-[DCD-002]: ../dcd.md
+[MIL-005]: ../../milestones/mil-005-credentials.md
+[DICT-001]: ../../dictionary.md
+[DCD-002]: ../../dcd.md
 [DCD-003]: ../uc-002/dcd.md
 [UC-002]: ../uc-002/uc.md
 [039a28c]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/039a28c01b56f8cf0af73f55d1a604b43d67ba03

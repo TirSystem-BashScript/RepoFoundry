@@ -59,7 +59,7 @@ UC2 ..> UC1 : <<include>>
 [SA-001]: ./stakeholder-analysis.md
 [BC-001]: ./business-case.md
 [US-001]: ./user-stories.md
-[UC-001]: ./uc-001/uc.md
-[UC-002]: ./uc-002/uc.md
+[UC-001]: ./use-cases/uc-001/uc.md
+[UC-002]: ./use-cases/uc-002/uc.md
 [02875ae]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/02875aee5f2953473924074eea0056eb31af6b7a
 [1cd27f7]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/1cd27f77ed844773a969210a11de0d8bb98ac98f

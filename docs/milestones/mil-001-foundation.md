@@ -73,6 +73,6 @@ Decide whether the secure base of `create-project.sh` is sound enough to build t
 
 [BC-001]: ../business-case.md
 [US-001]: ../user-stories.md
-[UC-001]: ../uc-001/uc.md
+[UC-001]: ../use-cases/uc-001/uc.md
 [424f14f]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/424f14f4f5577bb47fea41c8f3a655dca953e6d8
 [02875ae]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/02875aee5f2953473924074eea0056eb31af6b7a

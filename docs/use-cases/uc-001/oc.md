@@ -99,10 +99,10 @@ Concepts below use the IT terms of [DICT-001] for the PO concepts of [DM-001]. `
 
 [SSD-001]: ./ssd.md
 [DM-001]: ./dm.md
-[DICT-001]: ../dictionary.md
+[DICT-001]: ../../dictionary.md
 [SD-001]: ./sd.md
 [OC-002]: ../uc-002/oc.md
-[DCD-002]: ../dcd.md
+[DCD-002]: ../../dcd.md
 [UC-002]: ../uc-002/uc.md
 [039a28c]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/039a28c01b56f8cf0af73f55d1a604b43d67ba03
 [08cb484]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/commit/08cb484498bab3d9480decda9df89e9564438185

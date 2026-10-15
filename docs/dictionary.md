@@ -62,11 +62,11 @@ Maps each Product Owner (PO) term to its professional IT term. PO language: Engl
 ---
 
 [BC-001]: ./business-case.md
-[DM-003]: ./uc-002/dm.md
+[DM-003]: ./use-cases/uc-002/dm.md
 [SA-001]: ./stakeholder-analysis.md
-[DM-001]: ./uc-001/dm.md
+[DM-001]: ./use-cases/uc-001/dm.md
 [DM-002]: ./domain-model.md
-[OC-001]: ./uc-001/oc.md
-[DCD-001]: ./uc-001/dcd.md
+[OC-001]: ./use-cases/uc-001/oc.md
+[DCD-001]: ./use-cases/uc-001/dcd.md
 [0ab5006]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/0ab50068bf9e5be82a801af9dbe5b763eeaf7f31
 [08cb484]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/commit/08cb484498bab3d9480decda9df89e9564438185

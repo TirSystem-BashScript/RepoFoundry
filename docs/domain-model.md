@@ -201,11 +201,11 @@ WorkingFolder "1" --> "0..*" LocalProject : is the base of
 
 ---
 
-[UC-001]: ./uc-001/uc.md
-[UC-002]: ./uc-002/uc.md
-[DM-003]: ./uc-002/dm.md
-[SSD-001]: ./uc-001/ssd.md
+[UC-001]: ./use-cases/uc-001/uc.md
+[UC-002]: ./use-cases/uc-002/uc.md
+[DM-003]: ./use-cases/uc-002/dm.md
+[SSD-001]: ./use-cases/uc-001/ssd.md
 [DICT-001]: ./dictionary.md
-[DM-001]: ./uc-001/dm.md
+[DM-001]: ./use-cases/uc-001/dm.md
 [039a28c]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/039a28c01b56f8cf0af73f55d1a604b43d67ba03
 [08cb484]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/commit/08cb484498bab3d9480decda9df89e9564438185

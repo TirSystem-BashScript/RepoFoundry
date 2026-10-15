@@ -53,7 +53,7 @@ Concepts below use the IT terms of [DICT-001] for the PO concepts of [DM-003]. `
 
 [SSD-002]: ./ssd.md
 [DM-003]: ./dm.md
-[DICT-001]: ../dictionary.md
+[DICT-001]: ../../dictionary.md
 [OC-001]: ../uc-001/oc.md
 [0ab5006]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/0ab50068bf9e5be82a801af9dbe5b763eeaf7f31
 [24f1507]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/24f15070fc73fb06e61865141fe0b825ea9e821e

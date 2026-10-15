@@ -75,8 +75,8 @@ A project that already has a `github` remote, such as one created by an earlier 
 
 [BC-001]: ../business-case.md
 [US-001]: ../user-stories.md
-[UC-001]: ../uc-001/uc.md
-[OC-001]: ../uc-001/oc.md
+[UC-001]: ../use-cases/uc-001/uc.md
+[OC-001]: ../use-cases/uc-001/oc.md
 [DCD-002]: ../dcd.md
 [MIL-002]: ./mil-002-repositories-and-mirror.md
 [MIL-003]: ./mil-003-scaffold-and-release.md

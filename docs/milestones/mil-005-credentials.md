@@ -76,7 +76,7 @@ This changes a security guarantee of the earlier milestones ("a token is never p
 
 [BC-001]: ../business-case.md
 [US-001]: ../user-stories.md
-[UC-001]: ../uc-001/uc.md
-[DCD-001]: ../uc-001/dcd.md
+[UC-001]: ../use-cases/uc-001/uc.md
+[DCD-001]: ../use-cases/uc-001/dcd.md
 [MIL-004]: ./mil-004-configurable-details.md
 [ded26a6]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/ded26a658c666bf29d84093cb352e3635e07719b

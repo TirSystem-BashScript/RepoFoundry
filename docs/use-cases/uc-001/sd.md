@@ -221,7 +221,7 @@ destroy SR
 [OC-001]: ./oc.md
 [DCD-001]: ./dcd.md
 [SD-002]: ../uc-002/sd.md
-[DCD-002]: ../dcd.md
+[DCD-002]: ../../dcd.md
 [UC-002]: ../uc-002/uc.md
 [039a28c]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/039a28c01b56f8cf0af73f55d1a604b43d67ba03
 [08cb484]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/commit/08cb484498bab3d9480decda9df89e9564438185

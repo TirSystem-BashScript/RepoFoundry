@@ -78,8 +78,8 @@ Decide whether a new project holds the whole framework, including the `qc` check
 
 [BC-001]: ../business-case.md
 [US-001]: ../user-stories.md
-[UC-001]: ../uc-001/uc.md
-[UC-002]: ../uc-002/uc.md
+[UC-001]: ../use-cases/uc-001/uc.md
+[UC-002]: ../use-cases/uc-002/uc.md
 [MIL-003]: ./mil-003-scaffold-and-release.md
 [0ab5006]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/0ab50068bf9e5be82a801af9dbe5b763eeaf7f31
 [24f1507]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/24f15070fc73fb06e61865141fe0b825ea9e821e

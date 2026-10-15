@@ -81,8 +81,8 @@ The license that applies is resolved in this order: `PROJECT_LICENSE` when set (
 
 [BC-001]: ../business-case.md
 [US-001]: ../user-stories.md
-[UC-001]: ../uc-001/uc.md
-[DCD-001]: ../uc-001/dcd.md
+[UC-001]: ../use-cases/uc-001/uc.md
+[DCD-001]: ../use-cases/uc-001/dcd.md
 [MIL-004]: ./mil-004-configurable-details.md
 [1cd27f7]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/1cd27f77ed844773a969210a11de0d8bb98ac98f
 [be759e3]: https://git.tirsystem.com/TirSystem-BashScript/repo_foundry/commit/be759e38326eac2b11e65a2b582b2431186e338b

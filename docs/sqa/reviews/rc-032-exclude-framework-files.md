@@ -74,12 +74,12 @@ Go — every criterion of the checklist passes and the changed documents agree w
 [MIL-008]: ../../milestones/mil-008-gitea-only-remote.md
 [BC-001]: ../../business-case.md
 [US-001]: ../../user-stories.md
-[UC-001]: ../../uc-001/uc.md
-[OC-001]: ../../uc-001/oc.md
-[SD-001]: ../../uc-001/sd.md
-[DCD-001]: ../../uc-001/dcd.md
+[UC-001]: ../../use-cases/uc-001/uc.md
+[OC-001]: ../../use-cases/uc-001/oc.md
+[SD-001]: ../../use-cases/uc-001/sd.md
+[DCD-001]: ../../use-cases/uc-001/dcd.md
 [DCD-002]: ../../dcd.md
-[DM-001]: ../../uc-001/dm.md
+[DM-001]: ../../use-cases/uc-001/dm.md
 [DM-002]: ../../domain-model.md
 [DICT-001]: ../../dictionary.md
 [PP-001]: ../../project-plan.md
