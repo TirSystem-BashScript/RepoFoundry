@@ -4,23 +4,23 @@
 | Key | Value |
 | --- | --- |
 | ID | PP-001 |
-| CrossReference | [BC-001], [SA-001], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006], [MIL-007], [MIL-008], [MIL-009], [MIL-010], [MIL-011], [MIL-012], [MIL-013], [MIL-014], [US-001] |
+| CrossReference | [BC-001], [SA-001], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006], [MIL-007], [MIL-008], [MIL-009], [MIL-010], [MIL-011], [MIL-012], [MIL-013], [MIL-014], [MIL-015], [US-001] |
 
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-14 | Deprecated | Jens Tirsvad Nielsen | S02 | Added phase MIL-013 (proposed date 2027-01-08): the launch tests follow the qc layout of framework v0.8.0 | [1348892] |
-| 2026-10-14 | Accepted | Jens Tirsvad Nielsen | S02 | Added phase MIL-014 (proposed dates 2027-01-11 to 2027-01-13): the timeout of a repository create request (issue 107) | [d1120f7] |
+| 2026-10-14 | Deprecated | Jens Tirsvad Nielsen | S02 | Added phase MIL-014 (proposed dates 2027-01-11 to 2027-01-13): the timeout of a repository create request (issue 107) | [d1120f7] |
+| 2026-10-15 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S02 | Added phase MIL-015 (proposed dates 2027-01-14 to 2027-01-15): release 0.3.6 | [7823687] |
 
 ---
 
 ## Purpose
 
-Schedule the fourteen phases that deliver RepoFoundry (`create-project.sh` and its documentation) in dependency order. The Business Case sets no deadline, so the dates below are proposals for S01 to confirm.
+Schedule the fifteen phases that deliver RepoFoundry (`create-project.sh` and its documentation) in dependency order. The Business Case sets no deadline, so the dates below are proposals for S01 to confirm.
 
 ## Planning Assumptions
 
-- Week 1 starts 2026-10-05; the plan ends by 2027-01-13 (the last nine phases are proposed).
+- Week 1 starts 2026-10-05; the plan ends by 2027-01-15 (the last ten phases are proposed).
 - Phase length: two weeks.
 - S01 and S02 review each phase through a pull request, as described in [SA-001]. For now one person holds both roles.
 - The PO language is English, so no translated copies are kept.
@@ -43,6 +43,7 @@ Schedule the fourteen phases that deliver RepoFoundry (`create-project.sh` and i
 | Release 0.3.5 | [MIL-012] | 2027-01-06 to 2027-01-07 | 2027-01-07 | S01 | US-001 | Version 0.3.5 released on Gitea with its changelog entry | |
 | Launch Tests Follow the qc Layout | [MIL-013] | 2027-01-08 to 2027-01-08 | 2027-01-08 | S01 | US-001 | The two launch tests pass against the checklists in `framework/qc/artifacts/` | |
 | Timeout of a Repository Create Request | [MIL-014] | 2027-01-11 to 2027-01-13 | 2027-01-13 | S01 | US-001.02 | The cause of issue 107 is found and a timeout of a create request is handled | |
+| Release 0.3.6 | [MIL-015] | 2027-01-14 to 2027-01-15 | 2027-01-15 | S01 | US-001 | Version 0.3.6 released on Gitea with its changelog entry | |
 
 ```plantuml
 @startgantt
@@ -75,6 +76,8 @@ Project starts 2026-10-05
 [Launch Tests Follow the qc Layout Go/No-Go] happens 2027-01-08
 [Timeout of a Repository Create Request] starts 2027-01-11 and ends 2027-01-13
 [Timeout of a Repository Create Request Go/No-Go] happens 2027-01-13
+[Release 0.3.6] starts 2027-01-14 and ends 2027-01-15
+[Release 0.3.6 Go/No-Go] happens 2027-01-15
 @endgantt
 ```
 
@@ -100,11 +103,12 @@ Project starts 2026-10-05
 | Version 0.3.5 released | [MIL-012] |
 | The two launch tests pass against the checklists in `framework/qc/artifacts/` | [MIL-013] |
 | The cause of issue 107 is found and a timeout of a create request is handled | [MIL-014] |
+| Version 0.3.6 released | [MIL-015] |
 
 ## Dependencies
 
 ```
-MIL-001 → MIL-002 → MIL-003 → MIL-004 → MIL-005 → MIL-006 → MIL-007 → MIL-008 → MIL-009 → MIL-010 → MIL-011 → MIL-012 → MIL-013 → MIL-014
+MIL-001 → MIL-002 → MIL-003 → MIL-004 → MIL-005 → MIL-006 → MIL-007 → MIL-008 → MIL-009 → MIL-010 → MIL-011 → MIL-012 → MIL-013 → MIL-014 → MIL-015
 ```
 
 A No-Go moves every later date by the time needed to rework the failed criteria.
@@ -142,11 +146,12 @@ A No-Go moves every later date by the time needed to rework the failed criteria.
 [MIL-012]: ./milestones/mil-012-release-0-3-5.md
 [MIL-013]: ./milestones/mil-013-launch-tests-qc-layout.md
 [MIL-014]: ./milestones/mil-014-github-create-timeout.md
+[MIL-015]: ./milestones/mil-015-release-0-3-6.md
 [US-001]: ./user-stories.md
 [UC-001]: ./use-cases/uc-001/uc.md
 [SSD-001]: ./use-cases/uc-001/ssd.md
 [Milestone 43]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/milestone/43
 [Milestone 44]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/milestone/44
 [Milestone 45]: https://git.tirsystem.com/TirSystem-BashScript/RepoFoundry/milestone/45
-[1348892]: https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/commit/13488929a11990123e5bced7c945b57f448bc9e5
 [d1120f7]: https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/commit/d1120f7da03f41e6af8b5f35d860eee5bfd5f015
+[7823687]: https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/commit/7823687baf39c26161876c59382eaa3f8683940e
