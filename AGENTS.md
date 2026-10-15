@@ -170,6 +170,12 @@ print its values. Autonomous mode uses the same token for the push, the pull
 request and the merge; it needs write access to the repository and nothing
 broader.
 
+## AI prompt log
+
+Record each session's prompts in `docs/ai-prompts/session-NNN/`, as
+`framework/process/ai-prompt-log.md` says. When the repository is public,
+`docs/ai-prompts/` is in `.gitignore`.
+
 Rules that apply to every document:
 
 1. Get the short name from `framework/registry/artifact-catalog.md` and the

@@ -190,3 +190,4 @@ repofoundry.*/
 config.env
 .agents/
 .claude/
+.codex/agents/

@@ -13,6 +13,8 @@ file.
 
 ## [Unreleased]
 
+## [0.3.6] - 2026-10-15
+
 ### Changed
 
 - A request to a host waits 240 seconds, not 30, before it counts as timed
@@ -23,13 +25,13 @@ file.
   license), and stops with a message that says what exists otherwise: nothing
   was created, or it holds content this run did not add and was not touched.
   Another network failure still stops the run at once.
-
-### Changed
-
 - The five GitHub pictures in the Access tokens wiki page are annotated
   screenshots with numbered markers, in place of the drawn mockups, and the
   page has two more: the Confirm access page and the Generate token button.
   Names, photos and repositories in them are blurred.
+- The framework submodule moves from `v0.8.0` to `v0.13.1`, and the use case
+  folders move from `docs/uc-NNN/` to `docs/use-cases/uc-NNN/` (framework
+  `v0.9.0`). `AGENTS.md` gains the AI prompt log section.
 
 ## [0.3.5] - 2026-10-14
 

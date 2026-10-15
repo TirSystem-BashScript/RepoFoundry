@@ -4,13 +4,13 @@
 | Key | Value |
 | --- | --- |
 | ID | US-001 |
-| CrossReference | [BC-001], [UCD-001], [UC-002], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006], [MIL-007], [MIL-008], [MIL-009], [MIL-010], [MIL-011], [MIL-012], [MIL-013], [MIL-014] |
+| CrossReference | [BC-001], [UCD-001], [UC-002], [MIL-001], [MIL-002], [MIL-003], [MIL-004], [MIL-005], [MIL-006], [MIL-007], [MIL-008], [MIL-009], [MIL-010], [MIL-011], [MIL-012], [MIL-013], [MIL-014], [MIL-015] |
 
 ## Version History
 | Date | Status | Author | Reviewer | Change | Commit |
 | --- | --- | --- | --- | --- | --- |
-| 2026-10-14 | Deprecated | Jens Tirsvad Nielsen | S02 | MIL-013 added to CrossReference | [1348892] |
-| 2026-10-14 | Accepted | Jens Tirsvad Nielsen | S02 | MIL-014 added to CrossReference | [d1120f7] |
+| 2026-10-14 | Deprecated | Jens Tirsvad Nielsen | S02 | MIL-014 added to CrossReference | [d1120f7] |
+| 2026-10-15 | Accepted | Jens Tirsvad Nielsen | AI as stand-in for S02 | MIL-015 added to CrossReference | pending |
 
 ---
 
@@ -174,6 +174,6 @@ Valuable, Negotiable, Estimable, Small and Testable hold for each story. Indepen
 [MIL-012]: ./milestones/mil-012-release-0-3-5.md
 [MIL-013]: ./milestones/mil-013-launch-tests-qc-layout.md
 [MIL-014]: ./milestones/mil-014-github-create-timeout.md
+[MIL-015]: ./milestones/mil-015-release-0-3-6.md
 [PP-001]: ./project-plan.md
-[1348892]: https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/commit/13488929a11990123e5bced7c945b57f448bc9e5
 [d1120f7]: https://git.tirsystem.com/TirSystem-BashScript/repo-foundry/commit/d1120f7da03f41e6af8b5f35d860eee5bfd5f015
